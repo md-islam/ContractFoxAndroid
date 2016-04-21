@@ -9,11 +9,174 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- TAB 1 -->
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <SearchView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/searchBar"
+                        android:background="#c0c0c0"
+                        android:queryHint="What service are you looking for..."
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <!-- TAB 2 -->
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="1">
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkBox"
+                            android:checked="false"
+                            android:layout_marginTop="15dp" />
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="60dp"
+                            android:id="@+id/customerPic"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="5dp"
+                            android:adjustViewBounds="false"
+                            android:background="#fbe26e"
+                            android:clickable="false" />
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="60dp"
+                            android:text="Name:     Cell:     Distance:"
+                            android:id="@+id/contractorInfo"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="0.30"
+                            android:background="#fbe26e"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textColor="#000000"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- TAB 3 -->
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkBox2"
+                            android:checked="false"
+                            android:layout_marginTop="15dp" />
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="60dp"
+                            android:id="@+id/customerPic2"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="5dp"
+                            android:adjustViewBounds="false"
+                            android:background="#fbe26e"
+                            android:clickable="false" />
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="60dp"
+                            android:text="Name:     Cell:     Distance:"
+                            android:id="@+id/contractorInfo2"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="0.30"
+                            android:background="#fbe26e"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textColor="#000000"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- TAB 4 -->
+                <LinearLayout
+                    android:id="@+id/tab4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="60dp"
+                            android:text="Question: "
+                            android:id="@+id/blog"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="0.30"
+                            android:background="#fbe26e"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textColor="#000000"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- TAB 5 -->
+                <LinearLayout
+                    android:id="@+id/tab5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </RelativeLayout>
