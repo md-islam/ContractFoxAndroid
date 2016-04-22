@@ -334,7 +334,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
                 //-- Create a new intent to transfer to a new screen once user's credentials get verified
-                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, DrawerActivity.class);
                 LoginActivity.this.startActivity(myIntent);
                 //------------------- //
             } else {
