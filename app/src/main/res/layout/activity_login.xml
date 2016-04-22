@@ -22,8 +22,7 @@
     <TextView
         android:layout_width="311dp"
         android:layout_height="100dp"
-        android:text="Welcome to ContractFox"
-        android:id="@+id/welcomeText"
+        android:id="@+id/welcome_ID"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="#dd4d00"

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.RunnableFuture;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -43,6 +45,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    String welcome = "WELCOME TO CONTRACTFOX";
+    TextView welcomeText ;
+    Runnable run;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -60,6 +65,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    Handler handler = new Handler();
+    int count = 0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+
+
+        welcomeText = (TextView) findViewById(R.id.welcome_ID);
+
+
+
+        run = new Runnable() {
+            @Override
+            public void run() {
+                welcomeText.setText(welcome.substring(0, count));
+                count ++ ;
+                handler.postDelayed(run, 100 );
+                if(count == welcome.length()+1){
+                    handler.removeCallbacks(run);
+                }
+            }
+        };
+
+
+        handler.postDelayed(run, 200) ;
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
