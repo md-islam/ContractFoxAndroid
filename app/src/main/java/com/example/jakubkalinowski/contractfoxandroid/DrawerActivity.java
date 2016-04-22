@@ -9,9 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +49,33 @@ public class DrawerActivity extends AppCompatActivity
         TextView t2 = new TextView(getApplicationContext());
         t.setText("This is tab 2");
         tab2.addView(t2);
+
+
+        // List of Notifications
+        String[] notification = {"Upcoming appointment reminder", "New review posted", "Price estimate request", "Price estimate request"}; //for demo purposes
+        ListAdapter notificationAdapter = new CustomAdapter(this, notification);
+        ListView notificationListView = (ListView) findViewById(R.id.notificationListView);
+        notificationListView.setAdapter(notificationAdapter);
+
+        // Post-Click actions
+        notificationListView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String notification = String.valueOf(parent.getItemAtPosition(position));
+                    // Silly display of notification for demo purposes
+                    Toast.makeText(DrawerActivity.this, notification, Toast.LENGTH_LONG).show();
+                }
+            }
+        );
+
+
+
+
+        //End of Notifications
+
+
+
         // -------------------
 
 
@@ -121,6 +153,14 @@ public class DrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+
+
+
     }
 
     @Override
