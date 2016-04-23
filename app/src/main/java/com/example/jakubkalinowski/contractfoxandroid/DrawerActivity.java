@@ -190,7 +190,7 @@ public class DrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_myprofile) {
             // Handle the camera action
-            Intent i = new Intent(DrawerActivity.this, ViewProfile.class);
+            Intent i = new Intent(DrawerActivity.this, ContractorProfileActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_editprofile) {
 
