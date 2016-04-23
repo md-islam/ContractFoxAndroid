@@ -22,12 +22,13 @@
 
             <Button
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="87dp"
                 android:id="@+id/garage_ID"
-                android:layout_marginTop="300dp"
-                android:layout_marginLeft="50dp"
-               android:visibility="invisible"
-                android:text="Garage Door"/>
+
+                android:layout_marginTop="340dp"
+                android:layout_marginLeft="57dp"
+
+                android:text=""/>
 
 
         </LinearLayout>
