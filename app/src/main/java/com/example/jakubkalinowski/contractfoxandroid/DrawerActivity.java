@@ -125,13 +125,6 @@ public class DrawerActivity extends AppCompatActivity
         specs.setIndicator("Questions"); //this is the name of the tab
         th.addTab(specs); //add tab to TabHost
         //-----//
-        //----Set up a tab
-//        specs = th.newTabSpec("tag5");
-//        specs.setContent(R.id.tab5); //this will hold the content of the tab
-//        specs.setIndicator("Profile"); //this is the name of the tab
-//        th.addTab(specs); //add tab to TabHost
-//        //-----//
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
