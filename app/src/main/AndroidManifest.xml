@@ -39,12 +39,11 @@
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ViewProfile"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_view_profile"
-            android:theme="@style/FullscreenTheme" />
+
         <activity android:name=".EditProfile"></activity>
+
+        <activity android:name=".ContractorProfileActivity"></activity>
+
     </application>
 
 </manifest>
