@@ -52,20 +52,6 @@
 
                     <!-- TAB 1 -->
                     <LinearLayout
-                        android:id="@+id/tab2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="1">
-
-                        <ListView
-                            android:layout_width="wrap_content"
-                            android:layout_height="500dp"
-                            android:id="@+id/notificationListView" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/tab1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -173,6 +159,20 @@
                             </LinearLayout>
 
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <ListView
+                            android:layout_width="wrap_content"
+                            android:layout_height="500dp"
+                            android:id="@+id/notificationListView" />
 
                     </LinearLayout>
 
