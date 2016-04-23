@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ public class DrawerActivity extends AppCompatActivity
 
 
     LinearLayout tab1, tab2, tab3, tab4 ;
+    Button exteriorButton , interiorButton, backyardButton;
    //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,17 @@ public class DrawerActivity extends AppCompatActivity
         tab2 = (LinearLayout) findViewById(R.id.tab2);
         tab3 = (LinearLayout) findViewById(R.id.tab3);
         tab4 = (LinearLayout) findViewById(R.id.tab4);
+        exteriorButton = (Button)findViewById(R.id.exteriorButton);
+
+        //exterior code
+
+        exteriorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DrawerActivity.this, ExteriorOfHouse.class);
+                startActivity(i);
+            }
+        });
 
 
         //Add stuff in tab1 here --------------------------------
