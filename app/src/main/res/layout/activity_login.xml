@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jakubkalinowski.contractfoxandroid.LoginActivity">
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.LoginActivity"
+    android:background="@color/abc_input_method_navigation_guard">
 
     <!-- Login progress -->
     <ProgressBar
@@ -26,7 +27,7 @@
         android:id="@+id/welcomeText"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="#dd4d00"
+        android:textColor="@color/colorPrimary"
         android:textSize="30dp" />
 
     <ScrollView
@@ -40,8 +41,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_login"
+                android:orientation="vertical">
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/email_wrapper_login_activity">
 
@@ -49,6 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
+                    android:textColorHint="@color/colorPrimary"
+                    android:padding="10dp"
                     android:id="@+id/email_text_input_login_activity"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -59,13 +69,16 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:id="@+id/password_wrapper_login_activity">
 
                 <EditText
                     android:id="@+id/password_textInput_login_activity"
                     android:layout_width="match_parent"
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
+                    android:textColorHint="@color/colorPrimary"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -75,9 +88,11 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            </LinearLayout>
+
             <Button
                 android:id="@+id/sign_in_button_login_activity"
-                style="?android:textAppearanceSmall"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -85,12 +100,12 @@
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                android:background="#ff5e00"
+                android:background="@drawable/button_border"
                 android:clickable="true" />
 
             <Button
                 android:id="@+id/register_button_login_activity"
-                style="?android:textAppearanceSmall"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -98,8 +113,19 @@
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                android:background="#ff5e00"
+                android:background="@drawable/button_border"
                 android:clickable="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:id="@+id/forgotPassword"
+                android:gravity="center_horizontal"
+                android:text="Forgot Password? "
+                android:clickable="true"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
     </ScrollView>

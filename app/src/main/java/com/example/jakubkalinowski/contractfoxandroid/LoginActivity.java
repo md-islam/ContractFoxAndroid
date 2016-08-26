@@ -1,14 +1,21 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -27,6 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPassword;
     private Button mSignInButton;
     private Button mRegisterButton;
+    TextView forgotPass;
+    final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT);
+
+
 
     //variables for extracting values from components
     private String emailInput;
@@ -36,11 +48,59 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        forgotPass = (TextView) findViewById(R.id.forgotPassword);
         TextInputLayout emailAddressWrapper = (TextInputLayout) findViewById(R.id.email_wrapper_login_activity);
         TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.password_wrapper_login_activity);
         emailAddressWrapper.setHint("Email");
         passwordWrapper.setHint("Password");
         Firebase.setAndroidContext(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        etm.setMargins(50,50,50,50);
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendResetPassword();
+            }
+        });
+    }
+
+    private void sendResetPassword(){
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+        alertDialog.setTitle("Reset Password");
+        alertDialog.setMessage("Enter your email and phone number to receive a temporary password.");
+        LinearLayout linear = new LinearLayout(getApplicationContext());
+//        TextView textEmail = new TextView(getApplicationContext());
+//        textEmail.setText("Email: ");
+        EditText editEmail = new EditText(getApplicationContext());
+        editEmail.setHint("Email");
+        editEmail.setHintTextColor(0xFFBCBCBC);
+        editEmail.setTextColor(0xFFBCBCBC);
+
+        EditText editPhone = new EditText(getApplicationContext());
+        editPhone.setHint("Phone");
+        editPhone.setHintTextColor(0xFFBCBCBC);
+        editPhone.setTextColor(0xFFBCBCBC);
+
+        editEmail.setLayoutParams(etm);
+        editPhone.setLayoutParams(etm);
+
+//        Button send = new Button(getApplicationContext());
+//        send.setText("Submit");
+        alertDialog.setNegativeButton("Submit",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        //send.setLayoutParams(etm);
+        linear.setOrientation(LinearLayout.VERTICAL);
+        linear.addView(editEmail);
+        linear.addView(editPhone);
+       // linear.addView(send);
+        alertDialog.setView(linear);
+        alertDialog.show();
     }
 
     @Override
@@ -100,5 +160,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
 
