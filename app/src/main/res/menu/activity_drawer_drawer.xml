@@ -2,14 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/homee"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Home" />
+
         <item
             android:id="@+id/nav_myprofile"
             android:icon="@drawable/ic_menu_camera"
-            android:title="View Profile" />
+            android:title="My Profile" />
         <item
-            android:id="@+id/nav_editprofile"
+            android:id="@+id/nav_profile_edit"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Edit Profile" />
+        <item
+            android:id="@+id/messages"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Messages" />
+
+        <item
+            android:id="@+id/log_out"
+
+            android:title="Log Out" />
+
+
 
         <!--<item-->
             <!--android:id="@+id/nav_manage"-->

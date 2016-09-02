@@ -30,9 +30,18 @@
     </style>
 
     <!--contains indigo and pink hex code in order-->
-        <style name="MyCheckBox" parent="Theme.AppCompat.Light">
-            <item name="colorControlNormal">#4b0082</item>
-            <item name="colorControlActivated">#FF69B4</item>
-        </style>
+        
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+                
+        <item name="colorControlNormal">#4b0082</item>
+                
+        <item name="colorControlActivated">#FF69B4</item>
+            
+    </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

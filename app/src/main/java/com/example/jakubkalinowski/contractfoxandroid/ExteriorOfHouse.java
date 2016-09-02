@@ -15,11 +15,12 @@ public class ExteriorOfHouse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exterior_of_house);
 
-        garage = (Button) findViewById(R.id.garage_ID);
+        garage = (Button) findViewById(R.id.item);
         garage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ExteriorOfHouse.this, InsideGarage.class);
+                //change here
+                Intent i = new Intent(ExteriorOfHouse.this, SearchViewListActivity.class);
                 startActivity(i);
                 Log.d("garage", "button pushed");
             }

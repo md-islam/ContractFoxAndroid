@@ -161,3 +161,4 @@ public class ViewProfile extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 }
+

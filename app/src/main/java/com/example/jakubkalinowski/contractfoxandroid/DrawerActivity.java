@@ -1,8 +1,11 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,13 +19,24 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Home;
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages;
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ProfileEdit;
+import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
+import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
+import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
 
+public class DrawerActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
+        MyProfile. OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener ,
+        Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
+        BackYard.OnFragmentInteractionListener{
+
+    public static FragmentTransaction ft;
 
     LinearLayout tab1, tab2, tab3, tab4 ;
     Button exteriorButton , interiorButton, backyardButton;
@@ -33,112 +47,38 @@ public class DrawerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
 
-        tab1 = (LinearLayout) findViewById(R.id.tab1);
-        tab2 = (LinearLayout) findViewById(R.id.tab2);
-        tab3 = (LinearLayout) findViewById(R.id.tab3);
-        tab4 = (LinearLayout) findViewById(R.id.tab4);
-        exteriorButton = (Button)findViewById(R.id.exteriorButton);
+//        tab1 = (LinearLayout) findViewById(R.id.tab1);
+//        tab2 = (LinearLayout) findViewById(R.id.tab2);
+//        tab3 = (LinearLayout) findViewById(R.id.tab3);
+//        tab4 = (LinearLayout) findViewById(R.id.tab4);
+//        exteriorButton = (Button)findViewById(R.id.exteriorButton);
 
         //exterior code
 
-        exteriorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(DrawerActivity.this, ExteriorOfHouse.class);
-                startActivity(i);
-            }
-        });
 
-
-        //Add stuff in tab1 here --------------------------------
-        TextView t = new TextView(getApplicationContext());
-        t.setText("This is tab 1");
-        tab1.addView(t);
-
-        // -------------------
-
-
-        //Add stuff in tab2 here --------------------------------
-
-        TextView t2 = new TextView(getApplicationContext());
-        t.setText("This is tab 2");
-        tab2.addView(t2);
-
-
-        // List of Notifications
-        String[] notification = {"Upcoming appointment reminder", "New review posted", "Price estimate request", "Price estimate request"}; //for demo purposes
-        ListAdapter notificationAdapter = new CustomAdapter(this, notification);
-        ListView notificationListView = (ListView) findViewById(R.id.notificationListView);
-        notificationListView.setAdapter(notificationAdapter);
-
-        // Post-Click actions
-        notificationListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String notification = String.valueOf(parent.getItemAtPosition(position));
-                    // Silly display of notification for demo purposes
-                    Toast.makeText(DrawerActivity.this, notification, Toast.LENGTH_LONG).show();
-                }
-            }
-        );
-
-
-
-
-        //End of Notifications
-
-
-
-        // -------------------
-
-
-        //Add stuff in tab3 here --------------------------------
-
-
-        TextView t3 = new TextView(getApplicationContext());
-        t.setText("This is tab 3");
-        tab3.addView(t3);
-        // -------------------
-
-        //Add stuff in tab4 here --------------------------------
-        TextView t4= new TextView(getApplicationContext());
-        t.setText("This is tab 4");
-        tab4.addView(t4);
-
-        // -------------------
 
 
 
 
 
-        // Set up TabHost
-        TabHost th = (TabHost)findViewById(R.id.tabHost);
-        th.setup();
-        //----Set up a tab
-        TabHost.TabSpec specs = th.newTabSpec("tag1");
-        specs.setContent(R.id.tab1); //this will hold the content of the tab
-        specs.setIndicator("Home"); //this is the name of the tab
-        th.addTab(specs); //add tab to TabHost
-        //-----//
-        //----Set up a tab
-        specs = th.newTabSpec("tag2");
-        specs.setContent(R.id.tab2); //this will hold the content of the tab
-        specs.setIndicator("Notifications"); //this is the name of the tab
-        th.addTab(specs); //add tab to TabHost
-        //-----//
-        //----Set up a tab
-        specs = th.newTabSpec("tag3");
-        specs.setContent(R.id.tab3); //this will hold the content of the tab
-        specs.setIndicator("Messages"); //this is the name of the tab
-        th.addTab(specs); //add tab to TabHost
-        //-----//
-        //----Set up a tab
-        specs = th.newTabSpec("tag4");
-        specs.setContent(R.id.tab4); //this will hold the content of the tab
-        specs.setIndicator("Questions"); //this is the name of the tab
-        th.addTab(specs); //add tab to TabHost
-        //-----//
+        // List of Notifications
+//        String[] notification = {"Upcoming appointment reminder", "New review posted", "Price estimate request", "Price estimate request"}; //for demo purposes
+//        ListAdapter notificationAdapter = new CustomAdapter(this, notification);
+//        ListView notificationListView = (ListView) findViewById(R.id.notificationListView);
+//        notificationListView.setAdapter(notificationAdapter);
+//
+//        // Post-Click actions
+//        notificationListView.setOnItemClickListener(
+//            new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    String notification = String.valueOf(parent.getItemAtPosition(position));
+//                    // Silly display of notification for demo purposes
+//                    Toast.makeText(DrawerActivity.this, notification, Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        );
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -161,6 +101,8 @@ public class DrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        displayFragment(R.id.homee);
     }
 
     @Override
@@ -198,31 +140,57 @@ public class DrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_myprofile) {
-            // Handle the camera action
-            Intent i = new Intent(DrawerActivity.this, ContractorProfileActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_editprofile) {
+        displayFragment(item.getItemId());
 
-            Intent i = new Intent(DrawerActivity.this, EditProfile.class);
-            startActivity(i);
-        } else if (id == R.id.nav_connections) {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
+    public  void displayFragment( int viewId){
+
+        Fragment fragment = null;
+        String title = "";
+
+        switch (viewId) {
+            case R.id.nav_profile_edit:
+                fragment = new ProfileEdit();
+                title = "Edit Profile";
+                break;
+
+            case R.id.nav_myprofile:
+                fragment = new MyProfile();
+                title = "My Profile";
+                break;
+            case R.id.messages:
+                fragment = new Messages();
+                title = "Messagese";
+                break;
+            case R.id.homee:
+                fragment = new Home();
+                title = "Home";
+                break;
+
+            case R.id.log_out:
+                // Log out action here
+                Toast.makeText(getApplicationContext(), "Log Out " , Toast.LENGTH_LONG).show(); //testing/debugging
+                break;
         }
-//        else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        }
-//        else if (id == R.id.nav_send) {
-//
-//        }
+
+        if (fragment != null) {
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.displayArea_ID, fragment, title);
+            ft.commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

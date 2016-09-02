@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.SplashScreen"
-    android:background="@drawable/fox"
+    android:background="@drawable/contract_fox"
     android:textAlignment="center"
     android:gravity="bottom">
 
@@ -303,7 +303,7 @@
         android:paddingBottom="30dp"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_red_dark" />
+        android:textColor="@android:color/black" />
 
 
 </LinearLayout>
