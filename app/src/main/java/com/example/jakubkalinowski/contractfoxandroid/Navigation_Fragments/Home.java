@@ -140,9 +140,9 @@ public class Home extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new Exterior();
-                case 1:
                     return new Interior();
+                case 1:
+                    return new Exterior();
                 case 2:
                     return new BackYard();
             }

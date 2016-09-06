@@ -1,13 +1,17 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.dummy.DummyContent;
 
@@ -28,6 +32,7 @@ public class SearchViewDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
+    Button phone, message, website;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,7 +54,7 @@ public class SearchViewDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle("Company name");
             }
         }
     }
@@ -61,9 +66,47 @@ public class SearchViewDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.searchview_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.searchview_detail)).setText("More details " +
+                    "about the company, -- Ladi Dadi --");
         }
+
+        phone = (Button) rootView.findViewById(R.id.phone_button);
+        message = (Button) rootView.findViewById(R.id.message_button);
+        website = (Button) rootView.findViewById(R.id.website_button);
+
+        message.setOnClickListener(messageListener);
+        website.setOnClickListener(websiteListener);
+        phone.setOnClickListener(phoneListener);
 
         return rootView;
     }
+
+    View.OnClickListener messageListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // message action here
+        }
+    };
+
+    View.OnClickListener websiteListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // website action here
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("http://www.google.com"));
+            startActivity(intent);
+
+        }
+    };
+    View.OnClickListener phoneListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "8453327029"));
+            startActivity(intent);
+        }
+    };
+
 }

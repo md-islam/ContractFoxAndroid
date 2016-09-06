@@ -36,7 +36,14 @@
                 android:layout_height="wrap_content"
                 android:text="testing 2"/>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/contract_fox"/>
 
+
+
+            <!-- toolbar with the back button in it on top of the page -->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
@@ -72,20 +79,20 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:text="testing 4"/>-->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/stat_notify_chat"
-        app:layout_anchor="@+id/searchview_detail_container"
-        app:layout_anchorGravity="top|end" />
-
-    <!--<TextView-->
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:text="testing 5"/>-->
+        <!--android:layout_gravity="center_vertical|start"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@android:drawable/stat_notify_chat"-->
+        <!--app:layout_anchor="@+id/searchview_detail_container"-->
+        <!--app:layout_anchorGravity="top|end" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testing 5"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

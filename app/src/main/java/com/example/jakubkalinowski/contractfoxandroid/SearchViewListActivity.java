@@ -49,7 +49,7 @@ public class SearchViewListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Contacting contractors ...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -74,9 +74,12 @@ public class SearchViewListActivity extends AppCompatActivity {
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
+      // public CardView cardView;
+
         private final List<DummyContent.DummyItem> mValues;
 
         public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+
             mValues = items;
         }
 
