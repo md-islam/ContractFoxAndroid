@@ -1,18 +1,39 @@
+import com.example.jakubkalinowski.contractfoxandroid.Address;
+import java.util.ArrayList;
+
 /**
  * Created by jakubkalinowski on 9/4/16.
  */
 public class Contractor extends Member {
 
-    private String briefDescription;
-    private String specialization;
-    private int availability;
 
-    public Contractor(String firstname, String lastname, String address, String city, String state, int zipcode, String telNumber, String email, Boolean contractorOption, String briefDescription, String specialization, int availability) {
-        super(firstname, lastname, address, city, state, zipcode, telNumber, email, contractorOption);
+    /*
+    TO Do
+    Add ratings (points)
+    Add reviews (Script)
+    add profile picture (String)
+    add before/after pictures (Array of strings)
+     */
+
+    private String briefDescription;
+    // private String specialization; // STRING OR ARRAYLIST DEPENDABLE ON DB FORMAT
+    private ArrayList<String> Skills = new ArrayList<>();
+    private int availability; // check with android studio given feature
+
+    //modify constructor !!!!!!!!!!!!
+    public Contractor(String firstname, String lastname, String telNumber, String email,
+                      Boolean contractorOption, Address address, String briefDescription,
+                      int availability) {
+        super(firstname, lastname, telNumber, email,
+                contractorOption, address);
         this.briefDescription = briefDescription;
-        this.specialization = specialization;
         this.availability = availability;
     }
+
+    /*
+     * getters and setters for the remaining parameters
+
+     */
 
     public String getBriefDescription() {
         return briefDescription;
@@ -22,19 +43,19 @@ public class Contractor extends Member {
         this.briefDescription = briefDescription;
     }
 
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
     public int getAvailability() {
         return availability;
     }
 
     public void setAvailability(int availability) {
         this.availability = availability;
+    }
+
+    public ArrayList<String> getSkills() {
+        return Skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        Skills = skills;
     }
 }

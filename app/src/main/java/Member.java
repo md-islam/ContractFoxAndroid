@@ -1,27 +1,29 @@
+import com.example.jakubkalinowski.contractfoxandroid.Address;
+
 /**
  * Created by jakubkalinowski on 9/4/16.
  */
 public class Member {
 
+    // Adapt to the FIREBASE syntax
+
+    /*
+    TO DO
+     */
+
     private String firstname;
     private String lastname;
-    private String address;
-    private String city;
-    private String state;
-    private int zipcode;
     private String telNumber;
     private String email;
     private Boolean contractorOption;
+    private Address address;
 
     public Member(){}
 
-    public Member(String firstname, String lastname, String address, String city, String state, int zipcode, String telNumber, String email, Boolean contractorOption) {
+    public Member(String firstname, String lastname, String telNumber, String email, Boolean contractorOption, Address address) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
         this.telNumber = telNumber;
         this.email = email;
         this.contractorOption = contractorOption;
@@ -43,36 +45,12 @@ public class Member {
         this.lastname = lastname;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public int getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(int zipcode) {
-        this.zipcode = zipcode;
     }
 
     public String getTelNumber() {
