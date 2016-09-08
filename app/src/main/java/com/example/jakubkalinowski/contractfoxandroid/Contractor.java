@@ -1,6 +1,8 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 
 /**
  * Created by MD on 9/7/2016.
@@ -10,13 +12,18 @@ public class Contractor extends User {
     private String specialization;
     private int availability;
 
+
+
+    private ArrayList<String> skillSet;
+
     public Contractor(String firstname, String lastname, String email, String password,
                       String address, Boolean contractorOption,
-                      String briefDescription, String specialization, int availability, Address maddress) {
+                      String briefDescription, String specialization, int availability, Address maddress, ArrayList<String> skillSet) {
         super(firstname, lastname, email, password, address, contractorOption, maddress);
         this.briefDescription = briefDescription;
         this.specialization = specialization;
         this.availability = availability;
+        this.skillSet = skillSet;
     }
 
     public String getBriefDescription() {
@@ -102,6 +109,21 @@ public class Contractor extends User {
     public Address getAddress(){
         return mAddress;
     }
+
+
+    public ArrayList<String> getSkillSet() {
+        return skillSet;
+    }
+
+    public void setSkillSet(ArrayList<String> skillSet) {
+        this.skillSet = skillSet;
+    }
+
+    public void addSkill(String skill){
+        skillSet.add(skill);
+    }
+
+
 
 
 }

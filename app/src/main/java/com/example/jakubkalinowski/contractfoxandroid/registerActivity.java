@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -119,10 +120,16 @@ public class registerActivity extends AppCompatActivity {
 //                    User new_user = new User(firstNameInput, lastNameInput, emailInput, passwordInput,
 //                                      addressInput, contractor);
 
+
+                    ArrayList<String> skillset = new ArrayList<String>();
+                    skillset.add("kitchen_work");
+                    skillset.add("remodelling");
+                    skillset.add("bathroom_work");
+
                     User new_user2 = new Contractor(firstNameInput, lastNameInput, emailInput, passwordInput,
                             addressInput, contractor, "Example Description",
                             "Example Specialization", 22,
-                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"));
+                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"), skillset);
 
 
 //                    mFirebaseDatabaseReference.child("users").child(signedIn_userID).
