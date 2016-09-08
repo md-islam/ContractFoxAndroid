@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Map;
@@ -35,8 +36,7 @@ public class registerActivity extends AppCompatActivity {
     private static final String TAG = "authListener_TAG!!" ;
     //Firebase Reference
   //  Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
-    FirebaseDatabase mFirebaseDatabaseReference = FirebaseDatabase.getInstance();
-
+    DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -77,20 +77,7 @@ public class registerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+
 
         mAuth = FirebaseAuth.getInstance();
         //this part is for hint animation
@@ -106,6 +93,52 @@ public class registerActivity extends AppCompatActivity {
         passwordWrapper.setHint("Password");
         repeatPasswordWrapper.setHint("Repeat Password");
         addressWrapper.setHint("Address");
+
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is currently signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in===>:" + user.getUid());
+                    Toast.makeText(registerActivity.this, user.getUid().toString(),
+                            Toast.LENGTH_SHORT).show();
+
+                    String signedIn_userID = user.getUid().toString();
+
+                    Boolean isExistingUsername = false;
+                    firstNameInput = mFirstName.getText().toString();
+                    lastNameInput = mLastName.getText().toString();
+                    emailInput = mEmailAddress.getText().toString();
+                    passwordInput = mPassword.getText().toString();
+                    addressInput = mAddress.getText().toString();
+                    contractor = mContractor.isChecked();
+
+//                    User new_user = new User(firstNameInput, lastNameInput, emailInput, passwordInput,
+//                                      addressInput, contractor);
+
+                    User new_user2 = new Contractor(firstNameInput, lastNameInput, emailInput, passwordInput,
+                            addressInput, contractor, "Example Description",
+                            "Example Specialization", 22,
+                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"));
+
+
+//                    mFirebaseDatabaseReference.child("users").child(signedIn_userID).
+//                            setValue(new_user);
+                    mFirebaseDatabaseReference.child("contractors").child(signedIn_userID).
+                            setValue(new_user2);
+
+
+
+                } else {
+                    // User is currently signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
     }
 
@@ -148,12 +181,12 @@ public class registerActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "SIGN UP Button is clicked", Toast.LENGTH_SHORT).show();
 
-                Boolean isExistingUsername = false;
-                firstNameInput = mFirstName.getText().toString();
-                lastNameInput = mLastName.getText().toString();
-                repeatPasswordInput = mRepeatPassword.getText().toString();
-                addressInput = mAddress.getText().toString();
-                contractor = mContractor.isChecked();
+//                Boolean isExistingUsername = false;
+//                firstNameInput = mFirstName.getText().toString();
+//                lastNameInput = mLastName.getText().toString();
+//                repeatPasswordInput = mRepeatPassword.getText().toString();
+//                addressInput = mAddress.getText().toString();
+//                contractor = mContractor.isChecked();
 
 
 
@@ -228,21 +261,29 @@ public class registerActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+            mAuth.signOut();
+            Log.d(TAG, "onAuthStateChanged:signed_out");
         }
     }
 
 
 
-    //user gets registered using user's email and password, then data saving gets handled
-    //callback declared in the onCreateMethod
+
+
+    /**
+     * This register method is used for loggin in
+     * @param email_address
+     * @param password -> minimum 6 characters required upon testing to make sure user actually
+     *                    registers
+     */
     public void register(String email_address, String password){
 
+        //once user is signed in, data is saved
         mAuth.createUserWithEmailAndPassword(email_address, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
