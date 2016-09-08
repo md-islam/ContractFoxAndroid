@@ -1,4 +1,4 @@
-import com.example.jakubkalinowski.contractfoxandroid.Address;
+package com.example.jakubkalinowski.contractfoxandroid;
 
 /**
  * Created by jakubkalinowski on 9/4/16.

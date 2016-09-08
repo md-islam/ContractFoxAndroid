@@ -1,3 +1,5 @@
+package com.example.jakubkalinowski.contractfoxandroid;
+
 import com.example.jakubkalinowski.contractfoxandroid.Address;
 import java.util.ArrayList;
 
