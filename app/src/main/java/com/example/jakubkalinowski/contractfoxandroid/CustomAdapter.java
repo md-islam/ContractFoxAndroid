@@ -49,11 +49,11 @@ public class CustomAdapter extends ArrayAdapter<String> {
         //TODO: add notification images to array and pass it in here
         String currentIcon = singleNotificationItem;
         if(currentIcon.startsWith("U")){
-            notificationImage.setImageResource(R.drawable.serviceicon);
+            notificationImage.setImageResource(R.drawable.service_icon);
         } else if(currentIcon.startsWith("N")){
-            notificationImage.setImageResource(R.drawable.reviewicon);
+            notificationImage.setImageResource(R.drawable.review_icon);
         } else if(currentIcon.startsWith("P")){
-            notificationImage.setImageResource(R.drawable.priceestimate);
+            notificationImage.setImageResource(R.drawable.price_estimate);
         } else {
             notificationImage.setImageResource(R.drawable.logo);
         }
