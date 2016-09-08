@@ -6,28 +6,27 @@ import java.util.ArrayList;
  */
 public class Contractor extends Member {
 
-
-    /*
-    TO Do
-    Add ratings (points)
-    Add reviews (Script)
-    add profile picture (String)
-    add before/after pictures (Array of strings)
-     */
-
     private String briefDescription;
-    // private String specialization; // STRING OR ARRAYLIST DEPENDABLE ON DB FORMAT
-    private ArrayList<String> Skills = new ArrayList<>();
+    private String review; // review text field
     private int availability; // check with android studio given feature
+    private int stars; //review stars
+    private ArrayList<String> Skills = new ArrayList<String>();
+    private ArrayList<String> PictureGallery = new ArrayList<String>();
 
-    //modify constructor !!!!!!!!!!!!
-    public Contractor(String firstname, String lastname, String telNumber, String email,
-                      Boolean contractorOption, Address address, String briefDescription,
-                      int availability) {
-        super(firstname, lastname, telNumber, email,
-                contractorOption, address);
+    public Contractor(){}
+
+    public Contractor(String firstName, String lastName, String telNumber, String email,
+                      Boolean contractorOption, String profilePicture, Address address,
+                      String briefDescription, String review, int availability, int stars,
+                      ArrayList<String> Skills, ArrayList<String> PictureGallery) {
+        super(firstName, lastName, telNumber, email,
+                contractorOption, profilePicture, address);
         this.briefDescription = briefDescription;
+        this.review = review;
         this.availability = availability;
+        this.stars = stars;
+        this.Skills = Skills;
+        this.PictureGallery = PictureGallery;
     }
 
     /*
@@ -43,6 +42,14 @@ public class Contractor extends Member {
         this.briefDescription = briefDescription;
     }
 
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
     public int getAvailability() {
         return availability;
     }
@@ -51,11 +58,27 @@ public class Contractor extends Member {
         this.availability = availability;
     }
 
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
     public ArrayList<String> getSkills() {
         return Skills;
     }
 
     public void setSkills(ArrayList<String> skills) {
         Skills = skills;
+    }
+
+    public ArrayList<String> getPictureGallery() {
+        return PictureGallery;
+    }
+
+    public void setPictureGallery(ArrayList<String> pictureGallery) {
+        PictureGallery = pictureGallery;
     }
 }

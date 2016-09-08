@@ -5,52 +5,47 @@ import com.example.jakubkalinowski.contractfoxandroid.Address;
  */
 public class Member {
 
-    // Adapt to the FIREBASE syntax
-
     /*
-    TO DO
-     */
+     TO DO:
+     Adapt to the FIREBASE syntax
+      */
 
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String telNumber;
     private String email;
     private Boolean contractorOption;
-    private Address address;
+    private String profilePicture;
+
+    Address address = new Address();
 
     public Member(){}
 
-    public Member(String firstname, String lastname, String telNumber, String email, Boolean contractorOption, Address address) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
+    public Member(String firstName, String lastName, String telNumber, String email,
+                  Boolean contractorOption, String profilePicture, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.telNumber = telNumber;
         this.email = email;
         this.contractorOption = contractorOption;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
+        this.profilePicture = profilePicture;
         this.address = address;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getTelNumber() {
@@ -69,11 +64,27 @@ public class Member {
         this.email = email;
     }
 
-    public Boolean getContractorOption (){
+    public Boolean getContractorOption() {
         return contractorOption;
     }
 
     public void setContractorOption(Boolean contractorOption) {
         this.contractorOption = contractorOption;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

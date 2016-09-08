@@ -13,9 +13,7 @@ public class Address {
     private String mUnit_Apt_no;
 
 
-    public Address(){
-
-    }
+    public Address(){}
 
     public Address(String streetAddress, String city, String state, String zipCode, String unit_Apt_no) {
         mStreetAddress = streetAddress;
