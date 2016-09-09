@@ -3,26 +3,26 @@ package com.example.jakubkalinowski.contractfoxandroid;
 /**
  * Created by MD on 4/22/2016.
  */
-public abstract class User {
+public abstract class Member {
+
+
+    //This is protected because of a bug in Firebase, These variables are accessed in the subclass.
     protected String firstName;
     protected String lastName;
     protected String emailAddress;
-    protected String password;
-    protected String address;
-    protected Boolean contractor;
+    protected String phoneNo;
+    protected Boolean contractorOption;
     protected Address mAddress;
 
+    public Member(){}
 
-    public User(){}
-
-    public User(String firstName, String lastName, String emailAddress, String password,
-                String address, Boolean contractor, Address mAddress){
+    public Member(String firstName, String lastName, String emailAddress, String phoneNo,
+                Boolean contractorOption, Address mAddress){
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.password = password;
-        this.address = address;
-        this.contractor = contractor;
+        this.phoneNo = phoneNo;
+        this.contractorOption = contractorOption;
         this.mAddress = mAddress;
     }
 
@@ -74,19 +74,28 @@ public abstract class User {
 //        this.lastName = lastName;
 //    }
 
-    abstract String getPassword();
-    abstract void setPassword(String password);
-    abstract Boolean getContractor();
-    abstract void setContractor(Boolean contractor);
-    //abstract String getAddress();
-    //abstract void setAddress(String address);
-    abstract void setEmailAddress(String emailAddress);
+
+    //These abstract methods are implemented in the subclass.
     abstract String getFirstName();
     abstract void setFirstName(String firstName);
+
     abstract String getLastName();
     abstract void setLastName(String lastName);
-    abstract void setAddress(Address address);
+
+    abstract void setEmailAddress(String emailAddress);
+    abstract String getEmailAddress();
+
+    abstract String getPhoneNo();
+    abstract void setPhoneNo(String phoneNo);
+
+    abstract Boolean getContractorOption();
+    abstract void setContractorOption(Boolean contractorOption);
+
     abstract Address getAddress();
+    abstract void setAddress(Address address);
+
+
+
 
 
 }

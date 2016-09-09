@@ -36,7 +36,7 @@ public class registerActivity extends AppCompatActivity {
 
     private static final String TAG = "authListener_TAG!!" ;
     //Firebase Reference
-  //  Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
+    //  Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
     DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
     // [START declare_auth]
@@ -126,16 +126,23 @@ public class registerActivity extends AppCompatActivity {
                     skillset.add("remodelling");
                     skillset.add("bathroom_work");
 
-                    User new_user2 = new Contractor(firstNameInput, lastNameInput, emailInput, passwordInput,
-                            addressInput, contractor, "Example Description",
+
+//                    String firstname, String lastname, String email, String phoneNo,
+//                            String address, Boolean contractorOption,
+//                            String briefDescription, String specialization, int availability,
+//                    Address maddress, ArrayList<String> skillSet) {
+
+                    Member new_member = new Contractor(firstNameInput, lastNameInput, emailInput,
+                            null,addressInput, contractor, "Example Description",
                             "Example Specialization", 22,
-                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"), skillset);
+                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"),
+                            skillset);
 
 
 //                    mFirebaseDatabaseReference.child("users").child(signedIn_userID).
 //                            setValue(new_user);
                     mFirebaseDatabaseReference.child("contractors").child(signedIn_userID).
-                            setValue(new_user2);
+                            setValue(new_member);
 
 
 
@@ -200,7 +207,7 @@ public class registerActivity extends AppCompatActivity {
                 emailInput = mEmailAddress.getText().toString();
                 passwordInput = mPassword.getText().toString();
                 register(emailInput, passwordInput);
-             //   final User newUser = new User(firstNameInput,lastNameInput,emailInput, passwordInput, addressInput, contractor);
+                //   final User newUser = new User(firstNameInput,lastNameInput,emailInput, passwordInput, addressInput, contractor);
 
 //                ref.createUser(newUser.getEmailAddress(), newUser.getPassword(), new Firebase.ValueResultHandler<Map<String, Object>>() {
 //                    @Override
@@ -227,9 +234,9 @@ public class registerActivity extends AppCompatActivity {
 //                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: " + emailInput);
 //                    }
 //                });
-             //   Intent i = new Intent(registerActivity.this, DrawerActivity.class);
-              //  startActivity(i);
-        }
+                //   Intent i = new Intent(registerActivity.this, DrawerActivity.class);
+                //  startActivity(i);
+            }
         });
 
 

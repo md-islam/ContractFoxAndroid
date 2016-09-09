@@ -1,25 +1,22 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 /**
  * Created by MD on 9/7/2016.
  */
-public class Contractor extends User {
+public class Contractor extends Member {
     private String briefDescription;
     private String specialization;
     private int availability;
-
-
-
     private ArrayList<String> skillSet;
 
-    public Contractor(String firstname, String lastname, String email, String password,
+    public Contractor(String firstname, String lastname, String email, String phoneNo,
                       String address, Boolean contractorOption,
-                      String briefDescription, String specialization, int availability, Address maddress, ArrayList<String> skillSet) {
-        super(firstname, lastname, email, password, address, contractorOption, maddress);
+                       String briefDescription, String specialization, int availability,
+                      Address maddress, ArrayList<String> skillSet) {
+        super(firstname, lastname, email, phoneNo, contractorOption, maddress);
         this.briefDescription = briefDescription;
         this.specialization = specialization;
         this.availability = availability;
@@ -53,24 +50,21 @@ public class Contractor extends User {
 
     //implementing abstract methods
 
-    public String getPassword() {
-        return password;
+
+
+    public Boolean getContractorOption() {
+        return contractorOption;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    void setContractorOption(Boolean contractorOption) {
+        this.contractorOption = contractorOption;
     }
 
-    public Boolean getContractor() {
-        return contractor;
-    }
 
-    public void setContractor(Boolean contractor) {
-        this.contractor = contractor;
-    }
 
-//    public String getAddress() {
-//        return address;
+//    public Address getAddress() {
+//        return mAddress;
 //    }
 //
 //    public void setAddress(String address) {
@@ -79,6 +73,16 @@ public class Contractor extends User {
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    @Override
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    @Override
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public void setEmailAddress(String emailAddress) {
