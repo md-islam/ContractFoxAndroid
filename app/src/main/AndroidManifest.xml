@@ -31,13 +31,7 @@
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ContractorProfileActivity" />
-        <activity
-            android:name=".exterior"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_exterior"
-            android:theme="@style/FullscreenTheme" />
         <activity android:name=".ExteriorOfHouse" />
-        <activity android:name=".InsideGarage" />
         <activity android:name=".registerActivity" />
         <activity
             android:name=".Introduction"
