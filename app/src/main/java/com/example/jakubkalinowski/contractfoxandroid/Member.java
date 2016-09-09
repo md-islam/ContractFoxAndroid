@@ -16,19 +16,21 @@ public class Member {
     private String email;
     private Boolean contractorOption;
     private String profilePicture;
+    private String password;
 
     Address address = new Address();
 
     public Member(){}
 
     public Member(String firstName, String lastName, String telNumber, String email,
-                  Boolean contractorOption, String profilePicture, Address address) {
+                  Boolean contractorOption, String profilePicture, String password, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telNumber = telNumber;
         this.email = email;
         this.contractorOption = contractorOption;
         this.profilePicture = profilePicture;
+        this.password = password;
         this.address = address;
     }
 
@@ -78,6 +80,14 @@ public class Member {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Address getAddress() {

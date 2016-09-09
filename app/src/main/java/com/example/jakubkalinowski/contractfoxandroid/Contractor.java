@@ -1,6 +1,5 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-import com.example.jakubkalinowski.contractfoxandroid.Address;
 import java.util.ArrayList;
 
 /**
@@ -18,11 +17,11 @@ public class Contractor extends Member {
     public Contractor(){}
 
     public Contractor(String firstName, String lastName, String telNumber, String email,
-                      Boolean contractorOption, String profilePicture, Address address,
+                      Boolean contractorOption, String profilePicture, String password, Address address,
                       String briefDescription, String review, int availability, int stars,
                       ArrayList<String> Skills, ArrayList<String> PictureGallery) {
         super(firstName, lastName, telNumber, email,
-                contractorOption, profilePicture, address);
+                contractorOption, profilePicture, password, address);
         this.briefDescription = briefDescription;
         this.review = review;
         this.availability = availability;
