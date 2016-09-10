@@ -2,13 +2,23 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+=======
+/**
+ * Created by jakubkalinowski on 9/4/16.
+ */
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
 public class Contractor extends Member {
 
     private String briefDescription;
     private String review; // review text field
     private int availability; // check with android studio given feature
     private int stars; //review stars
+<<<<<<< HEAD
     private ArrayList<String> SkillSet = new ArrayList<String>();
+=======
+    private ArrayList<String> Skills = new ArrayList<String>();
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
     private ArrayList<String> PictureGallery = new ArrayList<String>();
 
     public Contractor(){}
@@ -16,14 +26,22 @@ public class Contractor extends Member {
     public Contractor(String firstName, String lastName, String telNumber, String email,
                       Boolean contractorOption, String profilePicture, String password, Address address,
                       String briefDescription, String review, int availability, int stars,
+<<<<<<< HEAD
                       ArrayList<String> SkillSet, ArrayList<String> PictureGallery) {
+=======
+                      ArrayList<String> Skills, ArrayList<String> PictureGallery) {
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
         super(firstName, lastName, telNumber, email,
                 contractorOption, profilePicture, password, address);
         this.briefDescription = briefDescription;
         this.review = review;
         this.availability = availability;
         this.stars = stars;
+<<<<<<< HEAD
         this.SkillSet = SkillSet;
+=======
+        this.Skills = Skills;
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
         this.PictureGallery = PictureGallery;
     }
 
@@ -46,6 +64,10 @@ public class Contractor extends Member {
 
     public void setReview(String review) {
         this.review = review;
+<<<<<<< HEAD
+=======
+    }
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
 
     public int getAvailability() {
         return availability;
@@ -63,18 +85,28 @@ public class Contractor extends Member {
         this.stars = stars;
     }
 
+<<<<<<< HEAD
     public ArrayList<String> getSkillSet() {
         return SkillSet;
     }
 
     public void setSkillSet(ArrayList<String> SkillSet) {
         SkillSet = SkillSet;
+=======
+    public ArrayList<String> getSkills() {
+        return Skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        Skills = skills;
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
     }
 
     public ArrayList<String> getPictureGallery() {
         return PictureGallery;
     }
 
+<<<<<<< HEAD
     public void setPictureGallery(ArrayList<String> PictureGallery) {
         PictureGallery = PictureGallery;
     }
@@ -91,3 +123,9 @@ public class Contractor extends Member {
     }
 
 }
+=======
+    public void setPictureGallery(ArrayList<String> pictureGallery) {
+        PictureGallery = pictureGallery;
+    }
+}
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'

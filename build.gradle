@@ -8,6 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.1.3'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         classpath 'com.google.gms:google-services:3.0.0'
 >>>>>>> MD_branch
@@ -16,6 +17,8 @@ buildscript {
 =======
 >>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
