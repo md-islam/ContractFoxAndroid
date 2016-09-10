@@ -38,8 +38,12 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0-alpha2'
+<<<<<<< HEAD
 
 
+=======
+    compile 'com.android.support:cardview-v7:24.0.0'
+>>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
 }
 
 apply plugin: 'com.google.gms.google-services'

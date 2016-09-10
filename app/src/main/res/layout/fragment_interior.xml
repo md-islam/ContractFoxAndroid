@@ -9,7 +9,9 @@
        android:layout_width="90dp"
        android:layout_gravity="center"
        android:id="@+id/kitchen"
+
        android:layout_height="90dp"
-       android:text="Kitchen"/>
+
+       android:background="@android:color/transparent" />
 
 </FrameLayout>

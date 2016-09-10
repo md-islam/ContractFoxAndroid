@@ -1,5 +1,10 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
 /**
  * Created by MD on 9/5/2016.
  */
@@ -20,6 +25,7 @@ public class Address {
         mZipCode = zipCode;
         mUnit_Apt_no = unit_Apt_no;
     }
+<<<<<<< HEAD
     public String getStreetAddress() {
         return mStreetAddress;
     }
@@ -51,3 +57,46 @@ public class Address {
         mUnit_Apt_no = unit_Apt_no;
     }
 }
+=======
+
+    public String getStreetAddress() {
+        return mStreetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        mStreetAddress = streetAddress;
+    }
+
+    public String getCity() {
+        return mCity;
+    }
+
+    public void setCity(String city) {
+        mCity = city;
+    }
+
+    public String getState() {
+        return mState;
+    }
+
+    public void setState(String state) {
+        mState = state;
+    }
+
+    public String getZipCode() {
+        return mZipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        mZipCode = zipCode;
+    }
+
+    public String getUnit_Apt_no() {
+        return mUnit_Apt_no;
+    }
+
+    public void setUnit_Apt_no(String unit_Apt_no) {
+        mUnit_Apt_no = unit_Apt_no;
+    }
+}
+>>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
