@@ -22,7 +22,6 @@ app/src/main/AndroidManifest.xml
 app/src/main/java/com/example/jakubkalinowski/contractfoxandroid/exterior.java
 
 app/src/main/java/com/example/jakubkalinowski/contractfoxandroid/InsideGarage.java
-<<<<<<< HEAD
 
 app/src/main/java/com/example/jakubkalinowski/contractfoxandroid/Address.java
 
@@ -41,5 +40,3 @@ app/src/main/java/com/example/jakubkalinowski/contractfoxandroid/Address.java
 app/build.gradle
 
 app/build.gradle
-=======
->>>>>>> parent of 7941c6a... Merge branch 'MD_branch'
