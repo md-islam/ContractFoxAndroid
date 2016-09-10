@@ -1,5 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+
 /**
  * Created by MD on 9/5/2016.
  */
@@ -20,6 +21,7 @@ public class Address {
         mZipCode = zipCode;
         mUnit_Apt_no = unit_Apt_no;
     }
+
     public String getStreetAddress() {
         return mStreetAddress;
     }
@@ -51,3 +53,4 @@ public class Address {
         mUnit_Apt_no = unit_Apt_no;
     }
 }
+
