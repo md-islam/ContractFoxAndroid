@@ -1,17 +1,11 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-
-
-/**
- * Created by MD on 9/5/2016.
- */
 public class Address {
     private String mStreetAddress;
     private String mCity;
     private String mState;
     private String mZipCode;
     private String mUnit_Apt_no;
-
 
     public Address(){}
 

@@ -1,14 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-/**
- * Created by jakubkalinowski on 9/4/16.
- */
 public class Member {
-
-    /*
-     TO DO:
-     Adapt to the FIREBASE syntax
-      */
 
     private String firstName;
     private String lastName;

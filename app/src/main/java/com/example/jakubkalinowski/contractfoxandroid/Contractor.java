@@ -2,9 +2,6 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 import java.util.ArrayList;
 
-/**
- * Created by jakubkalinowski on 9/4/16.
- */
 public class Contractor extends Member {
 
     private String briefDescription;
