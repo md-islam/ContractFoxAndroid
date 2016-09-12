@@ -37,7 +37,9 @@
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".ExteriorOfHouse" />
         <activity android:name=".InsideGarage" />
-        <activity android:name=".registerActivity" />
+        <activity android:name=".registerActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                />
         <activity
             android:name=".Introduction"
             android:screenOrientation="portrait">

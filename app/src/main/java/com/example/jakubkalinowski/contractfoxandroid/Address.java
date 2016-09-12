@@ -22,6 +22,8 @@ public class Address {
         mUnit_Apt_no = unit_Apt_no;
     }
 
+    //change the abstract methods to public
+
     public String getStreetAddress() {
         return mStreetAddress;
     }

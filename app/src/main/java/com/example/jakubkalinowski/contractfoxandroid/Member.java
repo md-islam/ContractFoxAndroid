@@ -76,23 +76,23 @@ public abstract class Member {
 
 
     //These abstract methods are implemented in the subclass.
-    abstract String getFirstName();
-    abstract void setFirstName(String firstName);
+    public abstract String getFirstName();
+    public abstract void setFirstName(String firstName);
 
-    abstract String getLastName();
-    abstract void setLastName(String lastName);
+    public abstract String getLastName();
+    public abstract void setLastName(String lastName);
 
-    abstract void setEmailAddress(String emailAddress);
-    abstract String getEmailAddress();
+    public abstract void setEmailAddress(String emailAddress);
+    public abstract String getEmailAddress();
 
-    abstract String getPhoneNo();
-    abstract void setPhoneNo(String phoneNo);
+    public abstract String getPhoneNo();
+    public abstract void setPhoneNo(String phoneNo);
 
-    abstract Boolean getContractorOption();
-    abstract void setContractorOption(Boolean contractorOption);
+    public abstract Boolean getContractorOption();
+     abstract void setContractorOption(Boolean contractorOption);
 
-    abstract Address getAddress();
-    abstract void setAddress(Address address);
+    public abstract Address getAddress();
+    public abstract void setAddress(Address address);
 
 
 
