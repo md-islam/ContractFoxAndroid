@@ -13,6 +13,8 @@ public class Contractor extends Member {
     private int availability;
     private ArrayList<String> skillSet;
 
+
+    public Contractor(){}
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       String address, Boolean contractorOption,
                        String briefDescription, String specialization, int availability,

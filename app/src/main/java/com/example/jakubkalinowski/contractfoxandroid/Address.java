@@ -25,7 +25,13 @@ public class Address {
         mZipCode = zipCode;
         mUnit_Apt_no = unit_Apt_no;
     }
+<<<<<<< 11e7ced451df4896b3f2eb8a7e811e590ac718a0
 <<<<<<< HEAD
+=======
+
+    //change the abstract methods to public
+
+>>>>>>> New Registration experience
     public String getStreetAddress() {
         return mStreetAddress;
     }
