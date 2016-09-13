@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.firebase.client.Firebase;
 
@@ -20,7 +20,7 @@ public class registerActivity extends AppCompatActivity {
     private EditText mEmailAddress;
     private EditText mPassword;
     private EditText mRepeatPassword;
-    private CheckBox mContractor;
+    private RadioButton mContractor;
 
     //variables for extracting values from components
     private String emailInput;
@@ -49,7 +49,7 @@ public class registerActivity extends AppCompatActivity {
         mEmailAddress = (EditText) findViewById(R.id.email_address);
         mPassword = (EditText) findViewById(R.id.password);
         mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
-        mContractor = (CheckBox) findViewById(R.id.contractor_checkbox);
+        mContractor = (RadioButton) findViewById(R.id.radioButton_contractor_register_activity);
 
 
     }

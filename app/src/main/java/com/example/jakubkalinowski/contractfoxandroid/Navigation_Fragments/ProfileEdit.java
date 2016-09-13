@@ -3,21 +3,16 @@ package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.jakubkalinowski.contractfoxandroid.Address;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -92,7 +87,7 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-        firstName = (EditText)root.findViewById(R.id.firstName_editProfile_Fragment);
+        firstName = (EditText)root.findViewById(R.id.firstName_ID);
 
         //this is where the magic happens. (data retrieval)
         //the parameter inside gets the current authenticated user's hash STRING value.
@@ -160,8 +155,8 @@ public class ProfileEdit extends Fragment {
                 .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Member m = dataSnapshot.getValue(Contractor.class);
-                firstName.setText(m.getEmailAddress());
+                Member m =  dataSnapshot.getValue(Contractor.class);
+                firstName.setText(m.getEmail());
             }
 
             @Override
