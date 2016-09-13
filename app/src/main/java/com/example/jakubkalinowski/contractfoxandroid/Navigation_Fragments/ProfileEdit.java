@@ -3,12 +3,26 @@ package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.jakubkalinowski.contractfoxandroid.Address;
+import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -29,8 +43,18 @@ public class ProfileEdit extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    String param = "kj";
+    private static final String TAG = "authListener_TAG!!" ;
+    //[Firebase_variable]**
+    private FirebaseAuth mAuth; //auth object //add authlistener objects here
+    private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
+
+    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+            .getReference();
+
     private OnFragmentInteractionListener mListener;
 
+    private EditText firstName;
     public ProfileEdit() {
         // Required empty public constructor
     }
@@ -60,13 +84,26 @@ public class ProfileEdit extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_edit, container, false);
+        //these fields are declared as global variables to be used in callback functions
+        //for firebase data retrievl. If possible, find a way for data retrieval to happen
+        // before oncreateVIew.
+        View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
+        firstName = (EditText)root.findViewById(R.id.firstName_editProfile_Fragment);
+
+
+        //this is where the magic happens. (data retrieval)
+        //the parameter inside gets the current authenticated user's hash STRING value.
+        setFirstName(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        //firstName.setText(mFirstName_Textbox_Value);
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,4 +144,39 @@ public class ProfileEdit extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    public void setFirstName(String uid){
+
+
+        //there is a callback function inside here. To use outside variables inside the callback
+        //functions, the variable inside should be either final or global variable.
+        //Still trying to figure out the best way to handle callback functions.
+        mFirebaseDatabaseReference
+                .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Member m = dataSnapshot.getValue(Contractor.class);
+                firstName.setText(m.getEmailAddress());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 }

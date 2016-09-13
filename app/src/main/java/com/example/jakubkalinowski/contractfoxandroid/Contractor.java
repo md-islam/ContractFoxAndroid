@@ -12,6 +12,9 @@ public class Contractor extends Member {
     private int availability;
     private ArrayList<String> skillSet;
 
+
+    public Contractor(){}
+
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       String address, Boolean contractorOption,
                        String briefDescription, String specialization, int availability,
@@ -57,7 +60,7 @@ public class Contractor extends Member {
     }
 
     @Override
-    void setContractorOption(Boolean contractorOption) {
+    public void setContractorOption(Boolean contractorOption) {
         this.contractorOption = contractorOption;
     }
 

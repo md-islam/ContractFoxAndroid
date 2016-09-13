@@ -78,7 +78,7 @@ public class registerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-
+        FirebaseAuth.getInstance().signOut();
 
         mAuth = FirebaseAuth.getInstance();
         //this part is for hint animation
@@ -145,6 +145,10 @@ public class registerActivity extends AppCompatActivity {
                             setValue(new_member);
 
 
+                    Intent i = new Intent(registerActivity.this, DrawerActivity.class);
+                    startActivity(i);
+
+
 
                 } else {
                     // User is currently signed out
@@ -153,6 +157,8 @@ public class registerActivity extends AppCompatActivity {
                 // ...
             }
         };
+
+
 
     }
 
@@ -234,8 +240,7 @@ public class registerActivity extends AppCompatActivity {
 //                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: " + emailInput);
 //                    }
 //                });
-                //   Intent i = new Intent(registerActivity.this, DrawerActivity.class);
-                //  startActivity(i);
+
             }
         });
 
@@ -273,11 +278,11 @@ public class registerActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-            mAuth.signOut();
-            Log.d(TAG, "onAuthStateChanged:signed_out");
-        }
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//            mAuth.signOut();
+//            Log.d(TAG, "onAuthStateChanged:signed_out");
+//        }
     }
 
 
