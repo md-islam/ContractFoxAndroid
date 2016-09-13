@@ -2,7 +2,7 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 public class Member {
 
-    private String firstName;
+    private static String firstName;
     private String lastName;
     private String telNumber;
     private String email;
@@ -26,7 +26,7 @@ public class Member {
         this.address = address;
     }
 
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 

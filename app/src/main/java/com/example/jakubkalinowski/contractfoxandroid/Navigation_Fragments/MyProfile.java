@@ -1,13 +1,16 @@
 package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
 
@@ -30,6 +33,11 @@ public class MyProfile extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //Passing in Member
+    Member member = new Member();
+
+    Button call, message, website, directions, availability, estimate;
 
     public MyProfile() {
         // Required empty public constructor
@@ -65,16 +73,96 @@ public class MyProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //TODO: If the "contractorOption is checked than Contractor's Profile needs to be displayed, else display HomeOwner's Profile.
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_profile, container, false);
+
+        View rootView;
+
+        // contractorOption needs to be retreived from the firebase
+//        if (member.getContractorOption().equals(true)) {
+            rootView = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
+
+            // Buttons for both Profiles
+            call = (Button) rootView.findViewById(R.id.call_button);
+            message = (Button) rootView.findViewById(R.id.message_button);
+            directions = (Button) rootView.findViewById(R.id.directions_button);
+
+            call.setOnClickListener(callListener);
+            message.setOnClickListener(messageListener);
+            website.setOnClickListener(websiteListener);
+            directions.setOnClickListener(directionsListener);
+
+
+//            return rootView;
+//        } else {
+//            rootView = inflater.inflate(R.layout.fragment_home_owner_profile, container, false);
+//
+//            // Buttons for both Profiles
+//            call = (Button) rootView.findViewById(R.id.call_button);
+//            message = (Button) rootView.findViewById(R.id.message_button);
+//            directions = (Button) rootView.findViewById(R.id.directions_button);
+//            // Buttons for Contractor's Profile Only
+//            website = (Button) rootView.findViewById(R.id.website_button);
+//            availability = (Button) rootView.findViewById(R.id.view_availability_button);
+//            estimate = (Button) rootView.findViewById(R.id.estimate_button);
+//
+//            return rootView;
+//        }
+        return rootView; // delete after uncommenting
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
+
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    // Action for Message Button
+    View.OnClickListener messageListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // message action here
+        }
+    };
+
+    // Action for Call Button
+    View.OnClickListener callListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // TODO: the tel number needs to be fetched from the user's database.
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "8453327029"));
+            startActivity(intent);
+        }
+    };
+
+
+    // Action for Directions Button
+    View.OnClickListener directionsListener = new View.OnClickListener() {
+        //TODO: fetch user's address and use it here to pass it onto the next activity
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            startActivity(intent);
+        }
+    };
+
+
+    // Action for Website Button
+    View.OnClickListener websiteListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            // TODO: the url needs to be fetched from the user's database.
+            intent.setData(Uri.parse("http://www.google.com"));
+            startActivity(intent);
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -107,4 +195,5 @@ public class MyProfile extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
