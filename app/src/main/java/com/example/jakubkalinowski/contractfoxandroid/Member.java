@@ -1,21 +1,20 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-public class Member {
+public abstract class Member {
 
-    private static String firstName;
-    private String lastName;
-    private String telNumber;
-    private String email;
-    private Boolean contractorOption;
-    private String profilePicture;
-    private String password;
-
-    Address address = new Address();
+    protected String firstName;
+    protected String lastName;
+    protected String telNumber;
+    protected String email;
+    protected Boolean contractorOption;
+    protected String profilePicture;
+    protected String password;
+    protected Address mAddress;
 
     public Member(){}
 
     public Member(String firstName, String lastName, String telNumber, String email,
-                  Boolean contractorOption, String profilePicture, String password, Address address) {
+                  Boolean contractorOption, String profilePicture, String password, Address mAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telNumber = telNumber;
@@ -23,10 +22,10 @@ public class Member {
         this.contractorOption = contractorOption;
         this.profilePicture = profilePicture;
         this.password = password;
-        this.address = address;
+        this.mAddress = mAddress;
     }
 
-    public static String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -83,10 +82,10 @@ public class Member {
     }
 
     public Address getAddress() {
-        return address;
+        return mAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(Address mAddress) {
+        this.mAddress = mAddress;
     }
 }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
 
@@ -35,7 +34,7 @@ public class MyProfile extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     //Passing in Member
-    Member member = new Member();
+//    Member member = new Member();
 
     Button call, message, website, directions, availability, estimate;
 
@@ -90,7 +89,7 @@ public class MyProfile extends Fragment {
             call.setOnClickListener(callListener);
             message.setOnClickListener(messageListener);
             website.setOnClickListener(websiteListener);
-            directions.setOnClickListener(directionsListener);
+            //directions.setOnClickListener(directionsListener);
 
 
 //            return rootView;
@@ -139,16 +138,14 @@ public class MyProfile extends Fragment {
 
 
     // Action for Directions Button
-    View.OnClickListener directionsListener = new View.OnClickListener() {
-        //TODO: fetch user's address and use it here to pass it onto the next activity
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-            startActivity(intent);
-        }
-    };
+//    View.OnClickListener directionsListener = new View.OnClickListener() {
+//        //TODO: fetch user's address and use it here to pass it onto the next activity
+//        @Override
+//        public void onClick(View view) {
+//            Intent intent = new Intent(getActivity().getApplicationContext(), GoogleDirectionsActivity.class);
+//            startActivity(intent);
+//        }
+//    };
 
 
     // Action for Website Button
