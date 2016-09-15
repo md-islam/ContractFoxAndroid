@@ -1,8 +1,8 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-import android.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -62,6 +62,8 @@ public class registerActivity extends AppCompatActivity {
     private String repeatPasswordInput;
     private String addressInput;
     private Boolean contractor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,17 @@ public class registerActivity extends AppCompatActivity {
                 // ...
             }
         };
+
+                    Intent i = new Intent(registerActivity.this, DrawerActivity.class);
+                    startActivity(i);
+
+                } else {
+                    // User is currently signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
     }
 
     @Override
@@ -159,6 +172,22 @@ public class registerActivity extends AppCompatActivity {
 
         //setting hints for animation
 
+        /**
+         * Action for 'mSignUpButton'
+         * mFirstName, mLastName etc. and Firebase will be dealt with here
+         */
+
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(), "SIGN UP Button is clicked", Toast.LENGTH_SHORT).show();
+                emailInput = mEmailAddress.getText().toString();
+                passwordInput = mPassword.getText().toString();
+                register(emailInput, passwordInput);
+
+            }
+        });
 
         /**
          * Action for 'mSignUpButton'
