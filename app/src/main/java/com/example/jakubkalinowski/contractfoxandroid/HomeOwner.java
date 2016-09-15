@@ -1,28 +1,21 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-public abstract class Member {
+public class HomeOwner extends Member {
+    private String firstName;
+    private String lastName;
+    private String telNumber;
+    private String email;
+    private Boolean contractorOption;
+    private String profilePicture;
+    private String password;
+    private Address mAddress;
 
-    protected String firstName;
-    protected String lastName;
-    protected String telNumber;
-    protected String email;
-    protected Boolean contractorOption;
-    protected String profilePicture;
-    protected String password;
-    protected Address mAddress;
+    public HomeOwner(){}
 
-    public Member(){}
-
-    public Member(String firstName, String lastName, String telNumber, String email,
+    public HomeOwner(String firstName, String lastName, String telNumber, String email,
                   Boolean contractorOption, String profilePicture, String password, Address mAddress) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telNumber = telNumber;
-        this.email = email;
-        this.contractorOption = contractorOption;
-        this.profilePicture = profilePicture;
-        this.password = password;
-        this.mAddress = mAddress;
+        super(firstName, lastName, telNumber, email,
+                contractorOption, profilePicture, password, mAddress);
     }
 
     public String getFirstName() {

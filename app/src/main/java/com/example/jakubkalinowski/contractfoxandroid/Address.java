@@ -9,7 +9,7 @@ public class Address {
 
     public Address(){}
 
-    public Address(String streetAddress, String city, String state, String zipCode, String unit_Apt_no) {
+    public Address(String streetAddress, String unit_Apt_no, String city, String state, String zipCode) {
         mStreetAddress = streetAddress;
         mCity = city;
         mState = state;
