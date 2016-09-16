@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,7 +56,12 @@ public class registerActivity extends AppCompatActivity {
     private EditText mEmailAddress;
     private EditText mPassword;
     private EditText mRepeatPassword;
-    private CheckBox mContractor;
+
+    //string values
+    private String mEmailAddressValue;
+    private String mPasswordValue;
+    private String mRepeatPasswordValue;
+
     private Button mNextButton;
 
     //variables for extracting values from components
@@ -84,20 +90,48 @@ public class registerActivity extends AppCompatActivity {
         emailAddressWrapper.setHint("Email Address");
         passwordWrapper.setHint("Password");
         repeatPasswordWrapper.setHint("Repeat Password");
+
+        //initializing activity components
+        mEmailAddress = (EditText) findViewById(R.id.email_address);
+        mPassword = (EditText) findViewById(R.id.password);
+        mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
+        //mContractor = (CheckBox) findViewById(R.id.contractor_checkbox);
+
+
+
         mNextButton = (Button) findViewById(R.id.next_button_register_activity);
+
+
+
+
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                mEmailAddressValue = mEmailAddress.getText().toString();
+                mPasswordValue = mPassword.getText().toString();
+                mRepeatPasswordValue = mRepeatPassword.getText().toString();
+
+                //Passing arguements from Fragment to activity
+                Bundle bundle = new Bundle();
+                bundle.putString("emailAddress",mEmailAddressValue);
+                bundle.putString("password",mPasswordValue);
+                bundle.putString("repeatpassword",mRepeatPasswordValue);
+
+                Fragment homeownerRegisterFragment = new RegisterHomeownerFragment();
+                homeownerRegisterFragment.setArguments(bundle);
+
+
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     // Replace the contents of the container with the new fragment
-                ft.replace(R.id.register_activity_framelayout, new RegisterHomeownerFragment(),
+                ft.add(R.id.register_activity_framelayout, homeownerRegisterFragment,
                         "UserProfileFragment");
                     // or ft.replace(R.id.your_placeholder, new FooFragment());
                     // Complete the changes added above
                 ft.addToBackStack(null);
-
                 ft.commit();
 
 
@@ -113,12 +147,6 @@ public class registerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //initializing activity components
-        mEmailAddress = (EditText) findViewById(R.id.email_address);
-        mPassword = (EditText) findViewById(R.id.password);
-        mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
-        //mContractor = (CheckBox) findViewById(R.id.contractor_checkbox);
-
 
     }
 

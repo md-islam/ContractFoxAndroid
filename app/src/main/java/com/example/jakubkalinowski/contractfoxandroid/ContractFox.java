@@ -1,6 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
 
 /**
  * Created by jakubkalinowski on 4/20/16.
@@ -13,6 +13,6 @@ public class ContractFox extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Firebase.setAndroidContext(this);
+        //Firebase.setAndroidContext(this);
     }
 }

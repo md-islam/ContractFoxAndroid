@@ -26,54 +26,6 @@ public abstract class Member {
         this.mAddress = mAddress;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public Boolean getContractor() {
-//        return contractor;
-//    }
-//
-//    public void setContractor(Boolean contractor) {
-//        this.contractor = contractor;
-//    }
-//
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    }
-//
-//    public String getEmailAddress() {
-//        return emailAddress;
-//    }
-//
-//    public void setEmailAddress(String emailAddress) {
-//        this.emailAddress = emailAddress;
-//    }
-//
-//    public String getFirstName() {
-//        return firstName;
-//    }
-//
-//    public void setFirstName(String firstName) {
-//        this.firstName = firstName;
-//    }
-//
-//    public String getLastName() {
-//        return lastName;
-//    }
-//
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-
 
     //These abstract methods are implemented in the subclass.
     public abstract String getFirstName();
@@ -89,7 +41,7 @@ public abstract class Member {
     public abstract void setPhoneNo(String phoneNo);
 
     public abstract Boolean getContractorOption();
-     abstract void setContractorOption(Boolean contractorOption);
+    public abstract void setContractorOption(Boolean contractorOption);
 
     public abstract Address getAddress();
     public abstract void setAddress(Address address);

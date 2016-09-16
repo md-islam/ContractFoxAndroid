@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -20,17 +22,19 @@ public class RegisterHomeownerFragment extends Fragment {
     private TextInputLayout mFirstNameWrapper;
     private TextInputLayout mLastNameWrapper;
     private TextInputLayout mPhoneWrapper;
-    private TextInputLayout mEmailWrapper;
-    private TextInputLayout mPasswordWrapper;
-
 
     //inputTexts
     private EditText mFirstNameEditText;
     private EditText mLastNameEditText;
     private EditText mPhoneEditText;
-    private EditText mEmailEditText;
-    private EditText mPasswordEditText;
 
+    private Button mNextButton;
+
+    private String mEmailValueFromPrevious;
+    private String mPasswordValueFromPrevious;
+    private String mFirstNameValue;
+    private String mLastNameValue;
+    private String mPhoneValue;
 
     public RegisterHomeownerFragment() {
         // Required empty public constructor
@@ -42,12 +46,19 @@ public class RegisterHomeownerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Homeowner Profile");
+
+        mEmailValueFromPrevious = getArguments().getString("emailAddress");
+        mPasswordValueFromPrevious = getArguments().getString("password");
+
         return inflater.inflate(R.layout.fragment_register_homeowner, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         mFirstNameWrapper = (TextInputLayout) view.
                 findViewById(R.id.first_name_textInput_wrapper_homeowner_register_fragment);
@@ -55,18 +66,12 @@ public class RegisterHomeownerFragment extends Fragment {
                 findViewById(R.id.last_name_textInput_wrapper_fragment_homeownerRegister);
         mPhoneWrapper = (TextInputLayout) view.
                 findViewById(R.id.phone_Input_wrapper_fragment_homeownerRegister);
-        mEmailWrapper = (TextInputLayout) view.
-                findViewById(R.id.email_Input_wrapper_fragment_homeownerRegister);
-        mPasswordWrapper = (TextInputLayout) view.findViewById(R.id
-                                .password_wrapper_homeowner_register_fragment);
 
         mFirstNameWrapper.setHint("First Name");
         mLastNameWrapper.setHint("Last Name");
         mPhoneWrapper.setHint("Phone");
 
-        mEmailWrapper.setHint("Email Address");
-        mPasswordWrapper.setHint("Password");
-
+        mNextButton = (Button) view.findViewById(R.id.next_button_fragment_homeowner_register);
 
         mFirstNameEditText = (EditText) view.findViewById(R.
                 id.first_name_edit_text_fragment_homeowner_register);
@@ -74,12 +79,42 @@ public class RegisterHomeownerFragment extends Fragment {
                 last_name_edittextfield_fragment_homeOwnerRegister_fragment);
         mPhoneEditText = (EditText) view.findViewById(R.id.
                 phone_edittextfield_fragment_homeOwnerRegister_fragment);
-        mEmailEditText = (EditText) view.findViewById(R.id.
-                email_edittextfield_fragment_homeOwnerRegister_fragment);
-        mPasswordEditText = (EditText) view.
-                findViewById(R.id.password_textInput_homeowner_register_fragment);
 
 
+
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                mFirstNameValue = mFirstNameEditText.getText().toString();
+                mLastNameValue = mLastNameEditText.getText().toString();
+                mPhoneValue = mPhoneEditText.getText().toString();
+
+                //[Setting the bundle of arguements to pass to address]-START
+                Bundle bundleToPass = new Bundle();
+                bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
+                bundleToPass.putString("password", mPasswordValueFromPrevious);
+                bundleToPass.putString("firstname",mFirstNameValue);
+                bundleToPass.putString("lastname", mLastNameValue);
+                bundleToPass.putString("phone", mPhoneValue);
+
+                Fragment AddressRegisterFragment = new Address_Fragment();
+                AddressRegisterFragment.setArguments(bundleToPass);
+                //[Setting the bundle of arguements to pass to address]-END
+
+
+                //[Setting up the Address Fragment] - START
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.homeowner_fragment_register_framelayout,
+                        AddressRegisterFragment,"PrimaryAddressForHomeowner");
+                ft.addToBackStack(null);
+                ft.commit();
+                //[Setting up the Address Fragment] - END
+            }
+        });
     }
 
     @Override
