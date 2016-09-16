@@ -14,11 +14,12 @@ public class Contractor extends Member {
     private ArrayList<String> skillSet;
 
 
-    public Contractor(){}
+    public Contractor() {
+    }
+
     public Contractor(String firstname, String lastname, String email, String phoneNo,
-                      String address, Boolean contractorOption,
-                       String briefDescription, String specialization, int availability,
-                      Address maddress, ArrayList<String> skillSet) {
+                      Boolean contractorOption, String briefDescription, String specialization,
+                      int availability, Address maddress, ArrayList<String> skillSet) {
         super(firstname, lastname, email, phoneNo, contractorOption, maddress);
         this.briefDescription = briefDescription;
         this.specialization = specialization;
@@ -101,25 +102,14 @@ public class Contractor extends Member {
     //implementing abstract methods
 
 
-
     public Boolean getContractorOption() {
         return contractorOption;
     }
 
     @Override
-    void setContractorOption(Boolean contractorOption) {
+    public void setContractorOption(Boolean contractorOption) {
         this.contractorOption = contractorOption;
     }
-
-
-
-//    public Address getAddress() {
-//        return mAddress;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -160,7 +150,7 @@ public class Contractor extends Member {
         mAddress = address;
     }
 
-    public Address getAddress(){
+    public Address getAddress() {
         return mAddress;
     }
 
@@ -173,11 +163,12 @@ public class Contractor extends Member {
         this.skillSet = skillSet;
     }
 
-    public void addSkill(String skill){
+    public void addSkill(String skill) {
         skillSet.add(skill);
     }
 
 
+<<<<<<< ea5f8888bf1cd18bc801a1af31d468bbcb214ae4
 
 
 =======
@@ -205,4 +196,6 @@ public class Contractor extends Member {
         PictureGallery = pictureGallery;
     }
 >>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
+=======
+>>>>>>> changes to registration
 }
