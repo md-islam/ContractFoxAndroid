@@ -1,13 +1,12 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.concurrent.Executor;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 /**
@@ -56,6 +58,8 @@ public class Address_Fragment extends Fragment {
     private String mFirstNameValueFromPrevious;
     private String mLastNameValueFromPrevious;
     private String mPhoneValueFromPrevious;
+    private byte[] mBytesArrayFromPrevious;
+
 
     //Strings from currentFragment
     private String mStreetValue;
@@ -81,6 +85,12 @@ public class Address_Fragment extends Fragment {
     private DatabaseReference mDatabase;
 
 
+    //reference to storage database
+    private FirebaseStorage mStorage;
+    //refference to profilepicture storage
+    private StorageReference mProfileImageStorageRef;
+
+
 
     public Address_Fragment() {
         // Required empty public constructor
@@ -98,9 +108,9 @@ public class Address_Fragment extends Fragment {
         mFirstNameValueFromPrevious = getArguments().getString("firstname");
         mLastNameValueFromPrevious = getArguments().getString("lastname");
         mPhoneValueFromPrevious = getArguments().getString("phone");
+        mBytesArrayFromPrevious = getArguments().getByteArray("profileImageData");
 
-
-        return inflater.inflate(R.layout.fragment_homeowner_address, container, false);
+        return inflater.inflate(R.layout.fragment_address_layout, container, false);
     }
 
 
@@ -167,7 +177,7 @@ public class Address_Fragment extends Fragment {
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    FirebaseAuth.getInstance().signOut();
+
                                 }
 
 
@@ -186,14 +196,21 @@ public class Address_Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
-
-        //gets firebase current authorization instance, can use this to get current user
+         //gets firebase current authorization instance, can use this to get current user
         mAuth = FirebaseAuth.getInstance();
+
+        //Firebase realtime Database Reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //Firebase storage reference
+        mStorage = FirebaseStorage.getInstance();
+
+        //
+        mProfileImageStorageRef = mStorage.getReferenceFromUrl
+                ("gs://contract-fox.appspot.com/users/");
+
+
+
 
         //setting the authlister always listening for changes
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -201,7 +218,7 @@ public class Address_Fragment extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
+                    // User is signed in after first time creation
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Address address = new Address(mStreetValue, mUnitAptValue,
                             mCityValue, mStateValue, mZipValue);
@@ -216,6 +233,34 @@ public class Address_Fragment extends Fragment {
                             mPhoneValueFromPrevious, false, address);
                     mDatabase.child("contractors").child(signedIn_userID_key).
                             setValue(new_member);
+
+
+
+                    //This section of code uploads picture to authorized user--[START]
+                    mProfileImageStorageRef = mStorage.getReferenceFromUrl
+                            ("gs://contract-fox.appspot.com/users/"+signedIn_userID_key+
+                                    "/profilePicture.jpg");
+
+
+                    //2 lines of code below essentially uploads image to firebase.
+                    UploadTask uploadTask = mProfileImageStorageRef.
+                            putBytes(mBytesArrayFromPrevious);
+
+                    //Attaching callback methods listening for failures and successes
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        }
+                    });
+
+                    //This section of code uploads pictures to authorized user--[END]
 
 
 

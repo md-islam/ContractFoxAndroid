@@ -1,6 +1,8 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -12,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.io.ByteArrayOutputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -28,8 +34,16 @@ public class RegisterHomeownerFragment extends Fragment {
     private EditText mLastNameEditText;
     private EditText mPhoneEditText;
 
+
+    //buttons
     private Button mNextButton;
 
+    //imageView
+    private CircleImageView mCircleProfileImageView;
+    private Bitmap mProfileImageBitmap;
+
+
+    //string values
     private String mEmailValueFromPrevious;
     private String mPasswordValueFromPrevious;
     private String mFirstNameValue;
@@ -60,6 +74,8 @@ public class RegisterHomeownerFragment extends Fragment {
 
 
 
+
+
         mFirstNameWrapper = (TextInputLayout) view.
                 findViewById(R.id.first_name_textInput_wrapper_homeowner_register_fragment);
         mLastNameWrapper = (TextInputLayout) view.
@@ -72,6 +88,9 @@ public class RegisterHomeownerFragment extends Fragment {
         mPhoneWrapper.setHint("Phone");
 
         mNextButton = (Button) view.findViewById(R.id.next_button_fragment_homeowner_register);
+
+        mCircleProfileImageView = (CircleImageView)view.
+                findViewById(R.id.profile_image_homeowner_fragment);
 
         mFirstNameEditText = (EditText) view.findViewById(R.
                 id.first_name_edit_text_fragment_homeowner_register);
@@ -87,8 +106,9 @@ public class RegisterHomeownerFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                //handle profile image
 
-
+                byte[] profileImageBytedata = getCircleImageViewByteData();
                 mFirstNameValue = mFirstNameEditText.getText().toString();
                 mLastNameValue = mLastNameEditText.getText().toString();
                 mPhoneValue = mPhoneEditText.getText().toString();
@@ -100,6 +120,7 @@ public class RegisterHomeownerFragment extends Fragment {
                 bundleToPass.putString("firstname",mFirstNameValue);
                 bundleToPass.putString("lastname", mLastNameValue);
                 bundleToPass.putString("phone", mPhoneValue);
+                bundleToPass.putByteArray("profileImageData",profileImageBytedata);
 
                 Fragment AddressRegisterFragment = new Address_Fragment();
                 AddressRegisterFragment.setArguments(bundleToPass);
@@ -120,5 +141,16 @@ public class RegisterHomeownerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public byte[] getCircleImageViewByteData(){
+
+        mCircleProfileImageView.setDrawingCacheEnabled(true);
+        mCircleProfileImageView.buildDrawingCache();
+        mProfileImageBitmap = mCircleProfileImageView.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        mProfileImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        return data;
     }
 }

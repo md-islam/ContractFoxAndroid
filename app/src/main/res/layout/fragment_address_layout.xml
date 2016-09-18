@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Home Address"
+                android:text="Address"
                 android:id="@+id/textview_address_homeowner_register_fragment"/>
 
             <android.support.design.widget.TextInputLayout

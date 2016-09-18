@@ -14,17 +14,23 @@ public class Contractor extends Member {
     private ArrayList<String> skillSet;
 
 
+
+    private String businessWebsite;
+
+
     public Contractor() {
     }
 
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, String briefDescription, String specialization,
-                      int availability, Address maddress, ArrayList<String> skillSet) {
+                      int availability, Address maddress, ArrayList<String> skillSet,
+                      String businessWebsite) {
         super(firstname, lastname, email, phoneNo, contractorOption, maddress);
         this.briefDescription = briefDescription;
         this.specialization = specialization;
         this.availability = availability;
         this.skillSet = skillSet;
+        this.businessWebsite = businessWebsite;
     }
 
 =======
@@ -101,7 +107,7 @@ public class Contractor extends Member {
 
     //implementing abstract methods
 
-
+    @Override
     public Boolean getContractorOption() {
         return contractorOption;
     }
@@ -111,6 +117,7 @@ public class Contractor extends Member {
         this.contractorOption = contractorOption;
     }
 
+    @Override
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -125,31 +132,37 @@ public class Contractor extends Member {
         this.phoneNo = phoneNo;
     }
 
+    @Override
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
 
+    @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
 
+    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-
+    @Override
     public void setAddress(Address address) {
         mAddress = address;
     }
 
+    @Override
     public Address getAddress() {
         return mAddress;
     }
@@ -165,6 +178,14 @@ public class Contractor extends Member {
 
     public void addSkill(String skill) {
         skillSet.add(skill);
+    }
+
+    public String getBusinessWebsite() {
+        return businessWebsite;
+    }
+
+    public void setBusinessWebsite(String businessWebsite) {
+        this.businessWebsite = businessWebsite;
     }
 
 
