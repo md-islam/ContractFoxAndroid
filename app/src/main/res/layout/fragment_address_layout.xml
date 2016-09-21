@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="@android:color/white"
               tools:context="com.example.jakubkalinowski.contractfoxandroid.RegisterHomeownerFragment"
-              android:id="@+id/homeowner_address_register_fragment">
+              android:id="@+id/address_register_fragment">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -54,5 +54,11 @@ public class Address {
     public void setUnit_Apt_no(String unit_Apt_no) {
         mUnit_Apt_no = unit_Apt_no;
     }
+
+    @Override
+    public String toString() {
+        return mStreetAddress+", "+mUnit_Apt_no+", "+
+                mCity+", "+mState+", "+mZipCode;
+    }
 }
 

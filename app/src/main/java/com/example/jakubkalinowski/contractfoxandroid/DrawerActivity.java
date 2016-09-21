@@ -29,6 +29,7 @@ import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Profi
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
@@ -175,6 +176,8 @@ public class DrawerActivity extends AppCompatActivity
             case R.id.log_out:
                 // Log out action here
                 Toast.makeText(getApplicationContext(), "Log Out " , Toast.LENGTH_LONG).show(); //testing/debugging
+                FirebaseAuth.getInstance().signOut();
+                this.finish();
                 break;
         }
 

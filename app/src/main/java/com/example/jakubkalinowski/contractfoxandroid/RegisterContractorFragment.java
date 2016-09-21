@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,11 +18,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,7 +32,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.jar.*;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,33 +40,44 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterHomeownerFragment extends Fragment {
-    //textWrappers
+public class RegisterContractorFragment extends Fragment {
+
+
+    //text wrappers
     private TextInputLayout mFirstNameWrapper;
     private TextInputLayout mLastNameWrapper;
     private TextInputLayout mPhoneWrapper;
+    private TextInputLayout mCompanyWrapper;
+    private TextInputLayout mWebsiteWrapper;
+    private TextInputLayout mDescriptionWrapper;
 
-    //inputTexts
+    //EditTexts insideWrappers
     private EditText mFirstNameEditText;
     private EditText mLastNameEditText;
     private EditText mPhoneEditText;
-
-
-    //buttons
-    private Button mNextButton;
+    private EditText mCompanyEditText;
+    private EditText mWebsiteEditText;
+    private EditText mDescriptionEditText;
 
     //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
 
-    //values
+
+    //values;
     private String mEmailValueFromPrevious;
     private String mPasswordValueFromPrevious;
     private Boolean mContractorBooleanValueFromPrevious;
     private String mFirstNameValue;
     private String mLastNameValue;
     private String mPhoneValue;
+    private String mCompanyValue;
+    private String mWebsiteValue;
+    private String mDescriptionValue;
+
+    //NEXT BUTTON to register/ address
+    private Button mNextButtonToRegisterAddress;
 
 
     //intent set up for gallery pick
@@ -81,7 +92,18 @@ public class RegisterHomeownerFragment extends Fragment {
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
-    public RegisterHomeownerFragment() {
+
+
+    //handling the checkbox skills area
+    private CheckBox mBathroomSkillCheck;
+    private CheckBox mKitchenSkillCheck;
+    private CheckBox mBedroomSkillCheck;
+    private CompoundButton.OnCheckedChangeListener mCheckListener;
+    //arraylist
+    private ArrayList<String> skillset;
+
+
+    public RegisterContractorFragment() {
         // Required empty public constructor
     }
 
@@ -89,83 +111,172 @@ public class RegisterHomeownerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Homeowner Profile");
 
+        //lets set values coming from previous fragment to this fragment
         mEmailValueFromPrevious = getArguments().getString("emailAddress");
         mPasswordValueFromPrevious = getArguments().getString("password");
         mContractorBooleanValueFromPrevious = getArguments().getBoolean("typeBoolean");
 
-        return inflater.inflate(R.layout.fragment_register_homeowner, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_register_contractor, container, false);
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        skillset = new ArrayList<String>();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //This is for the images part
+        mCircleProfileImageView = (CircleImageView)view.
+                findViewById(R.id.profile_image_contractor_register_fragment);
 
+        //6 wrappers
         mFirstNameWrapper = (TextInputLayout) view.
-                findViewById(R.id.first_name_textInput_wrapper_homeowner_register_fragment);
+                findViewById(R.id.first_name_textInput_wrapper_contractor_register_fragment);
         mLastNameWrapper = (TextInputLayout) view.
-                findViewById(R.id.last_name_textInput_wrapper_fragment_homeownerRegister);
+                findViewById(R.id.last_name_textInput_wrapper_fragment_Contractor_Register);
         mPhoneWrapper = (TextInputLayout) view.
-                findViewById(R.id.phone_Input_wrapper_fragment_homeownerRegister);
+                findViewById(R.id.phone_Input_wrapper_fragment_contractor_Register);
+        mCompanyWrapper = (TextInputLayout)view
+                .findViewById(R.id.companyName_Input_wrapper_fragment_contractor_Register);
+        mDescriptionWrapper = (TextInputLayout)view
+                .findViewById(R.id.company_description_Input_wrapper_fragment_contractor_Register);
+        mWebsiteWrapper = (TextInputLayout)view
+                .findViewById(R.id.website_url_Input_wrapper_fragment_contractor_Register);
 
-        mFirstNameWrapper.setHint("First Name");
-        mLastNameWrapper.setHint("Last Name");
+
+        //setting 6 hints
+        mFirstNameWrapper.setHint("First name");
+        mLastNameWrapper.setHint("Last name");
         mPhoneWrapper.setHint("Phone");
+        mCompanyWrapper.setHint("Company");
+        mDescriptionWrapper.setHint("Description");
+        mWebsiteWrapper.setHint("Website");
 
-        mNextButton = (Button) view.findViewById(R.id.next_button_fragment_homeowner_register);
+        //6 editTexts
+        mFirstNameEditText = (EditText)
+                view.findViewById(R.id.first_name_edit_text_fragment_contractor_register);
+        mLastNameEditText = (EditText)
+                view.findViewById(R.id.
+                        last_name_edittextfield_fragment_Contractor_Register_fragment);
+        mPhoneEditText = (EditText)
+                view.findViewById(R.id.phone_edittextfield_fragment_contractor_Register_fragment);
+        mCompanyEditText = (EditText)
+                view.findViewById(R.id.
+                        companyName_edittextfield_fragment_contractor_Register_fragment);
+        mDescriptionEditText = (EditText)
+                view.findViewById(R.id.
+                        company_description_edittextfield_fragment_contractor_Register_fragment);
+        mWebsiteEditText = (EditText)
+                view.findViewById
+                        (R.id.website_url_edittextfield_fragment_contractor_Register_fragment) ;
 
-        mCircleProfileImageView = (CircleImageView) view.
-                findViewById(R.id.profile_image_homeowner_fragment);
-
-        mFirstNameEditText = (EditText) view.findViewById(R.
-                id.first_name_edit_text_fragment_homeowner_register);
-        mLastNameEditText = (EditText) view.findViewById(R.id.
-                last_name_edittextfield_fragment_homeOwnerRegister_fragment);
-        mPhoneEditText = (EditText) view.findViewById(R.id.
-                phone_edittextfield_fragment_homeOwnerRegister_fragment);
 
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        //[setting up the skills arraylist and it's listeners]--[START]
+        mBathroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bathroom);
+        mBedroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bedroom);
+        mKitchenSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_kitchen);
+        //This Checklistener fires everytime a check button is clicked.
+        mCheckListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                // compoundButton is the checkbox
+                // boolean is whether or not checkbox is checked
+                // Check which checkbox was clicked
+                switch (compoundButton.getId()){
+                    case R.id.checkbox_bathroom:
+                        if(checked){
+                            //Add to arrayList
+                            skillset.add("bathroom");
+                        }else{
+                            //Remove From ArrayList
+                            skillset.remove("bathroom");
+                        }
+                        break;
+                    case R.id.checkbox_bedroom:
+                        if(checked){
+                            //Add to arrayList
+                            skillset.add("bedroom");
+                        }else{
+                            //Remove From ArrayList
+                            skillset.add("bedroom");
+                        }
+                        break;
+                    case R.id.checkbox_kitchen:
+                        if(checked){
+                            //Add to arrayList
+                            skillset.add("kitchen");
+                        }else{
+                            //Remove From ArrayList
+                            skillset.remove("kitchen");
+                        }
+                        break;
+                }
+            }
+        };
+
+        setUpSkillsCheckbox();
+        //[setting up the skills arraylist and it's listeners]--[START]
+
+        //setting the action of next button
+        mNextButtonToRegisterAddress = (Button) view.findViewById
+                (R.id.next_button_fragment_contractor_register);
+        mNextButtonToRegisterAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //handle profile image
-
                 byte[] profileImageBytedata = getCircleImageViewByteData();
                 mFirstNameValue = mFirstNameEditText.getText().toString();
                 mLastNameValue = mLastNameEditText.getText().toString();
                 mPhoneValue = mPhoneEditText.getText().toString();
+                mCompanyValue = mCompanyEditText.getText().toString();
+                mDescriptionValue = mDescriptionEditText.getText().toString();
+                mWebsiteValue = mWebsiteEditText.getText().toString();
 
-                //[Setting the bundle of arguements to pass to address]-START
+                //[Setting up the bundle to pass to next RegisterAddress screen]-[START]
                 Bundle bundleToPass = new Bundle();
                 bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
                 bundleToPass.putString("password", mPasswordValueFromPrevious);
-                bundleToPass.putString("firstname", mFirstNameValue);
+                bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
+                bundleToPass.putString("firstname",mFirstNameValue);
                 bundleToPass.putString("lastname", mLastNameValue);
                 bundleToPass.putString("phone", mPhoneValue);
-                bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
+                bundleToPass.putString("companyName", mCompanyValue);
+                bundleToPass.putString("websiteURL", mWebsiteValue);
+                bundleToPass.putString("companyDescription", mDescriptionValue);
+                bundleToPass.putStringArrayList("contractor_skillset",skillset);
+                //still need to handle the images part here
                 bundleToPass.putByteArray("profileImageData", profileImageBytedata);
+
+
 
                 Fragment AddressRegisterFragment = new Address_Fragment();
                 AddressRegisterFragment.setArguments(bundleToPass);
-                //[Setting the bundle of arguements to pass to address]-END
+                //[Setting up the bundle to pass to next RegisterAddress screen]-[END]
 
 
                 //[Setting up the Address Fragment] - START
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
-                ft.replace(R.id.homeowner_fragment_register_framelayout,
-                        AddressRegisterFragment, "AddressFragment");
+
+                ft.replace(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
+                        ,"AddressFragment");
 
                 ft.commit();
                 //[Setting up the Address Fragment] - END
+
+
             }
         });
-
 
         //setting action to profile picture
         mCircleProfileImageView.setOnClickListener(new View.OnClickListener() {
@@ -175,13 +286,30 @@ public class RegisterHomeownerFragment extends Fragment {
                 showEditProfilePictureDialog();
             }
         });
+
+
+
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+    //[THIS PIECE OF CODE BELOW ONLY ATTACHES THE LISTERNER TO EACH INDIVIDUAL CHECKBOX]
+    public void setUpSkillsCheckbox(){
+        mBathroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
+        mBedroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
+        mKitchenSkillCheck.setOnCheckedChangeListener(mCheckListener);
     }
 
+
+
+
+
+
+
+
+
+
+    //This piece of code gets ByteArrayData from whatever the image circle IS//still needs
+    // refinement
     public byte[] getCircleImageViewByteData() {
 
         mCircleProfileImageView.setDrawingCacheEnabled(true);
@@ -194,6 +322,11 @@ public class RegisterHomeownerFragment extends Fragment {
     }
 
 
+
+
+
+    //This piece of code pops up the dialog window
+    //Found from https://github.com/afollestad/material-dialogs
     public void showEditProfilePictureDialog() {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(getContext())
                 .title("Set Profile Picture").positiveText("CAMERA").neutralText("DEVICE STORAGE")
@@ -208,6 +341,8 @@ public class RegisterHomeownerFragment extends Fragment {
         MaterialDialog md = builder.build();
         md.show();
     }
+
+
 
 
     //This piece of code gets access to gallery
@@ -260,4 +395,5 @@ public class RegisterHomeownerFragment extends Fragment {
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
+
 }

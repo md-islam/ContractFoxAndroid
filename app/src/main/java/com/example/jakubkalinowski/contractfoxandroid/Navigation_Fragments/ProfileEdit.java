@@ -4,16 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.jakubkalinowski.contractfoxandroid.Address;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,17 +44,28 @@ public class ProfileEdit extends Fragment {
     private String mParam2;
 
     String param = "kj";
-    private static final String TAG = "authListener_TAG!!" ;
+    private static final String TAG = "Firebase_TAG!!" ;
     //[Firebase_variable]**
-    private FirebaseAuth mAuth; //auth object //add authlistener objects here
+    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
     private OnFragmentInteractionListener mListener;
+    private Member m;
 
-    private EditText firstName;
+    //UI component variables [start]
+    private EditText mFirstNameEditText;
+    private EditText mLastNameEditText;
+    private EditText mAddressEditText;
+    private EditText mCityEditText;
+    private EditText mPostalCodeEditText;
+    private EditText mPhoneNumberEditText;
+    private EditText mCompanyNameEditText;
+    private EditText mWebsiteURLEditText;
+
+    //UI components [END]
     public ProfileEdit() {
         // Required empty public constructor
     }
@@ -80,11 +91,61 @@ public class ProfileEdit extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    mFirebaseDatabaseReference
+                            .child("users").child(user.getUid().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+
+                                //need null handlers here
+                                Contractor m = dataSnapshot.getValue(Contractor.class);
+                                mFirstNameEditText.setText(m.getFirstName());
+                                mLastNameEditText.setText(m.getLastName());
+                                mAddressEditText.setText(m.getAddress().toString());
+                                mCityEditText.setText(m.getAddress().getCity());
+                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                mPhoneNumberEditText.setText(m.getPhoneNo());
+                                mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
+                                mWebsiteURLEditText.setText(m.getEmailAddress());
+
+
+                            }
+                            else{
+                                Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
+
+                                mFirstNameEditText.setText(m.getFirstName());
+                                mLastNameEditText.setText(m.getLastName());
+                                mAddressEditText.setText(m.getAddress().toString());
+                                mCityEditText.setText(m.getAddress().getCity());
+                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                mPhoneNumberEditText.setText(m.getPhoneNo());
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
     }
 
@@ -95,14 +156,7 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-        firstName = (EditText)root.findViewById(R.id.firstName_editProfile_Fragment);
-
-
-        //this is where the magic happens. (data retrieval)
-        //the parameter inside gets the current authenticated user's hash STRING value.
-        setFirstName(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        //firstName.setText(mFirstName_Textbox_Value);
+        //mFirstNameEditText.setText(mFirstName_Textbox_Value);
         return root;
     }
 
@@ -148,35 +202,34 @@ public class ProfileEdit extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
-
 
     @Override
     public void onStop() {
         super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
-    public void setFirstName(String uid){
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mFirstNameEditText = (EditText) view.
+                findViewById(R.id.firstName_editProfile_Fragment);
+        mLastNameEditText = (EditText) view.findViewById(R.id.lasttName_editProfile_Fragment);
+        mAddressEditText = (EditText) view.findViewById(R.id.address_editProfile_Fragment);
+        mCityEditText = (EditText) view.findViewById(R.id.city_editProfile_Fragment);
+        mPostalCodeEditText = (EditText)
+                view.findViewById(R.id.postal_code_editProfile_fragment);
+        mPhoneNumberEditText = (EditText)
+                view.findViewById(R.id.phone_edit_profile_fragment);
 
+        mCompanyNameEditText = (EditText)
+                view.findViewById(R.id.company_name_editText_editProfile_fragment);
+        mWebsiteURLEditText = (EditText)
+                view.findViewById(R.id.website_url_editText_editProfile_fragment);
 
-        //there is a callback function inside here. To use outside variables inside the callback
-        //functions, the variable inside should be either final or global variable.
-        //Still trying to figure out the best way to handle callback functions.
-        mFirebaseDatabaseReference
-                .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Member m = dataSnapshot.getValue(Contractor.class);
-                firstName.setText(m.getEmailAddress());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-
+ }
 }
