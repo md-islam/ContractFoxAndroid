@@ -1,5 +1,6 @@
-package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
+package com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,12 @@ import com.example.jakubkalinowski.contractfoxandroid.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MyProfile.OnFragmentInteractionListener} interface
+ * {@link Directions.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MyProfile#newInstance} factory method to
+ * Use the {@link Directions#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyProfile extends Fragment {
+public class Directions extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,7 @@ public class MyProfile extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MyProfile() {
+    public Directions() {
         // Required empty public constructor
     }
 
@@ -39,11 +40,11 @@ public class MyProfile extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyProfile.
+     * @return A new instance of fragment Directions.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyProfile newInstance(String param1, String param2) {
-        MyProfile fragment = new MyProfile();
+    public static Directions newInstance(String param1, String param2) {
+        Directions fragment = new Directions();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,16 +65,7 @@ public class MyProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        //TODO: SURROUND BY IF ELSE AND DISPLAY DIFFERENT PROFILE IF MEMBER IS A HOMEOWNER
-        View rootView ;
-//        if (member.getContractorOption().equals(true)) {
-//            rootView = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
-//        }
-//        else {
-//            rootView = inflater.inflate(R.layout.fragment_home_owner_profile, container, false);
-//        }
-        return inflater.inflate(R.layout.contractor_profile_activity, container, false);
+        return inflater.inflate(R.layout.fragment_directions, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -83,17 +75,16 @@ public class MyProfile extends Fragment {
         }
     }
 
-    //THIS CRASHES THE APP AT RUNTIME
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
@@ -106,7 +97,7 @@ public class MyProfile extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

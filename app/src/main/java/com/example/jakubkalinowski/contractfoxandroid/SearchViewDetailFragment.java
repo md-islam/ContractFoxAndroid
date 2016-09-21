@@ -33,6 +33,8 @@ public class SearchViewDetailFragment extends Fragment {
 
     Button phone, message, website, availability, directions, estimate;
 
+    Member member;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -61,13 +63,7 @@ public class SearchViewDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.searchview_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
-//        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.searchview_detail)).setText("More details " +
-//                    "about the company, -- Ladi Dadi --");
-//        }
+        View rootView = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
 
         phone = (Button) rootView.findViewById(R.id.phone_button);
         message = (Button) rootView.findViewById(R.id.message_button);
@@ -126,6 +122,7 @@ public class SearchViewDetailFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity().getApplicationContext(), GoogleDirectionsActivity.class);
+           // intent.putExtra(lat, long);
             startActivity(intent);
         }
     };

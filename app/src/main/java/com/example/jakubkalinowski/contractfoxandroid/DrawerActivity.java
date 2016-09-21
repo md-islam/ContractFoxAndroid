@@ -26,7 +26,7 @@ import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interio
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
-        MyProfile. OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener ,
+        MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
         BackYard.OnFragmentInteractionListener{
 

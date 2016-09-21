@@ -95,10 +95,4 @@
         <!--app:layout_anchor="@+id/searchview_detail_container"-->
         <!--app:layout_anchorGravity="top|end" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testing 5"/>
-
-
 </android.support.design.widget.CoordinatorLayout>

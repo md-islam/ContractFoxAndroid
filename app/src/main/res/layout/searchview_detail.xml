@@ -68,78 +68,85 @@
                 android:textStyle="bold"
                 android:textSize="14dp" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:textAlignment="center">
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/address"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contractor&apos;s Street Address"
-                    android:id="@+id/address_street"
-                    android:layout_gravity="center_vertical|left"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textAlignment="center"
-                    android:inputType="text"
-                    android:layout_weight=".75" />
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:textAlignment="center">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apt/Unit"
-                    android:id="@+id/address_apt_unit"
-                    android:gravity="center_horizontal|right"
-                    android:textAlignment="center"
-                    android:paddingLeft="10dp"
-                    android:layout_gravity="center_vertical|right"
-                    android:inputType="text"
-                    android:layout_weight=".25" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Contractor&apos;s Street Address"-->
+                    <!--android:id="@+id/address_street"-->
+                    <!--android:layout_gravity="center_vertical|left"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:inputType="text"-->
+                    <!--android:layout_weight=".75" />-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Apt/Unit"-->
+                    <!--android:id="@+id/address_apt_unit"-->
+                    <!--android:gravity="center_horizontal|right"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:layout_gravity="center_vertical|right"-->
+                    <!--android:inputType="text"-->
+                    <!--android:layout_weight=".25" />-->
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:textAlignment="center">
+            <!--</LinearLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="City"
-                    android:id="@+id/address_city"
-                    android:inputType="text"
-                    android:layout_gravity="left"
-                    android:gravity="center_horizontal"
-                    android:layout_weight=".5" />
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:textAlignment="center">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="State"
-                    android:id="@+id/address_state"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:inputType="textCapCharacters"
-                    android:paddingLeft="10dp"
-                    android:textAlignment="center"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight=".1" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="City"-->
+                    <!--android:id="@+id/address_city"-->
+                    <!--android:inputType="text"-->
+                    <!--android:layout_gravity="left"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_weight=".5" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Zipcode"
-                    android:id="@+id/address_zipcode"
-                    android:gravity="center|center_horizontal"
-                    android:inputType="number"
-                    android:paddingLeft="10dp"
-                    android:textAlignment="center"
-                    android:layout_weight=".2" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="State"-->
+                    <!--android:id="@+id/address_state"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:inputType="textCapCharacters"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_weight=".1" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Zipcode"-->
+                    <!--android:id="@+id/address_zipcode"-->
+                    <!--android:gravity="center|center_horizontal"-->
+                    <!--android:inputType="number"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:layout_weight=".2" />-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -169,13 +176,10 @@
                 android:textStyle="bold"
                 android:textSize="14dp" />
 
-            <ListView
-                android:layout_width="fill_parent"
+            <ExpandableListView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/skills_listview"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center" />
+                android:id="@+id/expandableListView" />
 
             <TextView
                 android:layout_width="fill_parent"

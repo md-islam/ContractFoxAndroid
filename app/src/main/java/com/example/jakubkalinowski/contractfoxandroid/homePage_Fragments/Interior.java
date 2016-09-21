@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.jakubkalinowski.contractfoxandroid.DrawerActivity;
-import com.example.jakubkalinowski.contractfoxandroid.ExteriorOfHouse;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
 /**

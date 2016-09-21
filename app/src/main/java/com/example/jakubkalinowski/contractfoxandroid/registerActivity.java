@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 //import com.firebase.client.FirebaseError;
 //firebase deprecated library
 
-public class registerActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "authListener_TAG!!" ;
     //Firebase Reference
@@ -94,7 +94,7 @@ public class registerActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is currently signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in===>:" + user.getUid());
-                    Toast.makeText(registerActivity.this, user.getUid().toString(),
+                    Toast.makeText(RegisterActivity.this, user.getUid().toString(),
                             Toast.LENGTH_SHORT).show();
 
                     String signedIn_userID = user.getUid().toString();
@@ -131,18 +131,7 @@ public class registerActivity extends AppCompatActivity {
                     mFirebaseDatabaseReference.child("contractors").child(signedIn_userID).
                             setValue(new_member);
 
-                    Intent i = new Intent(registerActivity.this, DrawerActivity.class);
-                    startActivity(i);
-
-                } else {
-                    // User is currently signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
-
-                    Intent i = new Intent(registerActivity.this, DrawerActivity.class);
+                    Intent i = new Intent(RegisterActivity.this, DrawerActivity.class);
                     startActivity(i);
 
                 } else {

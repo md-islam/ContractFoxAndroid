@@ -40,4 +40,23 @@
     <string name="title_searchview_list">Items</string>
     <string name="title_searchview_detail">SearchView Detail</string>
     <string name="title_activity_google_directions">Map</string>
+    <string name="business_name">Business Name goes here!</string>
+    <string name="addresss" />
+
+    <!-- CONTRACTOR'S PROFILE -->
+    <string name="company_name">Jacks Construction Co.</string>
+    <string name="review_amount">45 reviews</string>
+    <string name="estimate_button">$ Request an Estimate $</string>
+    <string name="title_activity_map_fragment">Map</string>
+    <string name="address">151 Andrea Ln. Felton CA 95018</string>
+    <string name="distance_miles">1.4 mi</string>
+    <string name="call_button">Call</string>
+    <string name="phone_number">(845)332-7029</string>
+    <string name="directions_text">Directions</string>
+    <string name="skills_text">Skills</string>
+    <string name="url_name">www.jacksconstructionco.com</string>
+    <string name="review_text">Reviews</string>
+    <string name="next_symbol"> > </string>
+    <!-- END OF CONTRACTOR'S PROFILE -->
+
 </resources>

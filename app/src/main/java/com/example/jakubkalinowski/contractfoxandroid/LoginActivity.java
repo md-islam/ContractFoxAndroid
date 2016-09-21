@@ -4,7 +4,6 @@ package com.example.jakubkalinowski.contractfoxandroid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -163,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startSignUp = new Intent(LoginActivity.this, registerActivity.class);
+                Intent startSignUp = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(startSignUp);
             }
         });
