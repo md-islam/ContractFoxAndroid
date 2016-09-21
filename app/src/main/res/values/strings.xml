@@ -41,4 +41,9 @@
     <string name="title_searchview_detail">SearchView Detail</string>
     <string name="auth_failed"> Authentication Failed :-( </string>
 
+    <!--For skillsets-->
+    <string name="kitchen_skill">Kitchen</string>
+    <string name="bathroom_skill">Bathroom</string>
+    <string name="bedroom_skill">Bedroom</string>
+
 </resources>

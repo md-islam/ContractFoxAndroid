@@ -33,11 +33,12 @@ dependencies {
 
 
 
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.google.firebase:firebase-core:9.4.0'
     compile 'com.google.firebase:firebase-database:9.4.0'
     compile 'com.google.firebase:firebase-auth:9.4.0'
     compile 'com.google.firebase:firebase-storage:9.4.0'
+<<<<<<< 4e7676a248719d22c2cf728f9798e29b8fdd0dec
 <<<<<<< ea5f8888bf1cd18bc801a1af31d468bbcb214ae4
     compile 'com.firebase:firebase-client-android:2.3.1'
 <<<<<<< 11e7ced451df4896b3f2eb8a7e811e590ac718a0
@@ -57,7 +58,14 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
+=======
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+>>>>>>> Welcom Firebase 2.0
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
 }
 
 
@@ -65,5 +73,6 @@ dependencies {
 
 
 >>>>>>> New Registration experience
+
 
 apply plugin: 'com.google.gms.google-services'
