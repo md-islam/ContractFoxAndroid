@@ -2,6 +2,9 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 public class Homeowner extends Member {
 
+
+
+
     public Homeowner(){}
 
 

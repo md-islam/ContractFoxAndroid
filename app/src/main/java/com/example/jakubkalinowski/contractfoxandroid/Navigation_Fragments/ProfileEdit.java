@@ -178,5 +178,5 @@ public class ProfileEdit extends Fragment {
 
     }
 
-
 }
+

@@ -153,4 +153,8 @@ public class RegisterHomeownerFragment extends Fragment {
         byte[] data = baos.toByteArray();
         return data;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/MD_branch_Sept_12

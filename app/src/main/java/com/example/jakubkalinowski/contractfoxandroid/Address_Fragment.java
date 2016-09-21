@@ -175,6 +175,7 @@ public class Address_Fragment extends Fragment {
                                 // ...
                             }
                         });
+
             }
         });
     }
@@ -183,7 +184,9 @@ public class Address_Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //gets firebase current authorization instance, can use this to get current user
+
         mAuth = FirebaseAuth.getInstance();
 
         //Firebase realtime Database Reference
@@ -280,4 +283,6 @@ public class Address_Fragment extends Fragment {
         super.onResume();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
 }
+

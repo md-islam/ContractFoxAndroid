@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
+
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,17 @@ import java.util.regex.Pattern;
 //import com.firebase.client.Firebase;
 //import com.firebase.client.FirebaseError;
 //firebase deprecated library
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -109,11 +123,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                // Replace the contents of the container with the new fragment
+
+                    // Replace the contents of the container with the new fragment
                 ft.add(R.id.register_activity_framelayout, homeownerRegisterFragment,
                         "UserProfileFragment");
-                // or ft.replace(R.id.your_placeholder, new FooFragment());
-                // Complete the changes added above
+                    // or ft.replace(R.id.your_placeholder, new FooFragment());
+                    // Complete the changes added above
+
                 ft.addToBackStack(null);
                 ft.commit();
 
@@ -125,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-    }
+}
 
     @Override
     protected void onStart() {
