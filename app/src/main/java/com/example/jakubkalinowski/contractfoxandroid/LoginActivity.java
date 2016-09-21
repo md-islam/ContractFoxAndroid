@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -15,10 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
+//import com.firebase.client.AuthData;
+//import com.firebase.client.Firebase;
+//import com.firebase.client.FirebaseError;
 
 /**
  * A login screen that offers login via email/password.
@@ -26,7 +24,7 @@ import com.firebase.client.FirebaseError;
 public class LoginActivity extends AppCompatActivity {
 
     //Firebase Reference
-    Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
+    //Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
 
     //variables for all the components of the activity
     private EditText mEmailAddress;
@@ -52,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.password_wrapper_login_activity);
         emailAddressWrapper.setHint("Email");
         passwordWrapper.setHint("Password");
-        Firebase.setAndroidContext(this);
+        //Firebase.setAndroidContext(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         etm.setMargins(50,50,50,50);
@@ -62,15 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 sendResetPassword();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     private void sendResetPassword(){
@@ -106,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         linear.setOrientation(LinearLayout.VERTICAL);
         linear.addView(editEmail);
         linear.addView(editPhone);
-       // linear.addView(send);
+        // linear.addView(send);
         alertDialog.setView(linear);
         alertDialog.show();
     }
@@ -114,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Firebase.setAndroidContext(this);
+        //Firebase.setAndroidContext(this);
         mEmailAddress = (EditText)findViewById(R.id.email_text_input_login_activity);
         mPassword = (EditText)findViewById(R.id.password_textInput_login_activity);
         mSignInButton = (Button) findViewById(R.id.sign_in_button_login_activity);
@@ -126,35 +115,35 @@ public class LoginActivity extends AppCompatActivity {
                 final String email = mEmailAddress.getText().toString();
                 String password = mPassword.getText().toString();
 
-                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-
-                    @Override
-                    public void onAuthenticated(AuthData authData) {
-                        Log.d("LOGIN TAG!!!!!!!", "User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-                        Toast.makeText(getApplicationContext(), "LOG IN SUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
-
-                        //storing user data
-//                        Map<String, String> map = new HashMap<String, String>();
-//                        map.put("provider", authData.getProvider());
-//                        if (authData.getProviderData().containsKey("displayName")) {
-//                            map.put("displayName", authData.getProviderData().get("displayName").toString());
-//                        }
-//                        FBref.child("users").child(authData.getUid()).setValue(map);
-                        //
-
-                        Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
-                        //i.putExtra("firebaseURL", "https://allmythings2016.firebaseio.com/");
-                        i.putExtra("userEmail", email);
-                        startActivity(i);
-                    }
-
-                    @Override
-                    public void onAuthenticationError(FirebaseError firebaseError) {
-                        // there was an error
-                        Toast.makeText(getApplicationContext(), "LOG IN UNSUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
-                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: ");
-                    }
-                });
+//                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+//
+//                    @Override
+//                    public void onAuthenticated(AuthData authData) {
+//                        Log.d("LOGIN TAG!!!!!!!", "User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
+//                        Toast.makeText(getApplicationContext(), "LOG IN SUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
+//
+//                        //storing user data
+////                        Map<String, String> map = new HashMap<String, String>();
+////                        map.put("provider", authData.getProvider());
+////                        if (authData.getProviderData().containsKey("displayName")) {
+////                            map.put("displayName", authData.getProviderData().get("displayName").toString());
+////                        }
+////                        FBref.child("users").child(authData.getUid()).setValue(map);
+//                        //
+//
+//                        Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
+//                        //i.putExtra("firebaseURL", "https://allmythings2016.firebaseio.com/");
+//                        i.putExtra("userEmail", email);
+//                        startActivity(i);
+//                    }
+//
+//                    @Override
+//                    public void onAuthenticationError(FirebaseError firebaseError) {
+//                        // there was an error
+//                        Toast.makeText(getApplicationContext(), "LOG IN UNSUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
+//                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: ");
+//                    }
+//                });
             }
 
         });
@@ -171,4 +160,3 @@ public class LoginActivity extends AppCompatActivity {
 
 
 }
-

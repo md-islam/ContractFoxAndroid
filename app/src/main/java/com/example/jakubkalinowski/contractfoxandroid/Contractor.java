@@ -1,32 +1,33 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Contractor extends Member {
-
     private String briefDescription;
-    private int availability; // check with android studio given feature
-    private ArrayList<String> Skills = new ArrayList<String>();
-    private ArrayList<String> PictureGallery = new ArrayList<String>();
+    private String specialization;
+    private int availability;
+    private ArrayList<String> skillSet;
 
-    public Contractor(){}
 
-    public Contractor(String firstName, String lastName, String telNumber, String email,
-                      Boolean contractorOption, String profilePicture, String password, Address address,
-                      String briefDescription, int availability,
-                      ArrayList<String> Skills, ArrayList<String> PictureGallery) {
-        super(firstName, lastName, telNumber, email,
-                contractorOption, profilePicture, password, address);
-        this.briefDescription = briefDescription;
-        this.availability = availability;
-        this.Skills = Skills;
-        this.PictureGallery = PictureGallery;
+
+    private String businessWebsite;
+
+
+    public Contractor() {
     }
 
-    /*
-     * getters and setters for the remaining parameters
-
-     */
+    public Contractor(String firstname, String lastname, String email, String phoneNo,
+                      Boolean contractorOption, String briefDescription, String specialization,
+                      int availability, Address maddress, ArrayList<String> skillSet,
+                      String businessWebsite) {
+        super(firstname, lastname, email, phoneNo, contractorOption, maddress);
+        this.briefDescription = briefDescription;
+        this.specialization = specialization;
+        this.availability = availability;
+        this.skillSet = skillSet;
+        this.businessWebsite = businessWebsite;
+    }
 
     public String getBriefDescription() {
         return briefDescription;
@@ -34,6 +35,14 @@ public class Contractor extends Member {
 
     public void setBriefDescription(String briefDescription) {
         this.briefDescription = briefDescription;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
     public int getAvailability() {
@@ -44,19 +53,89 @@ public class Contractor extends Member {
         this.availability = availability;
     }
 
-    public ArrayList<String> getSkills() {
-        return Skills;
+
+    //implementing abstract methods
+
+    @Override
+    public Boolean getContractorOption() {
+        return contractorOption;
     }
 
-    public void setSkills(ArrayList<String> skills) {
-        Skills = skills;
+    @Override
+    public void setContractorOption(Boolean contractorOption) {
+        this.contractorOption = contractorOption;
     }
 
-    public ArrayList<String> getPictureGallery() {
-        return PictureGallery;
+    @Override
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setPictureGallery(ArrayList<String> pictureGallery) {
-        PictureGallery = pictureGallery;
+    @Override
+    public String getPhoneNo() {
+        return phoneNo;
     }
+
+    @Override
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    @Override
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public void setAddress(Address address) {
+        mAddress = address;
+    }
+
+    @Override
+    public Address getAddress() {
+        return mAddress;
+    }
+
+
+    public ArrayList<String> getSkillSet() {
+        return skillSet;
+    }
+
+    public void setSkillSet(ArrayList<String> skillSet) {
+        this.skillSet = skillSet;
+    }
+
+    public void addSkill(String skill) {
+        skillSet.add(skill);
+    }
+
+    public String getBusinessWebsite() {
+        return businessWebsite;
+    }
+
+    public void setBusinessWebsite(String businessWebsite) {
+        this.businessWebsite = businessWebsite;
+    }
+
+
 }

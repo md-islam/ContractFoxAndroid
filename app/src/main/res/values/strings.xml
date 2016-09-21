@@ -41,7 +41,9 @@
     <string name="title_searchview_detail">SearchView Detail</string>
     <string name="title_activity_google_directions">Map</string>
     <string name="business_name">Business Name goes here!</string>
-    <string name="addresss" />
+    <string name="addresss">address</string>
+    <string name="auth_failed"> Authentication Failed :-( </string>
+
 
     <!-- CONTRACTOR'S PROFILE -->
     <string name="company_name">Jacks Construction Co.</string>

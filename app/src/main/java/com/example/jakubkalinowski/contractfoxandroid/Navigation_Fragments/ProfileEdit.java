@@ -3,21 +3,27 @@ package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.jakubkalinowski.contractfoxandroid.Address;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +84,8 @@ public class ProfileEdit extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -87,7 +95,8 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-        firstName = (EditText)root.findViewById(R.id.firstName_ID);
+        firstName = (EditText)root.findViewById(R.id.firstName_editProfile_Fragment);
+
 
         //this is where the magic happens. (data retrieval)
         //the parameter inside gets the current authenticated user's hash STRING value.
@@ -141,12 +150,14 @@ public class ProfileEdit extends Fragment {
         super.onStart();
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
     }
 
     public void setFirstName(String uid){
+
 
         //there is a callback function inside here. To use outside variables inside the callback
         //functions, the variable inside should be either final or global variable.
@@ -155,8 +166,8 @@ public class ProfileEdit extends Fragment {
                 .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Member m =  dataSnapshot.getValue(Contractor.class);
-                firstName.setText(m.getEmail());
+                Member m = dataSnapshot.getValue(Contractor.class);
+                firstName.setText(m.getEmailAddress());
             }
 
             @Override
@@ -166,4 +177,6 @@ public class ProfileEdit extends Fragment {
         });
 
     }
+
+
 }
