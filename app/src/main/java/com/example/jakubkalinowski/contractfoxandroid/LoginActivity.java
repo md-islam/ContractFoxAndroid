@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startSignUp = new Intent(LoginActivity.this, registerActivity.class);
+                Intent startSignUp = new Intent(LoginActivity.this, DrawerActivity.class);
                 startActivity(startSignUp);
             }
         });

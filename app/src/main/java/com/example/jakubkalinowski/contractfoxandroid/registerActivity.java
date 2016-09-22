@@ -112,17 +112,7 @@ public class registerActivity extends AppCompatActivity {
                     skillset.add("remodelling");
                     skillset.add("bathroom_work");
 
-//                    public Contractor(String firstName, String lastName, String telNumber, String email,
-//                            Boolean contractorOption, String profilePicture, String password, Address address,
-//                            String briefDescription, int availability,
-//                    ArrayList<String> Skills, ArrayList<String> PictureGallery) {
-//                        super(firstName, lastName, telNumber, email,
-//                                contractorOption, profilePicture, password, address);
-//                        this.briefDescription = briefDescription;
-//                        this.availability = availability;
-//                        this.Skills = Skills;
-//                        this.PictureGallery = PictureGallery;
-//                    }
+
 
                     Member new_member = new Contractor(firstNameInput, lastNameInput, "4086801073",
                             emailInput, false, "profile picture", passwordInput, new Address(" ", "", " ", " ", ""), "Example Description", 22,
@@ -138,21 +128,21 @@ public class registerActivity extends AppCompatActivity {
                     // User is currently signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
+
             }
         };
 
                     Intent i = new Intent(registerActivity.this, DrawerActivity.class);
                     startActivity(i);
 
-                } else {
-                    // User is currently signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
+//                } else {
+//                    // User is currently signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
                 // ...
             }
-        };
-    }
+
+
 
     @Override
     protected void onStart() {

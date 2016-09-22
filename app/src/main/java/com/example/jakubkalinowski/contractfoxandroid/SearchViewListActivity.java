@@ -13,6 +13,9 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -35,11 +38,25 @@ public class SearchViewListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+    EditText searchBar ;
+    Button searchButton;
+    String searchedContent ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchview_list);
+        //hides the keyboard upon opening the activity.
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        searchBar = (EditText) findViewById(R.id.searchBarInList_ID);
+        searchButton = (Button) findViewById(R.id.searchButtonInList);
+
+        savedInstanceState = getIntent().getExtras();
+        if(savedInstanceState != null){
+            searchedContent = savedInstanceState.getString("content");
+            searchBar.setText(searchedContent);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

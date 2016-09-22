@@ -43,8 +43,8 @@ public class ProfileEdit extends Fragment {
     private FirebaseAuth mAuth; //auth object //add authlistener objects here
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
-    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
-            .getReference();
+//    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+//            .getReference();
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,7 +91,7 @@ public class ProfileEdit extends Fragment {
 
         //this is where the magic happens. (data retrieval)
         //the parameter inside gets the current authenticated user's hash STRING value.
-        setFirstName(FirebaseAuth.getInstance().getCurrentUser().getUid());
+       // setFirstName(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //firstName.setText(mFirstName_Textbox_Value);
         return root;
@@ -146,24 +146,24 @@ public class ProfileEdit extends Fragment {
         super.onStop();
     }
 
-    public void setFirstName(String uid){
-
-        //there is a callback function inside here. To use outside variables inside the callback
-        //functions, the variable inside should be either final or global variable.
-        //Still trying to figure out the best way to handle callback functions.
-        mFirebaseDatabaseReference
-                .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Member m =  dataSnapshot.getValue(Contractor.class);
-                firstName.setText(m.getEmail());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
+//    public void setFirstName(String uid){
+//
+//        //there is a callback function inside here. To use outside variables inside the callback
+//        //functions, the variable inside should be either final or global variable.
+//        //Still trying to figure out the best way to handle callback functions.
+//        mFirebaseDatabaseReference
+//                .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Member m =  dataSnapshot.getValue(Contractor.class);
+//                firstName.setText(m.getEmail());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 }

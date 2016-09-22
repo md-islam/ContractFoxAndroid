@@ -80,8 +80,8 @@ public class SearchViewDetailFragment extends Fragment {
         website.setOnClickListener(websiteListener);
         phone.setOnClickListener(phoneListener);
         availability.setOnClickListener(availabilityListener);
-        directions.setOnClickListener(directionsListener);
-        estimate.setOnClickListener(estimateListener);
+//        directions.setOnClickListener(directionsListener);
+//        estimate.setOnClickListener(estimateListener);
 
         return rootView;
     }
@@ -122,19 +122,19 @@ public class SearchViewDetailFragment extends Fragment {
         }
     };
 
-    View.OnClickListener directionsListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), GoogleDirectionsActivity.class);
-            startActivity(intent);
-        }
-    };
-
-    View.OnClickListener estimateListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-        }
-    };
+//    View.OnClickListener directionsListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            Intent intent = new Intent(getActivity().getApplicationContext(), GoogleDirectionsActivity.class);
+//            startActivity(intent);
+//        }
+//    };
+//
+//    View.OnClickListener estimateListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//
+//        }
+//    };
 
 }
