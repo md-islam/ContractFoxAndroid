@@ -1,5 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -27,14 +30,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
+
         MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
+
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
-        BackYard.OnFragmentInteractionListener{
+        BackYard.OnFragmentInteractionListener {
 
     public static FragmentTransaction ft;
 
     LinearLayout tab1, tab2, tab3, tab4 ;
-    Button exteriorButton , interiorButton, backyardButton;
+    Button exteriorButton , interiorButton, backyardButton , searchButton;
+    EditText searchBar;
    //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,52 +48,12 @@ public class DrawerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
 
-//        tab1 = (LinearLayout) findViewById(R.id.tab1);
-//        tab2 = (LinearLayout) findViewById(R.id.tab2);
-//        tab3 = (LinearLayout) findViewById(R.id.tab3);
-//        tab4 = (LinearLayout) findViewById(R.id.tab4);
-//        exteriorButton = (Button)findViewById(R.id.exteriorButton);
-
-        //exterior code
-
-
-
-
-
-
-
-        // List of Notifications
-//        String[] notification = {"Upcoming appointment reminder", "New review posted", "Price estimate request", "Price estimate request"}; //for demo purposes
-//        ListAdapter notificationAdapter = new CustomAdapter(this, notification);
-//        ListView notificationListView = (ListView) findViewById(R.id.notificationListView);
-//        notificationListView.setAdapter(notificationAdapter);
-//
-//        // Post-Click actions
-//        notificationListView.setOnItemClickListener(
-//            new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    String notification = String.valueOf(parent.getItemAtPosition(position));
-//                    // Silly display of notification for demo purposes
-//                    Toast.makeText(DrawerActivity.this, notification, Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        );
-
+        searchButton = (Button) findViewById(R.id.mainSearchButton);
+        searchButton.setOnClickListener(searchListerner);
+        searchBar = (EditText) findViewById(R.id.searchBar_ID);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-
 
         //NEW CHANGES ADDED BY MD'S FILE
 
@@ -99,7 +65,6 @@ public class DrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         displayFragment(R.id.homee);
     }
@@ -114,34 +79,7 @@ public class DrawerActivity extends AppCompatActivity
         }
     }
 
-    // OLD STUFF REPLACED BY MD'S FILE
 
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//
-//        displayFragment(R.id.homee);
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//            Intent intent = new Intent(Intent.ACTION_MAIN);
-//            intent.addCategory(Intent.CATEGORY_HOME);
-////            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -219,8 +157,26 @@ public class DrawerActivity extends AppCompatActivity
 
     }
 
+    //Onclick listener for search
+    View.OnClickListener searchListerner = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // search logic takes place/deligated here.
+
+            Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
+            //think of a clever way to reuse code here.
+           // i.putExtra(searchBar.getText().toString() ,true);
+            i.putExtra("content" ,searchBar.getText().toString() );
+            startActivity(i);
+        }
+    };
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public String passedData(String s1, String s2){
+        return null;
     }
 }

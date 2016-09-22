@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile">
+    android:background="@drawable/backyard"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

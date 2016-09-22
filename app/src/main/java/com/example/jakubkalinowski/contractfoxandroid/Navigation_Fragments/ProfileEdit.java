@@ -49,8 +49,8 @@ public class ProfileEdit extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
-    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
-            .getReference();
+//    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+//            .getReference();
 
     private OnFragmentInteractionListener mListener;
     private Member m;
@@ -156,7 +156,9 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
+
         //mFirstNameEditText.setText(mFirstName_Textbox_Value);
+
         return root;
     }
 
@@ -215,7 +217,7 @@ public class ProfileEdit extends Fragment {
 
 //    public void setFirstName(String uid){
 //
-//
+
 //        //there is a callback function inside here. To use outside variables inside the callback
 //        //functions, the variable inside should be either final or global variable.
 //        //Still trying to figure out the best way to handle callback functions.
@@ -235,7 +237,6 @@ public class ProfileEdit extends Fragment {
 //
 //    }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -254,7 +255,6 @@ public class ProfileEdit extends Fragment {
         mWebsiteURLEditText = (EditText)
                 view.findViewById(R.id.website_url_editText_editProfile_fragment);
 
- }
-
+    }
 }
 

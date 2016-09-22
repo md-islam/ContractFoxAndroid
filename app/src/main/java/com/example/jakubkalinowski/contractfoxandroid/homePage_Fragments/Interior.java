@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
 /**
@@ -24,7 +24,7 @@ public class Interior extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button kitchenDummy;
+    Button kitchen, livingRoom, bedRoom, garage, bathRoom;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,20 +67,22 @@ public class Interior extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View root = inflater.inflate(R.layout.fragment_interior, container, false);
 
-        kitchenDummy = (Button) root.findViewById(R.id.kitchen);
-        //TODO: ExteriorOfHouse needs to be created (uncomment all below)
-        //kitchenDummy.setOnClickListener(new View.OnClickListener() {
-          //  @Override
+        kitchen = (Button) root.findViewById(R.id.kitchen_ID);
+        bathRoom = (Button) root.findViewById(R.id.bathroom_interior_ID);
+        livingRoom = (Button) root.findViewById(R.id.livingRoom_ID);
+        garage = (Button) root.findViewById(R.id.garage_ID);
+        bedRoom = (Button) root.findViewById(R.id.bedroom_interior_ID);
 
-//            public void onClick(View view) {
-//
-//                Intent i = new Intent( getContext(), ExteriorOfHouse.class);
-//                startActivity(i);
-//            }
-       // });
-
+ // dclaring listeners below
+        kitchen.setOnClickListener(listener);
+        bathRoom.setOnClickListener(listener);
+        bedRoom.setOnClickListener(listener);
+        garage.setOnClickListener(listener);
+        livingRoom.setOnClickListener(listener);
 
         return root ;
     }
@@ -103,6 +105,17 @@ public class Interior extends Fragment {
         }
     }
 
+    View.OnClickListener garageListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent i =  new Intent ( getContext() , SpecificList.class);
+            Button button = (Button) view ;
+            i.putExtra("name" ,button.getText() );
+            startActivity(i);
+        }
+    };
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -119,6 +132,17 @@ public class Interior extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent i =  new Intent ( getContext() , SpecificList.class);
+            Button button = (Button) view ;
+            i.putExtra("name" ,button.getText() );
+            startActivity(i);
+        }
+    };
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
