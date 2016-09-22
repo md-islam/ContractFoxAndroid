@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jakubkalinowski.contractfoxandroid">
 
+
+
+    <!--To get an image from device storage/other storage-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <!-- internet permission so the app can communicate with the Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -32,6 +38,10 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+
+
 
     <application
         android:name=".ContractFox"

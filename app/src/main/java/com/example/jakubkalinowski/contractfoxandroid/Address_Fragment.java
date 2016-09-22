@@ -5,8 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 
 
 /**
@@ -52,13 +57,21 @@ public class Address_Fragment extends Fragment {
     //registerButton
     private Button mRegisterButton;
 
-    //Strings from previous framgents
+    //Strings from previous framgents--> both kind of users have this
     private String mEmailValueFromPrevious;
     private String mPasswordValueFromPrevious;
     private String mFirstNameValueFromPrevious;
     private String mLastNameValueFromPrevious;
     private String mPhoneValueFromPrevious;
     private byte[] mBytesArrayFromPrevious;
+    private Boolean mContractorBooleanValueFromPrevious;  //true for contractor\false for otherwise
+
+
+    //Strings from previous fragments--> only contractor fragment is passing this
+    private String mContractorCompanyValueFromPrevious;
+    private String mContractorWebsiteValueFromPrevious;
+    private String mContractorDescriptionValueFromPrevious;
+    private ArrayList<String> mContractorSkillsetValueFromPrevious;
 
 
     //Strings from currentFragment
@@ -89,19 +102,29 @@ public class Address_Fragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         //get them bundle values here.
+
+        //Contractor & Homeowner
         mEmailValueFromPrevious = getArguments().getString("emailAddress");
         mPasswordValueFromPrevious = getArguments().getString("password");
         mFirstNameValueFromPrevious = getArguments().getString("firstname");
         mLastNameValueFromPrevious = getArguments().getString("lastname");
         mPhoneValueFromPrevious = getArguments().getString("phone");
         mBytesArrayFromPrevious = getArguments().getByteArray("profileImageData");
+        mContractorBooleanValueFromPrevious = getArguments().getBoolean("typeBoolean");
+
+        if(mContractorBooleanValueFromPrevious == true){
+            mContractorCompanyValueFromPrevious = getArguments().getString("companyName");
+            mContractorWebsiteValueFromPrevious = getArguments().getString("websiteURL");
+            mContractorDescriptionValueFromPrevious = getArguments().getString("companyDescription");
+            mContractorSkillsetValueFromPrevious = getArguments().
+                    getStringArrayList("contractor_skillset");
+        }
 
         return inflater.inflate(R.layout.fragment_address_layout, container, false);
     }
@@ -145,7 +168,7 @@ public class Address_Fragment extends Fragment {
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 //public Address(String streetAddress, String city, String state, String zipCode, String unit_Apt_no)
                 mStreetValue = mStreetAddressEditText.getText().toString();
                 mUnitAptValue = mUnitAptEditText.getText().toString();
@@ -157,7 +180,7 @@ public class Address_Fragment extends Fragment {
                 //needs a null handler here
 
 
-                mAuth.createUserWithEmailAndPassword(mEmailValueFromPrevious,mPasswordValueFromPrevious)
+                mAuth.createUserWithEmailAndPassword(mEmailValueFromPrevious, mPasswordValueFromPrevious)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -168,14 +191,15 @@ public class Address_Fragment extends Fragment {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(getActivity(), R.string.auth_failed,
                                             Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                } else {
+                                    //add an action here once user is created,
+                                    // you can choose to finish the activity here if you want
 
                                 }
+
                                 // ...
                             }
                         });
-
             }
         });
     }
@@ -183,7 +207,6 @@ public class Address_Fragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         //gets firebase current authorization instance, can use this to get current user
 
@@ -200,8 +223,6 @@ public class Address_Fragment extends Fragment {
                 ("gs://contract-fox.appspot.com/users/");
 
 
-
-
         //setting the authlister always listening for changes
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -212,30 +233,39 @@ public class Address_Fragment extends Fragment {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Address address = new Address(mStreetValue, mUnitAptValue,
                             mCityValue, mStateValue, mZipValue);
-//                    Member new_member = new Contractor(firstNameInput, lastNameInput, emailInput,
-//                            null,addressInput, contractor, "Example Description",
-//                            "Example Specialization", 22,
-//                            new Address("501 Murphy Ranch","Milpitas","State","95035","106"),
-//                            skillset);
+
                     String signedIn_userID_key = user.getUid().toString();
-                    Member new_member = new Homeowner(mFirstNameValueFromPrevious,
-                            mLastNameValueFromPrevious, mEmailValueFromPrevious,
-                            mPhoneValueFromPrevious, false, address);
-                    mDatabase.child("contractors").child(signedIn_userID_key).
-                            setValue(new_member);
+
+                    if(mContractorBooleanValueFromPrevious == false) {
+                        Member new_homeOwner_member = new Homeowner(mFirstNameValueFromPrevious,
+                                mLastNameValueFromPrevious, mEmailValueFromPrevious,
+                                mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address);
+                        mDatabase.child("users").child(signedIn_userID_key).
+                                setValue(new_homeOwner_member);
+                    }
+                    else{
+                        Member new_contractor_member = new Contractor(mFirstNameValueFromPrevious,
+                                mLastNameValueFromPrevious,mEmailValueFromPrevious,
+                                mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
+                                mContractorDescriptionValueFromPrevious,
+                                mContractorSkillsetValueFromPrevious,
+                                mContractorWebsiteValueFromPrevious);
+                        mDatabase.child("users").child(signedIn_userID_key).
+                                setValue(new_contractor_member);
+                    }
 
 
 
-                    //This section of code uploads picture to authorized user--[START]
+
+                    //This section of code uploads picture to authorized user--[START]//This uploads
+                    //The picture requested, this section of code is from firebase website
+                    //This piece of code below applies to both contractor and homeOwner
                     mProfileImageStorageRef = mStorage.getReferenceFromUrl
-                            ("gs://contract-fox.appspot.com/users/"+signedIn_userID_key+
+                            ("gs://contract-fox.appspot.com/users/" + signedIn_userID_key +
                                     "/profilePicture.jpg");
-
-
                     //2 lines of code below essentially uploads image to firebase.
                     UploadTask uploadTask = mProfileImageStorageRef.
                             putBytes(mBytesArrayFromPrevious);
-
                     //Attaching callback methods listening for failures and successes
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -253,10 +283,15 @@ public class Address_Fragment extends Fragment {
                     //This section of code uploads pictures to authorized user--[END]
 
 
+                    //signs out user and finishes all fragments/activities
+                    signOutAndFinishFragments();
+
 
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+
+                    //as soon as user state is changed, this is called.
                 }
                 // ...
             }
@@ -278,10 +313,25 @@ public class Address_Fragment extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mAuth.addAuthStateListener(mAuthListener);
+
+
+    public void signOutAndFinishFragments(){
+        mAuth.signOut();
+
+        //this line of code el
+//        FragmentManager Fm = getActivity().getSupportFragmentManager().beginTransaction().
+//                remove(Address_Fragment.this).commit();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        manager.popBackStack("HomeownerRegisterProfileFragment",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        manager.popBackStack("ContractorRegisterProfileFragment",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getActivity().getSupportFragmentManager().beginTransaction().
+                remove(Address_Fragment.this).commit();
+
+        ((registerActivity)getActivity()).finish();
+
+
     }
 
 }

@@ -1,9 +1,10 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +15,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
-    //Firebase Reference
-    //Firebase ref = new Firebase("https://contractfox.firebaseio.com/");
+    //Firebase essentials to login
+    private FirebaseAuth mAuth;
+    private String TAG = "Firebase_tag";
+
 
     //variables for all the components of the activity
     private EditText mEmailAddress;
@@ -42,12 +50,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        FirebaseAuth.getInstance().signOut();
+
+
+        //get firebase auth instance (check user authenticated state)
+        mAuth = FirebaseAuth.getInstance();
+
         forgotPass = (TextView) findViewById(R.id.forgotPassword);
         TextInputLayout emailAddressWrapper = (TextInputLayout) findViewById(R.id.email_wrapper_login_activity);
         TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.password_wrapper_login_activity);
         emailAddressWrapper.setHint("Email");
         passwordWrapper.setHint("Password");
-        //Firebase.setAndroidContext(this);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         etm.setMargins(50,50,50,50);
@@ -101,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Firebase.setAndroidContext(this);
+        FirebaseAuth.getInstance().signOut();
         mEmailAddress = (EditText)findViewById(R.id.email_text_input_login_activity);
         mPassword = (EditText)findViewById(R.id.password_textInput_login_activity);
         mSignInButton = (Button) findViewById(R.id.sign_in_button_login_activity);
@@ -141,6 +157,29 @@ public class LoginActivity extends AppCompatActivity {
 //                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: ");
 //                    }
 //                });
+
+                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this
+                        , new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // the auth state listener will be notified and logic to handle the
+                                // signed in user can be handled in the listener.
+                                if (!task.isSuccessful()) {
+                                    Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                    Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
+                                    startActivity(i);
+                                }
+
+                                // ...
+                            }
+                        });
             }
 
         });
@@ -155,5 +194,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseAuth.getInstance().signOut();
+    }
 }

@@ -10,8 +10,10 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
-import java.util.regex.Pattern;
 
 //firebase deprecated library
 //import com.firebase.client.Firebase;
@@ -48,10 +50,7 @@ public class registerActivity extends AppCompatActivity {
     private Button mNextButton;
 
     //variables for extracting values from components
-    private String emailInput;
-    private String passwordInput;
-    private String repeatPasswordInput;
-    private Boolean contractor;
+    private Boolean mContractorBoolean = false;
 
 
 
@@ -78,7 +77,7 @@ public class registerActivity extends AppCompatActivity {
         mEmailAddress = (EditText) findViewById(R.id.email_address);
         mPassword = (EditText) findViewById(R.id.password);
         mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
-        //mContractor = (CheckBox) findViewById(R.id.contractor_checkbox);
+
 
 
 
@@ -102,23 +101,44 @@ public class registerActivity extends AppCompatActivity {
                 bundle.putString("emailAddress",mEmailAddressValue);
                 bundle.putString("password",mPasswordValue);
                 bundle.putString("repeatpassword",mRepeatPasswordValue);
-
-                Fragment homeownerRegisterFragment = new RegisterHomeownerFragment();
-                homeownerRegisterFragment.setArguments(bundle);
+                bundle.putBoolean("typeBoolean", mContractorBoolean);
 
 
-                // Begin the transaction
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
+                if(mContractorBoolean == true){
+
+                    Fragment contractorRegisterFragment = new RegisterContractorFragment();
+                    contractorRegisterFragment.setArguments(bundle);
+                    // Begin the transaction
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     // Replace the contents of the container with the new fragment
-                ft.add(R.id.register_activity_framelayout, homeownerRegisterFragment,
-                        "UserProfileFragment");
+
+                    ft.addToBackStack("ContractorRegisterProfileFragment");
+                    ft.replace(R.id.register_activity_framelayout, contractorRegisterFragment,
+                            "ContractorRegisterProfileFragment");
                     // or ft.replace(R.id.your_placeholder, new FooFragment());
                     // Complete the changes added above
 
-                ft.addToBackStack(null);
-                ft.commit();
+                    ft.commit();
 
+                }else{
+
+                    Fragment homeownerRegisterFragment = new RegisterHomeownerFragment();
+                    homeownerRegisterFragment.setArguments(bundle);
+                    
+                    // Begin the transaction
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                    // Replace the contents of the container with the new fragment
+                    ft.addToBackStack("HomeownerRegisterProfileFragment");
+                    ft.replace(R.id.register_activity_framelayout, homeownerRegisterFragment,
+                            "HomeownerRegisterProfileFragment");
+                    // or ft.replace(R.id.your_placeholder, new FooFragment());
+                    // Complete the changes added above
+
+                    ft.commit();
+
+                }
 
                 //This here works
 //                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -163,11 +183,22 @@ public class registerActivity extends AppCompatActivity {
         return pattern.matcher(email).matches();
     }
 
+    public void onRadioButtonClicked(View view){
+        boolean checked = ((RadioButton) view).isChecked();
 
-
-
-
-
+        switch(view.getId()){
+            case R.id.radioButton_homewoner_register_activity:
+                if(checked){
+                    mContractorBoolean = false;
+                }
+                break;
+            case R.id.radioButton_contractor_register_activity:
+                if(checked){
+                    mContractorBoolean = true;
+                }
+                break;
+        }
+    }
 
     /**
      * This register method is used for loggin in
@@ -195,6 +226,5 @@ public class registerActivity extends AppCompatActivity {
 //                    }
 //                });
 //    }
-
 
 }

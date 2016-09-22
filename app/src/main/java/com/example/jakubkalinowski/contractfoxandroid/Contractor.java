@@ -1,32 +1,25 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Contractor extends Member {
     private String briefDescription;
-    private String specialization;
-    private int availability;
     private ArrayList<String> skillSet;
+    private String businessWebsiteURL;
+    private String CompanyName;
 
-
-
-    private String businessWebsite;
-
-
-    public Contractor() {
-    }
+    public Contractor() {}
 
     public Contractor(String firstname, String lastname, String email, String phoneNo,
-                      Boolean contractorOption, String briefDescription, String specialization,
-                      int availability, Address maddress, ArrayList<String> skillSet,
-                      String businessWebsite) {
-        super(firstname, lastname, email, phoneNo, contractorOption, maddress);
+                      Boolean contractorOption, Address mAddress,
+                      String briefDescription, ArrayList<String> skillSet,
+                      String businessWebsiteURL) {
+        super(firstname, lastname, email, phoneNo, contractorOption, mAddress);
         this.briefDescription = briefDescription;
-        this.specialization = specialization;
-        this.availability = availability;
         this.skillSet = skillSet;
-        this.businessWebsite = businessWebsite;
+        this.businessWebsiteURL = businessWebsiteURL;
     }
 
     public String getBriefDescription() {
@@ -36,23 +29,6 @@ public class Contractor extends Member {
     public void setBriefDescription(String briefDescription) {
         this.briefDescription = briefDescription;
     }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public int getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(int availability) {
-        this.availability = availability;
-    }
-
 
     //implementing abstract methods
 
@@ -129,12 +105,21 @@ public class Contractor extends Member {
         skillSet.add(skill);
     }
 
-    public String getBusinessWebsite() {
-        return businessWebsite;
+    public String getBusinessWebsiteURL() {
+        return businessWebsiteURL;
     }
 
-    public void setBusinessWebsite(String businessWebsite) {
-        this.businessWebsite = businessWebsite;
+    public void setBusinessWebsiteURL(String businessWebsiteURL) {
+        this.businessWebsiteURL = businessWebsiteURL;
+    }
+
+
+    public String getCompanyName() {
+        return CompanyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
     }
 
 

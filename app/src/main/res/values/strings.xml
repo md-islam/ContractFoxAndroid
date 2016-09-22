@@ -61,4 +61,9 @@
     <string name="next_symbol"> > </string>
     <!-- END OF CONTRACTOR'S PROFILE -->
 
+    <!--For skillsets-->
+    <string name="kitchen_skill">Kitchen</string>
+    <string name="bathroom_skill">Bathroom</string>
+    <string name="bedroom_skill">Bedroom</string>
+
 </resources>
