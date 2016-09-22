@@ -15,12 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import android.widget.Toast;
-
-//import com.firebase.client.AuthData;
-//import com.firebase.client.Firebase;
-//import com.firebase.client.FirebaseError;
-
 /**
  * A login screen that offers login via email/password.
  */
@@ -154,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startSignUp = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent startSignUp = new Intent(LoginActivity.this, registerActivity.class);
                 startActivity(startSignUp);
             }
         });

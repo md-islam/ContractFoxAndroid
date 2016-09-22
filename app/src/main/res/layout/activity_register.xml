@@ -31,7 +31,7 @@
             android:textSize="33dp"
             android:textStyle="bold"/>
 
-        </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
 
 
     <FrameLayout
@@ -39,386 +39,190 @@
         android:layout_height="match_parent"
         android:id="@+id/register_activity_framelayout">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/first_name_textInput"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:paddingRight="12dp"-->
-        <!--android:paddingLeft="12dp">-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/first_name"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="10"-->
-            <!--android:hint="First Name"-->
-            <!--android:inputType="textPersonName"/>-->
-    <!--</android.support.design.widget.TextInputLayout>-->
-
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/last_name_textInput"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:paddingRight="12dp"-->
-        <!--android:paddingLeft="12dp">-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/last_name"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Last Name"-->
-            <!--android:inputType="textPersonName"/>-->
-    <!--</android.support.design.widget.TextInputLayout>-->
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/email_address_text_input"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp">
-
-        <EditText
-            android:id="@+id/email_address"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"/>
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/password_textInput"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp">
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"/>
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/repeat_password_textInput"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp">
-
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:textSize="33dp"
-            android:textStyle="bold"/>
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-    </android.support.v7.widget.Toolbar>
-
-<!--<<<<<<< HEAD-->
-<!---->
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/register_activity_framelayout">-->
-<!---->
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:fillViewport="true">-->
-<!---->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical">-->
-<!---->
-<!---->
-<!---->
-<!--                <!--<android.support.design.widget.TextInputLayout-->-->
-<!--                <!--android:id="@+id/first_name_textInput"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:layout_marginTop="2dp"-->-->
-<!--                <!--android:paddingRight="12dp"-->-->
-<!--                <!--android:paddingLeft="12dp">-->-->
-<!---->
-<!--                <!--<EditText-->-->
-<!--                <!--android:id="@+id/first_name"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:ems="10"-->-->
-<!--                <!--android:hint="First Name"-->-->
-<!--                <!--android:inputType="textPersonName"/>-->-->
-<!--                <!--</android.support.design.widget.TextInputLayout>-->-->
-<!---->
-<!--                <!--<android.support.design.widget.TextInputLayout-->-->
-<!--                <!--android:id="@+id/last_name_textInput"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:layout_marginTop="2dp"-->-->
-<!--                <!--android:paddingRight="12dp"-->-->
-<!--                <!--android:paddingLeft="12dp">-->-->
-<!---->
-<!--                <!--<EditText-->-->
-<!--                <!--android:id="@+id/last_name"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:ems="10"-->-->
-<!--                <!--android:hint="Last Name"-->-->
-<!--                <!--android:inputType="textPersonName"/>-->-->
-<!--                <!--</android.support.design.widget.TextInputLayout>-->-->
-<!---->
-<!---->
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    android:id="@+id/email_address_text_input"-->
-<!--                    android:layout_width="fill_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="70dp"-->
-<!--                    android:paddingRight="12dp"-->
-<!--                    android:paddingLeft="12dp">-->
-<!---->
-<!--                    <EditText-->
-<!--                        android:id="@+id/email_address"-->
-<!--                        android:layout_width="fill_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:ems="10"-->
-<!--                        android:hint="Email Address"-->
-<!--                        android:inputType="textEmailAddress"/>-->
-<!--                </android.support.design.widget.TextInputLayout>-->
-<!---->
-<!---->
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    android:id="@+id/password_textInput"-->
-<!--                    android:layout_width="fill_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:paddingRight="12dp"-->
-<!--                    android:paddingLeft="12dp">-->
-<!---->
-<!--                    <EditText-->
-<!--                        android:id="@+id/password"-->
-<!--                        android:layout_width="fill_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:ems="10"-->
-<!--                        android:hint="Password"-->
-<!--                        android:inputType="textPassword"/>-->
-<!--                </android.support.design.widget.TextInputLayout>-->
-<!---->
-<!---->
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    android:id="@+id/repeat_password_textInput"-->
-<!--                    android:layout_width="fill_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:paddingRight="12dp"-->
-<!--                    android:paddingLeft="12dp">-->
-<!---->
-<!--                    <EditText-->
-<!--                        android:id="@+id/repeat_password"-->
-<!--                        android:layout_width="fill_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:ems="10"-->
-<!--                        android:hint="Repeat Password"-->
-<!--                        android:inputType="textPassword"/>-->
-<!--                </android.support.design.widget.TextInputLayout>-->
-<!---->
-<!---->
-<!--                <!--<android.support.design.widget.TextInputLayout-->-->
-<!--                <!--android:id="@+id/address_textInput"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:layout_marginTop="2dp"-->-->
-<!--                <!--android:paddingRight="12dp"-->-->
-<!--                <!--android:paddingLeft="12dp">-->-->
-<!---->
-<!--                <!--<EditText-->-->
-<!--                <!--android:id="@+id/address"-->-->
-<!--                <!--android:layout_width="fill_parent"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:ems="10"-->-->
-<!--                <!--android:hint="Address"-->-->
-<!--                <!--android:inputType="textPostalAddress"/>-->-->
-<!--                <!--</android.support.design.widget.TextInputLayout>-->-->
-<!---->
-<!---->
-<!--                <!--<CheckBox-->-->
-<!--                <!--android:layout_width="wrap_content"-->-->
-<!--                <!--android:layout_height="wrap_content"-->-->
-<!--                <!--android:id="@+id/contractor_checkbox"-->-->
-<!--                <!--android:checked="true"-->-->
-<!--                <!--android:text="Homeowner"-->-->
-<!--                <!--android:paddingTop="15dp"-->-->
-<!--                <!--android:theme="@style/MyCheckBox"/>-->-->
-<!---->
-<!--                <RadioGroup-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:id="@+id/userType_RadioButtons_activity_register"-->
-<!--                    android:layout_gravity="center_horizontal"-->
-<!--                    >-->
-<!---->
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:checked="true"-->
-<!--                        android:text="Homeowner"-->
-<!--                        android:id="@+id/radioButton_homewoner_register_activity"-->
-<!--                        />-->
-<!---->
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:checked="false"-->
-<!--                        android:text="Contractor"-->
-<!--                        android:id="@+id/radioButton_contractor_register_activity"-->
-<!--                        />-->
-<!---->
-<!---->
-<!--                </RadioGroup>-->
-<!---->
-<!---->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dip"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical" >-->
-<!---->
-<!---->
-<!--                    <Button-->
-<!--                        android:id="@+id/next_button_register_activity"-->
-<!--                        style="?android:textAppearanceSmall"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="20dp"-->
-<!--                        android:background="#ff5e00"-->
-<!--                        android:clickable="true"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:layout_marginRight="12dp"-->
-<!--                        android:text="Next"-->
-<!--                        android:layout_gravity="bottom"/>-->
-<!---->
-<!--                </LinearLayout>-->
-<!---->
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
-<!--    </FrameLayout>-->
-<!---->
-<!---->
-<!--</LinearLayout>-->
-<!--=======-->
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/address_textInput"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:paddingRight="12dp"-->
-        <!--android:paddingLeft="12dp">-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/address"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Address"-->
-            <!--android:inputType="textPostalAddress"/>-->
-    <!--</android.support.design.widget.TextInputLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-    <!--<CheckBox-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/contractor_checkbox"-->
-        <!--android:checked="true"-->
-        <!--android:text="Homeowner"-->
-        <!--android:paddingTop="15dp"-->
-        <!--android:theme="@style/MyCheckBox"/>-->
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userType_RadioButtons_activity_register"
-        android:layout_gravity="center_horizontal"
-        >
+                <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/first_name_textInput"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="2dp"-->
+                <!--android:paddingRight="12dp"-->
+                <!--android:paddingLeft="12dp">-->
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Homeowner"
-            android:id="@+id/radioButton_homewoner_register_activity"
-            />
+                <!--<EditText-->
+                <!--android:id="@+id/first_name"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:hint="First Name"-->
+                <!--android:inputType="textPersonName"/>-->
+                <!--</android.support.design.widget.TextInputLayout>-->
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Contractor"
-            android:id="@+id/radioButton_contractor_register_activity"
-            />
+                <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/last_name_textInput"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="2dp"-->
+                <!--android:paddingRight="12dp"-->
+                <!--android:paddingLeft="12dp">-->
 
-
-    </RadioGroup>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
+                <!--<EditText-->
+                <!--android:id="@+id/last_name"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Last Name"-->
+                <!--android:inputType="textPersonName"/>-->
+                <!--</android.support.design.widget.TextInputLayout>-->
 
 
-            <Button
-            android:id="@+id/next_button_register_activity"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:background="#ff5e00"
-            android:clickable="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:text="Next"
-            android:layout_gravity="bottom"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/email_address_text_input"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp">
 
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/email_address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Email Address"
+                        android:inputType="textEmailAddress"/>
+                </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-    </ScrollView>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/password_textInput"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Password"
+                        android:inputType="textPassword"/>
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/repeat_password_textInput"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp">
+
+                    <EditText
+                        android:id="@+id/repeat_password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Repeat Password"
+                        android:inputType="textPassword"/>
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/address_textInput"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="2dp"-->
+                <!--android:paddingRight="12dp"-->
+                <!--android:paddingLeft="12dp">-->
+
+                <!--<EditText-->
+                <!--android:id="@+id/address"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Address"-->
+                <!--android:inputType="textPostalAddress"/>-->
+                <!--</android.support.design.widget.TextInputLayout>-->
+
+
+                <!--<CheckBox-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/contractor_checkbox"-->
+                <!--android:checked="true"-->
+                <!--android:text="Homeowner"-->
+                <!--android:paddingTop="15dp"-->
+                <!--android:theme="@style/MyCheckBox"/>-->
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userType_RadioButtons_activity_register"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Homeowner"
+                        android:id="@+id/radioButton_homewoner_register_activity"
+                        />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Contractor"
+                        android:id="@+id/radioButton_contractor_register_activity"
+                        />
+
+
+                </RadioGroup>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+
+                    <Button
+                        android:id="@+id/next_button_register_activity"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:background="#ff5e00"
+                        android:clickable="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:text="Next"
+                        android:layout_gravity="bottom"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
     </FrameLayout>
 
 
 </LinearLayout>
-

@@ -2,7 +2,6 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -153,8 +152,5 @@ public class RegisterHomeownerFragment extends Fragment {
         byte[] data = baos.toByteArray();
         return data;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/MD_branch_Sept_12
+

@@ -1,7 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -71,14 +70,16 @@ public class Interior extends Fragment {
         View root = inflater.inflate(R.layout.fragment_interior, container, false);
 
         kitchenDummy = (Button) root.findViewById(R.id.kitchen);
-        kitchenDummy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        //TODO: ExteriorOfHouse needs to be created (uncomment all below)
+        //kitchenDummy.setOnClickListener(new View.OnClickListener() {
+          //  @Override
 
-                Intent i = new Intent( getContext(), ExteriorOfHouse.class);
-                startActivity(i);
-            }
-        });
+//            public void onClick(View view) {
+//
+//                Intent i = new Intent( getContext(), ExteriorOfHouse.class);
+//                startActivity(i);
+//            }
+       // });
 
 
         return root ;

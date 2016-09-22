@@ -52,7 +52,7 @@
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".registerActivity"/>
 
         <activity
             android:name=".Introduction"
@@ -88,7 +88,7 @@
                 android:value="com.example.jakubkalinowski.contractfoxandroid.SearchViewListActivity" />
         </activity>
         <activity android:name=".ContractorProfileActivity" />
-        <activity android:name=".HomeOwnerProfileActivity" />
+        <activity android:name=".HomeownerProfileActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -105,9 +105,9 @@
         <!--<mata-data-->
             <!--android:name="@integer/google_play_services_version"/>-->
 
-        <activity
-            android:name=".GoogleDirectionsActivity"
-            android:label="@string/title_activity_google_directions"></activity>
+        <!--<activity-->
+            <!--android:name=".GoogleDirectionsActivity"-->
+            <!--android:label="@string/title_activity_google_directions"></activity>-->
 
     </application>
 
