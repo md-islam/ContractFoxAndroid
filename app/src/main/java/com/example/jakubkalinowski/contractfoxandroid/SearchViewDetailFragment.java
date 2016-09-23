@@ -76,8 +76,8 @@ public class SearchViewDetailFragment extends Fragment {
         website.setOnClickListener(websiteListener);
         phone.setOnClickListener(phoneListener);
         availability.setOnClickListener(availabilityListener);
-        directions.setOnClickListener(directionsListener);
-        estimate.setOnClickListener(estimateListener);
+//        directions.setOnClickListener(directionsListener);
+//        estimate.setOnClickListener(estimateListener);
 
         return rootView;
     }
@@ -133,5 +133,6 @@ public class SearchViewDetailFragment extends Fragment {
 
         }
     };
+
 
 }

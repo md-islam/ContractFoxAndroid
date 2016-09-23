@@ -1,13 +1,16 @@
 package com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
 /**
@@ -27,6 +30,7 @@ public class Exterior extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Button garage, walls, window, chimney, frontDoor, foundation , roof, roof2 ,walls2, porch, walls3;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +68,37 @@ public class Exterior extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exterior, container, false);
+        View root = inflater.inflate(R.layout.fragment_exterior, container, false);
+        walls3 = (Button) root.findViewById(R.id.walls3) ;
+        garage = (Button) root.findViewById(R.id.garageDoor_Exterior);
+        foundation = (Button) root.findViewById(R.id.foundation_ID);
+        window = (Button) root.findViewById(R.id.window_ID);
+        walls = (Button) root.findViewById(R.id.walls_ID);
+        frontDoor = (Button) root.findViewById(R.id.door_ID);
+        chimney = (Button) root.findViewById(R.id.chimney_ID);
+        roof = (Button) root.findViewById(R.id.roof_ID);
+        walls2 = (Button) root.findViewById(R.id.walls2_ID);
+        roof2 = (Button) root.findViewById(R.id.roof2_ID);
+        porch = (Button) root.findViewById(R.id.porch_ID);
+
+
+        //setting listeners to all buttons
+        garage.setOnClickListener(listener);
+        walls.setOnClickListener(listener);
+        foundation.setOnClickListener(listener);
+        window.setOnClickListener(listener);
+        frontDoor.setOnClickListener(listener);
+        chimney.setOnClickListener(listener);
+        walls2.setOnClickListener(listener);
+        roof2.setOnClickListener(listener);
+        walls3.setOnClickListener(listener);
+        roof.setOnClickListener(listener);
+       
+
+        porch.setOnClickListener(listener);
+        roof.setOnClickListener(listener);
+
+        return root ;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -102,8 +135,20 @@ public class Exterior extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent i =  new Intent ( getContext() , SpecificList.class);
+            Button button = (Button) view ;
+            i.putExtra("name" ,button.getText() );
+            startActivity(i);
+        }
+    };
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        String passedData(String s1, String s2);
     }
 }

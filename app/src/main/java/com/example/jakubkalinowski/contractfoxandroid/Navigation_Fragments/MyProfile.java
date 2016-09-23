@@ -1,5 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -74,6 +75,7 @@ public class MyProfile extends Fragment {
 //            rootView = inflater.inflate(R.layout.fragment_home_owner_profile, container, false);
 //        }
         return inflater.inflate(R.layout.contractor_profile_activity, container, false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -83,17 +85,16 @@ public class MyProfile extends Fragment {
         }
     }
 
-    //THIS CRASHES THE APP AT RUNTIME
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {

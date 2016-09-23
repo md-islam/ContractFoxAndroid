@@ -93,15 +93,7 @@ public class registerActivity extends AppCompatActivity {
         mEmailAddress = (EditText) findViewById(R.id.email_address);
         mPassword = (EditText) findViewById(R.id.password);
         mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
-
-
-
-
         mNextButton = (Button) findViewById(R.id.next_button_register_activity);
-
-
-
-
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override

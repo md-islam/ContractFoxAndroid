@@ -104,41 +104,41 @@ public class ProfileEdit extends Fragment {
                     mFirebaseDatabaseReference
                             .child("users").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)){
 
-                                //need null handlers here
-                                Contractor m = dataSnapshot.getValue(Contractor.class);
-                                mFirstNameEditText.setText(m.getFirstName());
-                                mLastNameEditText.setText(m.getLastName());
-                                mAddressEditText.setText(m.getAddress().toString());
-                                mCityEditText.setText(m.getAddress().getCity());
-                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
-                                mPhoneNumberEditText.setText(m.getPhoneNo());
-                                mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
-                                mWebsiteURLEditText.setText(m.getEmailAddress());
+                                        //need null handlers here
+                                        Contractor m = dataSnapshot.getValue(Contractor.class);
+                                        mFirstNameEditText.setText(m.getFirstName());
+                                        mLastNameEditText.setText(m.getLastName());
+                                        mAddressEditText.setText(m.getAddress().toString());
+                                        mCityEditText.setText(m.getAddress().getCity());
+                                        mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                        mPhoneNumberEditText.setText(m.getPhoneNo());
+                                        mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
+                                        mWebsiteURLEditText.setText(m.getEmailAddress());
 
 
-                            }
-                            else{
-                                Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
+                                    }
+                                    else{
+                                        Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
 
-                                mFirstNameEditText.setText(m.getFirstName());
-                                mLastNameEditText.setText(m.getLastName());
-                                mAddressEditText.setText(m.getAddress().toString());
-                                mCityEditText.setText(m.getAddress().getCity());
-                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
-                                mPhoneNumberEditText.setText(m.getPhoneNo());
-                            }
+                                        mFirstNameEditText.setText(m.getFirstName());
+                                        mLastNameEditText.setText(m.getLastName());
+                                        mAddressEditText.setText(m.getAddress().toString());
+                                        mCityEditText.setText(m.getAddress().getCity());
+                                        mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                        mPhoneNumberEditText.setText(m.getPhoneNo());
+                                    }
 
-                        }
+                                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                                }
+                            });
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -254,7 +254,7 @@ public class ProfileEdit extends Fragment {
         mWebsiteURLEditText = (EditText)
                 view.findViewById(R.id.website_url_editText_editProfile_fragment);
 
- }
+    }
 
 }
 
