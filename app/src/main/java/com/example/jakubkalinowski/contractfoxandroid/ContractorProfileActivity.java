@@ -23,7 +23,9 @@ public class ContractorProfileActivity extends AppCompatActivity implements Dire
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.contractor_profile_main);
-        setContentView(R.layout.contractor_profile_activity);
+
+        //changed temporarily
+        setContentView(R.layout.activity_introduction);
 
         // GET THE TITLE PASSED TO THE TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
