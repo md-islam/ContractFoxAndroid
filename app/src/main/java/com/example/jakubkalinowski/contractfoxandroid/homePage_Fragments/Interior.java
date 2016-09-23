@@ -1,6 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
+
 import com.example.jakubkalinowski.contractfoxandroid.R;
+import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -70,7 +70,7 @@ public class BackYard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //TODO: Create a backYard_Fragment and replace here!
-        return inflater.inflate(R.layout.fragment_exterior, container, false);
+        return inflater.inflate(R.layout.fragment_back_yard, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

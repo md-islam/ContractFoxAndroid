@@ -49,8 +49,8 @@ public class ProfileEdit extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
-//    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
-//            .getReference();
+    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+            .getReference();
 
     private OnFragmentInteractionListener mListener;
     private Member m;
@@ -104,41 +104,41 @@ public class ProfileEdit extends Fragment {
                     mFirebaseDatabaseReference
                             .child("users").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)){
 
-                                //need null handlers here
-                                Contractor m = dataSnapshot.getValue(Contractor.class);
-                                mFirstNameEditText.setText(m.getFirstName());
-                                mLastNameEditText.setText(m.getLastName());
-                                mAddressEditText.setText(m.getAddress().toString());
-                                mCityEditText.setText(m.getAddress().getCity());
-                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
-                                mPhoneNumberEditText.setText(m.getPhoneNo());
-                                mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
-                                mWebsiteURLEditText.setText(m.getEmailAddress());
+                                        //need null handlers here
+                                        Contractor m = dataSnapshot.getValue(Contractor.class);
+                                        mFirstNameEditText.setText(m.getFirstName());
+                                        mLastNameEditText.setText(m.getLastName());
+                                        mAddressEditText.setText(m.getAddress().toString());
+                                        mCityEditText.setText(m.getAddress().getCity());
+                                        mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                        mPhoneNumberEditText.setText(m.getPhoneNo());
+                                        mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
+                                        mWebsiteURLEditText.setText(m.getEmailAddress());
 
 
-                            }
-                            else{
-                                Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
+                                    }
+                                    else{
+                                        Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
 
-                                mFirstNameEditText.setText(m.getFirstName());
-                                mLastNameEditText.setText(m.getLastName());
-                                mAddressEditText.setText(m.getAddress().toString());
-                                mCityEditText.setText(m.getAddress().getCity());
-                                mPostalCodeEditText.setText(m.getAddress().getZipCode());
-                                mPhoneNumberEditText.setText(m.getPhoneNo());
-                            }
+                                        mFirstNameEditText.setText(m.getFirstName());
+                                        mLastNameEditText.setText(m.getLastName());
+                                        mAddressEditText.setText(m.getAddress().toString());
+                                        mCityEditText.setText(m.getAddress().getCity());
+                                        mPostalCodeEditText.setText(m.getAddress().getZipCode());
+                                        mPhoneNumberEditText.setText(m.getPhoneNo());
+                                    }
 
-                        }
+                                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                                }
+                            });
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -156,9 +156,7 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-
         //mFirstNameEditText.setText(mFirstName_Textbox_Value);
-
         return root;
     }
 
@@ -217,7 +215,7 @@ public class ProfileEdit extends Fragment {
 
 //    public void setFirstName(String uid){
 //
-
+//
 //        //there is a callback function inside here. To use outside variables inside the callback
 //        //functions, the variable inside should be either final or global variable.
 //        //Still trying to figure out the best way to handle callback functions.
@@ -236,6 +234,7 @@ public class ProfileEdit extends Fragment {
 //        });
 //
 //    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -256,5 +255,6 @@ public class ProfileEdit extends Fragment {
                 view.findViewById(R.id.website_url_editText_editProfile_fragment);
 
     }
+
 }
 

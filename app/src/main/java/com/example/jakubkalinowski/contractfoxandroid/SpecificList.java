@@ -16,7 +16,7 @@ public class SpecificList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_specific_lsit);
+        setContentView(R.layout.activity_specific_list);
         savedInstanceState = getIntent().getExtras();
         titleString = savedInstanceState.getString("name");
 
