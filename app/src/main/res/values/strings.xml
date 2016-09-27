@@ -58,6 +58,7 @@
     <string name="skills_text">Skills</string>
     <string name="url_name">www.jacksconstructionco.com</string>
     <string name="review_text">Reviews</string>
+    <string name="my_reviews_text">My Reviews</string>
     <string name="next_symbol"> > </string>
     <string name="message_button">Message</string>
     <!-- END OF CONTRACTOR'S PROFILE -->
@@ -66,5 +67,7 @@
     <string name="kitchen_skill">Kitchen</string>
     <string name="bathroom_skill">Bathroom</string>
     <string name="bedroom_skill">Bedroom</string>
+    <string name="title_activity_estimate">EstimateActivity</string>
+    <string name="large_text">Text goes here</string>
 
 </resources>

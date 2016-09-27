@@ -1,20 +1,13 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class HomeownerProfileActivity extends AppCompatActivity {
+public class MessageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_owner_profile);
-
-
-
-
-
-
-
+        setContentView(R.layout.activity_message);
     }
 }

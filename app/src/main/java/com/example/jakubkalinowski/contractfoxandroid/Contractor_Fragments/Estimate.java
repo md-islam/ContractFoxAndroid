@@ -19,6 +19,13 @@ import com.example.jakubkalinowski.contractfoxandroid.R;
  * create an instance of this fragment.
  */
 public class Estimate extends Fragment {
+    /**
+     * The fragment argument representing the item ID that this fragment
+     * represents.
+     */
+    public static final String ARG_ITEM_ID = "item_id";
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
