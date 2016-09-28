@@ -77,6 +77,7 @@ public class Contractor extends Member {
         this.briefDescription = briefDescription;
     }
 
+<<<<<<< HEAD
 <<<<<<< 4e7676a248719d22c2cf728f9798e29b8fdd0dec
 <<<<<<< HEAD
     public String getSpecialization() {
@@ -101,6 +102,9 @@ public class Contractor extends Member {
 =======
 >>>>>>> Welcom Firebase 2.0
 
+=======
+
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
 
 <<<<<<< HEAD
 
@@ -191,6 +195,7 @@ public class Contractor extends Member {
     public String getCompanyName() {
         return CompanyName;
     }
+<<<<<<< HEAD
 
     public void setCompanyName(String companyName) {
         CompanyName = companyName;
@@ -198,6 +203,12 @@ public class Contractor extends Member {
 
 
 <<<<<<< ea5f8888bf1cd18bc801a1af31d468bbcb214ae4
+=======
+
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
+    }
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
 
 
 =======

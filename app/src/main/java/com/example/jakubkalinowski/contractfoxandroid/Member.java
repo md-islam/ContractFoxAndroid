@@ -31,6 +31,7 @@ public abstract class Member {
     //These abstract methods are implemented in the subclass.
     public abstract String getFirstName();
     public abstract void setFirstName(String firstName);
+<<<<<<< HEAD
 
     public abstract String getLastName();
     public abstract void setLastName(String lastName);
@@ -85,6 +86,23 @@ public class Member {
         this.password = password;
         this.address = address;
     }
+=======
+
+    public abstract String getLastName();
+    public abstract void setLastName(String lastName);
+
+    public abstract void setEmailAddress(String emailAddress);
+    public abstract String getEmailAddress();
+
+    public abstract String getPhoneNo();
+    public abstract void setPhoneNo(String phoneNo);
+
+    public abstract Boolean getContractorOption();
+    public abstract void setContractorOption(Boolean contractorOption);
+
+    public abstract Address getAddress();
+    public abstract void setAddress(Address address);
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
 
     public String getFirstName() {
         return firstName;

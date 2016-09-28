@@ -1,10 +1,14 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 
 >>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
+=======
+
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
 /**
  * Created by MD on 9/5/2016.
  */
@@ -25,6 +29,7 @@ public class Address {
         mZipCode = zipCode;
         mUnit_Apt_no = unit_Apt_no;
     }
+<<<<<<< HEAD
 <<<<<<< 11e7ced451df4896b3f2eb8a7e811e590ac718a0
 <<<<<<< HEAD
 =======
@@ -71,6 +76,11 @@ public class Address {
 }
 =======
 
+=======
+
+    //change the abstract methods to public
+
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
     public String getStreetAddress() {
         return mStreetAddress;
     }
@@ -110,5 +120,15 @@ public class Address {
     public void setUnit_Apt_no(String unit_Apt_no) {
         mUnit_Apt_no = unit_Apt_no;
     }
+
+    @Override
+    public String toString() {
+        return mStreetAddress+", "+mUnit_Apt_no+", "+
+                mCity+", "+mState+", "+mZipCode;
+    }
 }
+<<<<<<< HEAD
 >>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
+=======
+
+>>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
