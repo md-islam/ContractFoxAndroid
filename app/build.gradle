@@ -38,50 +38,13 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.4.0'
     compile 'com.google.firebase:firebase-auth:9.4.0'
     compile 'com.google.firebase:firebase-storage:9.4.0'
-<<<<<<< HEAD
-<<<<<<< 4e7676a248719d22c2cf728f9798e29b8fdd0dec
-<<<<<<< ea5f8888bf1cd18bc801a1af31d468bbcb214ae4
-    compile 'com.firebase:firebase-client-android:2.3.1'
-<<<<<<< 11e7ced451df4896b3f2eb8a7e811e590ac718a0
-    compile 'com.android.support:design:24.0.0'
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0-alpha2'
-<<<<<<< HEAD
-
-
-=======
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
     compile 'com.android.support:cardview-v7:24.0.0'
->>>>>>> 0c0e93375c6227c9f1ebd451b9946e5860c4b0ca
-}
-=======
-=======
->>>>>>> changes to registration
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-=======
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
->>>>>>> Welcom Firebase 2.0
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
-    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
-}
-
-
-
-
-
->>>>>>> New Registration experience
-
-=======
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
-    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
 }
 
 
@@ -89,6 +52,8 @@ dependencies {
 
 
 
->>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
+
+
+
 
 apply plugin: 'com.google.gms.google-services'

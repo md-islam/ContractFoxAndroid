@@ -7,11 +7,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.google.gms:google-services:3.0.0'
-<<<<<<< HEAD
-=======
-
-
->>>>>>> db87086bb8b52d6b115584df6e7f8ff31d598ebb
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
