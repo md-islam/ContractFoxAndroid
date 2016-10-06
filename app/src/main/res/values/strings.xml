@@ -61,6 +61,7 @@
     <string name="my_reviews_text">My Reviews</string>
     <string name="next_symbol"> > </string>
     <string name="message_button">Message</string>
+    <string name="pic_gallery_text">Before and After Photos</string>
     <!-- END OF CONTRACTOR'S PROFILE -->
 
     <!--For skillsets-->
@@ -69,5 +70,8 @@
     <string name="bedroom_skill">Bedroom</string>
     <string name="title_activity_estimate">EstimateActivity</string>
     <string name="large_text">Text goes here</string>
+    <string name="title_activity_skill_set">SkillSetActivity</string>
+    <string name="title_activity_reviews">ReviewsActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
