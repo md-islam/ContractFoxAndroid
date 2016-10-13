@@ -34,6 +34,7 @@ public class Introduction extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Introduction.this, LoginActivity.class);
+//                Intent i = new Intent(Introduction.this, ContractorProfileActivity.class);
                 startActivity(i);
             }
         });
