@@ -84,7 +84,7 @@
                 android:value="com.example.jakubkalinowski.contractfoxandroid.SearchViewListActivity" />
         </activity>
         <activity android:name=".ContractorProfileActivity" />
-        <activity android:name=".HomeownerProfileActivity" />
+        <!-- <activity android:name=".HomeownerProfileActivity" /> -->
         <activity android:name=".SpecificList" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
