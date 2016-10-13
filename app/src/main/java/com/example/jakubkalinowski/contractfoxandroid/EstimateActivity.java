@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 public class EstimateActivity extends AppCompatActivity {
 
     LinearLayout layout_interior, layout_exterior, layout_backyard, layout_description;
     RadioButton radio_interior, radio_exterior, radio_backyard;
-    TextView project_description;
+    EditText project_description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,11 @@ public class EstimateActivity extends AppCompatActivity {
         layout_exterior = (LinearLayout)findViewById(R.id.exterior_fragment_content_layout);
         layout_backyard = (LinearLayout)findViewById(R.id.backyard_fragment_content_layout);
 
-        layout_description = (LinearLayout)findViewById(R.id.description_text_edit_layout);
-
         radio_interior = (RadioButton)findViewById(R.id.radio_interior);
         radio_exterior = (RadioButton)findViewById(R.id.radio_exterior);
         radio_backyard = (RadioButton) findViewById(R.id.radio_backyard);
 
-        project_description = (TextView)findViewById(R.id.project_description_edit_text);
+        project_description = (EditText)findViewById(R.id.description_paragraph);
     }
 
 
@@ -66,10 +64,10 @@ public class EstimateActivity extends AppCompatActivity {
                     layout_backyard.setVisibility(View.VISIBLE);
                 }
                 break;
-            case R.id.project_description_edit_text:
-                if (checked) {
-                    layout_description.setVisibility(View.VISIBLE);
-                }
+//            case R.id.project_description_edit_text:
+//                if (checked) {
+//                    layout_description.setVisibility(View.VISIBLE);
+//                }
         }
 
 
