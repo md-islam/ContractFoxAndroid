@@ -174,8 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    Intent i = new Intent(LoginActivity.this, ContractorProfileActivity.class);
-//                                    Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
+                                    Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
                                     startActivity(i);
                                 }
 

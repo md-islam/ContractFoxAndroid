@@ -1,7 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,8 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,8 +36,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * create an instance of this fragment.
  */
 public class MyProfile extends Fragment {
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,16 +62,12 @@ public class MyProfile extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Member m;
-    public Boolean option;
 
     //UI component variables
     private Button estimateButton, messageButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
 
-    //imageView
-    private CircleImageView mCircleProfileImageView;
-    private Bitmap mProfileImageBitmap;
 
     public MyProfile() {
         // Required empty public constructor
@@ -110,7 +101,6 @@ public class MyProfile extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -124,19 +114,16 @@ public class MyProfile extends Fragment {
                                         //need null handlers here
                                         Contractor m = dataSnapshot.getValue(Contractor.class);
 
-//                                        option = true;
-
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());
                                         companyName.setText(m.getBusinessWebsiteURL());
                                         website.setText(m.getBusinessWebsiteURL());
                                         //miles.setText();
 
+
                                     }
                                     else{
                                         Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
-
-//                                        option = false;
 
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());
@@ -152,64 +139,26 @@ public class MyProfile extends Fragment {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-
+                // ...
             }
         };
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
 
-
-        View view;
-//        if (getOption() == true) {
-
-            // Inflate the layout for this fragment
-            view = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
+        //TODO: fetch contractorOption from DB to set the if statement
+//        View root;
+//        if(m.getContractorOption().equals(true)) {
+//            root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
 //        } else {
 //            root = inflater.inflate(R.layout.fragment_homeowner_profile, container, false);
 //        }
-
-//            estimateButton = (Button) view.findViewById(R.id.profile_estimate_button);
-//            messageButton = (Button) view.findViewById(R.id.profile_message_button);
-
-//            estimateButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Fragment Estimate_Frag = new Estimate();
-//                    //[Setting up the bundle to pass to next RegisterAddress screen]-[END]
-//
-//
-//                    //[Setting up the Address Fragment] - START
-//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                    ft.addToBackStack(null);
-//
-//                    ft.replace(R.id.estimate_frame_container, Estimate_Frag
-//                            ,"EstimateFrag");
-//
-//                    ft.commit();
-//                    //[Setting up the Address Fragment] - END
-//                }
-//            });
-
-
-
-
-//        //TODO: fetch contractorOption from DB to set the if statement
-////        View root;
-////        if(m.getContractorOption().equals(true)) {
-////            root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
-////        } else {
-////            root = inflater.inflate(R.layout.fragment_homeowner_profile, container, false);
-////        }
-
-        return view;
-
+        return root;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -217,58 +166,6 @@ public class MyProfile extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-//        estimateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                 Create new fragment and transaction
-//                Fragment estimate_fragment = new Estimate();
-//                // consider using Java coding conventions (upper first char class names!!!)
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//
-//                // Replace whatever is in the fragment_container view with this fragment,
-//                // and add the transaction to the back stack
-//                transaction.replace(R.id.estimate_layout, estimate_fragment);
-//                transaction.addToBackStack(null);
-//
-//                // Commit the transaction
-//                transaction.commit();
-//            }
-//        });
-
-//        callButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Uri uri = Uri.parse("http://www.google.com");
-//                onButtonPressed(uri);
-//            }
-//        });
-
-
-
-//        websiteButton.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View arg0) {
-////                if (mListener != null) {
-////                    mListener.onFragmentInteraction(Uri.parse("http://www.google.com"));
-////                }
-////            }
-//            @Override
-//                public void onClick(View v) {
-//                // Create new fragment and transaction
-//                Fragment directions_fragment = new Directions();
-//                // consider using Java coding conventions (upper first char class names!!!)
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//
-//                // Replace whatever is in the fragment_container view with this fragment,
-//                // and add the transaction to the back stack
-//                transaction.replace(R.id.directions_button, directions_fragment);
-//                transaction.addToBackStack(null);
-//
-//                // Commit the transaction
-//                transaction.commit();
-//            }
-//        });
-
 
     @Override
     public void onAttach(Context context) {
@@ -325,13 +222,6 @@ public class MyProfile extends Fragment {
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
 
-        //This is for the images part
-//        mCircleProfileImageView = (CircleImageView)view.
-//                findViewById(R.id.profile_image_contractor_register_fragment);
-
-//        estimateButton = (Button) view.findViewById(R.id.estimate_button);
-//        callButton = (LinearLayout) view.findViewById(R.id.call_button);
-//        websiteButton = (LinearLayout) view.findViewById(R.id.website_button);
 
     }
 
