@@ -6,8 +6,8 @@
     android:name="com.example.jakubkalinowski.contractfoxandroid.SearchViewListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.SearchViewListActivity"
     tools:listitem="@layout/searchview_list_content" />

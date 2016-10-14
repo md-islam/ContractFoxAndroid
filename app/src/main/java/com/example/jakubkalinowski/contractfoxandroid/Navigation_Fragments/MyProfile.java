@@ -74,7 +74,7 @@ public class MyProfile extends Fragment {
 //        else {
 //            rootView = inflater.inflate(R.layout.fragment_home_owner_profile, container, false);
 //        }
-        return inflater.inflate(R.layout.contractor_profile_activity, container, false);
+        return inflater.inflate(R.layout.fragment_my_profile, container, false);
 
     }
 

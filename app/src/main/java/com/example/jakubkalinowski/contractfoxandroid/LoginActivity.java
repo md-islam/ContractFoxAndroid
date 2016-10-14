@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPassword;
     private Button mSignInButton;
     private Button mRegisterButton;
+    Button b ;
+
     TextView forgotPass;
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);

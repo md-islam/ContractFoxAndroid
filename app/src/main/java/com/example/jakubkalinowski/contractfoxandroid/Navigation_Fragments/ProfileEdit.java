@@ -49,7 +49,7 @@ public class ProfileEdit extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
-    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+    private static DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
     private OnFragmentInteractionListener mListener;
@@ -93,6 +93,9 @@ public class ProfileEdit extends Fragment {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+
+
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -107,6 +110,7 @@ public class ProfileEdit extends Fragment {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+
 
                                         //need null handlers here
                                         Contractor m = dataSnapshot.getValue(Contractor.class);
