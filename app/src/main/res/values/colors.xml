@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#1cf21010</color>
+
+    <color name="deepOrange_500">#FF5722</color>
+    <color name="deepOrange_700">#E64A19</color>
+
+
 </resources>

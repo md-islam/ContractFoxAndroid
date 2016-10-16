@@ -1,9 +1,9 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,10 +17,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -29,10 +32,13 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.jakubkalinowski.contractfoxandroid.interfaces.Communicator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,7 +70,6 @@ public class RegisterContractorFragment extends Fragment {
     private Bitmap mProfileImageBitmap;
 
 
-
     //values;
     private String mEmailValueFromPrevious;
     private String mPasswordValueFromPrevious;
@@ -93,7 +98,6 @@ public class RegisterContractorFragment extends Fragment {
     };
 
 
-
     //handling the checkbox skills area
     private CheckBox mBathroomSkillCheck;
     private CheckBox mKitchenSkillCheck;
@@ -101,6 +105,10 @@ public class RegisterContractorFragment extends Fragment {
     private CompoundButton.OnCheckedChangeListener mCheckListener;
     //arraylist
     private ArrayList<String> skillset;
+
+
+    //reference to the communicator interface
+    Communicator mCommunicator;
 
 
     public RegisterContractorFragment() {
@@ -112,6 +120,7 @@ public class RegisterContractorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((registerActivity) getActivity()).setTopToolBar("Contractor sign up");
         //lets set values coming from previous fragment to this fragment
         mEmailValueFromPrevious = getArguments().getString("emailAddress");
         mPasswordValueFromPrevious = getArguments().getString("password");
@@ -132,7 +141,7 @@ public class RegisterContractorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //This is for the images part
-        mCircleProfileImageView = (CircleImageView)view.
+        mCircleProfileImageView = (CircleImageView) view.
                 findViewById(R.id.profile_image_contractor_register_fragment);
 
         //6 wrappers
@@ -142,11 +151,11 @@ public class RegisterContractorFragment extends Fragment {
                 findViewById(R.id.last_name_textInput_wrapper_fragment_Contractor_Register);
         mPhoneWrapper = (TextInputLayout) view.
                 findViewById(R.id.phone_Input_wrapper_fragment_contractor_Register);
-        mCompanyWrapper = (TextInputLayout)view
+        mCompanyWrapper = (TextInputLayout) view
                 .findViewById(R.id.companyName_Input_wrapper_fragment_contractor_Register);
-        mDescriptionWrapper = (TextInputLayout)view
+        mDescriptionWrapper = (TextInputLayout) view
                 .findViewById(R.id.company_description_Input_wrapper_fragment_contractor_Register);
-        mWebsiteWrapper = (TextInputLayout)view
+        mWebsiteWrapper = (TextInputLayout) view
                 .findViewById(R.id.website_url_Input_wrapper_fragment_contractor_Register);
 
 
@@ -174,12 +183,7 @@ public class RegisterContractorFragment extends Fragment {
                         company_description_edittextfield_fragment_contractor_Register_fragment);
         mWebsiteEditText = (EditText)
                 view.findViewById
-                        (R.id.website_url_edittextfield_fragment_contractor_Register_fragment) ;
-
-
-
-
-
+                        (R.id.website_url_edittextfield_fragment_contractor_Register_fragment);
 
 
         //[setting up the skills arraylist and it's listeners]--[START]
@@ -193,30 +197,30 @@ public class RegisterContractorFragment extends Fragment {
                 // compoundButton is the checkbox
                 // boolean is whether or not checkbox is checked
                 // Check which checkbox was clicked
-                switch (compoundButton.getId()){
+                switch (compoundButton.getId()) {
                     case R.id.checkbox_bathroom:
-                        if(checked){
+                        if (checked) {
                             //Add to arrayList
                             skillset.add("bathroom");
-                        }else{
+                        } else {
                             //Remove From ArrayList
                             skillset.remove("bathroom");
                         }
                         break;
                     case R.id.checkbox_bedroom:
-                        if(checked){
+                        if (checked) {
                             //Add to arrayList
                             skillset.add("bedroom");
-                        }else{
+                        } else {
                             //Remove From ArrayList
                             skillset.add("bedroom");
                         }
                         break;
                     case R.id.checkbox_kitchen:
-                        if(checked){
+                        if (checked) {
                             //Add to arrayList
                             skillset.add("kitchen");
-                        }else{
+                        } else {
                             //Remove From ArrayList
                             skillset.remove("kitchen");
                         }
@@ -234,47 +238,7 @@ public class RegisterContractorFragment extends Fragment {
         mNextButtonToRegisterAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] profileImageBytedata = getCircleImageViewByteData();
-                mFirstNameValue = mFirstNameEditText.getText().toString();
-                mLastNameValue = mLastNameEditText.getText().toString();
-                mPhoneValue = mPhoneEditText.getText().toString();
-                mCompanyValue = mCompanyEditText.getText().toString();
-                mDescriptionValue = mDescriptionEditText.getText().toString();
-                mWebsiteValue = mWebsiteEditText.getText().toString();
-
-                //[Setting up the bundle to pass to next RegisterAddress screen]-[START]
-                Bundle bundleToPass = new Bundle();
-                bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
-                bundleToPass.putString("password", mPasswordValueFromPrevious);
-                bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
-                bundleToPass.putString("firstname",mFirstNameValue);
-                bundleToPass.putString("lastname", mLastNameValue);
-                bundleToPass.putString("phone", mPhoneValue);
-                bundleToPass.putString("companyName", mCompanyValue);
-                bundleToPass.putString("websiteURL", mWebsiteValue);
-                bundleToPass.putString("companyDescription", mDescriptionValue);
-                bundleToPass.putStringArrayList("contractor_skillset",skillset);
-                //still need to handle the images part here
-                bundleToPass.putByteArray("profileImageData", profileImageBytedata);
-
-
-
-                Fragment AddressRegisterFragment = new Address_Fragment();
-                AddressRegisterFragment.setArguments(bundleToPass);
-                //[Setting up the bundle to pass to next RegisterAddress screen]-[END]
-
-
-                //[Setting up the Address Fragment] - START
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-
-                ft.replace(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
-                        ,"AddressFragment");
-
-                ft.commit();
-                //[Setting up the Address Fragment] - END
-
-
+                goToAddressFragmentAfterValidation();
             }
         });
 
@@ -288,24 +252,15 @@ public class RegisterContractorFragment extends Fragment {
         });
 
 
-
     }
 
 
     //[THIS PIECE OF CODE BELOW ONLY ATTACHES THE LISTERNER TO EACH INDIVIDUAL CHECKBOX]
-    public void setUpSkillsCheckbox(){
+    public void setUpSkillsCheckbox() {
         mBathroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mBedroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mKitchenSkillCheck.setOnCheckedChangeListener(mCheckListener);
     }
-
-
-
-
-
-
-
-
 
 
     //This piece of code gets ByteArrayData from whatever the image circle IS//still needs
@@ -320,9 +275,6 @@ public class RegisterContractorFragment extends Fragment {
         byte[] data = baos.toByteArray();
         return data;
     }
-
-
-
 
 
     //This piece of code pops up the dialog window
@@ -341,8 +293,6 @@ public class RegisterContractorFragment extends Fragment {
         MaterialDialog md = builder.build();
         md.show();
     }
-
-
 
 
     //This piece of code gets access to gallery
@@ -395,5 +345,208 @@ public class RegisterContractorFragment extends Fragment {
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
+
+
+    /**
+     * @param context Initializing communicator interface variable to be initialized to an Activity's context/
+     *                So that mCommunicator knows which activity's respond to make a call to.
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity) {
+            a = (Activity) context;
+            mCommunicator = (Communicator) a;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((registerActivity) getActivity()).setTopToolBar("Sign Up");
+    }
+
+
+    //====FORM VALIDATION SECTION====// --[START]
+    public void goToAddressFragmentAfterValidation(){
+        //Required fields are first name, last name, company name, phone, description
+        //other fields are phone, website, description.
+
+        if(!validateFirstName()){
+            return;
+        }
+        if(!validateLastName()){
+            return;
+        }
+        if(!validatePhone()){
+            return;
+        }
+        if(!validateCompanyName()){
+            return;
+        }
+
+        if(!validateDescription()){
+            return;
+        }
+
+        byte[] profileImageBytedata = getCircleImageViewByteData();
+        mFirstNameValue = mFirstNameEditText.getText().toString();
+        mLastNameValue = mLastNameEditText.getText().toString();
+        mPhoneValue = mPhoneEditText.getText().toString();
+        mCompanyValue = mCompanyEditText.getText().toString();
+        mDescriptionValue = mDescriptionEditText.getText().toString();
+        mWebsiteValue = mWebsiteEditText.getText().toString();
+
+        //[Setting up the bundle to pass to next RegisterAddress screen]-[START]
+        Bundle bundleToPass = new Bundle();
+        bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
+        bundleToPass.putString("password", mPasswordValueFromPrevious);
+        bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
+        bundleToPass.putString("firstname", mFirstNameValue);
+        bundleToPass.putString("lastname", mLastNameValue);
+        bundleToPass.putString("phone", mPhoneValue);
+        bundleToPass.putString("companyName", mCompanyValue);
+        bundleToPass.putString("websiteURL", mWebsiteValue);
+        bundleToPass.putString("companyDescription", mDescriptionValue);
+        bundleToPass.putStringArrayList("contractor_skillset", skillset);
+        //still need to handle the images part here
+        bundleToPass.putByteArray("profileImageData", profileImageBytedata);
+        System.out.println(getTag());
+        mCommunicator.respond(bundleToPass, getTag());
+
+//                Fragment AddressRegisterFragment = new Address_Fragment();
+//                AddressRegisterFragment.setArguments(bundleToPass);
+//                //[Setting up the bundle to pass to next RegisterAddress screen]-[END]
+//
+//
+//                //[Setting up the Address Fragment] - START
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.addToBackStack(null);
+//
+//                ft.replace(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
+//                        ,"AddressFragment");
+//
+//                ft.commit();
+//                //[Setting up the Address Fragment] - END
+
+    }
+
+
+    public boolean validateFirstName(){
+        String firstName = mFirstNameEditText.getText().toString().trim();
+        if(firstName.isEmpty() || firstName.equals("")){
+            mFirstNameWrapper.setError(getString(R.string
+                    .register_contractor_fragment_firstName_error));
+            requestFocus(mFirstNameEditText);
+            return false;
+        } else{
+            mFirstNameWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+
+    public boolean validateLastName(){
+        String lastName = mLastNameEditText.getText().toString().trim();
+        if(lastName.isEmpty() || lastName.equals("")){
+            mLastNameWrapper.setError(getString(R.string
+                    .register_contractor_fragment_lastName_error));
+            requestFocus(mLastNameEditText);
+            return false;
+        } else{
+            mLastNameWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateCompanyName(){
+        String companyName = mCompanyEditText.getText().toString().trim();
+        if(companyName.isEmpty() || companyName.equals("")){
+            mCompanyWrapper.setError(getString(R.string
+                    .register_contractor_fragment_lastName_error));
+            requestFocus(mCompanyEditText);
+            return false;
+        } else{
+            mCompanyWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validatePhone(){
+        String phone = mPhoneEditText.getText().toString().trim();
+        if(phone.isEmpty() || phone.equals("") ||
+                !(android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches())){
+            mPhoneWrapper.setError(getString(R.string
+                    .register_contractor_fragment_phone_error));
+            requestFocus(mPhoneEditText);
+            return false;
+        } else{
+            mPhoneWrapper.setErrorEnabled(false);
+        }
+        return true;
+//        return android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches();
+    }
+
+    public boolean validateDescription(){
+        String description = mDescriptionEditText.getText().toString().trim();
+        if(description.isEmpty() || description.equals("")){
+            mDescriptionWrapper.setError(getString(R.string
+                    .register_contractor_fragment_description_error));
+            requestFocus(mDescriptionEditText);
+            return false;
+        } else{
+            mDescriptionWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+
+    private void requestFocus(View view){
+        if(view.requestFocus()){
+            getActivity().getWindow().
+                    setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.first_name_edit_text_fragment_contractor_register:
+                    validateFirstName();
+                    break;
+                case R.id.last_name_edittextfield_fragment_Contractor_Register_fragment:
+                    validateLastName();
+                    break;
+                case R.id.phone_edittextfield_fragment_contractor_Register_fragment:
+                    validatePhone();
+                    break;
+                case R.id.companyName_edittextfield_fragment_contractor_Register_fragment:
+                    validateCompanyName();
+                    break;
+                case R.id.description_editText_contractorProfileFragment:
+                    validateDescription();
+                    break;
+            }
+        }
+    }
+
+
+    //===FORM VALIDATION SECTION====// //--[END]
+
 
 }

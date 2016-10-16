@@ -334,5 +334,8 @@ public class Address_Fragment extends Fragment {
 
     }
 
+    public void recieveData(){
+
+    }
 }
 

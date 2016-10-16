@@ -21,7 +21,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="register_activity_email_error">Enter Valid Email</string>
+    <string name="register_activity_password_error">Enter a valid password with at least 6 characters</string>
+    <string name="register_activity_repeat_password_error">not identical</string>
+    <string name="register_contractor_fragment_firstName_error">Enter valid first name</string>
+    <string name="register_contractor_fragment_lastName_error">Enter valid last name</string>
+    <string name="register_contractor_fragment_companyName_error">Enter valid company name</string>
+    <string name="register_contractor_fragment_description_error">Enter valid description</string>
+    <string name="register_contractor_fragment_phone_error">Enter valid phone number</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 
