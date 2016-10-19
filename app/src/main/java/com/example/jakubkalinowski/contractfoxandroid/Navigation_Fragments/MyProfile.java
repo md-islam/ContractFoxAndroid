@@ -1,6 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -67,6 +70,10 @@ public class MyProfile extends Fragment {
     private Button estimateButton, messageButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
+
+    //imageView
+    private CircleImageView mCircleProfileImageView;
+    private Bitmap mProfileImageBitmap;
 
 
     public MyProfile() {
@@ -149,7 +156,7 @@ public class MyProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
-
+//        View root = inflater.inflate(R.layout.activity_contractor_profile, container, false);
         //TODO: fetch contractorOption from DB to set the if statement
 //        View root;
 //        if(m.getContractorOption().equals(true)) {
@@ -221,7 +228,6 @@ public class MyProfile extends Fragment {
         phoneNumber = (TextView) view.findViewById(R.id.call_text);
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
-
 
     }
 

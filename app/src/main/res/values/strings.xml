@@ -44,8 +44,8 @@
     <!--<string name="register_button_login_activity">Register</string>-->
     <!--<string name="sign_up_button_text">Sign Up</string>-->
     <!--<string name="intro">Looking for contractors I presume? \n\nUnfamiliar with construction language-->
-        <!--and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!-->
-        <!--\n\nLet\'s get started.</string>-->
+    <!--and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!-->
+    <!--\n\nLet\'s get started.</string>-->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank estimate fragment</string>
     <string name="title_searchview_list">Items</string>
@@ -87,6 +87,11 @@
     <!-- END of SKILLSETS-->
 
     <!-- PRICE ESTIMATE -->
+    <string name="step1">STEP 1</string>
+    <string name="step2">STEP 2</string>
+    <string name="step3">STEP 3</string>
+    <string name="step4">STEP 4</string>
+    <!-- STEP 1 -->
     <string name="project_title">Enter Project Title...</string>
     <string name="location_selection">Project\'s Location</string>
     <string name="interior">Interior</string>
@@ -122,8 +127,18 @@
     <string name="landscape">Landscape</string>
     <string name="well">Well</string>
     <string name="fence">Fence</string>
+    <!-- STEP 2 -->
+    <string name="measurements_description">Item/Area Dimensions &amp; Specs</string>
+    <string name="measurements">Provide detailed item or area dimensions &amp; specifications in a few sentences.</string>
+    <!-- STEP 3 -->
     <string name="project_description">Detailed Project Description</string>
     <string name="project_description_holder">Enter a detailed project description...</string>
+    <!-- STEP 4 -->
+    <string name="question1">Will you provide your own materials?</string>
+    <string name="question2">Will you need material delivery?</string>
+    <string name="upload">Upload a photo</string>
+    <string name="img_picture_text">Take a Picture</string>
+    <string name="img_upload_text">Upload an Image</string>
     <!-- END OF PRICE ESTIMATE -->
 
 </resources>
