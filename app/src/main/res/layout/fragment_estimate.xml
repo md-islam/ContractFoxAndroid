@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/estimate_frame"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate">
+
+    <FrameLayout
+        android:id="@+id/estimate_frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+    </FrameLayout>
+
+</FrameLayout>
