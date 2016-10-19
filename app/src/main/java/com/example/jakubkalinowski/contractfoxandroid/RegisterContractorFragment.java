@@ -371,7 +371,7 @@ public class RegisterContractorFragment extends Fragment {
     //====FORM VALIDATION SECTION====// --[START]
     public void goToAddressFragmentAfterValidation(){
         //Required fields are first name, last name, company name, phone, description
-        //other fields are phone, website, description.
+        //other fields are website, description.
 
         if(!validateFirstName()){
             return;

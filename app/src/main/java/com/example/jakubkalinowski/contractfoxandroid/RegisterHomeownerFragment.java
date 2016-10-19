@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -137,41 +138,7 @@ public class RegisterHomeownerFragment extends Fragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //handle profile image
-
-                byte[] profileImageBytedata = getCircleImageViewByteData();
-                mFirstNameValue = mFirstNameEditText.getText().toString();
-                mLastNameValue = mLastNameEditText.getText().toString();
-                mPhoneValue = mPhoneEditText.getText().toString();
-
-                //[Setting the bundle of arguements to pass to address]-START
-                Bundle bundleToPass = new Bundle();
-                bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
-                bundleToPass.putString("password", mPasswordValueFromPrevious);
-                bundleToPass.putString("firstname", mFirstNameValue);
-                bundleToPass.putString("lastname", mLastNameValue);
-                bundleToPass.putString("phone", mPhoneValue);
-                bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
-                bundleToPass.putByteArray("profileImageData", profileImageBytedata);
-
-                System.out.println(getTag());
-                mCommunicator.respond(bundleToPass, getTag());
-
-
-//                Fragment AddressRegisterFragment = new Address_Fragment();
-//                AddressRegisterFragment.setArguments(bundleToPass);
-//                //[Setting the bundle of arguements to pass to address]-END
-//
-//
-//                //[Setting up the Address Fragment] - START
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.addToBackStack(null);
-//                ft.replace(R.id.homeowner_fragment_register_framelayout,
-//                        AddressRegisterFragment, "AddressFragment");
-//
-//                ft.commit();
-                //[Setting up the Address Fragment] - END
+                goToAddressFragmentAfterValidation();
             }
         });
 
@@ -249,7 +216,7 @@ public class RegisterHomeownerFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(getActivity().
-                    getApplicationContext(), "Something went wrong, try again",
+                            getApplicationContext(), "Something went wrong, try again",
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -272,25 +239,125 @@ public class RegisterHomeownerFragment extends Fragment {
     }
 
     /**
-     *
-     * @param context
-     * Initializing communicator interface variable to be initialized to an Activity's context/
-     * So that mCommunicator knows which activity's respond to make a call to.
+     * @param context Initializing communicator interface variable to be initialized to an Activity's context/
+     *                So that mCommunicator knows which activity's respond to make a call to.
      */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Activity a;
-        if(context instanceof Activity){
-            a=(Activity) context;
-            mCommunicator = (Communicator)a;
+        if (context instanceof Activity) {
+            a = (Activity) context;
+            mCommunicator = (Communicator) a;
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        ((registerActivity)getActivity()).setTopToolBar("Sign Up");
+        ((registerActivity) getActivity()).setTopToolBar("Sign Up");
     }
+
+    //====FORM VALIDATION SECTION=====// ---[START]
+    public void goToAddressFragmentAfterValidation() {
+        //Required fields here are first name, last name & phone.
+        if (!validateFirstName()) {
+            return;
+        }
+        if (!validateLastName()) {
+            return;
+        }
+        if (!validatePhone()) {
+            return;
+        }
+
+        //handle profile image
+
+        byte[] profileImageBytedata = getCircleImageViewByteData();
+        mFirstNameValue = mFirstNameEditText.getText().toString();
+        mLastNameValue = mLastNameEditText.getText().toString();
+        mPhoneValue = mPhoneEditText.getText().toString();
+
+        //[Setting the bundle of arguements to pass to address]-START
+        Bundle bundleToPass = new Bundle();
+        bundleToPass.putString("emailAddress", mEmailValueFromPrevious);
+        bundleToPass.putString("password", mPasswordValueFromPrevious);
+        bundleToPass.putString("firstname", mFirstNameValue);
+        bundleToPass.putString("lastname", mLastNameValue);
+        bundleToPass.putString("phone", mPhoneValue);
+        bundleToPass.putBoolean("typeBoolean", mContractorBooleanValueFromPrevious);
+        bundleToPass.putByteArray("profileImageData", profileImageBytedata);
+
+        System.out.println(getTag());
+        mCommunicator.respond(bundleToPass, getTag());
+
+
+//                Fragment AddressRegisterFragment = new Address_Fragment();
+//                AddressRegisterFragment.setArguments(bundleToPass);
+//                //[Setting the bundle of arguements to pass to address]-END
+//
+//
+//                //[Setting up the Address Fragment] - START
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.addToBackStack(null);
+//                ft.replace(R.id.homeowner_fragment_register_framelayout,
+//                        AddressRegisterFragment, "AddressFragment");
+//
+//                ft.commit();
+        //[Setting up the Address Fragment] - END
+    }
+
+    //====FORM VALIDATION SECTION=====// ---[END]
+
+
+    //--HELPER METHODS FOR FORM VALIDATION -- [START]
+    public boolean validateFirstName() {
+        String firstName = mFirstNameEditText.getText().toString().trim();
+        if (firstName.isEmpty() || firstName.equals("")) {
+            mFirstNameWrapper.setError(getString(R.string
+                    .register_contractor_fragment_firstName_error));
+            requestFocus(mFirstNameEditText);
+            return false;
+        } else {
+            mFirstNameWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateLastName() {
+        String lastName = mLastNameEditText.getText().toString().trim();
+        if (lastName.isEmpty() || lastName.equals("")) {
+            mLastNameWrapper.setError(getString(R.string
+                    .register_contractor_fragment_lastName_error));
+            requestFocus(mLastNameEditText);
+            return false;
+        } else {
+            mLastNameWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validatePhone() {
+        String phone = mPhoneEditText.getText().toString().trim();
+        if (phone.isEmpty() || phone.equals("") ||
+                !(android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches())) {
+            mPhoneWrapper.setError(getString(R.string
+                    .register_contractor_fragment_phone_error));
+            requestFocus(mPhoneEditText);
+            return false;
+
+        } else {
+            mPhoneWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getActivity().getWindow().
+                    setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+    //--[HELPER METHODS FOR FORM VALIDATION] -- [END]
 }
 
