@@ -44,8 +44,8 @@
     <!--<string name="register_button_login_activity">Register</string>-->
     <!--<string name="sign_up_button_text">Sign Up</string>-->
     <!--<string name="intro">Looking for contractors I presume? \n\nUnfamiliar with construction language-->
-    <!--and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!-->
-    <!--\n\nLet\'s get started.</string>-->
+        <!--and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!-->
+        <!--\n\nLet\'s get started.</string>-->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank estimate fragment</string>
     <string name="title_searchview_list">Items</string>
