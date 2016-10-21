@@ -368,25 +368,27 @@ public class RegisterContractorFragment extends Fragment {
     }
 
 
+
+
     //====FORM VALIDATION SECTION====// --[START]
-    public void goToAddressFragmentAfterValidation(){
+    public void goToAddressFragmentAfterValidation() {
         //Required fields are first name, last name, company name, phone, description
         //other fields are website, description.
 
-        if(!validateFirstName()){
+        if (!validateFirstName()) {
             return;
         }
-        if(!validateLastName()){
+        if (!validateLastName()) {
             return;
         }
-        if(!validatePhone()){
+        if (!validatePhone()) {
             return;
         }
-        if(!validateCompanyName()){
+        if (!validateCompanyName()) {
             return;
         }
 
-        if(!validateDescription()){
+        if (!validateDescription()) {
             return;
         }
 
@@ -415,95 +417,80 @@ public class RegisterContractorFragment extends Fragment {
         System.out.println(getTag());
         mCommunicator.respond(bundleToPass, getTag());
 
-//                Fragment AddressRegisterFragment = new Address_Fragment();
-//                AddressRegisterFragment.setArguments(bundleToPass);
-//                //[Setting up the bundle to pass to next RegisterAddress screen]-[END]
-//
-//
-//                //[Setting up the Address Fragment] - START
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.addToBackStack(null);
-//
-//                ft.replace(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
-//                        ,"AddressFragment");
-//
-//                ft.commit();
-//                //[Setting up the Address Fragment] - END
-
     }
 
 
-    public boolean validateFirstName(){
+    public boolean validateFirstName() {
         String firstName = mFirstNameEditText.getText().toString().trim();
-        if(firstName.isEmpty() || firstName.equals("")){
+        if (firstName.isEmpty() || firstName.equals("")) {
             mFirstNameWrapper.setError(getString(R.string
                     .register_contractor_fragment_firstName_error));
             requestFocus(mFirstNameEditText);
             return false;
-        } else{
+        } else {
             mFirstNameWrapper.setErrorEnabled(false);
         }
         return true;
     }
 
 
-    public boolean validateLastName(){
+    public boolean validateLastName() {
         String lastName = mLastNameEditText.getText().toString().trim();
-        if(lastName.isEmpty() || lastName.equals("")){
+        if (lastName.isEmpty() || lastName.equals("")) {
             mLastNameWrapper.setError(getString(R.string
                     .register_contractor_fragment_lastName_error));
             requestFocus(mLastNameEditText);
             return false;
-        } else{
+        } else {
             mLastNameWrapper.setErrorEnabled(false);
         }
         return true;
     }
 
-    public boolean validateCompanyName(){
+    public boolean validateCompanyName() {
         String companyName = mCompanyEditText.getText().toString().trim();
-        if(companyName.isEmpty() || companyName.equals("")){
+        if (companyName.isEmpty() || companyName.equals("")) {
             mCompanyWrapper.setError(getString(R.string
                     .register_contractor_fragment_lastName_error));
             requestFocus(mCompanyEditText);
             return false;
-        } else{
+        } else {
             mCompanyWrapper.setErrorEnabled(false);
         }
         return true;
     }
 
-    public boolean validatePhone(){
+    public boolean validatePhone() {
         String phone = mPhoneEditText.getText().toString().trim();
-        if(phone.isEmpty() || phone.equals("") ||
-                !(android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches())){
+        if (phone.isEmpty() || phone.equals("") ||
+                !(android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches())) {
             mPhoneWrapper.setError(getString(R.string
                     .register_contractor_fragment_phone_error));
             requestFocus(mPhoneEditText);
             return false;
-        } else{
+        } else {
             mPhoneWrapper.setErrorEnabled(false);
         }
         return true;
 //        return android.util.Patterns.PHONE.matcher(mPhoneEditText.getText().toString()).matches();
     }
 
-    public boolean validateDescription(){
+    public boolean validateDescription() {
         String description = mDescriptionEditText.getText().toString().trim();
-        if(description.isEmpty() || description.equals("")){
+        if (description.isEmpty() || description.equals("")) {
             mDescriptionWrapper.setError(getString(R.string
                     .register_contractor_fragment_description_error));
             requestFocus(mDescriptionEditText);
             return false;
-        } else{
+        } else {
             mDescriptionWrapper.setErrorEnabled(false);
         }
         return true;
     }
 
 
-    private void requestFocus(View view){
-        if(view.requestFocus()){
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
             getActivity().getWindow().
                     setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }

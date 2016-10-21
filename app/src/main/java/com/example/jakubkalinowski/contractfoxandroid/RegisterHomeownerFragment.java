@@ -21,6 +21,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +111,6 @@ public class RegisterHomeownerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         mFirstNameWrapper = (TextInputLayout) view.
                 findViewById(R.id.first_name_textInput_wrapper_homeowner_register_fragment);
         mLastNameWrapper = (TextInputLayout) view.
@@ -358,6 +358,36 @@ public class RegisterHomeownerFragment extends Fragment {
                     setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.first_name_edit_text_fragment_homeowner_register:
+                    validateFirstName();
+                    break;
+                case R.id.last_name_edittextfield_fragment_homeOwnerRegister_fragment:
+                    validateLastName();
+                    break;
+                case R.id.phone_edittextfield_fragment_homeOwnerRegister_fragment:
+                    validatePhone();
+                    break;
+            }
+        }
+    }
+
     //--[HELPER METHODS FOR FORM VALIDATION] -- [END]
 }
 

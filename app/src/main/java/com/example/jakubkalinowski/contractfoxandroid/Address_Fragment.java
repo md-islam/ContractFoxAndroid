@@ -5,19 +5,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jakubkalinowski.contractfoxandroid.googleMapsApi.PlaceAutocompleteAdapter;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,10 +42,16 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 
+// Packages required for importing google maps API
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+//
+
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Address_Fragment extends Fragment {
+public class Address_Fragment extends Fragment implements OnConnectionFailedListener {
 
     //textWrappers
     private TextInputLayout mStreetAddressWrapper;
@@ -52,6 +66,12 @@ public class Address_Fragment extends Fragment {
     private EditText mCityEditText;
     private EditText mStateEditText;
     private EditText mZipEditText;
+
+    //google maps required variables
+    private AutoCompleteTextView mAutoCompleteTextView;
+    private PlaceAutocompleteAdapter mAdapter;
+    private static final LatLngBounds BOUNDS_USA = new LatLngBounds(
+            new LatLng(32.6393, -117.004304), new LatLng(44.901184, -67.32254));
 
 
     //registerButton
@@ -82,6 +102,10 @@ public class Address_Fragment extends Fragment {
     private String mZipValue;
 
     private String TAG = "FirebaseTag";
+
+
+    //googleAPI client instance
+    private GoogleApiClient mGoogleApiClient;
 
     //FIREBASE ESSENTIALS to login
     //auth instance variable
@@ -118,7 +142,7 @@ public class Address_Fragment extends Fragment {
         mBytesArrayFromPrevious = getArguments().getByteArray("profileImageData");
         mContractorBooleanValueFromPrevious = getArguments().getBoolean("typeBoolean");
 
-        if(mContractorBooleanValueFromPrevious == true){
+        if (mContractorBooleanValueFromPrevious == true) {
             mContractorCompanyValueFromPrevious = getArguments().getString("companyName");
             mContractorWebsiteValueFromPrevious = getArguments().getString("websiteURL");
             mContractorDescriptionValueFromPrevious = getArguments().getString("companyDescription");
@@ -133,7 +157,6 @@ public class Address_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mStreetAddressWrapper = (TextInputLayout)
                 view.findViewById(R.id.street_address_wrapper_fragment_address_homeowner);
         mUnitAptWrapper = (TextInputLayout)
@@ -144,6 +167,9 @@ public class Address_Fragment extends Fragment {
                 view.findViewById(R.id.state_wrapper_fragment_homeownerRegisterAddress);
         mZipWrapper = (TextInputLayout)
                 view.findViewById(R.id.zipCode_wrapper_fragment_homeownerRegisterAddress);
+        mAutoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.
+                autocomplete_places_registration_address_fragment);
+
 
         mStreetAddressWrapper.setHint("Street Address");
         mUnitAptWrapper.setHint("Unit/Apt #");
@@ -166,40 +192,21 @@ public class Address_Fragment extends Fragment {
                 view.findViewById(R.id.zipCode_edittextfield_fragment_homeOwnerRegister_fragment);
 
 
+        //--GOOGLE MAPS AUTO COMPLETE --[START]
+        mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
+        mAdapter = new PlaceAutocompleteAdapter(getActivity(), mGoogleApiClient,
+                BOUNDS_USA, new AutocompleteFilter.Builder()
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                .build());
+
+        mAutoCompleteTextView.setAdapter(mAdapter);
+
+        //--GOOGLE MAPS AUTO COMPLETE --[END]
+
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                //public Address(String streetAddress, String city, String state, String zipCode, String unit_Apt_no)
-                mStreetValue = mStreetAddressEditText.getText().toString();
-                mUnitAptValue = mUnitAptEditText.getText().toString();
-                mCityValue = mCityEditText.getText().toString();
-                mStateValue = mStateEditText.getText().toString();
-                mZipValue = mZipEditText.getText().toString();
-
-
-                //needs a null handler here
-
-
-                mAuth.createUserWithEmailAndPassword(mEmailValueFromPrevious, mPasswordValueFromPrevious)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), R.string.auth_failed,
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    //add an action here once user is created,
-                                    // you can choose to finish the activity here if you want
-
-                                }
-
-                                // ...
-                            }
-                        });
+                registerNewUserAfterAddressValidation();
             }
         });
     }
@@ -236,16 +243,15 @@ public class Address_Fragment extends Fragment {
 
                     String signedIn_userID_key = user.getUid().toString();
 
-                    if(mContractorBooleanValueFromPrevious == false) {
+                    if (mContractorBooleanValueFromPrevious == false) {
                         Member new_homeOwner_member = new Homeowner(mFirstNameValueFromPrevious,
                                 mLastNameValueFromPrevious, mEmailValueFromPrevious,
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_homeOwner_member);
-                    }
-                    else{
+                    } else {
                         Member new_contractor_member = new Contractor(mFirstNameValueFromPrevious,
-                                mLastNameValueFromPrevious,mEmailValueFromPrevious,
+                                mLastNameValueFromPrevious, mEmailValueFromPrevious,
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
                                 mContractorDescriptionValueFromPrevious,
                                 mContractorSkillsetValueFromPrevious,
@@ -253,8 +259,6 @@ public class Address_Fragment extends Fragment {
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_contractor_member);
                     }
-
-
 
 
                     //This section of code uploads picture to authorized user--[START]//This uploads
@@ -297,6 +301,13 @@ public class Address_Fragment extends Fragment {
             }
         };
 
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getActivity())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(), this)
+                .build();
+
     }
 
     @Override
@@ -314,8 +325,7 @@ public class Address_Fragment extends Fragment {
     }
 
 
-
-    public void signOutAndFinishFragments(){
+    public void signOutAndFinishFragments() {
         mAuth.signOut();
 
         //this line of code el
@@ -329,13 +339,198 @@ public class Address_Fragment extends Fragment {
         getActivity().getSupportFragmentManager().beginTransaction().
                 remove(Address_Fragment.this).commit();
 
-        ((registerActivity)getActivity()).finish();
+        ((registerActivity) getActivity()).finish();
 
 
     }
 
-    public void recieveData(){
 
+    /**
+     * Have to come back to this later
+     */
+    public void recieveData() {
+    }
+
+
+    /**
+     * Listener that handles selections from suggestions from the AutoCompleteTextView that
+     * displays Place suggestions.
+     * Gets the place id of the selected item and issues a request to the Places Geo Data API
+     * to retrieve more details about the place.
+     */
+    private AdapterView.OnItemClickListener mAutocompleteClickListener
+            = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /*
+             Retrieve the place ID of the selected item from the Adapter.
+             The adapter stores each Place suggestion in a AutocompletePrediction from which we
+             read the place ID and title.
+              */
+            final AutocompletePrediction item = mAdapter.getItem(position);
+            final String placeId = item.getPlaceId();
+            final CharSequence primaryText = item.getPrimaryText(null);
+
+            Log.i(TAG, "Autocomplete item selected: " + primaryText);
+
+            /*
+             Issue a request to the Places Geo Data API to retrieve a Place object with additional
+             details about the place.
+              */
+
+            Toast.makeText(getActivity(), "Clicked: " + primaryText,
+                    Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Called getPlaceById to get Place details for " + placeId);
+        }
+    };
+
+
+    /**
+     * Called when the Activity could not connect to Google Play services and the auto manager
+     * could resolve the error automatically.
+     * In this case the API is not available and notify the user.
+     *
+     * @param connectionResult can be inspected to determine the cause of the failure
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+        Log.e(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
+                + connectionResult.getErrorCode());
+
+        // TODO(Developer): Check error code and notify the user of error state and resolution.
+        Toast.makeText(getActivity(),
+                "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
+
+
+    //----FORM VALIDATION SECTION ---//---[START]
+    public void registerNewUserAfterAddressValidation() {
+        if (!validateStreetAddress()) {
+            return;
+        }
+        if (!validateAPTUNITinteger()) {
+            return;
+        }
+        if (!validateCity()) {
+            return;
+        }
+        if (!validateState()) {
+            return;
+        }
+
+        if (!validateZip()) {
+            return;
+        }
+
+        //public Address(String streetAddress, String city, String state, String zipCode, String unit_Apt_no)
+        mStreetValue = mStreetAddressEditText.getText().toString();
+        mUnitAptValue = mUnitAptEditText.getText().toString();
+        mCityValue = mCityEditText.getText().toString();
+        mStateValue = mStateEditText.getText().toString();
+        mZipValue = mZipEditText.getText().toString();
+
+
+        //needs a null handler here
+
+
+        mAuth.createUserWithEmailAndPassword(mEmailValueFromPrevious, mPasswordValueFromPrevious)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(getActivity(), R.string.auth_failed,
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            //add an action here once user is created,
+                            // you can choose to finish the activity here if you want
+
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    //----FORM VALIDATION SECTION ---//---[END]
+
+    public boolean validateStreetAddress() {
+        String streetAddress = mStreetAddressEditText.getText().toString().trim();
+        if(streetAddress.isEmpty() || streetAddress.equals("")){
+            mStreetAddressWrapper.setError(getString(R.string.error_street_address));
+            requestFocus(mStreetAddressEditText);
+            return false;
+        }else{
+            mStreetAddressWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getActivity().getWindow().
+                    setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+
+    public boolean validateAPTUNITinteger() {
+        String unitAPT = mUnitAptEditText.getText().toString().trim();
+        if(unitAPT.isEmpty() || unitAPT.equals("")){
+            mUnitAptWrapper.setError(getString(R.string.error_unit_apt));
+            requestFocus(mUnitAptEditText);
+            return false;
+        }else{
+            mUnitAptWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateCity() {
+        String cityString = mCityEditText.getText().toString().trim();
+        if(cityString.isEmpty() || cityString.equals("")){
+            mCityWrapper.setError(getString(R.string.error_city));
+            requestFocus(mCityEditText);
+            return false;
+        }else{
+            mCityWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateState() {
+        String stateString = mStateEditText.getText().toString().trim();
+        if(stateString.isEmpty() || stateString.equals("")){
+            mStateWrapper.setError(getString(R.string.error_state));
+            requestFocus(mStateEditText);
+            return false;
+        }else{
+            mStateWrapper.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateZip() {
+        String zipString = mZipEditText.getText().toString().trim();
+        if(zipString.isEmpty() || zipString.equals("")){
+            mStateWrapper.setError(getString(R.string.error_zip_code));
+            requestFocus(mZipEditText);
+            return false;
+        }else{
+            mZipWrapper.setErrorEnabled(false);
+        }
+        return true;
     }
 }
 

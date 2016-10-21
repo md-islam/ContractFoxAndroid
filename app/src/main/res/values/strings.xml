@@ -11,6 +11,12 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_street_address">Enter a valid address</string>
+    <string name="error_unit_apt">Enter a valid apt/unit number</string>
+    <string name="error_city">Enter a valid city</string>
+    <string name="error_state">Choose a valid state</string>
+    <string name="error_zip_code">Enter a valid zip code</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

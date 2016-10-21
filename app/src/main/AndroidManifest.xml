@@ -110,7 +110,9 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAW54ghcPvXVf6yDhWk-VToQrb8m8P-UQI" />
+        <!--JAKUB, dont mess with this section-->
+
 
         <!-- ADDED-->
         <!--<mata-data-->
