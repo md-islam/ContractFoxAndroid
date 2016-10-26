@@ -54,13 +54,14 @@ public class registerActivity extends AppCompatActivity implements Communicator 
 
     //fragment Manager global variable
     FragmentManager mFragmentManager;
+    Fragment AddressRegisterFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        toolbar = (Toolbar)findViewById(R.id.register_activity_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.register_activity_toolbar);
         mToolBarTextViewTitle = (TextView) findViewById(R.id.toolBar_register_activity_textView);
         setTopToolBar("Sign Up");
         //this part is for hint animation
@@ -80,7 +81,7 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-         submitForm();
+                submitForm();
             }
         });
 
@@ -91,11 +92,7 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         super.onStart();
 
 
-
     }
-
-
-
 
 
     public void onRadioButtonClicked(View view) {
@@ -121,54 +118,80 @@ public class registerActivity extends AppCompatActivity implements Communicator 
      * and sends it back to Address Fragment
      */
     @Override
-    public void respond(Bundle recievedBundle, String fragmentTag) {
+    public void respond(Bundle recievedBundle, String fragmentTag, FragmentManager childFragmentManager) {
 
-        Fragment AddressRegisterFragment = new Address_Fragment();
+        AddressRegisterFragment = new Address_Fragment();
         AddressRegisterFragment.setArguments(recievedBundle);
 
-        mFragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = mFragmentManager.beginTransaction();
-        ft.addToBackStack(null);
-        if (fragmentTag.equals("ContractorRegisterProfileFragmentTAG")){
-            ft.replace(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
+
+//        mFragmentManager =  getSupportFragmentManager();
+        FragmentTransaction childFt = childFragmentManager.beginTransaction();
+        childFt.addToBackStack(null);
+        if (fragmentTag.equals("ContractorRegisterProfileFragmentTAG")) {
+            childFt.add(R.id.contractor_fragment_register_framelayout, AddressRegisterFragment
                     , "AddressFragment");
-            ft.commit();
-        }else if(fragmentTag.equals("HomeownerRegisterProfileFragmentTAG")){
-            ft.replace(R.id.homeowner_fragment_register_framelayout,
+            childFt.commit();
+        } else if (fragmentTag.equals("HomeownerRegisterProfileFragmentTAG")) {
+            childFt.add(R.id.homeowner_fragment_register_framelayout,
                     AddressRegisterFragment, "AddressFragment");
-            ft.commit();
+            childFt.commit();
         }
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
     }
 
 
     /**
-     * This is necessary because for when a navigation is done from fragment to parent activity.
-     * This pethod is called from a child fragment (or a the last fragment added to the stack)
+     * This shit is for dealing with back button press in a child fragment crap -- Android sucks
      */
-    public void setTopToolBar(String text){
+    @Override
+    public void onBackPressed() {
+        // if there is a fragment and the back stack of this fragment is not empty,
+        // then emulate 'onBackPressed' behaviour, because in default, it is not working
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getFragments() != null) {
+            for (Fragment frag : fm.getFragments()) {
+                if (frag != null) {
+                    if (frag.isVisible()) {
+                        FragmentManager childFm = frag.getChildFragmentManager();
+                        if (childFm.getBackStackEntryCount() > 0) {
+                            childFm.popBackStack();
+                            return;
+                        }
+                    }
+                }
+            }
+
+        }
+        super.onBackPressed();
+    }
+
+        @Override
+        protected void onResume () {
+            super.onResume();
+
+        }
+
+
+        /**
+         * This is necessary because for when a navigation is done from fragment to parent activity.
+         * This pethod is called from a child fragment (or a the last fragment added to the stack)
+         */
+
+    public void setTopToolBar(String text) {
 
         setSupportActionBar(toolbar);
         mToolBarTextViewTitle.setText(text);
     }
 
 
-
     //==========FORM VALIDATION SECTION==============// [START]
 
 
-    public void submitForm(){
-        if(!validateEmail()){
+    public void submitForm() {
+        if (!validateEmail()) {
             return;
         }
-        if(!validatePassword()){
+        if (!validatePassword()) {
             return;
         }
 
@@ -226,17 +249,17 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         return true;
     }
 
-    private boolean validatePassword(){
+    private boolean validatePassword() {
         String password = mPassword.getText().toString().trim();
         String repeatPassword = mRepeatPassword.getText().toString().trim();
-        if(password.isEmpty() || repeatPassword.isEmpty() || !isValidPassword(password,
-                repeatPassword)){
+        if (password.isEmpty() || repeatPassword.isEmpty() || !isValidPassword(password,
+                repeatPassword)) {
             passwordWrapper.setError(getString(R.string.register_activity_password_error));
             repeatPasswordWrapper.setError(getString(R.string
                     .register_activity_repeat_password_error));
             requestFocus(mPassword);
             return false;
-        }else{
+        } else {
             passwordWrapper.setErrorEnabled(false);
             repeatPasswordWrapper.setErrorEnabled(false);
         }
@@ -264,8 +287,6 @@ public class registerActivity extends AppCompatActivity implements Communicator 
     }
 
 
-
-
     /**
      * To check email confirming email pattern
      *
@@ -276,7 +297,6 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         return !TextUtils.isEmpty(email) && android.util.Patterns.
                 EMAIL_ADDRESS.matcher(email).matches();
     }
-
 
 
     private void requestFocus(View view) {
@@ -315,10 +335,6 @@ public class registerActivity extends AppCompatActivity implements Communicator 
     }
 
     //==========FORM VALIDATION SECTION==============// [END]
-
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 // Packages required for importing google maps API
@@ -132,7 +135,7 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         // Inflate the layout for this fragment
 
         //get them bundle values here.
-
+        ((registerActivity) getActivity()).setTopToolBar("Enter Address");
         //Contractor & Homeowner
         mEmailValueFromPrevious = getArguments().getString("emailAddress");
         mPasswordValueFromPrevious = getArguments().getString("password");
@@ -238,8 +241,8 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                 if (user != null) {
                     // User is signed in after first time creation
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Address address = new Address(mStreetValue, mUnitAptValue,
-                            mCityValue, mStateValue, mZipValue);
+                    Address address = new Address(mStreetValue, mCityValue,
+                            mStateValue, mZipValue, mUnitAptValue);
 
                     String signedIn_userID_key = user.getUid().toString();
 
@@ -249,15 +252,24 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_homeOwner_member);
+                        mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
                     } else {
+                        Map<String, Boolean> skillset = new HashMap<>();
+                        if(!mContractorSkillsetValueFromPrevious.isEmpty()){
+                            for(String skill : mContractorSkillsetValueFromPrevious){
+                                skillset.put(skill, true);
+                            }
+                        }
                         Member new_contractor_member = new Contractor(mFirstNameValueFromPrevious,
                                 mLastNameValueFromPrevious, mEmailValueFromPrevious,
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
                                 mContractorDescriptionValueFromPrevious,
-                                mContractorSkillsetValueFromPrevious,
+                                skillset,
                                 mContractorWebsiteValueFromPrevious);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_contractor_member);
+
+                        mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
                     }
 
 
@@ -288,6 +300,7 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
 
                     //signs out user and finishes all fragments/activities
+
                     signOutAndFinishFragments();
 
 
@@ -340,7 +353,10 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                 remove(Address_Fragment.this).commit();
 
         ((registerActivity) getActivity()).finish();
-
+        Activity loginActivity = getActivity();
+        if (loginActivity instanceof LoginActivity) {
+            ((LoginActivity) loginActivity).showProfileCreatedSuccessMessage();
+        }
 
     }
 
@@ -349,6 +365,17 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
      * Have to come back to this later
      */
     public void recieveData() {
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mContractorBooleanValueFromPrevious == true) {
+            ((RegisterContractorFragment) getParentFragment()).setTopToolBar();
+        } else {
+            ((RegisterHomeownerFragment) getParentFragment()).setTopToolBar();
+        }
+
     }
 
 
@@ -417,9 +444,9 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         if (!validateStreetAddress()) {
             return;
         }
-        if (!validateAPTUNITinteger()) {
-            return;
-        }
+//        if (!validateAPTUNITinteger()) {
+//            return;
+//        }
         if (!validateCity()) {
             return;
         }
@@ -438,6 +465,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         mStateValue = mStateEditText.getText().toString();
         mZipValue = mZipEditText.getText().toString();
 
+
+        //this is just checking what happens when a ull value is stored, because unit is optional
+        if (mUnitAptValue.equals("")) {
+            mUnitAptValue = null;
+        }
 
         //needs a null handler here
 
@@ -467,11 +499,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     public boolean validateStreetAddress() {
         String streetAddress = mStreetAddressEditText.getText().toString().trim();
-        if(streetAddress.isEmpty() || streetAddress.equals("")){
+        if (streetAddress.isEmpty() || streetAddress.equals("")) {
             mStreetAddressWrapper.setError(getString(R.string.error_street_address));
             requestFocus(mStreetAddressEditText);
             return false;
-        }else{
+        } else {
             mStreetAddressWrapper.setErrorEnabled(false);
         }
         return true;
@@ -487,11 +519,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     public boolean validateAPTUNITinteger() {
         String unitAPT = mUnitAptEditText.getText().toString().trim();
-        if(unitAPT.isEmpty() || unitAPT.equals("")){
+        if (unitAPT.isEmpty() || unitAPT.equals("")) {
             mUnitAptWrapper.setError(getString(R.string.error_unit_apt));
             requestFocus(mUnitAptEditText);
             return false;
-        }else{
+        } else {
             mUnitAptWrapper.setErrorEnabled(false);
         }
         return true;
@@ -499,11 +531,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     public boolean validateCity() {
         String cityString = mCityEditText.getText().toString().trim();
-        if(cityString.isEmpty() || cityString.equals("")){
+        if (cityString.isEmpty() || cityString.equals("")) {
             mCityWrapper.setError(getString(R.string.error_city));
             requestFocus(mCityEditText);
             return false;
-        }else{
+        } else {
             mCityWrapper.setErrorEnabled(false);
         }
         return true;
@@ -511,11 +543,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     public boolean validateState() {
         String stateString = mStateEditText.getText().toString().trim();
-        if(stateString.isEmpty() || stateString.equals("")){
+        if (stateString.isEmpty() || stateString.equals("")) {
             mStateWrapper.setError(getString(R.string.error_state));
             requestFocus(mStateEditText);
             return false;
-        }else{
+        } else {
             mStateWrapper.setErrorEnabled(false);
         }
         return true;
@@ -523,11 +555,11 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     public boolean validateZip() {
         String zipString = mZipEditText.getText().toString().trim();
-        if(zipString.isEmpty() || zipString.equals("")){
+        if (zipString.isEmpty() || zipString.equals("")) {
             mStateWrapper.setError(getString(R.string.error_zip_code));
             requestFocus(mZipEditText);
             return false;
-        }else{
+        } else {
             mZipWrapper.setErrorEnabled(false);
         }
         return true;

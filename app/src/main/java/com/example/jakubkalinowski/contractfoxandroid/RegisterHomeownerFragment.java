@@ -258,6 +258,14 @@ public class RegisterHomeownerFragment extends Fragment {
         ((registerActivity) getActivity()).setTopToolBar("Sign Up");
     }
 
+
+    /**
+     * Setting top bar using parent activity instance because top tool bar is in address_fragment
+     */
+    public void setTopToolBar(){
+        ((registerActivity) getActivity()).setTopToolBar("Homeowner Sign up");
+    }
+
     //====FORM VALIDATION SECTION=====// ---[START]
     public void goToAddressFragmentAfterValidation() {
         //Required fields here are first name, last name & phone.
@@ -289,7 +297,7 @@ public class RegisterHomeownerFragment extends Fragment {
         bundleToPass.putByteArray("profileImageData", profileImageBytedata);
 
         System.out.println(getTag());
-        mCommunicator.respond(bundleToPass, getTag());
+        mCommunicator.respond(bundleToPass, getTag(), getChildFragmentManager());
 
 
 //                Fragment AddressRegisterFragment = new Address_Fragment();

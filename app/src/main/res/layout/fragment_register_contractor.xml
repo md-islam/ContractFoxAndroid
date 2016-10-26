@@ -4,6 +4,7 @@
               android:layout_height="match_parent"
               android:background="@android:color/white"
               tools:context="com.example.jakubkalinowski.contractfoxandroid.RegisterContractorFragment"
+              android:id="@+id/register_contractor_linear_layout_id"
               >
 
     <!-- TODO: Update blank fragment layout -->

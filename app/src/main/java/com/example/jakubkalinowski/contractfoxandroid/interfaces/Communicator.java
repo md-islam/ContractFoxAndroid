@@ -1,6 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid.interfaces;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
 /**
  * Created by MD on 10/15/2016.
@@ -10,5 +11,5 @@ import android.os.Bundle;
 
 
 public interface Communicator {
-    public void respond(Bundle recievedBundle, String fragmentTag);
+    public void respond(Bundle recievedBundle, String fragmentTag, FragmentManager childFragmentManager);
 }

@@ -14,10 +14,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -28,11 +30,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.jakubkalinowski.contractfoxandroid.interfaces.Communicator;
+import com.google.android.gms.vision.text.Line;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -69,6 +73,9 @@ public class RegisterContractorFragment extends Fragment {
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
+
+    //layout
+    private LinearLayout mLinearLayoutContractorFragment;
 
     //values;
     private String mEmailValueFromPrevious;
@@ -109,6 +116,7 @@ public class RegisterContractorFragment extends Fragment {
 
     //reference to the communicator interface
     Communicator mCommunicator;
+    Fragment address_child_fragment;
 
 
     public RegisterContractorFragment() {
@@ -139,6 +147,9 @@ public class RegisterContractorFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mLinearLayoutContractorFragment = (LinearLayout)
+                view.findViewById(R.id.register_contractor_linear_layout_id);
 
         //This is for the images part
         mCircleProfileImageView = (CircleImageView) view.
@@ -213,7 +224,7 @@ public class RegisterContractorFragment extends Fragment {
                             skillset.add("bedroom");
                         } else {
                             //Remove From ArrayList
-                            skillset.add("bedroom");
+                            skillset.remove("bedroom");
                         }
                         break;
                     case R.id.checkbox_kitchen:
@@ -252,6 +263,15 @@ public class RegisterContractorFragment extends Fragment {
         });
 
 
+    }
+
+
+
+    /**
+     * Setting top bar using parent activity instance because top tool bar is in address_fragment
+     */
+    public void setTopToolBar(){
+        ((registerActivity) getActivity()).setTopToolBar("Contractor sign up");
     }
 
 
@@ -392,6 +412,16 @@ public class RegisterContractorFragment extends Fragment {
             return;
         }
 
+        //makes it required for atleast one skillset to be checked.
+        if(skillset.isEmpty()){
+            Snackbar snackbar = Snackbar
+                    .make( mLinearLayoutContractorFragment, "You need to check atleast one skill",
+                            Snackbar.LENGTH_SHORT);
+
+            snackbar.show();
+            return;
+        }
+
         byte[] profileImageBytedata = getCircleImageViewByteData();
         mFirstNameValue = mFirstNameEditText.getText().toString();
         mLastNameValue = mLastNameEditText.getText().toString();
@@ -415,7 +445,8 @@ public class RegisterContractorFragment extends Fragment {
         //still need to handle the images part here
         bundleToPass.putByteArray("profileImageData", profileImageBytedata);
         System.out.println(getTag());
-        mCommunicator.respond(bundleToPass, getTag());
+
+        mCommunicator.respond(bundleToPass, getTag(), getChildFragmentManager());
 
     }
 
