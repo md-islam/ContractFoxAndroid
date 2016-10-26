@@ -104,11 +104,14 @@ public class RegisterContractorFragment extends Fragment {
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
-
+    //Jatinder work here
     //handling the checkbox skills area
     private CheckBox mBathroomSkillCheck;
     private CheckBox mKitchenSkillCheck;
     private CheckBox mBedroomSkillCheck;
+
+
+    //Jatinder work here
     private CompoundButton.OnCheckedChangeListener mCheckListener;
     //arraylist
     private ArrayList<String> skillset;
@@ -198,9 +201,14 @@ public class RegisterContractorFragment extends Fragment {
 
 
         //[setting up the skills arraylist and it's listeners]--[START]
+        //Jatinder work here
         mBathroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bathroom);
         mBedroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bedroom);
         mKitchenSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_kitchen);
+
+
+        //Jatiner work here
+
         //This Checklistener fires everytime a check button is clicked.
         mCheckListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -208,6 +216,8 @@ public class RegisterContractorFragment extends Fragment {
                 // compoundButton is the checkbox
                 // boolean is whether or not checkbox is checked
                 // Check which checkbox was clicked
+
+                //Jatinder work here
                 switch (compoundButton.getId()) {
                     case R.id.checkbox_bathroom:
                         if (checked) {
@@ -237,6 +247,8 @@ public class RegisterContractorFragment extends Fragment {
                         }
                         break;
                 }
+
+                //Jatinder work here
             }
         };
 
@@ -274,12 +286,15 @@ public class RegisterContractorFragment extends Fragment {
         ((registerActivity) getActivity()).setTopToolBar("Contractor sign up");
     }
 
-
+    //Jatinder work here
     //[THIS PIECE OF CODE BELOW ONLY ATTACHES THE LISTERNER TO EACH INDIVIDUAL CHECKBOX]
     public void setUpSkillsCheckbox() {
         mBathroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mBedroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mKitchenSkillCheck.setOnCheckedChangeListener(mCheckListener);
+
+
+        //Jatinder work here
     }
 
 

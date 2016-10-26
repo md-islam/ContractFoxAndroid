@@ -175,6 +175,7 @@
                 android:orientation="vertical"
                 android:layout_weight="0.01">
 
+                <!--Jatinder work here-->
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -192,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/kitchen_skill"
                     android:id="@+id/checkbox_kitchen"/>
+                <!--Jatinder work here-->
             </LinearLayout>
 
 

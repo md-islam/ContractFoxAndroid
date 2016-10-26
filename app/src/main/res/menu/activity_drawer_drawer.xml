@@ -22,9 +22,17 @@
             android:title="Messages" />
 
         <item
+            android:id="@+id/contractor_availability_"
+            android:title="@string/navigation_drawer_availability_string"
+            android:icon="@android:drawable/ic_menu_my_calendar"/>
+
+        <item
             android:id="@+id/log_out"
 
             android:title="Log Out" />
+
+
+
 
 
 

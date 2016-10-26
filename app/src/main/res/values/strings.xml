@@ -79,4 +79,8 @@
     <string name="bathroom_skill">Bathroom</string>
     <string name="bedroom_skill">Bedroom</string>
 
+
+    <!--navigation_drawer_menu-->
+    <string name="navigation_drawer_availability_string">My Availability</string>
+
 </resources>
