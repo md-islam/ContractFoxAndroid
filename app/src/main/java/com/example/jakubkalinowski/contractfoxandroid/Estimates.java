@@ -41,4 +41,3 @@ public class Estimates {
                 + "Item/Area Details & Specifications: " + mItemAreaSpecs +"./n ";
     }
 }
-

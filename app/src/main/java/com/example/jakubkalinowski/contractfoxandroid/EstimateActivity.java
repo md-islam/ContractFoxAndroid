@@ -552,6 +552,11 @@ public class EstimateActivity extends AppCompatActivity {
         });
         // END OF SUBMIT ESTIMATE(S)
 
+//        mAuth.createEstimate(mContractorsID)
+//                .addOnCompleteListener(getCallingActivity(), new OnCompleteListener<AuthResult>() {
+//
+//                })
+
     }
 
     // CAMERA OPERATIONS (PART 2)
@@ -616,7 +621,10 @@ public class EstimateActivity extends AppCompatActivity {
         }
 
 
+
+
     }
+
 
     //[THIS PIECE OF CODE BELOW ONLY ATTACHES THE LISTERNER TO EACH INDIVIDUAL CHECKBOX]
     public void CheckedItemCheckbox() {
