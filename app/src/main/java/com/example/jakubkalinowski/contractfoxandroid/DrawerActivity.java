@@ -137,6 +137,9 @@ public class DrawerActivity extends AppCompatActivity
                 fragment = new Home();
                 title = "Home";
                 break;
+            case R.id.contractor_availability_:
+                //fragment work here
+                break;
 
             case R.id.log_out:
                 // Log out action here

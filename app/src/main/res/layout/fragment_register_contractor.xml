@@ -4,6 +4,7 @@
               android:layout_height="match_parent"
               android:background="@android:color/white"
               tools:context="com.example.jakubkalinowski.contractfoxandroid.RegisterContractorFragment"
+              android:id="@+id/register_contractor_linear_layout_id"
               >
 
     <!-- TODO: Update blank fragment layout -->
@@ -24,14 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Contractor profile"
-                android:id="@+id/address_textview_registerContractorFragment"/>
 
 
             <LinearLayout
@@ -182,6 +175,7 @@
                 android:orientation="vertical"
                 android:layout_weight="0.01">
 
+                <!--Jatinder work here-->
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -199,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/kitchen_skill"
                     android:id="@+id/checkbox_kitchen"/>
+                <!--Jatinder work here-->
             </LinearLayout>
 
 

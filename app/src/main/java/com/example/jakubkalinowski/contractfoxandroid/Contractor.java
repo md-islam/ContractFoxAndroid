@@ -3,18 +3,21 @@ package com.example.jakubkalinowski.contractfoxandroid;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Contractor extends Member {
     private String briefDescription;
-    private ArrayList<String> skillSet;
+    private String companyName;
     private String businessWebsiteURL;
-    private String CompanyName;
+    public Map<String, Boolean> skillSet = new HashMap<>();
+
 
     public Contractor() {}
 
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, Address mAddress,
-                      String briefDescription, ArrayList<String> skillSet,
+                      String briefDescription, Map<String, Boolean> skillSet,
                       String businessWebsiteURL) {
         super(firstname, lastname, email, phoneNo, contractorOption, mAddress);
         this.briefDescription = briefDescription;
@@ -93,16 +96,16 @@ public class Contractor extends Member {
     }
 
 
-    public ArrayList<String> getSkillSet() {
+    public  Map<String, Boolean> getSkillSet() {
         return skillSet;
     }
 
-    public void setSkillSet(ArrayList<String> skillSet) {
+    public void setSkillSet(Map<String, Boolean> skillSet) {
         this.skillSet = skillSet;
     }
 
     public void addSkill(String skill) {
-        skillSet.add(skill);
+        skillSet.put(skill, true);
     }
 
     public String getBusinessWebsiteURL() {
@@ -115,11 +118,11 @@ public class Contractor extends Member {
 
 
     public String getCompanyName() {
-        return CompanyName;
+        return this.companyName;
     }
 
     public void setCompanyName(String companyName) {
-        CompanyName = companyName;
+        this.companyName = companyName;
     }
 
 

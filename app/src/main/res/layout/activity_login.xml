@@ -58,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
+                    android:text="ladi@aol.com"
                     android:textColorHint="@color/colorPrimary"
                     android:padding="10dp"
                     android:id="@+id/email_text_input_login_activity"
@@ -71,12 +72,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+
                 android:id="@+id/password_wrapper_login_activity">
 
                 <EditText
                     android:id="@+id/password_textInput_login_activity"
                     android:layout_width="match_parent"
                     android:padding="10dp"
+                    android:text="password"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
                     android:textColorHint="@color/colorPrimary"

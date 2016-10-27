@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MyProfile.OnFragmentInteractionListener} interface
+ * {@link MyProfile.OnFragmentInteractionListener} interfaces
  * to handle interaction events.
  * Use the {@link MyProfile#newInstance} factory method to
  * create an instance of this fragment.
@@ -164,6 +164,7 @@ public class MyProfile extends Fragment {
 //        } else {
 //            root = inflater.inflate(R.layout.fragment_homeowner_profile, container, false);
 //        }
+        // return inflater.inflate(R.layout.fragment_my_profile, container, false);
         return root;
     }
 
@@ -192,7 +193,7 @@ public class MyProfile extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
+     * This interfaces must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
