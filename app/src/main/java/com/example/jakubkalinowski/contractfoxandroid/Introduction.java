@@ -45,6 +45,7 @@ public class Introduction extends AppCompatActivity {
                 //startActivity(navigation);
 
                 Intent i = new Intent(Introduction.this, LoginActivity.class);
+//                Intent i = new Intent(Introduction.this, ContractorProfileActivity.class);
                 startActivity(i);
             }
         });

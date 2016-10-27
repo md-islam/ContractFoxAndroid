@@ -53,6 +53,8 @@ public class SplashScreen extends AppCompatActivity {
         runnable1 = new Runnable() {
             @Override
             public void run() {
+//                Intent i = new Intent(SplashScreen.this, ContractorProfileActivity.class);
+                //TESTING
                 Intent i = new Intent(SplashScreen.this, Introduction.class);
                 startActivity(i);
             }

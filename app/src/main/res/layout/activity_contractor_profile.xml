@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_contractor_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.ContractorProfileActivity">
+
+    <!-- TOP BAR WITH BUSSINESS NAME -->
+    <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/fragment_container"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <!--<fragment android:name="com.example.jakubkalinowski.fraagments.TopBarFragment"-->
+    <!--android:id="@+id/top_bar_fragment"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
+    <LinearLayout
+        android:id="@+id/contractor_profile_activity_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textAlignment="center"
+            android:background="#ffffff"
+            android:textSize="20sp"
+            android:textColor="#3234AD"
+            android:textStyle="bold" />
+        <!--android:text="@string/company_name"-->
+
+
+        <!-- END OF TOP BAR -->
+
+        <!-- PROFILE PICTURES -->
+        <!--<fragment android:name="com.example.jakubkalinowski.fraagments.ProfilePicturesFragment"-->
+        <!--android:id="@+id/profile_pictures_fragment"-->
+        <!--android:layout_weight="2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/contract_fox"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#FF000000"
+                        android:paddingBottom="5dp"/>
+
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:id="@+id/profile_picture"-->
+                    <!--android:layout_above="@+id/fragment_container"-->
+                    <!--android:src="@drawable/profile_picture"-->
+                    <!--android:paddingBottom="5dp"/>-->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/logo_picture"
+                        android:layout_above="@+id/fragment_container"
+                        android:src="@drawable/construction_logo"
+                        android:paddingBottom="5dp"/>
+
+                </LinearLayout>
+                <!-- END OF PROFILE PICTURES -->
+
+                <!-- DIVIDER LINE -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#3234AD"-->
+                <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+                <!--android:layout_marginTop="@dimen/activity_vertical_margin">-->
+                <!--</LinearLayout>-->
+                <!-- END OF LINE DIVIDER -->
+
+                <!-- RATINGS TAB -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp">
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ratingBar"
+                        android:rating="4.5"/>
+
+                    <!-- TODO: Make this into a Button and refrence the reviews tab -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/review_amount"/>
+                </LinearLayout>
+                <!-- END OF RATINGS TAB -->
+
+                <!-- AVAILABILITY TAB -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="#ffffff">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:text="Availability"
+                        android:textColor="#3234AD"
+                        android:gravity="center_vertical"
+                        android:textSize="18dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/monday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/monday"/>
+                    <ImageView
+                        android:id="@+id/tuesday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/tuesday"/>
+                    <ImageView
+                        android:id="@+id/wednesday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/wednesday"/>
+                    <ImageView
+                        android:id="@+id/thursday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/thursday"/>
+                    <ImageView
+                        android:id="@+id/friday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/friday"/>
+                    <ImageView
+                        android:id="@+id/saturday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/saturday"/>
+                    <ImageView
+                        android:id="@+id/sunday_on"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/sunday"/>
+
+                </LinearLayout>
+                <!-- END OF AVAILABILITY TAB -->
+
+                <!-- ESTIMATE BUTTON -->
+                <Button
+                    android:id="@+id/aprofile_estimate_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:textAlignment="center"
+                    android:text="@string/estimate_button"
+                    android:textSize="18dp"
+                    android:textColor="#FFFFFF"
+                    android:background="#3234AD"/>
+                <!-- END OF ESTIMATE BUTTON -->
+
+                <!-- DIVIDER LINE -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#3234AD"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_marginTop="@dimen/activity_vertical_margin">-->
+                <!--</LinearLayout>-->
+                <!-- END OF LINE DIVIDER -->
+
+                <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
+
+                <LinearLayout
+                    android:id="@+id/mapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:background="#ffffff">
+
+                    <!--<fragment-->
+                    <!--android:id="@+id/map"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--class="com.google.android.gms.maps.SupportMapFragment" />-->
+
+                    <FrameLayout
+                        android:id="@+id/map_container"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></FrameLayout>
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/activity_vertical_margin">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/address_string"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            />
+                        <TextView
+                            android:id="@+id/miles"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".1"
+                            android:layout_gravity="right"
+                            android:textAlignment="center"
+                            android:text="@string/distance_miles" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- DIVIDER LINE -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#3234AD"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/activity_vertical_margin">
+                </LinearLayout>
+                <!-- END OF LINE DIVIDER -->
+
+                <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:id="@+id/map">-->
+                <!--</FrameLayout>-->
+
+
+                <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+                <!--<FrameLayout-->
+                <!--android:id="@+id/container"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@android:color/transparent" />-->
+                <!--</RelativeLayout>-->
+
+
+                <!--<fragment-->
+                <!--android:id="@+id/map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--class="com.google.android.gms.maps.MappingFragment"/>-->
+                <!--/>-->
+                <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:name="com.google.android.gms.maps.MapFragment"-->
+
+                <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
+
+                <Button
+                    android:id="@+id/aprofile_message_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:background="#3234AD"
+                    android:text="@string/message_button"
+                    android:textColor="#ffffff"
+                    android:textAlignment="center"
+                    android:textSize="18dp"/>
+
+                <!-- BUTTONS AND FRAGMENT REFERENCES -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="0dp"
+                    android:background="#ffffff">
+
+                    <!-- CALL BUTTON & FRAGMENT REFERENCE -->
+
+                    <!--<Button-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:scaleX=".18"-->
+                    <!--android:background="@drawable/call_icon"-->
+                    <!--android:/>-->
+                    <!--//android:drawableLeft="@drawable/call_icon"-->
+
+
+                    <LinearLayout
+                        android:id="@+id/acall_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="#ffffff"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/call_img"
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"
+                            android:src="@drawable/call_icon"/>
+
+                        <TextView
+                            android:id="@+id/call_text"
+                            android:layout_weight="6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"/>
+                    </LinearLayout>
+                    <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- DIRECTIONS BUTTON & FRAGMENT REFERENCE -->
+                    <LinearLayout
+                        android:id="@+id/adirections_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/directions_img"
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"
+                            android:src="@drawable/directions_icon"/>
+
+                        <TextView
+                            android:id="@+id/directions_text"
+                            android:layout_weight="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/directions_text"/>
+
+                        <TextView
+                            android:id="@+id/open_directions"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+                    <!-- END OF DIRECTIONS BUTTON AND FRAGMENT REFERENCE -->
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- WEBSITE BUTTON & FRAGMENT REFERENCE -->
+
+                    <LinearLayout
+                        android:id="@+id/awebsite_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/website_img"
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"
+                            android:src="@drawable/website_icon"/>
+
+                        <!-- TODO: adjust the weight (needs fixing) -->
+                        <TextView
+                            android:id="@+id/website_url"
+                            android:layout_weight="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"   />
+
+                        <TextView
+                            android:id="@+id/open_website"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+
+                    <!-- END OF WEBSITE BUTTON & FRAGMENT REFERENCE -->
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- SKILLS BUTTON & FRAGMENT REFERENCE -->
+                    <LinearLayout
+                        android:id="@+id/askills_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/skills_img"
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"
+                            android:src="@drawable/skills_icon"/>
+
+                        <TextView
+                            android:id="@+id/skills_text"
+                            android:layout_weight="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/skills_text"/>
+
+                        <TextView
+                            android:id="@+id/open_skills"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+                    <!-- END OF SKILLS BUTTON & FRAGMENT REFERENCE -->
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- REVIEWS BUTTON & FRAGMENT REFERENCE -->
+                    <LinearLayout
+                        android:id="@+id/areviews_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/reviews_img"
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"
+                            android:src="@drawable/review_icon"/>
+
+                        <TextView
+                            android:id="@+id/reviews_text"
+                            android:layout_weight="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/review_text"/>
+
+                        <TextView
+                            android:id="@+id/open_reviews"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+                    <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#3234AD">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- PICTURE GALLERY BUTTON & FRAGMENT REFERENCE -->
+                    <LinearLayout
+                        android:id="@+id/apic_gallery_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_weight="1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="1dp"/>
+                        <!--android:src="@drawable/pic_gallery_icon"/>-->
+
+                        <TextView
+                            android:layout_weight="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/pic_gallery_text"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+                    <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
+
+
+
+                </LinearLayout>
+                <!-- END OF BUTTONS AND FRAGMENT REFERENCES -->
+
+                <!-- ANOTHER WAY TO DO A BUTTON (LESS EFFECTIVE) -->
+                <!--<ImageButton-->
+                <!--android:id="@+id/call_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:background="#FFFFFF"-->
+                <!--android:src="@drawable/call_button"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:scaleType="fitCenter"-->
+                <!---->
+                <!--android:textColor="#000000"-->
+                <!--android:text="@string/call_button">-->
+                <!--</ImageButton>-->
+                <!-- END OF ANOTHER WAY TO DO A BUTTON (LESS EFFECTIVE) -->
+
+                <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
+
+
+            </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+

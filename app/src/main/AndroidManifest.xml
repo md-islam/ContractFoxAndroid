@@ -2,28 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jakubkalinowski.contractfoxandroid">
 
-
-
-    <!--To get an image from device storage/other storage-->
+    <!-- CAMERA PERMISSIONS -->
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- END CAMERA PERMISSIONS -->
+
+    <!-- To get an image from device storage/other storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- internet permission so the app can communicate with the Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
-
-    <!--THESE WERE ADDED-->
-    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-    <!--<permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE"-->
-        <!--android:protectionLevel="signature"/>-->
-    <!--<uses-permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE"/>-->
-    <!--<uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES"/>-->
-    <!--<uses-feature android:glEsVersion="0x00020000" android:required="true"/>-->
-
-
+    <!-- THESE WERE ADDED -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
+    <!-- <permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE" -->
+    <!-- android:protectionLevel="signature"/> -->
+    <!-- <uses-permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE"/> -->
+    <!-- <uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES"/> -->
+    <!-- <uses-feature android:glEsVersion="0x00020000" android:required="true"/> -->
 
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -38,10 +37,6 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
-
-
 
     <application
         android:name=".ContractFox"
@@ -62,8 +57,7 @@
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".registerActivity"/>
-
+        <activity android:name=".registerActivity" />
         <activity
             android:name=".Introduction"
             android:screenOrientation="portrait">
@@ -75,7 +69,6 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,7 +76,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SearchViewListActivity"
             android:label="@string/title_searchview_list"
@@ -98,7 +90,7 @@
                 android:value="com.example.jakubkalinowski.contractfoxandroid.SearchViewListActivity" />
         </activity>
         <activity android:name=".ContractorProfileActivity" />
-        <activity android:name=".HomeownerProfileActivity" />
+        <!-- <activity android:name=".HomeownerProfileActivity" /> -->
         <activity android:name=".SpecificList" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -114,14 +106,20 @@
         <!--JAKUB, dont mess with this section-->
 
 
-        <!-- ADDED-->
-        <!--<mata-data-->
-            <!--android:name="@integer/google_play_services_version"/>-->
+        <!-- ADDED -->
+        <!-- <mata-data -->
+        <!-- android:name="@integer/google_play_services_version"/> -->
 
-        <!--<activity-->
-            <!--android:name=".GoogleDirectionsActivity"-->
-            <!--android:label="@string/title_activity_google_directions"></activity>-->
 
+        <!-- <activity -->
+        <!-- android:name=".GoogleDirectionsActivity" -->
+        <!-- android:label="@string/title_activity_google_directions"></activity> -->
+
+        <activity
+            android:name=".EstimateActivity"
+            android:label="@string/title_activity_estimate"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MessageActivity"></activity>
     </application>
 
 </manifest>
