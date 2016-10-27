@@ -31,7 +31,7 @@
     <!-- END OF LOGIN -->
 
     <!-- MAPS -->
-    <string name="google_maps_key">AIzaSyAQ6SkMMgMOTbTnfAJnjXJQA77idfpL1OU</string>
+    <!--<string name="google_maps_key">AIzaSyAQ6SkMMgMOTbTnfAJnjXJQA77idfpL1OU</string>-->
     <!-- END OF MAPS -->
 
     <string name="title_activity_home">Home Activity</string>
