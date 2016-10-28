@@ -14,14 +14,13 @@
     <!--android:paddingTop="@dimen/activity_vertical_margin"-->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/registration_toolbar__"
+        android:id="@+id/register_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ff5e00"
+        android:background="@color/deepOrange_500"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -29,7 +28,11 @@
             android:gravity="center_horizontal"
             android:textColor="#ffffff"
             android:textSize="33dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:id="@+id/toolBar_register_activity_textView"
+            />
+
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -102,6 +105,15 @@
                         android:inputType="textPassword"/>
                 </android.support.design.widget.TextInputLayout>
 
+                <TextView
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Are you a...."
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -114,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Homeowner"
+                        android:text="Homeowner ?"
                         android:id="@+id/radioButton_homewoner_register_activity"
                         android:onClick="onRadioButtonClicked"
                         />
@@ -123,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="false"
-                        android:text="Contractor"
+                        android:text="Contractor ?"
                         android:id="@+id/radioButton_contractor_register_activity"
                         android:onClick="onRadioButtonClicked"
                         />
@@ -149,7 +161,7 @@
                         android:textStyle="bold"
                         android:textColor="#000000"
                         android:textSize="20dp"
-                        android:background="#ff5e00"
+                        android:background="@color/deepOrange_500"
                         android:clickable="true"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"

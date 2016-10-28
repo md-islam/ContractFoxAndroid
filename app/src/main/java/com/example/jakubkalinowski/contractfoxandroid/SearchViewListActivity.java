@@ -2,6 +2,7 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -9,15 +10,27 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.dummy.DummyContent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 ///**
@@ -30,24 +43,67 @@ import java.util.List;
 // */
 public class SearchViewListActivity extends AppCompatActivity {
 
+    //[Firebase_variable]**
+    private FirebaseAuth mAuth;
+   // private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
+    private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+            .getReference();
+
+
+    public static String[] data = {"company 1", "company 2","Ladimer"};
+    public static List<String> ITEMSs = Arrays.asList(data);
+    public static List<String> ITEMS = ITEMSs;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
     EditText searchBar ;
+    List<String> names = new ArrayList<>();
     Button searchButton;
     String searchedContent ;
+    RatingBar stars ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchview_list);
+        mAuth = FirebaseAuth.getInstance();
+
+
+
+//                    mFirebaseDatabaseReference
+//                            .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
+//
+//                        for (DataSnapshot snapshot : dataSnapshotsList) {
+//                            Log.d("check-", "inside for");
+//                            if (snapshot.child("contractorOption").getValue().equals(true)) {
+//                                Log.d("check-", "inside if..");
+//                                names.add("hey");
+//                                 Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+
+
+
+
+                        setContentView(R.layout.activity_searchview_list);
         //hides the keyboard upon opening the activity.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         searchBar = (EditText) findViewById(R.id.searchBarInList_ID);
         searchButton = (Button) findViewById(R.id.searchButtonInList);
+
+        stars = (RatingBar) findViewById(R.id.ratingStars_ID);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
@@ -80,21 +136,108 @@ public class SearchViewListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-    }
+    }//onCreate
+
+    public void backgroundThread (){
+
+
+//        class DeleteImagesTask extends AsyncTask<Void, Void, Void> {
+//            @Override
+//            protected Object doInBackground(Object[] objects) {
+//                Log.d("check", "inside background");
+//                mFirebaseDatabaseReference
+//                        .child("users").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Iterable<DataSnapshot> dataSnapshotsList =  dataSnapshot.getChildren();
+//
+//                        for (DataSnapshot snapshot : dataSnapshotsList) {
+//                            if (snapshot.child("contractorOption").getValue().equals(true)){
+//                                names.add("hey");
+//                                // Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Object o) {
+//                super.onPostExecute(o);
+//                Log.d("check", "postexecute");
+//                if(names.isEmpty()){
+//                    Toast.makeText(getApplicationContext(), "its empty",Toast.LENGTH_SHORT).show();
+//
+//                }
+//                for(String n : names){
+//                    Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        } ;
+        class background extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... params) {
+                Log.d("check-", "inside background");
+                mFirebaseDatabaseReference
+                        .child("users").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> dataSnapshotsList =  dataSnapshot.getChildren();
+
+                        for (DataSnapshot snapshot : dataSnapshotsList) {
+                            if (snapshot.child("contractorOption").getValue().equals(true)){
+                                names.add("hey");
+                                // Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void param) {
+                Log.d("check", "postexecute");
+                if(names.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "its empty",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    for(String n : names){
+                        Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        }
+        new background().execute();
+
+
+    }//backgroundthread
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ITEMS));
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-      // public CardView cardView;
+        // public CardView cardView;
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<String> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-
+        public SimpleItemRecyclerViewAdapter(List<String> items) {
             mValues = items;
         }
 
@@ -107,9 +250,9 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-//            holder.mIdView.setText(mValues.get(position).id);
-//            holder.mContentView.setText(mValues.get(position).content);
+            // holder.mItem = mValues.get(position);
+            holder.companyName.setText(mValues.get(position).toString());
+            //  holder.mContentView.setText(mValues.get(position).content);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,9 +277,14 @@ public class SearchViewListActivity extends AppCompatActivity {
 
                     } else {
                         Context context = v.getContext();
+
+//                         Intent intent = new Intent(context, SearchViewDetailActivity.class);
+//                        intent.putExtra(holder.companyName.getText(), 0 );
+//                         intent.putExtra("name", holder.companyName.getText().toString() );
+
                         Intent intent = new Intent(context, ContractorProfileActivity.class);
-////                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
-                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
+//                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
+//                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
 //                        intent.putExtra(DisplayProfile.ARG_ITEM_ID, holder.mItem.id);
 //
                         context.startActivity(intent);
@@ -145,6 +293,8 @@ public class SearchViewListActivity extends AppCompatActivity {
             });
         }
 
+
+
         @Override
         public int getItemCount() {
             return mValues.size();
@@ -152,15 +302,16 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-//            public final TextView mIdView;
-//            public final TextView mContentView;
+            public final TextView companyName;
+            //public final TextView mContentView;
             public DummyContent.DummyItem mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-//                mIdView = (TextView) view.findViewById(R.id.id);
-//                mContentView = (TextView) view.findViewById(R.id.content);
+                companyName = (TextView) view.findViewById(R.id.companyName_ID);
+                // mContentView = (TextView) view.findViewById(R.id.content);
+                companyName.setText("ladi");
             }
 //
 //            @Override
@@ -168,5 +319,5 @@ public class SearchViewListActivity extends AppCompatActivity {
 //                return super.toString() + " '" + mContentView.getText() + "'";
 //            }
         }
-    }
+    }// end of inner class
 }

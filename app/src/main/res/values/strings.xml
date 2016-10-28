@@ -19,13 +19,19 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_street_address">Enter a valid address</string>
+    <string name="error_unit_apt">Enter a valid apt/unit number</string>
+    <string name="error_city">Enter a valid city</string>
+    <string name="error_state">Choose a valid state</string>
+    <string name="error_zip_code">Enter a valid zip code</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <!-- END OF LOGIN -->
 
     <!-- MAPS -->
-    <string name="google_maps_key">AIzaSyAQ6SkMMgMOTbTnfAJnjXJQA77idfpL1OU</string>
+    <!--<string name="google_maps_key">AIzaSyAQ6SkMMgMOTbTnfAJnjXJQA77idfpL1OU</string>-->
     <!-- END OF MAPS -->
 
     <string name="title_activity_home">Home Activity</string>
@@ -35,6 +41,16 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="register_activity_email_error">Enter Valid Email</string>
+    <string name="register_activity_password_error">Enter a valid password with at least 6 characters</string>
+    <string name="register_activity_repeat_password_error">not identical</string>
+    <string name="register_contractor_fragment_firstName_error">Enter valid first name</string>
+    <string name="register_contractor_fragment_lastName_error">Enter valid last name</string>
+    <string name="register_contractor_fragment_companyName_error">Enter valid company name</string>
+    <string name="register_contractor_fragment_description_error">Enter valid description</string>
+    <string name="register_contractor_fragment_phone_error">Enter valid phone number</string>
+
 
     <!--&lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
     <!--<string name="title_activity_view_profile">View Profile</string>-->
@@ -46,6 +62,7 @@
     <!--<string name="intro">Looking for contractors I presume? \n\nUnfamiliar with construction language-->
         <!--and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!-->
         <!--\n\nLet\'s get started.</string>-->
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank estimate fragment</string>
     <string name="title_searchview_list">Items</string>
@@ -140,5 +157,9 @@
     <string name="img_picture_text">Take a Picture</string>
     <string name="img_upload_text">Upload an Image</string>
     <!-- END OF PRICE ESTIMATE -->
+
+
+    <!--navigation_drawer_menu-->
+    <string name="navigation_drawer_availability_string">My Availability</string>
 
 </resources>
