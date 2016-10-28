@@ -1,3 +1,4 @@
+
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Intent;
@@ -17,7 +18,6 @@ public class SpecificList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_lsit);
-
         savedInstanceState = getIntent().getExtras();
         titleString = savedInstanceState.getString("name");
 
@@ -28,7 +28,9 @@ public class SpecificList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //change here
+
                 Intent i = new Intent(SpecificList.this, SearchViewListActivity.class);
+                i.putExtra("serachedItem", titleString);
                 startActivity(i);
                 Log.d("garage", "button pushed");
             }
