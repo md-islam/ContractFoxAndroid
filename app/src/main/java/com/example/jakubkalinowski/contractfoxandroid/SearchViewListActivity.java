@@ -201,7 +201,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(companyNames));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(companyNames, companyNames));
     }
 
     /////////////////////////////////////////inner class//////////////////////////////////////
@@ -211,9 +211,11 @@ public class SearchViewListActivity extends AppCompatActivity {
         // public CardView cardView;
 
         private final List<String> mValues;
+        private final List<String> mValues2;
 
-        public SimpleItemRecyclerViewAdapter(List<String> items) {
+        public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2) {
             mValues = items;
+            mValues2 = items2 ;
         }
 
         @Override
@@ -228,7 +230,7 @@ public class SearchViewListActivity extends AppCompatActivity {
             // holder.mItem = mValues.get(position);
             holder.companyName.setText(mValues.get(position));
             // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
-            //  holder.mContentView.setText(mValues.get(position).content);
+              holder.numebrOfReviews.setText(mValues2.get(position));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -263,10 +265,11 @@ public class SearchViewListActivity extends AppCompatActivity {
 
                     } else {
 
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
+                       // Context context = v.getContext();
+                        Intent intent = new Intent(getApplicationContext(), SearchViewDetailActivity.class);
                         //intent.putExtra(holder.companyName.getText(), 0 );
                         intent.putExtra("name", holder.companyName.getText().toString() );
+                        startActivity(intent);
 
 //                        Context context = v.getContext();
 //                        Intent intent = new Intent(context, ContractorProfileActivity.class);
@@ -303,7 +306,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                 super(view);
                 mView = view;
                 companyName = (TextView) view.findViewById(R.id.companyName_ID);
-                numebrOfReviews = (TextView) findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
+                numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
                 // companyName.setText("ladi????");
             }
