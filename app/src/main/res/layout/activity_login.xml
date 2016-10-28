@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.LoginActivity"
-    android:background="@color/abc_input_method_navigation_guard">
+    android:background="@color/abc_input_method_navigation_guard"
+    android:id="@+id/login_page_layout_id">
 
     <!-- Login progress -->
     <ProgressBar
@@ -57,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
+                    android:text="ladi@aol.com"
                     android:textColorHint="@color/colorPrimary"
                     android:padding="10dp"
                     android:id="@+id/email_text_input_login_activity"
@@ -70,12 +72,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+
                 android:id="@+id/password_wrapper_login_activity">
 
                 <EditText
                     android:id="@+id/password_textInput_login_activity"
                     android:layout_width="match_parent"
                     android:padding="10dp"
+                    android:text="password"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
                     android:textColorHint="@color/colorPrimary"

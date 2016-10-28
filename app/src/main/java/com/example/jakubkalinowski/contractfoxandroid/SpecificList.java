@@ -34,7 +34,3 @@ public class SpecificList extends AppCompatActivity {
         });
     }
 }
-    /*
-
-
-     */

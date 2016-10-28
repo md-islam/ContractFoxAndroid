@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
 import com.example.jakubkalinowski.contractfoxandroid.R;
+import com.example.jakubkalinowski.contractfoxandroid.SpecificList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Interior.OnFragmentInteractionListener} interface
+ * {@link Interior.OnFragmentInteractionListener} interfaces
  * to handle interaction events.
  * Use the {@link Interior#newInstance} factory method to
  * create an instance of this fragment.
@@ -79,7 +79,6 @@ public class Interior extends Fragment {
         garage = (Button) root.findViewById(R.id.garage_ID);
         bedRoom = (Button) root.findViewById(R.id.bedroom_interior_ID);
 
-
  // dclaring listeners below
         kitchen.setOnClickListener(listener);
         bathRoom.setOnClickListener(listener);
@@ -126,7 +125,7 @@ public class Interior extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
+     * This interfaces must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.

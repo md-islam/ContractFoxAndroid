@@ -26,10 +26,13 @@ import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Profi
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
-        MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener ,
+
+        MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
+
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
         BackYard.OnFragmentInteractionListener {
 
@@ -134,10 +137,15 @@ public class DrawerActivity extends AppCompatActivity
                 fragment = new Home();
                 title = "Home";
                 break;
+            case R.id.contractor_availability_:
+                //fragment work here
+                break;
 
             case R.id.log_out:
                 // Log out action here
                 Toast.makeText(getApplicationContext(), "Log Out " , Toast.LENGTH_LONG).show(); //testing/debugging
+                FirebaseAuth.getInstance().signOut();
+                this.finish();
                 break;
         }
 

@@ -70,13 +70,14 @@
 
                 <EditText
                     android:layout_width="150dp"
+                    android:id="@+id/firstName_editProfile_Fragment"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:id="@+id/firstName_ID"
                     android:layout_marginRight="40dp"/>
 
                 <EditText
                     android:layout_width="150dp"
+                    android:id="@+id/lasttName_editProfile_Fragment"
                     android:layout_margin="5dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -89,6 +90,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/address_editProfile_Fragment"
                 android:layout_margin="10dp"/>
 
             <LinearLayout
@@ -119,11 +121,13 @@
                 <EditText
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="40dp"/>
+                    android:layout_marginRight="40dp"
+                    android:id="@+id/city_editProfile_Fragment"/>
 
                 <EditText
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/postal_code_editProfile_fragment"/>
             </LinearLayout>
 
             <TextView
@@ -135,7 +139,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp"
+                android:id="@+id/phone_edit_profile_fragment"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -155,6 +160,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/company_name_editText_editProfile_fragment"
                 />
 
             <TextView
@@ -166,6 +172,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/website_url_editText_editProfile_fragment"
                 />
 
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.jakubkalinowski.contractfoxandroid">
+
+    <!-- CAMERA PERMISSIONS -->
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- END CAMERA PERMISSIONS -->
+
+    <!-- To get an image from device storage/other storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- internet permission so the app can communicate with the Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- THESE WERE ADDED -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
+    <!-- <permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE" -->
+    <!-- android:protectionLevel="signature"/> -->
+    <!-- <uses-permission android:name="com.example.jakubkalinowski.contractfoxandroid.permission.MAPS_RECEIVE"/> -->
+    <!-- <uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES"/> -->
+    <!-- <uses-feature android:glEsVersion="0x00020000" android:required="true"/> -->
+
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".ContractFox"
+        android:allowBackup="true"
+        android:icon="@drawable/fox"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <!-- android:theme="@style/AppTheme" -->
+
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- MainActivity -->
+        <activity
+            android:name=".DrawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".registerActivity" />
+        <activity
+            android:name=".Introduction"
+            android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SearchViewListActivity"
+            android:label="@string/title_searchview_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SearchViewDetailActivity"
+            android:label="@string/title_searchview_detail"
+            android:parentActivityName=".SearchViewListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jakubkalinowski.contractfoxandroid.SearchViewListActivity" />
+        </activity>
+        <activity android:name=".ContractorProfileActivity" />
+        <!-- <activity android:name=".HomeownerProfileActivity" /> -->
+        <activity android:name=".SpecificList" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAW54ghcPvXVf6yDhWk-VToQrb8m8P-UQI" />
+        <!--JAKUB, dont mess with this section-->
+
+
+        <!-- ADDED -->
+        <!-- <mata-data -->
+        <!-- android:name="@integer/google_play_services_version"/> -->
+
+
+        <!-- <activity -->
+        <!-- android:name=".GoogleDirectionsActivity" -->
+        <!-- android:label="@string/title_activity_google_directions"></activity> -->
+
+        <activity
+            android:name=".EstimateActivity"
+            android:label="@string/title_activity_estimate"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MessageActivity"></activity>
+    </application>
+
+</manifest>

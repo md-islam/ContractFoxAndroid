@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.EstimateActivity"
+    tools:showIn="@layout/content_estimate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:text="@string/specific_area"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/attic"
+                android:id="@+id/checkbox_attic"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/basement"
+                android:id="@+id/checkbox_basement"/>
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/garage"
+                android:id="@+id/checkbox_garage"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/kitchen"
+                android:id="@+id/checkbox_kitchen"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/bathroom"
+                android:id="@+id/checkbox_bathroom"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/livingroom"
+                android:id="@+id/checkbox_livingroom"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/dinningroom"
+                android:id="@+id/checkbox_dinningroom"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/bedroom"
+                android:id="@+id/checkbox_bedroom"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/closet"
+                android:id="@+id/checkbox_closet"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/utility_room"
+                android:id="@+id/checkbox_utility_room"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/entrance"
+                android:id="@+id/checkbox_entrance"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/other"
+                android:id="@+id/checkbox_other"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

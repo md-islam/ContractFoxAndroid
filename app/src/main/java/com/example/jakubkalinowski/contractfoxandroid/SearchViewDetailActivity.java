@@ -1,11 +1,14 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate;
 
 /**
  * An activity representing a single SearchView detail screen. This
@@ -13,7 +16,7 @@ import android.view.MenuItem;
  * item details are presented side-by-side with a list of items
  * in a {@link SearchViewListActivity}.
  */
-public class SearchViewDetailActivity extends AppCompatActivity {
+public class SearchViewDetailActivity extends AppCompatActivity implements Estimate.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +24,6 @@ public class SearchViewDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_searchview_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-    // IN MD'S FILE THIS IS UNCOMMENTED OUT
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -48,18 +40,21 @@ public class SearchViewDetailActivity extends AppCompatActivity {
         //
         // http://developer.android.com/guide/components/fragments.html
         //
+
+
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(SearchViewDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(SearchViewDetailFragment.ARG_ITEM_ID));
-            SearchViewDetailFragment fragment = new SearchViewDetailFragment();
+            arguments.putString(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID,
+                    getIntent().getStringExtra(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID));
+            com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate fragment = new Estimate();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.searchview_detail_container, fragment)
+                    .add(R.id.contractor_profile, fragment)
                     .commit();
         }
+
     }
 
     @Override
@@ -76,5 +71,10 @@ public class SearchViewDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

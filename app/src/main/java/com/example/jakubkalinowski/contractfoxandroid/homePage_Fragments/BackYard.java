@@ -16,7 +16,7 @@ import com.example.jakubkalinowski.contractfoxandroid.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BackYard.OnFragmentInteractionListener} interface
+ * {@link BackYard.OnFragmentInteractionListener} interfaces
  * to handle interaction events.
  * Use the {@link BackYard#newInstance} factory method to
  * create an instance of this fragment.
@@ -69,6 +69,7 @@ public class BackYard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //TODO: Create a backYard_Fragment and replace here!
         return inflater.inflate(R.layout.fragment_back_yard, container, false);
     }
 
@@ -107,7 +108,7 @@ public class BackYard extends Fragment {
     };
 
     /**
-     * This interface must be implemented by activities that contain this
+     * This interfaces must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.

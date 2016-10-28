@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.EstimateActivity"
+    tools:showIn="@layout/content_estimate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="@string/specific_area"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/pool_jacuzzi"
+                android:id="@+id/checkbox_pool_jacuzzi"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/septic_system"
+                android:id="@+id/checkbox_septic_system"/>
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/driveway"
+                android:id="@+id/checkbox_driveway"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/fence"
+                android:id="@+id/checkbox_fence"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/landscape"
+                android:id="@+id/checkbox_landscape"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/trees"
+                android:id="@+id/checkbox_trees"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/shed"
+                android:id="@+id/checkbox_shed"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="@string/well"
+                android:id="@+id/checkbox_well"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:textSize="16dp"
+                android:text="@string/other"
+                android:id="@+id/checkbox_other"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
