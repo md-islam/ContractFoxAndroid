@@ -159,6 +159,18 @@
     <!-- END OF PRICE ESTIMATE -->
 
 
+    <!--String for contractor_availability_fragments-->
+    <string name="cancel_button_dialog_editText">Cancel</string>
+    <string name="hint_dialog_editText">Enter a new task</string>
+    <string name="dialogBox_pick_a_time_header">Pick A time</string>
+    <string-array name="time_availability_list">
+        <item>9:00AM-2:00PM</item>
+        <item>3:00PM-8:00PM</item>
+    </string-array>
+    <string name="saveBookingTimeText">save booking</string>
+
+
+
     <!--navigation_drawer_menu-->
     <string name="navigation_drawer_availability_string">My Availability</string>
 

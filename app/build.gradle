@@ -49,6 +49,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.4.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
     compile files('libs/PhotoUtil.jar')
 }
 
