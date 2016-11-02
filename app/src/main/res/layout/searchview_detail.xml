@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="phone"
+            android:id="@+id/phone_button"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/abc_search_url_text_normal" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="message"
+            android:id="@+id/message_button"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website"
+            android:id="@+id/website_button"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/design_textinput_error_color_dark" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary"/>
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:id="@+id/address_text"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/address"/>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Directions"
+                    android:id="@+id/directions_button"
+                    android:clickable="true"
+                    android:textAlignment="center"
+                    android:layout_weight=".5"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="List of services we provide"
+                android:id="@+id/skills_text"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|top"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expandableListView" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:id="@+id/description_text"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:id="@+id/description_paragraph"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:inputType="text"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Availability"
+                    android:id="@+id/view_availability_button"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textAlignment="center"
+                    android:clickable="true"
+                    android:layout_weight=".5" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request an Estimate"
+                    android:id="@+id/estimate_button"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:clickable="true"
+                    android:layout_weight=".5" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Our previous projects"
+                android:id="@+id/picture_gallery_text"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="The area below could be used by MD to test and implement review. "
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="title"
+                android:id="@+id/title_edit_text_contractor_profile_fragment"
+                android:layout_margin="15dp"/>
+            <EditText
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:hint="description"
+            android:id="@+id/description_editText_contractorProfileFragment"
+            android:layout_margin="10dp"/>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingStars_ID_contractorProfileFragment"
+                android:layout_gravity="center_horizontal"
+                android:rating="3.5"
+                android:numStars="5"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/submit_review_Contractor_profile_fragment"
+                android:text="Submit review"/>
+            <ViewFlipper
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/viewFlipper"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:animateFirstView="true"
+                android:autoStart="true"
+                android:flipInterval="5"
+                android:focusable="false"
+                android:scrollIndicators="left|right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/image_in_gallery"
+                    android:nestedScrollingEnabled="true" />
+
+            </ViewFlipper>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:id="@+id/reviews_text"
+                android:textAlignment="center"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">ContractFox</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_street_address">Enter a valid address</string>
+    <string name="error_unit_apt">Enter a valid apt/unit number</string>
+    <string name="error_city">Enter a valid city</string>
+    <string name="error_state">Choose a valid state</string>
+    <string name="error_zip_code">Enter a valid zip code</string>
+
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_home">Home Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_drawer">ContractFox</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="register_activity_email_error">Enter Valid Email</string>
+    <string name="register_activity_password_error">Enter a valid password with at least 6 characters</string>
+    <string name="register_activity_repeat_password_error">not identical</string>
+    <string name="register_contractor_fragment_firstName_error">Enter valid first name</string>
+    <string name="register_contractor_fragment_lastName_error">Enter valid last name</string>
+    <string name="register_contractor_fragment_companyName_error">Enter valid company name</string>
+    <string name="register_contractor_fragment_description_error">Enter valid description</string>
+    <string name="register_contractor_fragment_phone_error">Enter valid phone number</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <string name="title_activity_view_profile">View Profile</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_exterior">exterior</string>
+    <string name="register_button_login_activity">Register</string>
+    <string name="sign_up_button_text">Sign Up</string>
+    <string name="intro">Looking for contractors I presume? \n\nUnfamiliar with construction language
+        and terms? \n \nFirst time doing a project on the house?\n\nwell then, you\'re in the right place!
+        \n\nLet\'s get started.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_searchview_list">Items</string>
+    <string name="title_searchview_detail">SearchView Detail</string>
+    <string name="title_activity_google_directions">Map</string>
+    <string name="business_name">Business Name goes here!</string>
+    <string name="addresss">address</string>
+    <string name="auth_failed"> Authentication Failed :-( </string>
+
+
+    <!-- CONTRACTOR'S PROFILE -->
+    <string name="company_name">Jacks Construction Co.</string>
+    <string name="review_amount">45 reviews</string>
+    <string name="estimate_button">$ Request an Estimate $</string>
+    <string name="title_activity_map_fragment">Map</string>
+    <string name="address">151 Andrea Ln. Felton CA 95018</string>
+    <string name="distance_miles">1.4 mi</string>
+    <string name="call_button">Call</string>
+    <string name="phone_number">(845)332-7029</string>
+    <string name="directions_text">Directions</string>
+    <string name="skills_text">Skills</string>
+    <string name="url_name">www.jacksconstructionco.com</string>
+    <string name="review_text">Reviews</string>
+    <string name="next_symbol"> > </string>
+    <!-- END OF CONTRACTOR'S PROFILE -->
+
+    <!--For skillsets-->
+    <!--Interior-->
+    <string name="attic_skill">Attic</string>
+    <string name="basement_skill">Basement</string>
+    <string name="bathroom_skill">Bathroom</string>
+    <string name="garage_skill">Garage</string>
+    <string name="general_skill">General Room</string>
+    <string name="kitchen_skill">Kitchen</string>
+    <string name="utility_room">Utility Room</string>
+
+    <!--Exterior-->
+    <string name="ac_heat_skill">AC/Heat</string>
+    <string name="chimney_skill">Chimney</string>
+    <string name="deck_patio_skill">Deck and Patio</string>
+    <string name="doors_skill">Doors</string>
+    <string name="foundation_skill">Foundation</string>
+    <string name="roof_skill">Roof</string>
+    <string name="walls_skill">Walls</string>
+    <string name="windows_skill">Windows</string>
+
+    <!--Backyard-->
+    <string name="driveway_skill">Driveway</string>
+    <string name="fence_skill">Fence</string>
+    <string name="gazebo_skill">Gazebo</string>
+    <string name="landscape_skill">Landscape</string>
+    <string name="pool_jacuzzi_skill">Pool and Jacuzzi</string>
+    <string name="septic_tank_skill">Septic Tank</string>
+    <string name="tree_skill">Tree</string>
+    <string name="well_skill">Well</string>
+
+    <string name="interior_skill">Interior Skills</string>
+    <string name="exterior_skill">Exterior Skills</string>
+    <string name="backyard_skill">Backyard Skills</string>
+    <string name="choose_skills">Choose one or more skills:</string>
+
+
+    <!--navigation_drawer_menu-->
+    <string name="navigation_drawer_availability_string">My Availability</string>
+
+</resources>

@@ -1,0 +1,303 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/exterior"
+    tools:context="com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="horizontal"
+        android:weightSum="10"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.1"
+            android:visibility="invisible"
+            android:background="#00000000">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight="1.8">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5.6"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="match_parent"
+                android:id="@+id/garageDoor_Exterior"
+                android:text="Garage"
+                android:layout_height="0dp"
+                android:layout_weight="2.86"
+                android:background="#00000000"
+                android:textColor="#00000000" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight="1.9">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.99"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/walls_ID"
+                android:text="Outside walls"
+                android:textColor="#00000000"
+                android:layout_weight="6.5"
+                android:background="#00000000"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight="1.13">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.0"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/door_ID"
+                android:text="Door "
+                android:textColor="#00000000"
+                android:layout_weight="2.6"
+                android:background="#00000000"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight=".6">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight=".9">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".9"
+                android:id="@+id/chimney_ID"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_weight="1.4">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5.0"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.6"
+                android:id="@+id/porch_ID"
+                android:text="Porch"
+
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_weight="2.1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.1"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.5"
+                android:id="@+id/roof_ID"
+                android:text="roof"
+
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_weight="1.5">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6.26"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.1"
+                android:id="@+id/window_ID"
+                android:text="Window"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_weight="1.8">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.26"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.1"
+                android:id="@+id/roof2_ID"
+                android:text="Roof"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.1"
+                android:id="@+id/walls2_ID"
+                android:text="Outside Walls"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_weight="3.3"
+            android:clickable="false">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6.8"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:id="@+id/walls3"
+                android:text="Outside Walls"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_weight="1.8">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7"
+                android:text="Chimney"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:id="@+id/foundation_ID"
+                android:text="Foundation"
+                android:textColor="#00000000"
+                android:background="#00000000"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
