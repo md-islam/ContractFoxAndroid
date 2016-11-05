@@ -169,7 +169,7 @@ public class DrawerActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
             //think of a clever way to reuse code here.
            // i.putExtra(searchBar.getText().toString() ,true);
-            i.putExtra("content" ,searchBar.getText().toString() );
+            i.putExtra("serachedItem" , searchBar.getText().toString() );
             startActivity(i);
         }
     };

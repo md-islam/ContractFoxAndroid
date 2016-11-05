@@ -39,10 +39,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -62,15 +64,19 @@ public class SearchViewListActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
+    public static HashMap < Integer, String>  map = new HashMap<>();
     public static String[] data = {"company 1", "company 2","Ladimer"};
     public static List<String> ITEMSs = Arrays.asList(data);
     public static List<String> ITEMS = ITEMSs;
+    int count = 0;
 
     public static List<String> companyNames  =  new ArrayList<>();
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+
     private boolean mTwoPane;
     EditText searchBar ;
     //static List<String> names = new ArrayList<>();
@@ -86,15 +92,22 @@ public class SearchViewListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_searchview_list);
         //gets the name of the clicked item from the previous activity
         savedInstanceState = getIntent().getExtras();
+
         searchedItem = savedInstanceState.getString("serachedItem");
+
+
         progressBar = (ProgressBar)findViewById(R.id.progress_ID);
         //fire base stuff. This is where we get the info from firebase
         mAuth = FirebaseAuth.getInstance();
 
         progressBar.setVisibility(View.VISIBLE);
+
+
+
 
 
         mFirebaseDatabaseReference
@@ -110,11 +123,12 @@ public class SearchViewListActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
 
                 for (DataSnapshot snapshot : dataSnapshotsList) {
-                    Log.d("check-", "inside for");
-
 
                     //first lets see if member is contractor
                     if (snapshot.child("contractorOption").getValue().equals(true)  ) {
+
+                        map.put(count , snapshot.getKey().toString());
+                        count++;
 
                         Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
                         //second for loop for checking if skill is there in the skillSet
@@ -149,7 +163,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
-            searchedContent = savedInstanceState.getString("content");
+            searchedContent = savedInstanceState.getString("serachedItem");
             searchBar.setText(searchedContent);
         }
 
@@ -158,6 +172,7 @@ public class SearchViewListActivity extends AppCompatActivity {
         toolbar.setTitle(getTitle());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,11 +252,8 @@ public class SearchViewListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         //ADDED FOR TESTING
-//                        Context context = v.getContext();
-//                        Intent intent = new Intent(context, ContractorProfileActivity.class);
-////                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
-//                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
-//                        context.startActivity(intent);
+
+                        //this is for tablet view, which will not work now.
 
                         //REMOVED FOR TESTING
                         Bundle arguments = new Bundle();
@@ -250,25 +262,15 @@ public class SearchViewListActivity extends AppCompatActivity {
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.contractor_profile, fragment) // TESTING
-                                .replace(R.id.searchview_detail_container, fragment) // TESTING
+                                .replace(R.id.activity_contractor_profile, fragment) // TESTING
                                 .commit();
-
-                        //ADDED FOR TESTING
-//                        Bundle arguments = new Bundle();
-//                        arguments.putString(DisplayProfile.ARG_ITEM_ID, holder.mItem.id);
-//                        DisplayProfile fragment = new DisplayProfile();
-//                        fragment.setArguments(arguments);
-//                        getSupportFragmentManager().beginTransaction()
-////                                .replace(R.id.contractor_profile, fragment) // TESTING
-//                                .replace(R.id.searchview_detail_container, fragment) // TESTING
-//                                .commit();
 
                     } else {
 
                        // Context context = v.getContext();
-                        Intent intent = new Intent(getApplicationContext(), SearchViewDetailActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), ContractorProfileActivity.class);
                         //intent.putExtra(holder.companyName.getText(), 0 );
-                        intent.putExtra("name", holder.companyName.getText().toString() );
+                        intent.putExtra("id", map.get(holder.getAdapterPosition()) );
                         startActivity(intent);
 
 //                        Context context = v.getContext();
