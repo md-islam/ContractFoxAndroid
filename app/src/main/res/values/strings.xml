@@ -92,16 +92,16 @@
     <string name="pic_gallery_text">Before and After Photos</string>
     <!-- END OF CONTRACTOR'S PROFILE -->
 
-    <!--SKILLSETS-->
-    <string name="kitchen_skill">Kitchen</string>
-    <string name="bathroom_skill">Bathroom</string>
-    <string name="bedroom_skill">Bedroom</string>
+
     <string name="title_activity_estimate">EstimateActivity</string>
     <string name="large_text">Text goes here</string>
     <string name="title_activity_skill_set">SkillSetActivity</string>
     <string name="title_activity_reviews">ReviewsActivity</string>
     <string name="title_activity_maps">Map</string>
-    <!-- END of SKILLSETS-->
+
+
+
+
 
     <!-- PRICE ESTIMATE -->
     <string name="step1">STEP 1</string>
@@ -168,6 +168,41 @@
         <item>3:00PM-8:00PM</item>
     </string-array>
     <string name="saveBookingTimeText">save booking</string>
+
+    <!--For skillsets-->
+    <!--Interior-->
+    <string name="attic_skill">Attic</string>
+    <string name="basement_skill">Basement</string>
+    <string name="bathroom_skill">Bathroom</string>
+    <string name="garage_skill">Garage</string>
+    <string name="general_skill">General Room</string>
+    <string name="kitchen_skill">Kitchen</string>
+
+
+    <!--Exterior-->
+    <string name="ac_heat_skill">AC/Heat</string>
+    <string name="chimney_skill">Chimney</string>
+    <string name="deck_patio_skill">Deck and Patio</string>
+    <string name="doors_skill">Doors</string>
+    <string name="foundation_skill">Foundation</string>
+    <string name="roof_skill">Roof</string>
+    <string name="walls_skill">Walls</string>
+    <string name="windows_skill">Windows</string>
+
+    <!--Backyard-->
+    <string name="driveway_skill">Driveway</string>
+    <string name="fence_skill">Fence</string>
+    <string name="gazebo_skill">Gazebo</string>
+    <string name="landscape_skill">Landscape</string>
+    <string name="pool_jacuzzi_skill">Pool and Jacuzzi</string>
+    <string name="septic_tank_skill">Septic Tank</string>
+    <string name="tree_skill">Tree</string>
+    <string name="well_skill">Well</string>
+
+    <string name="interior_skill">Interior Skills</string>
+    <string name="exterior_skill">Exterior Skills</string>
+    <string name="backyard_skill">Backyard Skills</string>
+    <string name="choose_skills">Choose one or more skills:</string>
 
 
 
