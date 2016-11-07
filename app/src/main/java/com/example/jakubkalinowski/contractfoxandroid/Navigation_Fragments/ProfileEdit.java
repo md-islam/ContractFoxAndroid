@@ -122,8 +122,6 @@ public class ProfileEdit extends Fragment {
                                         mPhoneNumberEditText.setText(m.getPhoneNo());
                                         mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
                                         mWebsiteURLEditText.setText(m.getEmailAddress());
-
-
                                     }
                                     else{
                                         Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
