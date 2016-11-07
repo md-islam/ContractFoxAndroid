@@ -43,6 +43,7 @@ public class DrawerActivity extends AppCompatActivity
     LinearLayout tab1, tab2, tab3, tab4 ;
     Button exteriorButton , interiorButton, backyardButton , searchButton;
     EditText searchBar;
+
    //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,8 @@ public class DrawerActivity extends AppCompatActivity
             case R.id.messages:
                 fragment = new Messages();
                 title = "Messagese";
+//                Intent i = new Intent(DrawerActivity.this, MessageActivity.class);
+//                startActivity(i);
                 break;
             case R.id.homee:
                 fragment = new Home();
@@ -163,6 +166,15 @@ public class DrawerActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
     }
+//
+//    View.OnClickListener mMessage = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent i = new Intent(DrawerActivity.this, MessageActivity.class);
+//            i.putExtra("content" ,searchBar.getText().toString() );
+//            startActivity(i);
+//        }
+//    };
 
     //Onclick listener for search
     View.OnClickListener searchListerner = new View.OnClickListener() {

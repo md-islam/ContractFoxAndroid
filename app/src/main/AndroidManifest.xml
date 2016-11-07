@@ -76,6 +76,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity
             android:name=".SearchViewListActivity"
             android:label="@string/title_searchview_list"
@@ -120,6 +123,7 @@
             android:label="@string/title_activity_estimate"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".Message_Room"></activity>
     </application>
 
 </manifest>

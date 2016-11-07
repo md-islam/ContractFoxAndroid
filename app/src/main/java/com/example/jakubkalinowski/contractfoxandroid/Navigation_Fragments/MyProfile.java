@@ -75,6 +75,7 @@ public class MyProfile extends Fragment {
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
+    Boolean isContractor = true;
 
     public MyProfile() {
         // Required empty public constructor
@@ -97,6 +98,7 @@ public class MyProfile extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,7 +128,7 @@ public class MyProfile extends Fragment {
                                         companyName.setText(m.getBusinessWebsiteURL());
                                         website.setText(m.getBusinessWebsiteURL());
                                         //miles.setText();
-
+                                        isContractor = true;
 
                                     }
                                     else{
@@ -135,6 +137,8 @@ public class MyProfile extends Fragment {
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());
                                         //fullName.setText(m.getFullName().toString());
+
+                                        isContractor = false;
                                     }
                                 }
                                 @Override
@@ -155,7 +159,15 @@ public class MyProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
+
+        View root;
+
+        if(isContractor == true) {
+
+            root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
+        }else {
+            root = inflater.inflate(R.layout.fragment_homeowner_profile, container, false);
+        }
 //        View root = inflater.inflate(R.layout.activity_contractor_profile, container, false);
         //TODO: fetch contractorOption from DB to set the if statement
 //        View root;

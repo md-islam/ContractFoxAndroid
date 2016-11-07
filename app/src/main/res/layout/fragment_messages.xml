@@ -5,6 +5,14 @@
     tools:context="com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages">
 
     <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:id="@+id/estimate_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </ListView>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_margin="15dp"
