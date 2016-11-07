@@ -113,7 +113,7 @@ public class Interior extends Fragment {
 
             Intent i =  new Intent ( getContext() , SpecificList.class);
             Button button = (Button) view ;
-            i.putExtra("name" ,button.getText() );
+            i.putExtra("name" , button.getText() );
             startActivity(i);
         }
     };
