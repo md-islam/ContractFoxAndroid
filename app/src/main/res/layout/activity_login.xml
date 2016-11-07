@@ -131,6 +131,19 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimary" />
 
+
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progressBar2"
+                tools:visibility="invisible"
+                android:animationResolution="@integer/google_play_services_version" />
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mSignInButton;
     private Button mRegisterButton;
     Button b ;
+    ProgressBar progressBar ;
 
     TextView forgotPass;
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         FirebaseAuth.getInstance().signOut();
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 
         //get firebase auth instance (check user authenticated state)
         mAuth = FirebaseAuth.getInstance();
@@ -132,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                 final String email = mEmailAddress.getText().toString();
                 String password = mPassword.getText().toString();
 
+                progressBar.setVisibility(View.VISIBLE);
 //                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
 //
 //                    @Override
@@ -177,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else{
+                                    progressBar.setVisibility(View.INVISIBLE);
                                     Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
                                     startActivity(i);
                                 }
