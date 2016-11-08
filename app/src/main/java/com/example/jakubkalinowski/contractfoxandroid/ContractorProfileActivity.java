@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +11,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,42 +29,25 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     String param = "kj";
     private static final String TAG = "Firebase_TAG!!" ;
-    //[Firebase_variable]**
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
-
-
 
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
     //private Estimate.OnFragmentInteractionListener mListener;
-    private Member m;
-    public Boolean option;
+
     String contractorID ;
 
     //UI component variables
     private Button estimateButton, messageButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
-
     public String urlAddress;
 
     //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
-    public Boolean getOption() {
-        return option;
-    }
-
-    public void setOption(Boolean option) {
-        this.option = option;
-    }
-
-    public ContractorProfileActivity(){
-
-    }
+    public ContractorProfileActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,76 +70,32 @@ public class ContractorProfileActivity extends AppCompatActivity {
        here you can make a quick call to db to get what you want. no going over a list. you have the id. 
          */
 
+        address = (TextView) findViewById(R.id.address_string);
+        phoneNumber = (TextView) findViewById(R.id.call_text);
+        companyName = (TextView) findViewById(R.id.company_name);
+        website = (TextView) findViewById(R.id.website_url);
 
+        mFirebaseDatabaseReference
+                .child("users").child(contractorID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        //need null handlers here
+                        Contractor m = dataSnapshot.getValue(Contractor.class);
 
+                        address.setText(m.getAddress().toString());
+                        phoneNumber.setText(m.getPhoneNo());
+                        companyName.setText(m.getCompanyName());
+                        website.setText(m.getBusinessWebsiteURL());
+                        //miles.setText();
+                        urlAddress = m.getBusinessWebsiteURL();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)) {
-
-                                        //need null handlers here
-                                        Contractor m = dataSnapshot.getValue(Contractor.class);
-
-//                                        option = true;
-                                        setOption(true);
-
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        companyName.setText(m.getBusinessWebsiteURL());
-                                        website.setText(m.getBusinessWebsiteURL());
-                                        //miles.setText();
-                                        urlAddress = m.getBusinessWebsiteURL();
-
-                                    } else {
-                                        Homeowner m = (Homeowner) dataSnapshot.getValue(Homeowner.class);
-
-//                                        option = false;
-                                        setOption(false);
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        //fullName.setText(m.getFullName().toString());
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-
-            }
-        };
-
-//        if (savedInstanceState == null) {
-//            // Create the detail fragment and add it to the activity
-//            // using a fragment transaction.
-//            Bundle arguments = new Bundle();
-//            arguments.putString(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID,
-//                    getIntent().getStringExtra(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID));
-//            com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate fragment = new Estimate();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.activity_contractor_profile, fragment)
-//                    .commit();
-//        }
+                    }
+                });
 
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
         messageButton = (Button) findViewById(R.id.aprofile_message_button);
@@ -189,7 +124,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "8453327029"));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                 startActivity(intent);            }
         });
 
@@ -227,6 +162,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
     }
 

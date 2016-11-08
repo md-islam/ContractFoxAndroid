@@ -340,7 +340,7 @@
                     <LinearLayout
                         android:id="@+id/acall_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:background="#ffffff"
                         android:clickable="true"
                         android:orientation="horizontal">
@@ -348,8 +348,8 @@
                         <ImageView
                             android:id="@+id/call_img"
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/call_icon"/>
 
@@ -357,7 +357,7 @@
                             android:id="@+id/call_text"
                             android:layout_weight="6"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"/>
                     </LinearLayout>
                     <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
@@ -374,15 +374,15 @@
                     <LinearLayout
                         android:id="@+id/adirections_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/directions_img"
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/directions_icon"/>
 
@@ -390,7 +390,7 @@
                             android:id="@+id/directions_text"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/directions_text"/>
 
@@ -398,7 +398,7 @@
                             android:id="@+id/open_directions"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -418,15 +418,15 @@
                     <LinearLayout
                         android:id="@+id/awebsite_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/website_img"
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/website_icon"/>
 
@@ -435,14 +435,14 @@
                             android:id="@+id/website_url"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"   />
 
                         <TextView
                             android:id="@+id/open_website"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -462,15 +462,15 @@
                     <LinearLayout
                         android:id="@+id/askills_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/skills_img"
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/skills_icon"/>
 
@@ -478,7 +478,7 @@
                             android:id="@+id/skills_text"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/skills_text"/>
 
@@ -486,7 +486,7 @@
                             android:id="@+id/open_skills"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -505,15 +505,15 @@
                     <LinearLayout
                         android:id="@+id/areviews_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/reviews_img"
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/review_icon"/>
 
@@ -521,7 +521,7 @@
                             android:id="@+id/reviews_text"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/review_text"/>
 
@@ -529,7 +529,7 @@
                             android:id="@+id/open_reviews"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -547,28 +547,28 @@
                     <LinearLayout
                         android:id="@+id/apic_gallery_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_weight="1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"/>
                         <!--android:src="@drawable/pic_gallery_icon"/>-->
 
                         <TextView
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/pic_gallery_text"/>
 
                         <TextView
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>

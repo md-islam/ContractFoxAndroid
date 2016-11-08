@@ -125,7 +125,7 @@ public class MyProfile extends Fragment {
 
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());
-                                        companyName.setText(m.getBusinessWebsiteURL());
+                                        companyName.setText(m.getCompanyName());
                                         website.setText(m.getBusinessWebsiteURL());
                                         //miles.setText();
                                         isContractor = true;
