@@ -1,6 +1,8 @@
 package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +22,8 @@ import com.example.jakubkalinowski.contractfoxandroid.Contractor;
 import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +31,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -67,9 +78,23 @@ public class MyProfile extends Fragment {
     private Member m;
 
     //UI component variables
-    private Button estimateButton, messageButton;
+
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
-    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
+    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton,
+            galleryButton;
+
+    private Button mSelectImageFromGallery;
+
+    // picture gallery storage reference
+    private StorageReference mStorageReference;
+
+    //progress dialog
+    private ProgressDialog mProgressDialog;
+
+    private ImageView mImageView1, mImageView2, mImageView3, mImageView4;
+
+    // integer for request code
+    private static final int GALLERY_INTENT = 2;
 
     //imageView
     private CircleImageView mCircleProfileImageView;
@@ -103,6 +128,8 @@ public class MyProfile extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -153,6 +180,8 @@ public class MyProfile extends Fragment {
                 // ...
             }
         };
+
+
     }
 
     @Override
@@ -241,6 +270,77 @@ public class MyProfile extends Fragment {
         phoneNumber = (TextView) view.findViewById(R.id.call_text);
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
+
+
+        mSelectImageFromGallery = (Button)view.findViewById(R.id.add_pics_from_gallery_button);
+        websiteButton = (LinearLayout) view.findViewById(R.id.website_button);
+        skillsButton = (LinearLayout) view.findViewById(R.id.skills_button);
+        reviewsButton = (LinearLayout) view.findViewById(R.id.reviews_button);
+        galleryButton = (LinearLayout) view.findViewById(R.id.pic_gallery_button);
+
+        mImageView1 = (ImageView) view.findViewById(R.id.gallery_image1);
+        mImageView2 = (ImageView) view.findViewById(R.id.gallery_image2);
+        mImageView3 = (ImageView) view.findViewById(R.id.gallery_image3);
+        mImageView4 = (ImageView) view.findViewById(R.id.gallery_image4);
+
+        mProgressDialog = new ProgressDialog(getActivity());
+
+
+        mSelectImageFromGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent i = new Intent(Intent.ACTION_PICK);
+
+                i.setType("image/*");
+
+                startActivityForResult(i, GALLERY_INTENT);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+
+            mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
+            mProgressDialog.show();
+
+            Uri uri = data.getData();
+
+            //TODO: add random name instead of last path .child(uri.getLastPathSegment())
+            StorageReference filePath = mStorageReference.child("Photos").child(uri.getLastPathSegment());
+
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    mProgressDialog.dismiss();
+
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+                    //TODO: pass the image to PicGalleryActivity. Not sure if the first line is correct.
+                    Context c = getActivity().getApplicationContext();
+                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView1);
+//                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView2);
+//                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView3);
+//                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView4);
+
+
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
+
+        }
 
     }
 

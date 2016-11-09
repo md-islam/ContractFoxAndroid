@@ -40,7 +40,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     //UI component variables
     private Button estimateButton, messageButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
-    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
+    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
     public String urlAddress;
 
     //imageView
@@ -104,6 +104,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
         skillsButton = (LinearLayout)findViewById(R.id.askills_button);
         reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+        picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
         estimateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +160,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ContractorProfileActivity.this, ReviewsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        picGalleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ContractorProfileActivity.this, PicGalleryActivity.class);
                 startActivity(i);
             }
         });

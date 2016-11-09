@@ -1,5 +1,6 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,10 +86,11 @@ public class EstimateActivity extends AppCompatActivity {
     MessageActivity mMessages;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> mEstimate_list = new ArrayList<>();
-    private ListView estimate_list;
+//    private ListView estimate_list;
 
     String contractorsid ;
 
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,8 @@ public class EstimateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_estimate);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mProgressDialog = new ProgressDialog(this);
 
         //TODO: get contractorID from previous screen
         savedInstanceState = getIntent().getExtras();
@@ -218,8 +221,9 @@ public class EstimateActivity extends AppCompatActivity {
                 mDetailDescription = mDetailDescriptionEditText.getText().toString();
                 mOwnMaterials = ownMaterials.getText().toString();
                 mDelivery = delivery.getText().toString();
-                // TODO: Add an ArrayList of checked items
-                // checkedItems
+
+                mProgressDialog.setMessage("Sending ...");
+                mProgressDialog.show();
 
                 String estimateID = mDatabaseEstimateReference.push().getKey();
                 if(estimateID != null) {
@@ -273,10 +277,13 @@ public class EstimateActivity extends AppCompatActivity {
 
                 }
 
+
+
                 // return to previous screen
                 //TODO: kill the activity so you can't go back to it.
                 Intent intent = new Intent(EstimateActivity.this, ContractorProfileActivity.class);
                 startActivity(intent);
+                mProgressDialog.dismiss();
                 finish();
             }
 

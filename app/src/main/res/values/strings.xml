@@ -100,9 +100,6 @@
     <string name="title_activity_maps">Map</string>
 
 
-
-
-
     <!-- PRICE ESTIMATE -->
     <string name="step1">STEP 1</string>
     <string name="step2">STEP 2</string>
@@ -203,7 +200,6 @@
     <string name="exterior_skill">Exterior Skills</string>
     <string name="backyard_skill">Backyard Skills</string>
     <string name="choose_skills">Choose one or more skills:</string>
-
 
 
     <!--navigation_drawer_menu-->
