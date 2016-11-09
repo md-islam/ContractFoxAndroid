@@ -65,5 +65,11 @@ public class ContractorSingleDaySchedule {
         this.timeInMilliseconds = timeInMilliseconds;
     }
 
+    @Override
+    public String toString() {
+        return ""+new Boolean(availableAllDay).toString() + getTimeInMilliseconds() +
+                getMorningSession().toString()+getEveningSession().toString();
+    }
+
     long timeInMilliseconds;
 }

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
@@ -57,6 +58,7 @@ public class ContractorScheduleFragment extends Fragment implements
     // either dynamically or via XML layout inflation.
     private Button mButton;
     private MaterialCalendarView mContractorScheduleMonthView;
+    private FloatingActionButton mNewEventFAB;
 
 
     //Material Dialog
@@ -108,9 +110,11 @@ public class ContractorScheduleFragment extends Fragment implements
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
-        mButton = (Button) view.findViewById(R.id.scheduleEventContractorScheduleButton);
+//        mButton = (Button) view.findViewById(R.id.scheduleEventContractorScheduleButton);
         mContractorScheduleMonthView = (MaterialCalendarView) view.
                 findViewById(R.id.schedule_month_view_contractor_schedule_fragment_layout);
+        mNewEventFAB = (FloatingActionButton) view.findViewById
+                (R.id.fab_new_duty_contractor_schedule_fragment_layout);
 
         setCalendarMonthViewState();
         mContractorScheduleMonthView.setOnDateChangedListener(this);
@@ -166,6 +170,7 @@ public class ContractorScheduleFragment extends Fragment implements
                         contractorScheduleMap.put(timeStampKey, allDayScheduleObjectValue);
                         threeWeeksAvailableMap.put(timeStampKey, allDayScheduleObjectValue);
                         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+                        new PopulateHalfDayEventsAsync().executeOnExecutor(Executors.newSingleThreadExecutor());
                     }
                 }
 
@@ -217,10 +222,10 @@ public class ContractorScheduleFragment extends Fragment implements
                         }).canceledOnTouchOutside(false);
 
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+        new PopulateHalfDayEventsAsync().executeOnExecutor(Executors.newSingleThreadExecutor());
 
 
-
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mNewEventFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mInputDescriptionDialog.show();
@@ -416,9 +421,7 @@ public class ContractorScheduleFragment extends Fragment implements
     }
 
 
-
-
-    public void setCalendarMonthViewState(){
+    public void setCalendarMonthViewState() {
         int maxNumberOfDaysAhead = 20;
         Calendar now = Calendar.getInstance();
         Calendar threeWeeksFromNow = Calendar.getInstance();
@@ -429,9 +432,6 @@ public class ContractorScheduleFragment extends Fragment implements
 
 
 //        .setMinimumDate(now).setMaximumDate(threeWeeksFromNow)
-
-
-
 
 
 //        mContractorScheduleMonthView.state().edit()
@@ -584,8 +584,9 @@ public class ContractorScheduleFragment extends Fragment implements
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
-        System.out.println(date.toString()+"SELECTED");
-        Toast.makeText(getActivity(), "DATEPRESSED",Toast.LENGTH_SHORT);
+        System.out.println(date.toString() + "SELECTED" + date.getCalendar().getTimeInMillis());
+        System.out.println(threeWeeksAvailableMap.get(String.valueOf(date.getCalendar().getTimeInMillis())));
+        Toast.makeText(getActivity(), "DATEPRESSED", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -596,11 +597,7 @@ public class ContractorScheduleFragment extends Fragment implements
     //Jatinder work here -- [END]
 
 
-
-    /**
-     * Simulate an API call to show how to add decorators
-     */
-    private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+    private class PopulateHalfDayEventsAsync extends AsyncTask<Void, Void, List<CalendarDay>> {
 
         @Override
         protected List<CalendarDay> doInBackground(@NonNull Void... voids) {
@@ -609,21 +606,15 @@ public class ContractorScheduleFragment extends Fragment implements
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.add(Calendar.MONTH, -2);
             ArrayList<CalendarDay> dates = new ArrayList<>();
-//            for (int i = 0; i < ; i++) {
-//                CalendarDay day = CalendarDay.from(calendar);
-//                dates.add(day);
-//                calendar.add(Calendar.DATE, 5);
-//            }
-            for(Map.Entry<String, ContractorSingleDaySchedule>
-                    entry: threeWeeksAvailableMap.entrySet()){
+            for (Map.Entry<String, ContractorSingleDaySchedule>
+                    entry : threeWeeksAvailableMap.entrySet()) {
                 String key = entry.getKey();
-                ContractorSingleDaySchedule cSDS= entry.getValue();
+                ContractorSingleDaySchedule cSDS = entry.getValue();
 
-                if(cSDS.getEveningSession() != null &&
-                        cSDS.getMorningSession() != null){
+                if ((cSDS.getEveningSession() != null &&
+                        cSDS.getMorningSession() == null) || (cSDS.getEveningSession() == null &&
+                        cSDS.getMorningSession() != null)) {
                     Calendar c = Calendar.getInstance();
                     c.setTimeInMillis(cSDS.getTimeInMilliseconds());
                     CalendarDay day = CalendarDay.from(c);
@@ -643,7 +634,52 @@ public class ContractorScheduleFragment extends Fragment implements
                 return;
             }
 
-            mContractorScheduleMonthView.addDecorator(new ContractorOccupiedDaysDecorator(Color.RED, calendarDays));
+            mContractorScheduleMonthView.addDecorator(new ContractorOccupiedDaysDecorator(Color.CYAN,
+                    calendarDays));
+        }
+    }
+
+
+    /**
+     * ASYNC TASK for populating unavailable days
+     */
+    private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        @Override
+        protected List<CalendarDay> doInBackground(@NonNull Void... voids) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ArrayList<CalendarDay> dates = new ArrayList<>();
+            for (Map.Entry<String, ContractorSingleDaySchedule>
+                    entry : threeWeeksAvailableMap.entrySet()) {
+                String key = entry.getKey();
+                ContractorSingleDaySchedule cSDS = entry.getValue();
+
+                if (cSDS.getEveningSession() != null &&
+                        cSDS.getMorningSession() != null) {
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(cSDS.getTimeInMilliseconds());
+                    CalendarDay day = CalendarDay.from(c);
+                    dates.add(day);
+                }
+            }
+
+            return dates;
+        }
+
+        @Override
+        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isRemoving()) {
+                return;
+            }
+
+            mContractorScheduleMonthView.addDecorator(new ContractorOccupiedDaysDecorator(Color.RED,
+                    calendarDays));
         }
     }
 
