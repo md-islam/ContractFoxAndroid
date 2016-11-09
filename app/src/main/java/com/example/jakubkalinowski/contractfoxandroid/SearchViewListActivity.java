@@ -1,10 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,41 +9,29 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 
 import com.example.jakubkalinowski.contractfoxandroid.dummy.DummyContent;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 ///**
 // * An activity representing a list of Items. This activity
@@ -128,7 +113,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                     if (snapshot.child("contractorOption").getValue().equals(true)  ) {
 
                         map.put(count , snapshot.getKey().toString());
-                        count++;
+                        ++count;
 
                         Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
                         //second for loop for checking if skill is there in the skillSet
