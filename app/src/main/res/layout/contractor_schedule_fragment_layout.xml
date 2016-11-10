@@ -11,6 +11,11 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:text="open calendar widget"-->
         <!--android:id="@+id/scheduleEventContractorScheduleButton"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,6 +25,23 @@
         app:mcv_showOtherDates="all"
         app:mcv_selectionColor="#00F"
         />
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/events_recycler_view_contractor_schedule"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -31,6 +53,13 @@
         android:src="@drawable/ic_action_new_calendar_event"
         android:id="@+id/fab_new_duty_contractor_schedule_fragment_layout"
         />
+
+
+
+
+
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>
