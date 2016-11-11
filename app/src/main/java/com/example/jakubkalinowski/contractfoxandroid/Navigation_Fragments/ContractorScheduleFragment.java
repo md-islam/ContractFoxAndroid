@@ -2,21 +2,30 @@ package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.jakubkalinowski.contractfoxandroid.Model.ContractorDutySession;
 import com.example.jakubkalinowski.contractfoxandroid.Model.ContractorSingleDaySchedule;
 import com.example.jakubkalinowski.contractfoxandroid.R;
+import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ContractorOccupiedDaysDecorator;
+import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ContractorSingleSessionAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -25,22 +34,39 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+
+
+
 
 /**
  * Created by MD on 10/27/2016.
  */
 
-public class ContractorScheduleFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class ContractorScheduleFragment extends Fragment implements
+        DatePickerDialog.OnDateSetListener, OnDateSelectedListener {
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     private Button mButton;
+    private MaterialCalendarView mContractorScheduleMonthView;
+    private FloatingActionButton mNewEventFAB;
+
+    //variables to recyclerview
+    private RecyclerView mRecyclerViewDuties;
+    private ContractorSingleSessionAdapter mAdapter;
+    private List<ContractorDutySession> singleDayServicesList = new ArrayList<>();
 
 
     //Material Dialog
@@ -48,14 +74,22 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
     private MaterialDialog.Builder mInputTimeAvailabilityDialog;
 
     private FragmentActivity mParentActivityContext;
-
     private CharSequence mEventDescription;
 
     //Firebase database reference
     private DatabaseReference mDatabaseAllContractorScheduleReference;
     private DatabaseReference mDatabaseCurrentContractorScheduleReference;
+    private DatabaseReference mDatabaseContractorSchedule;
     private String contractorIDKey;
+
+    //This hashmap downloads all the content
     private Map<String, ContractorSingleDaySchedule> contractorScheduleMap = new HashMap<>();
+
+
+
+    //This hashmap is whats being saved back into firebase after all logic is handled.
+    private Map<String, ContractorSingleDaySchedule> threeWeeksAvailableMap = new HashMap<>();
+
     ArrayList<Integer> x = new ArrayList<Integer>();
     int counter = 1;
 
@@ -85,12 +119,35 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+        mAdapter = new ContractorSingleSessionAdapter(singleDayServicesList);
+        mContractorScheduleMonthView = (MaterialCalendarView) view.
+                findViewById(R.id.schedule_month_view_contractor_schedule_fragment_layout);
+        mNewEventFAB = (FloatingActionButton) view.findViewById
+                (R.id.fab_new_duty_contractor_schedule_fragment_layout);
+        mRecyclerViewDuties =
+                (RecyclerView) view.findViewById
+                        (R.id.events_recycler_view_contractor_schedule);
+        mRecyclerViewDuties.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewDuties.setAdapter(mAdapter);
+//        prepareDutiesDataForRecyclerView();
+        mRecyclerViewDuties.setHasFixedSize(true);
 
-        mButton = (Button) view.findViewById(R.id.scheduleEventContractorScheduleButton);
+
+
+        setCalendarMonthViewState();
+        mContractorScheduleMonthView.setOnDateChangedListener(this);
+//        mContractorScheduleMonthView.state().edit()
+//                .setFirstDayOfWeek(Calendar.WEDNESDAY)
+//                .setMinimumDate(CalendarDay.from(2016, 4, 3))
+//                .setMaximumDate(CalendarDay.from(2016, 5, 12))
+//                .setCalendarDisplayMode(CalendarMode.WEEKS)
+//                .commit();
+
+
         mDatabaseAllContractorScheduleReference = FirebaseDatabase.getInstance().
                 getReference().child("contractor_schedule");
 
-        getThreeWeeksAvailableHashMap();
+        threeWeeksAvailableMap = getThreeWeeksAvailableHashMap();
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -108,11 +165,16 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                             getValue(ContractorSingleDaySchedule.class);
                     if (timeStampKey != null && allDayScheduleObjectValue != null) {
                         contractorScheduleMap.put(timeStampKey, allDayScheduleObjectValue);
+                        threeWeeksAvailableMap.put(timeStampKey, allDayScheduleObjectValue);
 
                     }
-                    x.add(counter++);
-                    System.out.println("child_added_to_hashmap-->" + counter);
-                    System.out.println();
+//                    x.add(counter++);
+//                    System.out.println("child_added_to_hashmap-->" + counter);
+//                    System.out.println();
+//                    for (Map.Entry<String, ContractorSingleDaySchedule> item : threeWeeksAvailableMap.entrySet()) {
+//                        // ...
+//                        System.out.println(item.getKey() + "-->" + item.getValue().getAvailableAllDay());
+//                    }
                 }
 
                 @Override
@@ -124,6 +186,9 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                             getValue(ContractorSingleDaySchedule.class);
                     if (timeStampKey != null && allDayScheduleObjectValue != null) {
                         contractorScheduleMap.put(timeStampKey, allDayScheduleObjectValue);
+                        threeWeeksAvailableMap.put(timeStampKey, allDayScheduleObjectValue);
+                        new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+                        new PopulateHalfDayEventsAsync().executeOnExecutor(Executors.newSingleThreadExecutor());
                     }
                 }
 
@@ -174,8 +239,11 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                             }
                         }).canceledOnTouchOutside(false);
 
+        new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+        new PopulateHalfDayEventsAsync().executeOnExecutor(Executors.newSingleThreadExecutor());
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+
+        mNewEventFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mInputDescriptionDialog.show();
@@ -228,6 +296,7 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                             getReadableMorningEndTime(pickedDate), false,
                                             getReadableDate(pickedDate));
                             singleDaySchedule.setMorningSession(morningSession);
+                            threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             if (singleDaySchedule.getMorningSession() != null &&
                                     singleDaySchedule.getEveningSession() != null &&
                                     singleDaySchedule.getMorningSession().
@@ -235,10 +304,13 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                     singleDaySchedule.getEveningSession().
                                             getAvailableDuringSession() == false) {
                                 singleDaySchedule.setAvailableAllDay(false);
+                                threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             }
+//                            mDatabaseAllContractorScheduleReference.child(contractorIDKey).
+//                                    child(String.valueOf(singleDaySchedule.
+//                                            getTimeInMilliseconds())).setValue(singleDaySchedule);
                             mDatabaseAllContractorScheduleReference.child(contractorIDKey).
-                                    child(String.valueOf(singleDaySchedule.
-                                            getTimeInMilliseconds())).setValue(singleDaySchedule);
+                                    setValue(threeWeeksAvailableMap);
 
 
                         } else if (which[0] == 1 && which.length == 1) {
@@ -252,6 +324,7 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                             getReadableAfternoonEndTime(pickedDate), false,
                                             getReadableDate(pickedDate));
                             singleDaySchedule.setEveningSession(afternoonSession);
+                            threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             if (singleDaySchedule.getMorningSession() != null &&
                                     singleDaySchedule.getEveningSession() != null &&
                                     singleDaySchedule.getMorningSession().
@@ -259,10 +332,13 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                     singleDaySchedule.getEveningSession().
                                             getAvailableDuringSession() == false) {
                                 singleDaySchedule.setAvailableAllDay(false);
+                                threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             }
+//                            mDatabaseAllContractorScheduleReference.child(contractorIDKey).
+//                                    child(String.valueOf(singleDaySchedule.getTimeInMilliseconds()))
+//                                    .setValue(singleDaySchedule);
                             mDatabaseAllContractorScheduleReference.child(contractorIDKey).
-                                    child(String.valueOf(singleDaySchedule.getTimeInMilliseconds()))
-                                    .setValue(singleDaySchedule);
+                                    setValue(threeWeeksAvailableMap);
 
                         } else if (which.length == 2) {
                             // both is selected
@@ -282,6 +358,7 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                             getReadableDate(pickedDate));
                             singleDaySchedule.setEveningSession(afternoonSession);
                             singleDaySchedule.setMorningSession(morningSession);
+                            threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             if (singleDaySchedule.getMorningSession() != null &&
                                     singleDaySchedule.getEveningSession() != null &&
                                     singleDaySchedule.getMorningSession().
@@ -289,10 +366,10 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
                                     singleDaySchedule.getEveningSession().
                                             getAvailableDuringSession() == false) {
                                 singleDaySchedule.setAvailableAllDay(false);
+                                threeWeeksAvailableMap.put(String.valueOf(pickedDate), singleDaySchedule);
                             }
                             mDatabaseAllContractorScheduleReference.child(contractorIDKey).
-                                    child(String.valueOf(singleDaySchedule.getTimeInMilliseconds()))
-                                    .setValue(singleDaySchedule);
+                                    setValue(threeWeeksAvailableMap);
                         }
                         return true;
                     }
@@ -337,7 +414,7 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
     /**
      * This method is necessary as it helps to create empty slots for a 3 week timeframe
      */
-    public void getThreeWeeksAvailableHashMap() {
+    public Map<String, ContractorSingleDaySchedule> getThreeWeeksAvailableHashMap() {
         int dayCounter = 1;
         Map<String, ContractorSingleDaySchedule> threeWeeksAvailableMap = new HashMap<>();
         Calendar c = Calendar.getInstance();
@@ -347,12 +424,37 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
         c.set(Calendar.MILLISECOND, 0);
         int day_range = 21;
         for (int i = 0; i < day_range; i++) {
-            c.add(Calendar.DAY_OF_YEAR, 1);
-            System.out.println(c.getTime()+"---"+c.getTimeInMillis());
+
+            System.out.println(c.getTime() + "---" + c.getTimeInMillis());
             threeWeeksAvailableMap.put(String.valueOf(c.getTimeInMillis()),
                     new ContractorSingleDaySchedule(null, null, true,
-                            getReadableDate(c.getTimeInMillis()),c.getTimeInMillis()));
+                            getReadableDate(c.getTimeInMillis()), c.getTimeInMillis()));
+            c.add(Calendar.DAY_OF_YEAR, 1);
         }
+        return threeWeeksAvailableMap;
+
+    }
+
+
+    public void setCalendarMonthViewState() {
+        int maxNumberOfDaysAhead = 20;
+        Calendar now = Calendar.getInstance();
+        Calendar threeWeeksFromNow = Calendar.getInstance();
+        threeWeeksFromNow.add(Calendar.DAY_OF_YEAR, maxNumberOfDaysAhead);
+        mContractorScheduleMonthView.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setCalendarDisplayMode(CalendarMode.MONTHS).commit();
+
+
+//        .setMinimumDate(now).setMaximumDate(threeWeeksFromNow)
+
+
+//        mContractorScheduleMonthView.state().edit()
+//                .setFirstDayOfWeek(Calendar.WEDNESDAY)
+//                .setMinimumDate(CalendarDay.from(2016, 4, 3))
+//                .setMaximumDate(CalendarDay.from(2016, 5, 12))
+//                .setCalendarDisplayMode(CalendarMode.WEEKS)
+//                .commit();
 
     }
 
@@ -362,9 +464,10 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
      * @param description
      */
     public void promptPickADate(CharSequence description) {
-        int maxNumberOfDaysAhead = 21;
+        int maxNumberOfDaysAhead = 20;
         mEventDescription = description;
         Calendar now = Calendar.getInstance();
+
         Calendar threeWeeksFromNow = Calendar.getInstance();
         threeWeeksFromNow.add(Calendar.DAY_OF_YEAR, maxNumberOfDaysAhead);
         DatePickerDialog dpd = DatePickerDialog.newInstance(
@@ -494,11 +597,157 @@ public class ContractorScheduleFragment extends Fragment implements DatePickerDi
         return days[c.get(Calendar.DAY_OF_WEEK)];
     }
 
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
+//        System.out.println(date.toString() + "SELECTED" + date.getCalendar().getTimeInMillis());
+//        System.out.println(threeWeeksAvailableMap.get(String.valueOf(date.getCalendar().getTimeInMillis())));
+//        Toast.makeText(getActivity(), "DATEPRESSED", Toast.LENGTH_SHORT).show();
+        ContractorSingleDaySchedule touchedObject =
+                threeWeeksAvailableMap.get(String.valueOf(date.getCalendar().getTimeInMillis()));
+//                private Map<String, ContractorSingleDaySchedule> threeWeeksAvailableMap = new HashMap<>();
+        prepareDutiesDataForRecyclerView(touchedObject);
+    }
+
+
     //Jatinder work here -- [START]
     // create a single helper method to return ContractorDutySession.java ContractorSingleDaySession
 
 
     //Jatinder work here -- [END]
+
+
+    private class PopulateHalfDayEventsAsync extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        @Override
+        protected List<CalendarDay> doInBackground(@NonNull Void... voids) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ArrayList<CalendarDay> dates = new ArrayList<>();
+            for (Map.Entry<String, ContractorSingleDaySchedule>
+                    entry : threeWeeksAvailableMap.entrySet()) {
+                String key = entry.getKey();
+                ContractorSingleDaySchedule cSDS = entry.getValue();
+
+                if ((cSDS.getEveningSession() != null &&
+                        cSDS.getMorningSession() == null) || (cSDS.getEveningSession() == null &&
+                        cSDS.getMorningSession() != null)) {
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(cSDS.getTimeInMilliseconds());
+                    CalendarDay day = CalendarDay.from(c);
+                    dates.add(day);
+
+                }
+            }
+
+            return dates;
+        }
+
+        @Override
+        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isRemoving()) {
+                return;
+            }
+
+            mContractorScheduleMonthView.addDecorator(new ContractorOccupiedDaysDecorator(Color.CYAN,
+                    calendarDays));
+        }
+    }
+
+
+    /**
+     * ASYNC TASK for populating unavailable days
+     */
+    private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        @Override
+        protected List<CalendarDay> doInBackground(@NonNull Void... voids) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ArrayList<CalendarDay> dates = new ArrayList<>();
+            for (Map.Entry<String, ContractorSingleDaySchedule>
+                    entry : threeWeeksAvailableMap.entrySet()) {
+                String key = entry.getKey();
+                ContractorSingleDaySchedule cSDS = entry.getValue();
+
+                if (cSDS.getEveningSession() != null &&
+                        cSDS.getMorningSession() != null) {
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(cSDS.getTimeInMilliseconds());
+                    CalendarDay day = CalendarDay.from(c);
+                    dates.add(day);
+                }
+            }
+
+            return dates;
+        }
+
+        @Override
+        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isRemoving()) {
+                return;
+            }
+
+            mContractorScheduleMonthView.addDecorator(new ContractorOccupiedDaysDecorator(Color.RED,
+                    calendarDays));
+        }
+    }
+
+    public void prepareDutiesDataForRecyclerView(ContractorSingleDaySchedule daySchedule){
+        ContractorDutySession cds = new ContractorDutySession("example", "appointmentSession", 31298, 8912, "133", "31223"
+                ,false, "fefij");
+
+        ContractorDutySession cds2 = new ContractorDutySession("example", "appointmentSession", 31298, 8912, "133", "31223"
+                ,false, "fefij");
+        //Step 1 --> clear the array list backing datasi
+        singleDayServicesList.clear();
+
+        //Step 2 --> Iterate throught the keys and find that shit that has either morning or evening duties
+        if(daySchedule != null){
+            if(daySchedule.getMorningSession() == null && daySchedule.getEveningSession() == null){
+                //dont add shit
+            } else if(daySchedule.getMorningSession() != null &&
+                    daySchedule.getEveningSession() == null){
+                    singleDayServicesList.add(daySchedule.getMorningSession());
+                mAdapter.notifyDataSetChanged();
+            } else if(daySchedule.getMorningSession() == null &&
+                    daySchedule.getEveningSession() != null){
+                singleDayServicesList.add(daySchedule.getEveningSession());
+                mAdapter.notifyDataSetChanged();
+            } else if(daySchedule.getMorningSession() != null &&
+                    daySchedule.getEveningSession() != null){
+                singleDayServicesList.add(daySchedule.getEveningSession());
+                singleDayServicesList.add(daySchedule.getMorningSession());
+                mAdapter.notifyDataSetChanged();
+            } else{
+                //dont add to array
+            }
+
+        }
+
+
+        //Step 3 --> I think thats it
+
+//        ContractorDutySession afternoonSession = new ContractorDutySession
+//                (description.toString(),
+//                        "afternoon", getAfternoonStartTime(pickedDate),
+//                        getAfternoonEndTime(pickedDate),
+//                        getReadableMorningStartTime(pickedDate),
+//                        getReadableAfternoonEndTime(pickedDate), false,
+//                        getReadableDate(pickedDate));
+//        singleDayServicesList.add(cds);
+//        singleDayServicesList.add(cds2);
+        mAdapter.notifyDataSetChanged();
+    }
 
 
 }
