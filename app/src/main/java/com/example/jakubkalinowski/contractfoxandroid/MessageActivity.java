@@ -30,10 +30,14 @@ public class MessageActivity extends AppCompatActivity {
     Member member;
     private String mFirstName = "bob";
 
+    private String contractorID2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        contractorID2 = getIntent().getExtras().getString("contID");
 
         listView = (ListView) findViewById(R.id.estimate_list_container);
 

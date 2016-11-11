@@ -1,9 +1,5 @@
 package com.example.jakubkalinowski.contractfoxandroid.Model;
 
-/**
- * Created by MD on 10/29/2016.
- */
-
 public class ContractorDutySession {
     String description;
     String appointmentSession;

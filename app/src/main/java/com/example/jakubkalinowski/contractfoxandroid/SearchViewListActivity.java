@@ -112,14 +112,15 @@ public class SearchViewListActivity extends AppCompatActivity {
                     //first lets see if member is contractor
                     if (snapshot.child("contractorOption").getValue().equals(true)  ) {
 
-                        map.put(count , snapshot.getKey().toString());
-                        ++count;
+
 
                         Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
                         //second for loop for checking if skill is there in the skillSet
                         for( DataSnapshot skill :  skillList){
                             if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
                                 companyNames.add(snapshot.child("firstName").getValue().toString());
+                                map.put(count , snapshot.getKey().toString());
+                                count++;
                             }
                         }
                     }
@@ -255,7 +256,8 @@ public class SearchViewListActivity extends AppCompatActivity {
                        // Context context = v.getContext();
                         Intent intent = new Intent(getApplicationContext(), ContractorProfileActivity.class);
                         //intent.putExtra(holder.companyName.getText(), 0 );
-                        intent.putExtra("id", map.get(holder.getAdapterPosition()) );
+                        intent.putExtra("id", map.get(holder.getAdapterPosition()) ); //TODO: CHECK THIS IF WORKS CORRECTLY
+
                         startActivity(intent);
 
 //                        Context context = v.getContext();

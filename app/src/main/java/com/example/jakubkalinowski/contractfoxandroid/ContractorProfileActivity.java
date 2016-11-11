@@ -43,37 +43,36 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
     public String urlAddress;
 
+    private String addressInput, phoneInput, webInput, companyInput, briefDesc;
+    private TextView briefDescription;
+
     //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
     public ContractorProfileActivity(){}
 
+    public String idpass;
+
+    private String street, unitNo, city, state, zipcode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contractor_profile);
 
-        //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
 
-        Log.i("id-:", contractorID);// yay it worked.
-        //ok jakub here is how you would get anything you want on the clicked user.
-        /*
-       mFirebaseDatabaseReference.child("users").child(contractorID). anything you want here after dot ;
+        Log.i("id-:", contractorID);
 
-       here is a full example :
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("firstName") // will give you firstname
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("phonenNo") // will give you phone num
-       so in conclusion, i am pasing you the id of the contraactor from the previous page and
-       here you can make a quick call to db to get what you want. no going over a list. you have the id. 
-         */
 
         address = (TextView) findViewById(R.id.address_string);
         phoneNumber = (TextView) findViewById(R.id.call_text);
         companyName = (TextView) findViewById(R.id.company_name);
         website = (TextView) findViewById(R.id.website_url);
+
+        briefDescription = (TextView) findViewById(R.id.brief_description_layout);
 
         mFirebaseDatabaseReference
                 .child("users").child(contractorID)
@@ -81,15 +80,36 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //need null handlers here
-                        Contractor m = dataSnapshot.getValue(Contractor.class);
+                        briefDesc = dataSnapshot.child("briefDescription").getValue().toString();
+                        briefDescription.setText(briefDesc);
 
-                        address.setText(m.getAddress().toString());
-                        phoneNumber.setText(m.getPhoneNo());
-                        companyName.setText(m.getCompanyName());
-                        website.setText(m.getBusinessWebsiteURL());
+                        street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
+                        unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
+                        city = dataSnapshot.child("address").child("city").getValue().toString();
+                        state = dataSnapshot.child("address").child("state").getValue().toString();
+                        zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+
+                        if (unitNo.equals(null)){
+                            addressInput = street+", "+city+", "+state+zipcode;
+                        } else {
+                            addressInput = street+", "+unitNo+", "+city+", "+state+", "+zipcode;
+                        }
+
+                        address.setText(addressInput);
+
+                        phoneInput = dataSnapshot.child("phoneNo").getValue().toString();
+                        phoneNumber.setText(phoneInput);
+
+                        companyInput = dataSnapshot.child("firstName").getValue().toString();
+                        companyName.setText(companyInput);
+
+                        webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
+                        website.setText(webInput);
+
                         //miles.setText();
-                        urlAddress = m.getBusinessWebsiteURL();
+
+                        urlAddress = webInput;
+
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -98,7 +118,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 });
 
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
-        messageButton = (Button) findViewById(R.id.aprofile_message_button);
+//        messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
         directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
@@ -109,23 +129,36 @@ public class ContractorProfileActivity extends AppCompatActivity {
         estimateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+//                startActivity(i);
+//            }
+
+                idpass=contractorID.toString();
+
+                // Context context = v.getContext();
+                Intent intent = new Intent(getApplicationContext(), EstimateActivity.class);
+                intent.putExtra("contID", idpass);
+
+                startActivity(intent);
+
+
             }
         });
 
-        messageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
-                startActivity(i);
-            }
-        });
+//        messageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(phoneInput));
                 startActivity(intent);            }
         });
 
@@ -140,18 +173,23 @@ public class ContractorProfileActivity extends AppCompatActivity {
         websiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(urlAddress));
-                startActivity(intent);
+
+                if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
+                    webInput = "http://" + webInput;
+                }
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(webInput));
+                startActivity(i);
             }
         });
 
         skillsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, SkillSetActivity.class);
+                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
+                //TODO: debug here!!!
+                i.putExtra("id",contractorID);
                 startActivity(i);
             }
         });

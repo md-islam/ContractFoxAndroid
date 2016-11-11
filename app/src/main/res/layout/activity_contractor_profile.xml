@@ -127,6 +127,22 @@
                 </LinearLayout>
                 <!-- END OF RATINGS TAB -->
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="#3234AD"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/brief_description"/>
+
+                <TextView
+                    android:id="@+id/brief_description_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <!-- AVAILABILITY TAB -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -233,7 +249,10 @@
                         android:id="@+id/map_container"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></FrameLayout>
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp">
+
+                    </FrameLayout>
 
                     <!-- DIVIDER LINE -->
                     <LinearLayout
@@ -306,17 +325,17 @@
 
                 <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
 
-                <Button
-                    android:id="@+id/aprofile_message_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:background="#3234AD"
-                    android:text="@string/message_button"
-                    android:textColor="#ffffff"
-                    android:textAlignment="center"
-                    android:textSize="18dp"/>
+                <!--<Button-->
+                    <!--android:id="@+id/aprofile_message_button"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+                    <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+                    <!--android:background="#3234AD"-->
+                    <!--android:text="@string/message_button"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textSize="18dp"/>-->
 
                 <!-- BUTTONS AND FRAGMENT REFERENCES -->
                 <LinearLayout
@@ -358,7 +377,8 @@
                             android:layout_weight="6"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center_vertical"/>
+                            android:gravity="center_vertical"
+                            android:autoLink="phone"/>
                     </LinearLayout>
                     <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
