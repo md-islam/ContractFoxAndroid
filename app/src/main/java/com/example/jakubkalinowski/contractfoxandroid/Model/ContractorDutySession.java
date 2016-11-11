@@ -97,4 +97,9 @@ public class ContractorDutySession {
     public void setReadableAppointmentEndTime(String readableAppointmentEndTime) {
         this.readableAppointmentEndTime = readableAppointmentEndTime;
     }
+
+    @Override
+    public String toString() {
+        return ""+getReadableAppointmentStartTime()+getReadableAppointmentEndTime()+getAppointmentSession()+getDescription();
+    }
 }

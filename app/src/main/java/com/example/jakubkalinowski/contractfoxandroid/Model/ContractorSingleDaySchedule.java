@@ -1,8 +1,16 @@
 package com.example.jakubkalinowski.contractfoxandroid.Model;
 
+import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by MD on 10/29/2016.
  */
+
+
 
 public class ContractorSingleDaySchedule {
     public ContractorSingleDaySchedule(ContractorDutySession morningSession,
@@ -65,5 +73,21 @@ public class ContractorSingleDaySchedule {
         this.timeInMilliseconds = timeInMilliseconds;
     }
 
+    @Override
+    public String toString() {
+        return ""+new Boolean(availableAllDay).toString() + getTimeInMilliseconds() +
+                getMorningSession().toString()+getEveningSession().toString();
+    }
+
     long timeInMilliseconds;
+
+    @Exclude
+    public Map<String, ContractorDutySession> dutiesToMap(long timeStamp, ContractorDutySession morning,
+                                                          ContractorDutySession evening){
+
+        HashMap<String, ContractorDutySession> result= new HashMap<>();
+        result.put("morningSession", morning);
+        result.put("eveningSession", evening);
+        return result;
+    }
 }
