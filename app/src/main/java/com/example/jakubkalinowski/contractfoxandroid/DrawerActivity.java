@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,9 +28,10 @@ import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYar
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Messages.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener,
 
         MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
 
@@ -38,10 +40,12 @@ public class DrawerActivity extends AppCompatActivity
 
     public static FragmentTransaction ft;
 
+    static String currentUserId ;
+    static String currentUserFirstName  ="kladimer";
     LinearLayout tab1, tab2, tab3, tab4 ;
     Button exteriorButton , interiorButton, backyardButton , searchButton;
     EditText searchBar;
-   //TabHost th;
+    //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,6 +93,25 @@ public class DrawerActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            currentUserId = user.getUid();
+            //currentUserFirstName = user.getProviderData().get(5).toString();
+
+//            Log.i("ladimmm" ,user.getDisplayName());
+//            Log.i("ladimmm" ,currentUserId);
+        } else {
+            // No user is signed in
+            Log.i("ladimmm" ,"not signed in !!");
+        }
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -114,7 +137,11 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
-    public  void displayFragment( int viewId){
+    public String getCurrentUserId(){
+        return currentUserId;
+    }
+
+    public void displayFragment( int viewId){
 
         Fragment fragment = null;
         String title = "";
@@ -130,9 +157,17 @@ public class DrawerActivity extends AppCompatActivity
                 title = "My Profile";
                 break;
             case R.id.messages:
-                fragment = new Messages();
-                title = "Messagese";
+//                fragment = new MessageQue();
+//                title = "Messagese";
+                Intent i = new Intent(this, MessageQue.class);
+                startActivity(i);
                 break;
+
+//            case 123:
+//                fragment = new Messages();
+//                title = "Messagese";
+//                break;
+
             case R.id.homee:
                 fragment = new Home();
                 title = "Home";
@@ -149,14 +184,20 @@ public class DrawerActivity extends AppCompatActivity
                 break;
         }
 
-        if (fragment != null) {
-            ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.displayArea_ID, fragment, title);
-            ft.commit();
-        }
 
+        if(viewId != R.id.messages){
+
+
+            if (fragment != null) {
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.displayArea_ID, fragment, title);
+                ft.commit();
+            }
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+
 
     }
 
@@ -168,7 +209,7 @@ public class DrawerActivity extends AppCompatActivity
 
             Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
             //think of a clever way to reuse code here.
-           // i.putExtra(searchBar.getText().toString() ,true);
+            // i.putExtra(searchBar.getText().toString() ,true);
             i.putExtra("serachedItem" , searchBar.getText().toString() );
             startActivity(i);
         }

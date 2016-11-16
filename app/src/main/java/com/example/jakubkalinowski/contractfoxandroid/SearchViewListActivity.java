@@ -22,9 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -46,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 ///**
@@ -60,7 +64,8 @@ public class SearchViewListActivity extends AppCompatActivity {
 
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
-    // private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
+
+   //  private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
@@ -76,7 +81,7 @@ public class SearchViewListActivity extends AppCompatActivity {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-
+    static FloatingActionButton fab;
     private boolean mTwoPane;
     EditText searchBar ;
     //static List<String> names = new ArrayList<>();
@@ -109,7 +114,6 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
 
-
         mFirebaseDatabaseReference
                 .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
 
@@ -127,19 +131,20 @@ public class SearchViewListActivity extends AppCompatActivity {
                     //first lets see if member is contractor
                     if (snapshot.child("contractorOption").getValue().equals(true)  ) {
 
-                        map.put(count , snapshot.getKey().toString());
-                        count++;
+
 
                         Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
                         //second for loop for checking if skill is there in the skillSet
                         for( DataSnapshot skill :  skillList){
                             if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
+                                map.put(count , snapshot.getKey());
+                                count++;
                                 companyNames.add(snapshot.child("firstName").getValue().toString());
                             }
                         }
                     }
                 }
-                Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
+               // Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
                 //setting up recycler view
                 progressBar.setVisibility(View.INVISIBLE);
                 View recyclerView = findViewById(R.id.searchview_list);
@@ -171,15 +176,23 @@ public class SearchViewListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Contacting contractors ...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Contacting contractors ...", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//
+//                // initial message to one, or many contractors will start here...
+//
+//              //  SimpleItemRecyclerViewAdapter.ViewHolder v = new RecyclerView.ViewHolder();
+//                Intent i = new Intent(SearchViewListActivity.this, EstimateActivity.class);
+//              //  i.putExtra("id", )
+//                startActivity(i);
+//
+//            }
+//        });
 
 
 //        if (findViewById(R.id.contractor_profile) != null) {
@@ -198,6 +211,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         companyNames.clear();
+
 
     }
 
@@ -227,6 +241,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         private final List<String> mValues;
         private final List<String> mValues2;
+        private final List<CheckBox> radios = new ArrayList<>();
 
         public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2) {
             mValues = items;
@@ -244,8 +259,36 @@ public class SearchViewListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             // holder.mItem = mValues.get(position);
             holder.companyName.setText(mValues.get(position));
+            Log.d("i-d-", " numberCalled");
+            radios.add(holder.radioButton);
             // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
               holder.numebrOfReviews.setText(mValues2.get(position));
+
+
+            SearchViewListActivity.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("i-d-", " yayyy");
+                    String [] ids = new String[5];
+                    int count2 = 0;
+                    for(int i = 0; i <radios.size(); i++){
+                        Log.d("i-d-", "in radio list");
+                        if( radios.get(i).isChecked() ) {
+                            Log.d("i-d-", " were in");
+                          //  Log.d("i-d-", holder.companyName.getText().toString());
+                             ids[count2] = map.get(i);
+                            count2++ ;
+                        }
+                    }
+
+                    Intent i = new Intent(SearchViewListActivity.this , EstimateActivity.class);
+
+                    i.putExtra("id" , ids);
+                    startActivity(i);
+
+                }
+            });
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -269,8 +312,14 @@ public class SearchViewListActivity extends AppCompatActivity {
 
                        // Context context = v.getContext();
                         Intent intent = new Intent(getApplicationContext(), ContractorProfileActivity.class);
+
                         //intent.putExtra(holder.companyName.getText(), 0 );
-                        intent.putExtra("id", map.get(holder.getAdapterPosition()) );
+                        Log.d("xyz-pos", String.valueOf(holder.getAdapterPosition()  ) );//debugging help
+                        Log.d("xyz-id",  map.get( holder.getAdapterPosition()) );
+
+
+                        intent.putExtra("id", map.get( holder.getAdapterPosition())  );
+
                         startActivity(intent);
 
 //                        Context context = v.getContext();
@@ -294,13 +343,14 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
         ////////////////////////////////////////////////////////
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public  class ViewHolder extends RecyclerView.ViewHolder {
 
             //define an initialize all the textviewss here. even Stars.
 
             public final View mView;
             public final TextView companyName;
             public final TextView numebrOfReviews;
+            public final CheckBox radioButton ;
             //public final TextView mContentView;
             public DummyContent.DummyItem mItem;
 
@@ -308,9 +358,14 @@ public class SearchViewListActivity extends AppCompatActivity {
                 super(view);
                 mView = view;
                 companyName = (TextView) view.findViewById(R.id.companyName_ID);
+                radioButton = (CheckBox) view.findViewById(R.id.radio_ID);
                 numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
                 // companyName.setText("ladi????");
+            }
+
+            public void getRadio(){
+
             }
         }
         ////////////////////////////////////////////////////////////////////// innner-inner class
