@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
 import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
+import com.example.jakubkalinowski.contractfoxandroid.PicGalleryActivity;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,7 +83,7 @@ public class MyProfile extends Fragment {
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton,
             galleryButton;
 
-    private Button mSelectImageFromGallery;
+    private Button mAddImageToGallery;
 
     // picture gallery storage reference
     private StorageReference mStorageReference;
@@ -101,6 +101,8 @@ public class MyProfile extends Fragment {
     private Bitmap mProfileImageBitmap;
 
     Boolean isContractor = true;
+
+    private String contractorID;
 
     public MyProfile() {
         // Required empty public constructor
@@ -137,6 +139,8 @@ public class MyProfile extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                contractorID = user.toString();
+
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -159,7 +163,7 @@ public class MyProfile extends Fragment {
 
                                     }
                                     else{
-                                        Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
+                                        Homeowner m = dataSnapshot.getValue(Homeowner.class);
 
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());
@@ -180,7 +184,6 @@ public class MyProfile extends Fragment {
                 // ...
             }
         };
-
 
     }
 
@@ -272,21 +275,29 @@ public class MyProfile extends Fragment {
         fullName = (TextView) view.findViewById(R.id.full_name);
 
 
-        mSelectImageFromGallery = (Button)view.findViewById(R.id.add_pics_from_gallery_button);
+        mAddImageToGallery = (Button)view.findViewById(R.id.add_image_to_gallery_button);
         websiteButton = (LinearLayout) view.findViewById(R.id.website_button);
         skillsButton = (LinearLayout) view.findViewById(R.id.skills_button);
         reviewsButton = (LinearLayout) view.findViewById(R.id.reviews_button);
         galleryButton = (LinearLayout) view.findViewById(R.id.pic_gallery_button);
 
-        mImageView1 = (ImageView) view.findViewById(R.id.gallery_image1);
-        mImageView2 = (ImageView) view.findViewById(R.id.gallery_image2);
-        mImageView3 = (ImageView) view.findViewById(R.id.gallery_image3);
-        mImageView4 = (ImageView) view.findViewById(R.id.gallery_image4);
+//        mImageView1 = (ImageView) view.findViewById(R.id.gallery_image1);
+//        mImageView2 = (ImageView) view.findViewById(R.id.gallery_image2);
+//        mImageView3 = (ImageView) view.findViewById(R.id.gallery_image3);
+//        mImageView4 = (ImageView) view.findViewById(R.id.gallery_image4);
 
         mProgressDialog = new ProgressDialog(getActivity());
 
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
+                i.putExtra("id", contractorID);
+                startActivity(i);
+            }
+        });
 
-        mSelectImageFromGallery.setOnClickListener(new View.OnClickListener(){
+        mAddImageToGallery.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -303,6 +314,7 @@ public class MyProfile extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
@@ -311,7 +323,9 @@ public class MyProfile extends Fragment {
             Uri uri = data.getData();
 
             //TODO: add random name instead of last path .child(uri.getLastPathSegment())
-            StorageReference filePath = mStorageReference.child("Photos").child(uri.getLastPathSegment());
+//            StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery").child(uri.getLastPathSegment());
+            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery").child(contractorID);
+
 
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -319,16 +333,18 @@ public class MyProfile extends Fragment {
 
                     mProgressDialog.dismiss();
 
-                    Uri downloadUri = taskSnapshot.getDownloadUrl();
-
-                    //TODO: pass the image to PicGalleryActivity. Not sure if the first line is correct.
-                    Context c = getActivity().getApplicationContext();
-                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView1);
+//                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+//
+//                    //TODO: pass the image to PicGalleryActivity. Not sure if the first line is correct.
+//                    Context c = getActivity().getApplicationContext();
+//                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView1);
 //                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView2);
 //                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView3);
 //                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView4);
 
-
+                    Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
+                    i.putExtra("id", contractorID);
+                    startActivity(i);
 
 
                 }
@@ -339,6 +355,8 @@ public class MyProfile extends Fragment {
                 }
             });
 
+//            Intent i = new Intent(getActivity(), PicGalleryActivity.class);
+//            startActivity(i);
 
         }
 

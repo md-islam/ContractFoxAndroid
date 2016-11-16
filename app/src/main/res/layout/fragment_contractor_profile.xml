@@ -306,7 +306,7 @@
                         <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
 
                         <Button
-                            android:id="@+id/add_pics_from_gallery_button"
+                            android:id="@+id/add_image_to_gallery_button"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
