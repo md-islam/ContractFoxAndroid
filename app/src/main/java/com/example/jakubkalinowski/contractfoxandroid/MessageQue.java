@@ -101,8 +101,8 @@ public class MessageQue extends AppCompatActivity implements
                     Map.Entry pair = (Map.Entry)it.next();
                     //System.out.println(pair.getKey() + " = " + pair.getValue());
                     Log.d("pairValue", pair.getValue().toString());
-                    messageContacts.add(pair.getKey().toString());
-                    lsitOfIDsForContacs.add(pair.getValue().toString());
+                    messageContacts.add(pair.getValue().toString());
+                    lsitOfIDsForContacs.add(pair.getKey().toString());
 
                 }
 

@@ -47,7 +47,9 @@ public class Messages extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    DatabaseReference allMessageReferencesDatabaseReference;
+    DatabaseReference  allMessageReferencesDatabaseReference = FirebaseDatabase.getInstance()
+            .getReference().child("allMessages");
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     static  String idForAllmessages ;
@@ -75,6 +77,7 @@ public class Messages extends Fragment {
 
     LinearLayout parent ;
     private OnFragmentInteractionListener mListener;
+    Map <String , String> messagesMap ;
 
     public Messages() {
         // Required empty public constructor
@@ -110,32 +113,6 @@ public class Messages extends Fragment {
             allMessageReferencesDatabaseReference = FirebaseDatabase.getInstance()
                     .getReference().child("allMessages");
 
-            allMessageReferencesDatabaseReference
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                            Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
-
-                            for (DataSnapshot snapshot : dataSnapshotsList) {
-
-                                if(snapshot.getValue().toString().equals( da.getCurrentUserId()+ MessageQue.clickedContacsID) ||
-                                        snapshot.getValue().toString().equals( MessageQue.clickedContacsID +da.getCurrentUserId() ) ){
-                                    idForAllmessages = snapshot.getValue().toString();
-                                }
-                            }
-                            Log.i("guesswhere", "callingcheckmess");
-                            checkMEssages();
-
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
         }
     }
 
@@ -160,14 +137,8 @@ public class Messages extends Fragment {
             }
         });
 
-
-
-
-
-
         // set margins for the message frames.
         sendingParams.setMargins( 100, 50 , 5, 50 );//l,t,r,b
-
 
         receivingParams.setMargins(5,50,100,50);
 
@@ -179,7 +150,7 @@ public class Messages extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        checkMEssages();
 
 
 
@@ -189,7 +160,7 @@ public class Messages extends Fragment {
         String message2 = " hello, my hgfhghgfname is ladimer. How are you?";
         String message3 = " hello, ";
 
-        // harcoded messages just for testing purposes.
+//        harcoded messages just for testing purposes.
 //        parent.addView(sendingMessageHelper(message));
 //        parent.addView(sendingMessageHelper(message1));
 //        parent.addView(receivingMessageHelper(message));
@@ -203,7 +174,12 @@ public class Messages extends Fragment {
 
     }
 
+
+    /*
+    this method is being called from where you recieve the map of messages from the db. It then draws the messages on screen.
+     */
     private FrameLayout loadingMessageHelper(String dateDB, String message) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String currentDateandTime = sdf.format(new Date());
 
@@ -254,7 +230,11 @@ public class Messages extends Fragment {
         return sendingFrame;
 
     }
-
+/*
+  it just draws the semding message.
+  one more thing that you need to implement is that sending the messages to the database. that part i dont have.
+  so maybe just add another method to send the data. this is important !!!!
+ */
 
     public void sendMessage(String message){
         parent.addView(sendingMessageHelper(message));
@@ -312,6 +292,13 @@ public class Messages extends Fragment {
         return sendingFrame;
     }
 
+    /*
+    this method and the one above are pretty much the same. could be fctored into one. totally unecessary work. but basically one
+    drwas the messages on the left, and in  different color to identify, recieving vs sending message.
+    to call it :
+          parent.addView(sendingMessageHelper("some S"));
+        parent.addView(receivingMessageHelper("some S"));
+     */
 
     public FrameLayout receivingMessageHelper(String message){
 
@@ -368,22 +355,40 @@ public class Messages extends Fragment {
     }
 
 
-
     private void checkMEssages() {
+// ok one VERY IMPORTANT thing:
+        /*
+        the id will not always be :da.getCurrentUserId()+ MessageQue.clickedContacsID.
+         this is being used as part of the path in .child() below.
+        for example if a contractor signs in, the id will be reversed. so you have to check for that.
 
-
-        allMessageReferencesDatabaseReference.child(idForAllmessages)
+oh and da.getCurrentUserId() as you can guess gives you the current user id. all tested. works fine. 
+         */
+        allMessageReferencesDatabaseReference.child(da.getCurrentUserId()+ MessageQue.clickedContacsID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Log.i("guesswhere", "checkmessage");
-                        Map <String , String> messageNameListMap = (Map)dataSnapshot.getValue();
+                        // this line clears the parent view which all the messages are being drawn on.
+                        // other wise all the messages will be duplicated and drawn twice. there are many ways of doing this.
+                        // i will admit this is the worst way of doing it. especilally if you have hundreds of messages.
+                        //
 
-                        Iterator it = messageNameListMap.entrySet().iterator();
+                        parent.removeAllViews();
+
+                        Log.i("guesswhere", "checkmessage");
+                        messagesMap = (Map)dataSnapshot.getValue();
+
+
+                        Iterator it = messagesMap.entrySet().iterator();
                         while (it.hasNext()) {
                             Map.Entry pair = (Map.Entry)it.next();
 
+                            //parent is the white background. pair.getKey().toString() get teh key from the map which is currently a
+                            // string representing a time staamp. the value is the message. you could change that.
+                            // all you need to do is one line of code which i have below. call loadingMessageHelper()
+                            //which takes two arguments as you can see. the first one will be placed on top of the message bubble,(TImestamp)
+                            // and the second one will be the drawn as the body of the message. very sinmple.
                             parent.addView(loadingMessageHelper(pair.getKey().toString() , pair.getValue().toString()));
 
                         }
@@ -393,12 +398,11 @@ public class Messages extends Fragment {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
+
                     }
                 });
 
     }
-
-
 
 
 

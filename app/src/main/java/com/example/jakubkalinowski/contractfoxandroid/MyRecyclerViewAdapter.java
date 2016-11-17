@@ -16,6 +16,8 @@ import java.util.List;
  * Created by Ladimer on 11/6/2016.
  */
 
+/// ignore this class. I moved it as an inner class inside message que instead. I prefer to have it there.
+
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
     private List<String> feedItemList;
     private Context mContext;

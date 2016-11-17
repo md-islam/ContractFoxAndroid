@@ -67,7 +67,8 @@ public class EstimateActivity extends AppCompatActivity {
     String switchOn = "YES";
     String switchOff = "NO";
     TextView textView1, textView2;
-    static String [] ContracoorIds = new String[5];
+    static String [] ContracoorIds = new String[5]; // list of ids for contractors from previous view that has their
+    // check box clicked.
 
     DatabaseReference messageReferencesDatabaseReference;
     DatabaseReference allMessagesDatabaseReference;
@@ -115,26 +116,12 @@ public class EstimateActivity extends AppCompatActivity {
             // No user is signed in
             Log.i("ladimmm" ,"not signed in !!");
         }
-//
-//        messageReferencesDatabaseReference = FirebaseDatabase.getInstance()
-//                .getReference().child("messageReferences");
-//
-//        allMessagesDatabaseReference = FirebaseDatabase.getInstance()
-//                .getReference().child("allMessages");
+
 
 
         savedInstanceState = getIntent().getExtras();
         ContracoorIds = savedInstanceState.getStringArray("id");
         Log.d("i-d-est", ContracoorIds[0]);
-
-
-
-
-
-
-
-
-
 
         layout_interior = (LinearLayout)findViewById(R.id.interior_fragment_content_layout);
         layout_exterior = (LinearLayout)findViewById(R.id.exterior_fragment_content_layout);
@@ -298,6 +285,12 @@ public class EstimateActivity extends AppCompatActivity {
 
 
     }
+    /*
+    above here was jakub's work.
+    below is the firebase part.
+    type something is the part three of the estimate and click send.
+    the method below is nvoked after clicking the send button in estimate page.
+     */
 
     View.OnClickListener sendListener = new View.OnClickListener() {
         @Override
@@ -305,17 +298,8 @@ public class EstimateActivity extends AppCompatActivity {
             //get thenames first
 
 
-            String description = project_description.getText().toString();
+            String description = project_description.getText().toString(); // the text that you typed.
 
-            //adding myMessages attribute under each user.
-//            Map<String , Object> reciverMyMessages = new HashMap<>();
-//            reciverMyMessages.put("myMessages",  mFirebaseDatabaseReference.child("users").child(ContracoorIds[0]).getKey());
-//
-//            Map<String , Object> senderMyMessages = new HashMap<>();
-//            senderMyMessages.put("myMessages", currentUserId);
-//            //these tages have to be unique for each user. could be done at sign up by adding a myMessaages field to each user.
-//            mFirebaseDatabaseReference.child("users").child(ContracoorIds[0]).updateChildren(reciverMyMessages); //receiver updated with reference  --this worked
-//            mFirebaseDatabaseReference.child("users").child(currentUserId).updateChildren(senderMyMessages); //senderMsgRef is updateded with reference -- this didnt. couldnt get the current User ID
 
 //////////////////////this part is done. Each user is apporpiraitely updated ////////////////////////////////
             //messageReference update below:
@@ -329,19 +313,34 @@ public class EstimateActivity extends AppCompatActivity {
             Map<String , Object> reciverMesList = new HashMap<>();
             Map<String , Object> senderMesList = new HashMap<>();
 
-            senderMesList.put(ContracoorIds[0]+"/"+sendersName , currentUserId); //this value ---
+            /*
+            the value in the map is being put with a slash to avoid dta to be replaced when i use update children.
+            but id didnt work. it needs some tweaking.
+            IMPORTANT: check out the link below to understand why i use the slash and fix it possibly.
+            https://firebase.google.com/docs/database/admin/save-data
+            remember ContracoorIds[0] will be the first and only one in the list if you only checked on e contractor from the list of contractors.
+            you could use a loop to go through all of them to implement messaging multiple contractors.
+            for now focus on one to one. it is scalable.
+             */
+            senderMesList.put(ContracoorIds[0]+"/"+currentUserId , sendersName); //this value ---
 
-
-            senderMesList.put(currentUserId+"/"+receiverName , ContracoorIds[0]);//this value ---
+            senderMesList.put(currentUserId+"/"+ContracoorIds[0] ,receiverName);//this value ---
 
 
             mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
           //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
 
 ///////////////////////this part is done ////////////////////////////////////////////////////////////////
+
+
             Map<String, Object > allMessageMap = new HashMap<>();
             allMessageMap.put(currentUserId+ContracoorIds[0], "");//this value ---
             mFirebaseDatabaseReference.child("allMessages").updateChildren(allMessageMap);
+
+            //these two line gets the current date in the format that i wanted. note:
+            // slashes are not allowed to be passed as keys. ('/'). that is why i used '-'. but
+            //anyways you will use long or ts or String since it is required.
+            // here we update the allMessages reference.
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentDateandTime = sdf.format(new Date());
@@ -349,31 +348,9 @@ public class EstimateActivity extends AppCompatActivity {
             Map<String, Object > initialMessageMap = new HashMap<>();
             initialMessageMap.put(currentDateandTime , description);
             mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
-
         }
     };
 
 //---------------------------------------------------------------------
-//    public void updateMessageNamesList (String id ){
-//        Map<String , Object> someMap = new HashMap<>();
-//
-//        mFirebaseDatabaseReference
-//                .child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                firstName = dataSnapshot.child("firstName").getValue(String.class);
-//                Log.i("gibsonSnap", firstName);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//        someMap.put(firstName , id);
-//        messageReferencesDatabaseReference.child(id).setValue(someMap);
-//
-//    }
+
 }
