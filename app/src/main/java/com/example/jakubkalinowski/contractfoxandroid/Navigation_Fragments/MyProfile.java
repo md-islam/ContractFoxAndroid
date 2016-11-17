@@ -131,6 +131,7 @@ public class MyProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
@@ -139,7 +140,7 @@ public class MyProfile extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                contractorID = user.toString();
+                contractorID = user.getUid().toString();
 
                 if (user != null) {
                     // User is signed in
@@ -286,7 +287,7 @@ public class MyProfile extends Fragment {
 //        mImageView3 = (ImageView) view.findViewById(R.id.gallery_image3);
 //        mImageView4 = (ImageView) view.findViewById(R.id.gallery_image4);
 
-        mProgressDialog = new ProgressDialog(getActivity());
+//        mProgressDialog = new ProgressDialog(getActivity());
 
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,24 +318,30 @@ public class MyProfile extends Fragment {
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
-            mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
-            mProgressDialog.show();
+//            mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
+//            mProgressDialog.show();
 
             Uri uri = data.getData();
 
             //TODO: add random name instead of last path .child(uri.getLastPathSegment())
-//            StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery").child(uri.getLastPathSegment());
+//            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery").child(uri.getLastPathSegment());
             final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery").child(contractorID);
+
+                    //TODO: add picture to the list not on top of another
 
 
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    mProgressDialog.dismiss();
+//                    mProgressDialog.dismiss();
 
 //                    Uri downloadUri = taskSnapshot.getDownloadUrl();
 //
+                    //TODO: get all pictures into a list
+
+
+
 //                    //TODO: pass the image to PicGalleryActivity. Not sure if the first line is correct.
 //                    Context c = getActivity().getApplicationContext();
 //                    Picasso.with(c).load(downloadUri).fit().centerCrop().into(mImageView1);
@@ -344,6 +351,7 @@ public class MyProfile extends Fragment {
 
                     Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
                     i.putExtra("id", contractorID);
+
                     startActivity(i);
 
 
