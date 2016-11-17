@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Home;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
@@ -28,7 +29,9 @@ import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYar
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -36,7 +39,7 @@ public class DrawerActivity extends AppCompatActivity
         MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
 
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
-        BackYard.OnFragmentInteractionListener {
+        BackYard.OnFragmentInteractionListener{
 
     public static FragmentTransaction ft;
 
@@ -174,6 +177,8 @@ public class DrawerActivity extends AppCompatActivity
                 break;
             case R.id.contractor_availability_:
                 //fragment work here
+                fragment = new ContractorScheduleFragment();
+                title = "contractorschedulefragmentTag";
                 break;
 
             case R.id.log_out:
@@ -223,4 +228,7 @@ public class DrawerActivity extends AppCompatActivity
     public String passedData(String s1, String s2){
         return null;
     }
+
+
+
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:id="@+id/row_cardView_contract"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical"
+                android:background="@color/md_divider_black"
+    >
+
+
+    <TextView
+        android:id="@+id/service_title"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="sample_text"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+l
+    <TextView
+        android:id="@+id/service_date"
+        android:layout_below="@id/service_title"
+        android:text="duty date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/service_from_time"
+        android:layout_width="wrap_content"
+        android:text="startTime"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/service_end_time"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/service_from_time"
+        android:text="endTime"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
+</android.support.v7.widget.CardView>

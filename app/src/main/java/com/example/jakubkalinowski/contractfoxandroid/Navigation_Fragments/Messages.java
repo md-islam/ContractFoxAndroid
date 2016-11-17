@@ -362,7 +362,7 @@ public class Messages extends Fragment {
          this is being used as part of the path in .child() below.
         for example if a contractor signs in, the id will be reversed. so you have to check for that.
 
-oh and da.getCurrentUserId() as you can guess gives you the current user id. all tested. works fine. 
+oh and da.getCurrentUserId() as you can guess gives you the current user id. all tested. works fine.
          */
         allMessageReferencesDatabaseReference.child(da.getCurrentUserId()+ MessageQue.clickedContacsID)
                 .addValueEventListener(new ValueEventListener() {
