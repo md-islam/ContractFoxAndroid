@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
-                    android:text="ladi@aol.com"
+                    android:text="test@gmail.com"
                     android:textColorHint="@color/colorPrimary"
                     android:padding="10dp"
                     android:id="@+id/email_text_input_login_activity"
@@ -130,6 +130,19 @@
                 android:clickable="true"
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimary" />
+
+
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progressBar2"
+                tools:visibility="invisible"
+                android:animationResolution="@integer/google_play_services_version" />
+
 
         </LinearLayout>
     </ScrollView>

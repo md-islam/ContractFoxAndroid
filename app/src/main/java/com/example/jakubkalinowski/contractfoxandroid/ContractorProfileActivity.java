@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,12 +37,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
 
+
+
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
     //private Estimate.OnFragmentInteractionListener mListener;
     private Member m;
     public Boolean option;
+    String contractorID ;
 
     //UI component variables
     private Button estimateButton, messageButton;
@@ -70,6 +74,26 @@ public class ContractorProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contractor_profile);
+
+        //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
+        savedInstanceState = getIntent().getExtras();
+        contractorID = savedInstanceState.getString("id");
+
+        Log.d("xyz-prof", contractorID);// yay it worked.
+        //ok jakub here is how you would get anything you want on the clicked user.
+        /*
+       mFirebaseDatabaseReference.child("users").child(contractorID). anything you want here after dot ;
+
+       here is a full example :
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("firstName") // will give you firstname
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("phonenNo") // will give you phone num
+       so in conclusion, i am pasing you the id of the contraactor from the previous page and
+       here you can make a quick call to db to get what you want. no going over a list. you have the id.
+         */
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -157,8 +181,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
+//                startActivity(i);
             }
         });
 

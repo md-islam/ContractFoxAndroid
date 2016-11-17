@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate;
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
 
 /**
  * An activity representing a single SearchView detail screen. This
@@ -48,10 +49,10 @@ public class SearchViewDetailActivity extends AppCompatActivity implements Estim
             Bundle arguments = new Bundle();
             arguments.putString(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID,
                     getIntent().getStringExtra(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID));
-            com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate fragment = new Estimate();
+            com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile fragment = new MyProfile();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contractor_profile, fragment)
+                    .add(R.id.frame_container, fragment)
                     .commit();
         }
 

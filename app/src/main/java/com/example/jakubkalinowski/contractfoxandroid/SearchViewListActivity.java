@@ -1,8 +1,10 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -10,28 +12,45 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import com.example.jakubkalinowski.contractfoxandroid.dummy.DummyContent;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 ///**
 // * An activity representing a list of Items. This activity
@@ -45,58 +64,100 @@ public class SearchViewListActivity extends AppCompatActivity {
 
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
-   // private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
+
+   //  private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
-
+    public static HashMap < Integer, String>  map = new HashMap<>();
     public static String[] data = {"company 1", "company 2","Ladimer"};
     public static List<String> ITEMSs = Arrays.asList(data);
     public static List<String> ITEMS = ITEMSs;
+    int count = 0;
+
+    public static List<String> companyNames  =  new ArrayList<>();
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+    static FloatingActionButton fab;
     private boolean mTwoPane;
     EditText searchBar ;
-    List<String> names = new ArrayList<>();
+    //static List<String> names = new ArrayList<>();
     Button searchButton;
     String searchedContent ;
     RatingBar stars ;
+    String searchedItem;
+    ProgressBar progressBar ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        setContentView(R.layout.activity_searchview_list);
+        //gets the name of the clicked item from the previous activity
+        savedInstanceState = getIntent().getExtras();
+
+        searchedItem = savedInstanceState.getString("serachedItem");
+
+
+        progressBar = (ProgressBar)findViewById(R.id.progress_ID);
+        //fire base stuff. This is where we get the info from firebase
         mAuth = FirebaseAuth.getInstance();
 
-
-
-//                    mFirebaseDatabaseReference
-//                            .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
-//
-//                        for (DataSnapshot snapshot : dataSnapshotsList) {
-//                            Log.d("check-", "inside for");
-//                            if (snapshot.child("contractorOption").getValue().equals(true)) {
-//                                Log.d("check-", "inside if..");
-//                                names.add("hey");
-//                                 Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
+        progressBar.setVisibility(View.VISIBLE);
 
 
 
 
-                        setContentView(R.layout.activity_searchview_list);
+        mFirebaseDatabaseReference
+                .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                Log.d("test--", dataSnapshot.getRef().toString()); //gts the url : https://contract-fox.firebaseio.com/users
+                Log.d("test--" , dataSnapshot.getValue().toString());
+
+                Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
+
+                for (DataSnapshot snapshot : dataSnapshotsList) {
+
+                    //first lets see if member is contractor
+                    if (snapshot.child("contractorOption").getValue().equals(true)  ) {
+
+
+
+                        Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
+                        //second for loop for checking if skill is there in the skillSet
+                        for( DataSnapshot skill :  skillList){
+                            if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
+                                map.put(count , snapshot.getKey());
+                                count++;
+                                companyNames.add(snapshot.child("firstName").getValue().toString());
+                            }
+                        }
+                    }
+                }
+               // Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
+                //setting up recycler view
+                progressBar.setVisibility(View.INVISIBLE);
+                View recyclerView = findViewById(R.id.searchview_list);
+                assert recyclerView != null;
+                Log.d("checkk-", "recycler set");
+                setupRecyclerView((RecyclerView) recyclerView);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         //hides the keyboard upon opening the activity.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -107,7 +168,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
-            searchedContent = savedInstanceState.getString("content");
+            searchedContent = savedInstanceState.getString("serachedItem");
             searchBar.setText(searchedContent);
         }
 
@@ -115,130 +176,76 @@ public class SearchViewListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Contacting contractors ...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        View recyclerView = findViewById(R.id.searchview_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Contacting contractors ...", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//
+//                // initial message to one, or many contractors will start here...
+//
+//              //  SimpleItemRecyclerViewAdapter.ViewHolder v = new RecyclerView.ViewHolder();
+//                Intent i = new Intent(SearchViewListActivity.this, EstimateActivity.class);
+//              //  i.putExtra("id", )
+//                startActivity(i);
+//
+//            }
+//        });
 
-        if (findViewById(R.id.contractor_profile_activity_layout) != null) {
-//         if (findViewById(R.id.searchview_detail_container) != null) {
+
+//        if (findViewById(R.id.contractor_profile) != null) {
+        if (findViewById(R.id.searchview_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
+
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+
     }//onCreate
 
-    public void backgroundThread (){
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        companyNames.clear();
 
 
-//        class DeleteImagesTask extends AsyncTask<Void, Void, Void> {
-//            @Override
-//            protected Object doInBackground(Object[] objects) {
-//                Log.d("check", "inside background");
-//                mFirebaseDatabaseReference
-//                        .child("users").addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Iterable<DataSnapshot> dataSnapshotsList =  dataSnapshot.getChildren();
-//
-//                        for (DataSnapshot snapshot : dataSnapshotsList) {
-//                            if (snapshot.child("contractorOption").getValue().equals(true)){
-//                                names.add("hey");
-//                                // Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Object o) {
-//                super.onPostExecute(o);
-//                Log.d("check", "postexecute");
-//                if(names.isEmpty()){
-//                    Toast.makeText(getApplicationContext(), "its empty",Toast.LENGTH_SHORT).show();
-//
-//                }
-//                for(String n : names){
-//                    Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        } ;
-        class background extends AsyncTask<Void, Void, Void> {
-            @Override
-            protected Void doInBackground(Void... params) {
-                Log.d("check-", "inside background");
-                mFirebaseDatabaseReference
-                        .child("users").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterable<DataSnapshot> dataSnapshotsList =  dataSnapshot.getChildren();
-
-                        for (DataSnapshot snapshot : dataSnapshotsList) {
-                            if (snapshot.child("contractorOption").getValue().equals(true)){
-                                names.add("hey");
-                                // Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                return null;
-            }
-            @Override
-            protected void onPostExecute(Void param) {
-                Log.d("check", "postexecute");
-                if(names.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "its empty",Toast.LENGTH_SHORT).show();
-
-                }else{
-                    for(String n : names){
-                        Toast.makeText(getApplicationContext(), "silly rabit",Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        }
-        new background().execute();
-
-
-    }//backgroundthread
-
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ITEMS));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void printLsit() {
+        for(String n : companyNames){
+            Log.d("checkk-", n);
+
+        }
+    }
+
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(companyNames, companyNames));
+    }
+
+    /////////////////////////////////////////inner class//////////////////////////////////////
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         // public CardView cardView;
 
         private final List<String> mValues;
+        private final List<String> mValues2;
+        private final List<CheckBox> radios = new ArrayList<>();
 
-        public SimpleItemRecyclerViewAdapter(List<String> items) {
+        public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2) {
             mValues = items;
+            mValues2 = items2 ;
         }
 
         @Override
@@ -251,19 +258,45 @@ public class SearchViewListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             // holder.mItem = mValues.get(position);
-            holder.companyName.setText(mValues.get(position).toString());
-            //  holder.mContentView.setText(mValues.get(position).content);
+            holder.companyName.setText(mValues.get(position));
+            Log.d("i-d-", " numberCalled");
+            radios.add(holder.radioButton);
+            // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
+              holder.numebrOfReviews.setText(mValues2.get(position));
+
+
+            SearchViewListActivity.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("i-d-", " yayyy");
+                    String [] ids = new String[5];
+                    int count2 = 0;
+                    for(int i = 0; i <radios.size(); i++){
+                        Log.d("i-d-", "in radio list");
+                        if( radios.get(i).isChecked() ) {
+                            Log.d("i-d-", " were in");
+                          //  Log.d("i-d-", holder.companyName.getText().toString());
+                             ids[count2] = map.get(i);
+                            count2++ ;
+                        }
+                    }
+
+                    Intent i = new Intent(SearchViewListActivity.this , EstimateActivity.class);
+
+                    i.putExtra("id" , ids);
+                    startActivity(i);
+
+                }
+            });
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         //ADDED FOR TESTING
-//                        Context context = v.getContext();
-//                        Intent intent = new Intent(context, ContractorProfileActivity.class);
-////                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
-//                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
-//                        context.startActivity(intent);
+
+                        //this is for tablet view, which will not work now.
 
                         //REMOVED FOR TESTING
                         Bundle arguments = new Bundle();
@@ -272,27 +305,35 @@ public class SearchViewListActivity extends AppCompatActivity {
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.contractor_profile, fragment) // TESTING
-                                .replace(R.id.searchview_detail_container, fragment) // TESTING
+                                .replace(R.id.activity_contractor_profile, fragment) // TESTING
                                 .commit();
 
                     } else {
-                        Context context = v.getContext();
 
-//                         Intent intent = new Intent(context, SearchViewDetailActivity.class);
-//                        intent.putExtra(holder.companyName.getText(), 0 );
-//                         intent.putExtra("name", holder.companyName.getText().toString() );
+                       // Context context = v.getContext();
+                        Intent intent = new Intent(getApplicationContext(), ContractorProfileActivity.class);
 
-                        Intent intent = new Intent(context, ContractorProfileActivity.class);
-//                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
-//                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
+                        //intent.putExtra(holder.companyName.getText(), 0 );
+                        Log.d("xyz-pos", String.valueOf(holder.getAdapterPosition()  ) );//debugging help
+                        Log.d("xyz-id",  map.get( holder.getAdapterPosition()) );
+
+
+                        intent.putExtra("id", map.get( holder.getAdapterPosition())  );
+
+                        startActivity(intent);
+
+//                        Context context = v.getContext();
+//                        Intent intent = new Intent(context, ContractorProfileActivity.class);
+////                        Intent intent = new Intent(context, SearchViewDetailActivity.class);
+////                        intent.putExtra(Estimate.ARG_ITEM_ID, holder.mItem.id);
 //                        intent.putExtra(DisplayProfile.ARG_ITEM_ID, holder.mItem.id);
-//
-                        context.startActivity(intent);
+
+
+//                        context.startActivity(intent);
                     }
                 }
             });
         }
-
 
 
         @Override
@@ -300,9 +341,16 @@ public class SearchViewListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+
+        ////////////////////////////////////////////////////////
+        public  class ViewHolder extends RecyclerView.ViewHolder {
+
+            //define an initialize all the textviewss here. even Stars.
+
             public final View mView;
             public final TextView companyName;
+            public final TextView numebrOfReviews;
+            public final CheckBox radioButton ;
             //public final TextView mContentView;
             public DummyContent.DummyItem mItem;
 
@@ -310,14 +358,21 @@ public class SearchViewListActivity extends AppCompatActivity {
                 super(view);
                 mView = view;
                 companyName = (TextView) view.findViewById(R.id.companyName_ID);
+                radioButton = (CheckBox) view.findViewById(R.id.radio_ID);
+                numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
-                companyName.setText("ladi");
+                // companyName.setText("ladi????");
             }
-//
-//            @Override
-//            public String toString() {
-//                return super.toString() + " '" + mContentView.getText() + "'";
-//            }
+
+            public void getRadio(){
+
+            }
         }
-    }// end of inner class
+        ////////////////////////////////////////////////////////////////////// innner-inner class
+
+
+    }// ////////////////end of inner class///////////////////////////////////////////
+
+
 }
+
