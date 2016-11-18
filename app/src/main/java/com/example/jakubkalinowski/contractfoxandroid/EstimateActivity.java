@@ -300,10 +300,15 @@ public class EstimateActivity extends AppCompatActivity {
 
             String description = project_description.getText().toString(); // the text that you typed.
 
+            //New stuff from MD
+            //Chat session
+
+            String key = mFirebaseDatabaseReference.child("chatSessions").getKey();
+
 
 //////////////////////this part is done. Each user is apporpiraitely updated ////////////////////////////////
             //messageReference update below:
-            Map<String, Object > messageReference = new HashMap<>();
+            Map<String, Object> messageReference = new HashMap<>();
             messageReference.put(currentUserId, "");
             messageReference.put(ContracoorIds[0], "");
             mFirebaseDatabaseReference.child("messageReferences").updateChildren(messageReference);
@@ -328,7 +333,8 @@ public class EstimateActivity extends AppCompatActivity {
 
 
             mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
-          //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
+            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
+            //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
 
 ///////////////////////this part is done ////////////////////////////////////////////////////////////////
 
