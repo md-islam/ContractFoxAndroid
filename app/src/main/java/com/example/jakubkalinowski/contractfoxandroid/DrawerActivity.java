@@ -3,6 +3,7 @@ package com.example.jakubkalinowski.contractfoxandroid;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Home;
-import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ProfileEdit;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
@@ -31,6 +31,11 @@ import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interio
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class DrawerActivity extends AppCompatActivity
@@ -41,8 +46,14 @@ public class DrawerActivity extends AppCompatActivity
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
         BackYard.OnFragmentInteractionListener{
 
+    private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
+    DrawerLayout drawer;
+    private static DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
+            .getReference();
     public static FragmentTransaction ft;
-
+    boolean notContractor = false ;
+    NavigationView navigationView;
+    Menu nav_Menu;
     static String currentUserId ;
     static String currentUserFirstName  ="kladimer";
     LinearLayout tab1, tab2, tab3, tab4 ;
@@ -53,18 +64,79 @@ public class DrawerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_drawer);
 
+
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         searchButton = (Button) findViewById(R.id.mainSearchButton);
         searchButton.setOnClickListener(searchListerner);
         searchBar = (EditText) findViewById(R.id.searchBar_ID);
+        nav_Menu = navigationView.getMenu();
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // if (c)
 
-        //NEW CHANGES ADDED BY MD'S FILE
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d("contractorhere", "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d("contractorhere", "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (user != null) {
+                    mFirebaseDatabaseReference
+                            .child("users").child(user.getUid())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Log.d("contractorhere" , " before if");
+                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+                                        //need null handlers here
+                                      //  Contractor m = dataSnapshot.getValue(Contractor.class);
+
+                                        Log.d("contractorhere" , " true now");
+                                    }
+                                    else{
+                                      //  Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
+                                        Log.d("contractorhere" , " in else now");
+                                        notContractor = true ;
+                                        nav_Menu.findItem(R.id.nav_myprofile).setVisible(false);
+                                        nav_Menu.findItem(R.id.contractor_availability_).setVisible(false);
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                } else {
+
+
+                }
+
+
+
+        //The Drawer will display different items depending on the user being a contractor, or homeowner.
+
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -100,18 +172,20 @@ public class DrawerActivity extends AppCompatActivity
         super.onStart();
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            currentUserId = user.getUid();
-            //currentUserFirstName = user.getProviderData().get(5).toString();
+        if( notContractor){
+            nav_Menu.findItem(R.id.nav_myprofile).setVisible(false);
+            nav_Menu.findItem(R.id.contractor_availability_).setVisible(false);
 
-//            Log.i("ladimmm" ,user.getDisplayName());
-//            Log.i("ladimmm" ,currentUserId);
-        } else {
-            // No user is signed in
-            Log.i("ladimmm" ,"not signed in !!");
         }
 
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            currentUserId = user.getUid();
+//
+//        } else {
+//            // No user is signed in
+//            Log.i("ladimmm" ,"not signed in !!");
+//        }
     }
 
     @Override
