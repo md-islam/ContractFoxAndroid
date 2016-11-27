@@ -161,16 +161,16 @@ public class Messages extends Fragment {
         String message3 = " hello, ";
 
 //        harcoded messages just for testing purposes.
-//        parent.addView(sendingMessageHelper(message));
-//        parent.addView(sendingMessageHelper(message1));
-//        parent.addView(receivingMessageHelper(message));
-//        parent.addView(sendingMessageHelper(message2));
-//        parent.addView(receivingMessageHelper(message3));
-//        parent.addView(sendingMessageHelper(message3));
-//        parent.addView(receivingMessageHelper(message1));
-//        parent.addView(loadingMessageHelper( " some date " , message));
-//        parent.addView(loadingMessageHelper( " some date " , message));
-//        parent.addView(loadingMessageHelper( " some date " , message));
+        parent.addView(sendingMessageHelper(message));
+        parent.addView(sendingMessageHelper(message1));
+        parent.addView(receivingMessageHelper(message));
+        parent.addView(sendingMessageHelper(message2));
+        parent.addView(receivingMessageHelper(message3));
+        parent.addView(sendingMessageHelper(message3));
+        parent.addView(receivingMessageHelper(message1));
+        parent.addView(loadingMessageHelper( " some date " , message));
+        parent.addView(loadingMessageHelper( " some date " , message));
+        parent.addView(loadingMessageHelper( " some date " , message));
 
     }
 

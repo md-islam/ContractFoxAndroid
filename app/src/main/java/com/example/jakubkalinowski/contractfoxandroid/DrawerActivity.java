@@ -22,9 +22,9 @@ import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Home;
-import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ProfileEdit;
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.RecentConversationsListFragment;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
@@ -36,18 +36,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
 
-        MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener,Home.OnFragmentInteractionListener,
+        MyProfile.OnFragmentInteractionListener, ProfileEdit.OnFragmentInteractionListener, Home.OnFragmentInteractionListener,
 
         Exterior.OnFragmentInteractionListener, Interior.OnFragmentInteractionListener,
-        BackYard.OnFragmentInteractionListener{
+        BackYard.OnFragmentInteractionListener {
 
     public static FragmentTransaction ft;
 
-    static String currentUserId ;
-    static String currentUserFirstName  ="kladimer";
-    LinearLayout tab1, tab2, tab3, tab4 ;
-    Button exteriorButton , interiorButton, backyardButton , searchButton;
+    static String currentUserId;
+    static String currentUserFirstName = "kladimer";
+    LinearLayout tab1, tab2, tab3, tab4;
+    Button exteriorButton, interiorButton, backyardButton, searchButton;
     EditText searchBar;
+
     //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,6 @@ public class DrawerActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -109,7 +109,7 @@ public class DrawerActivity extends AppCompatActivity
 //            Log.i("ladimmm" ,currentUserId);
         } else {
             // No user is signed in
-            Log.i("ladimmm" ,"not signed in !!");
+            Log.i("ladimmm", "not signed in !!");
         }
 
     }
@@ -140,11 +140,11 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
-    public String getCurrentUserId(){
+    public String getCurrentUserId() {
         return currentUserId;
     }
 
-    public void displayFragment( int viewId){
+    public void displayFragment(int viewId) {
 
         Fragment fragment = null;
         String title = "";
@@ -160,16 +160,10 @@ public class DrawerActivity extends AppCompatActivity
                 title = "My Profile";
                 break;
             case R.id.messages:
-//                fragment = new MessageQue();
-//                title = "Messagese";
-                Intent i = new Intent(this, MessageQue.class);
-                startActivity(i);
+                Toast.makeText(getApplicationContext(), "Messages", Toast.LENGTH_LONG).show(); //testing/debugging
+                fragment = new RecentConversationsListFragment();
+                title = "recentConversationsListFragment";
                 break;
-
-//            case 123:
-//                fragment = new Messages();
-//                title = "Messagese";
-//                break;
 
             case R.id.homee:
                 fragment = new Home();
@@ -183,14 +177,11 @@ public class DrawerActivity extends AppCompatActivity
 
             case R.id.log_out:
                 // Log out action here
-                Toast.makeText(getApplicationContext(), "Log Out " , Toast.LENGTH_LONG).show(); //testing/debugging
+                Toast.makeText(getApplicationContext(), "Log Out ", Toast.LENGTH_LONG).show(); //testing/debugging
                 FirebaseAuth.getInstance().signOut();
                 this.finish();
                 break;
         }
-
-
-        if(viewId != R.id.messages){
 
 
             if (fragment != null) {
@@ -198,10 +189,9 @@ public class DrawerActivity extends AppCompatActivity
                 ft.replace(R.id.displayArea_ID, fragment, title);
                 ft.commit();
             }
-        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
 
 
     }
@@ -215,7 +205,7 @@ public class DrawerActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
             //think of a clever way to reuse code here.
             // i.putExtra(searchBar.getText().toString() ,true);
-            i.putExtra("serachedItem" , searchBar.getText().toString() );
+            i.putExtra("serachedItem", searchBar.getText().toString());
             startActivity(i);
         }
     };
@@ -225,10 +215,9 @@ public class DrawerActivity extends AppCompatActivity
 
     }
 
-    public String passedData(String s1, String s2){
+    public String passedData(String s1, String s2) {
         return null;
     }
-
 
 
 }

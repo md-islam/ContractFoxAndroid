@@ -32,10 +32,20 @@ android {
 
 }
 
+repositories {
+    jcenter()
+    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+    maven { url "https://jitpack.io" }
+}
+
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/PhotoUtil.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
+
+    compile 'com.github.Slyce-Inc:SlyceMessaging:1.1.2'
 
     compile 'com.google.firebase:firebase-core:9.8.0'
     compile 'com.google.firebase:firebase-database:9.8.0'

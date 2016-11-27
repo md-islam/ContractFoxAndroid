@@ -126,6 +126,8 @@
             android:label="@string/title_activity_estimate"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MessageQue"></activity>
+
+        <activity android:name=".Activity.ChatListActivity"></activity>
     </application>
 
 </manifest>

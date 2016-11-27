@@ -12,7 +12,7 @@ import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Contr
  * Created by MD on 11/13/2016.
  */
 
-public class ContractorScheduleSingleDayScheduleRecyclerItemTouchListener implements RecyclerView.OnItemTouchListener {
+public class RecyclerViewItemTouchHelper implements RecyclerView.OnItemTouchListener {
 
     public interface OnItemClickListener{
         void onClick(View view, int position);
@@ -23,8 +23,8 @@ public class ContractorScheduleSingleDayScheduleRecyclerItemTouchListener implem
     private OnItemClickListener mOnItemClickListener;
 
 
-    public ContractorScheduleSingleDayScheduleRecyclerItemTouchListener(Context context,
-                                                                        OnItemClickListener listener, final RecyclerView rv){
+    public RecyclerViewItemTouchHelper(Context context,
+                                       OnItemClickListener listener, final RecyclerView rv){
         mOnItemClickListener = listener;
         mGestureDetector = new GestureDetector(context,
                 new GestureDetector.SimpleOnGestureListener(){
