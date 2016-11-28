@@ -184,6 +184,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+                String [] id = {contractorID };
+                i.putExtra("id", id) ;
                 startActivity(i);
             }
         });
