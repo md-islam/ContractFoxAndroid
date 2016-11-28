@@ -288,6 +288,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
     // You can put the DB code here.
     private void saveReviewInDB(String description , int numOfStars) {
 
+        String currentUserId = DrawerActivity.currentUserId ; //this is the current user id.
+       // contractorID is a string variable available in this activity. it is being passed from previous activity.
 
     }
 
