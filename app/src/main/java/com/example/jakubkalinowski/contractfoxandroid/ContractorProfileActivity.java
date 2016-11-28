@@ -82,11 +82,11 @@ public class ContractorProfileActivity extends AppCompatActivity {
         Log.d("xyz-prof", contractorID);// yay it worked.
         //ok jakub here is how you would get anything you want on the clicked user.
         /*
-       mFirebaseDatabaseReference.child("users").child(contractorID). anything you want here after dot ;
+       mFirebaseDatabaseReference.child("usersInChat").child(contractorID). anything you want here after dot ;
 
        here is a full example :
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("firstName") // will give you firstname
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("phonenNo") // will give you phone num
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("firstName") // will give you firstname
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("phonenNo") // will give you phone num
        so in conclusion, i am pasing you the id of the contraactor from the previous page and
        here you can make a quick call to db to get what you want. no going over a list. you have the id.
          */
@@ -106,7 +106,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
+                            .child("usersInChat").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {

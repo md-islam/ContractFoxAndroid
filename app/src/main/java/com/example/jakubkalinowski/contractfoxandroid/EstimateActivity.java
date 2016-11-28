@@ -20,12 +20,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jakubkalinowski.contractfoxandroid.Model.ChatMessage;
+import com.example.jakubkalinowski.contractfoxandroid.Model.ChatSession;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
@@ -37,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class EstimateActivity extends AppCompatActivity {
 
@@ -80,7 +84,7 @@ public class EstimateActivity extends AppCompatActivity {
         super.onStart();
 
         mFirebaseDatabaseReference
-                .child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                .child("usersInChat").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -300,18 +304,56 @@ public class EstimateActivity extends AppCompatActivity {
 
             String description = project_description.getText().toString(); // the text that you typed.
 
+            //New stuff from MD
+            //Chat session
+            //--------------------STEP 1-------CREATE A CHAT SESSION UNDER FOR USERS---------------//
+            Map<String,Boolean> membersMap = new HashMap<String, Boolean>();
+            membersMap.put(currentUserId, true);
+            membersMap.put(ContracoorIds[0], true);
+            String chatSessionKey = mFirebaseDatabaseReference.child("chatSessions").push().getKey();
+            HashMap<String, Object> dateMap= new HashMap<String, Object>();
+            dateMap.put("date", ServerValue.TIMESTAMP);
+            ChatSession chatSession = new ChatSession(dateMap,chatSessionKey,
+                    membersMap, description, description, dateMap);
+//            chatSession.setUsersInChat(membersMap);
+            mFirebaseDatabaseReference.child("chatSessions").child(chatSessionKey).
+                    setValue(chatSession);
+            //------------------STEP 1 ----------------------------------//
+
+            //------------------------STEP 2 -----------APPEND UNDER CHAT SESSION ID-------------//
+
+            String chatMessageKey = mFirebaseDatabaseReference.child("chatMessages").
+                    child(chatSessionKey).push().getKey();
+            ChatMessage chatMessage = new ChatMessage(currentUserId, ContracoorIds[0],
+                    dateMap, null,chatMessageKey, chatSessionKey, description);
+            mFirebaseDatabaseReference.child("chatMessages").child(chatSessionKey).
+                    child(chatMessageKey).setValue(chatMessage);
+            //------------------------STEP 2 ----------------------------------------------------//
+
+            //------------------------Step 3 ---------LINK REFERENCES----------------------------//
+            //---this step is meant to update children--//
+            Map<String, Boolean> chatSessionIdMap = new HashMap<String, Boolean>();
+            chatSessionIdMap.put(chatSessionKey, true);
+            Map<String,Object> chatSessionIds = new HashMap<String, Object>();
+            chatSessionIds.put( currentUserId+"/chatSessions/"+chatSessionKey,true);
+            chatSessionIds.put( ContracoorIds[0]+"/chatSessions/"+chatSessionKey,true);
+            mFirebaseDatabaseReference.child("users").updateChildren(chatSessionIds);
+            //-------------------------Step 3-----------------------------------------------------//
+
+
+
 
 //////////////////////this part is done. Each user is apporpiraitely updated ////////////////////////////////
             //messageReference update below:
-            Map<String, Object > messageReference = new HashMap<>();
-            messageReference.put(currentUserId, "");
-            messageReference.put(ContracoorIds[0], "");
-            mFirebaseDatabaseReference.child("messageReferences").updateChildren(messageReference);
+//            Map<String, Object> messageReference = new HashMap<>();
+//            messageReference.put(currentUserId, "");
+//            messageReference.put(ContracoorIds[0], "");
+//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(messageReference);
 //////////////////////this part is done. IDs are added as immidiate children of message references.  ////////////////////////////////
 
 
-            Map<String , Object> reciverMesList = new HashMap<>();
-            Map<String , Object> senderMesList = new HashMap<>();
+//            Map<String , Object> reciverMesList = new HashMap<>();
+//            Map<String , Object> senderMesList = new HashMap<>();
 
             /*
             the value in the map is being put with a slash to avoid dta to be replaced when i use update children.
@@ -322,32 +364,33 @@ public class EstimateActivity extends AppCompatActivity {
             you could use a loop to go through all of them to implement messaging multiple contractors.
             for now focus on one to one. it is scalable.
              */
-            senderMesList.put(ContracoorIds[0]+"/"+currentUserId , sendersName); //this value ---
+//            senderMesList.put(ContracoorIds[0]+"/"+currentUserId , sendersName); //this value ---
+//
+//            senderMesList.put(currentUserId+"/"+ContracoorIds[0] ,receiverName);//this value ---
 
-            senderMesList.put(currentUserId+"/"+ContracoorIds[0] ,receiverName);//this value ---
 
-
-            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
-          //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
+//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
+//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
+            //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
 
 ///////////////////////this part is done ////////////////////////////////////////////////////////////////
 
 
-            Map<String, Object > allMessageMap = new HashMap<>();
-            allMessageMap.put(currentUserId+ContracoorIds[0], "");//this value ---
-            mFirebaseDatabaseReference.child("allMessages").updateChildren(allMessageMap);
+//            Map<String, Object > allMessageMap = new HashMap<>();
+//            allMessageMap.put(currentUserId+ContracoorIds[0], "");//this value ---
+//            mFirebaseDatabaseReference.child("allMessages").updateChildren(allMessageMap);
 
             //these two line gets the current date in the format that i wanted. note:
             // slashes are not allowed to be passed as keys. ('/'). that is why i used '-'. but
             //anyways you will use long or ts or String since it is required.
             // here we update the allMessages reference.
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String currentDateandTime = sdf.format(new Date());
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            String currentDateandTime = sdf.format(new Date());
 
-            Map<String, Object > initialMessageMap = new HashMap<>();
-            initialMessageMap.put(currentDateandTime , description);
-            mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
+//            Map<String, Object > initialMessageMap = new HashMap<>();
+//            initialMessageMap.put(currentDateandTime , description);
+//            mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
         }
     };
 

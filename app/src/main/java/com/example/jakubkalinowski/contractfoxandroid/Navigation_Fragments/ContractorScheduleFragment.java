@@ -24,7 +24,7 @@ import com.example.jakubkalinowski.contractfoxandroid.Model.ContractorDutySessio
 import com.example.jakubkalinowski.contractfoxandroid.Model.ContractorSingleDaySchedule;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ContractorOccupiedDaysDecorator;
-import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ContractorScheduleSingleDayScheduleRecyclerItemTouchListener;
+import com.example.jakubkalinowski.contractfoxandroid.helper_classes.RecyclerViewItemTouchHelper;
 import com.example.jakubkalinowski
         .contractfoxandroid.helper_classes.ContractorSingleSessionAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -286,8 +286,8 @@ public class ContractorScheduleFragment extends Fragment implements
             }
         });
         mRecyclerViewDuties.addOnItemTouchListener
-                (new ContractorScheduleSingleDayScheduleRecyclerItemTouchListener(getActivity(),
-                        new ContractorScheduleSingleDayScheduleRecyclerItemTouchListener.
+                (new RecyclerViewItemTouchHelper(getActivity(),
+                        new RecyclerViewItemTouchHelper.
                                 OnItemClickListener() {
 
                             @Override
@@ -453,14 +453,14 @@ public class ContractorScheduleFragment extends Fragment implements
                                 if (threeWeeksAvailableMap.get(DayScheduleKey) != null &&
                                         ((threeWeeksAvailableMap.get(DayScheduleKey).
                                                 getEveningSession() == null &&
-                                        threeWeeksAvailableMap.get(DayScheduleKey).
-                                                getEveningSession() == null) || (threeWeeksAvailableMap.get(DayScheduleKey).
-                                        getEveningSession() != null &&
-                                        threeWeeksAvailableMap.get(DayScheduleKey).
-                                                getEveningSession() == null) || (threeWeeksAvailableMap.get(DayScheduleKey).
-                                        getEveningSession() == null &&
-                                        threeWeeksAvailableMap.get(DayScheduleKey).
-                                                getEveningSession() != null))) {
+                                                threeWeeksAvailableMap.get(DayScheduleKey).
+                                                        getEveningSession() == null) || (threeWeeksAvailableMap.get(DayScheduleKey).
+                                                getEveningSession() != null &&
+                                                threeWeeksAvailableMap.get(DayScheduleKey).
+                                                        getEveningSession() == null) || (threeWeeksAvailableMap.get(DayScheduleKey).
+                                                getEveningSession() == null &&
+                                                threeWeeksAvailableMap.get(DayScheduleKey).
+                                                        getEveningSession() != null))) {
                                     threeWeeksAvailableMap.get(DayScheduleKey).
                                             setAvailableThisDay(true);
                                     contractorScheduleMap.get(DayScheduleKey).
@@ -970,6 +970,12 @@ public class ContractorScheduleFragment extends Fragment implements
     }
 
 
+    /**
+     *
+     * @param daySchedule
+     * This takes care when each touched object is changed on the UI to update RecyclerView
+     * accordingly
+     */
     public void prepareDutiesDataForRecyclerView(ContractorSingleDaySchedule daySchedule) {
         //Step 1 --> clear the array list backing datasi
         singleDayServicesList.clear();

@@ -112,7 +112,7 @@ public class MyProfile extends Fragment {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
+                            .child("usersInChat").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
