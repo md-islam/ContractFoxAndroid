@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,11 +62,60 @@ public class EstimateActivity extends AppCompatActivity {
     final int CAMERA_REQUEST = 12345;
     final int GALLERY_REQUEST = 12345;
 
+    //Jatinder work here
+//        //Interior
+//        mAtticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_attic);
+//        mBasementSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_basement);
+//        mBathroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bathroom);
+//        mGarageSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_garage);
+//        mGeneralRoomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_generalroom);
+//        mKitchenSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_kitchen);
+//        mUtilitySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_utility);
+//
+//        //Exterior
+//        mAcHeatSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_ac_heat);
+//        mChimneySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_chimney);
+//        mDeckPatioSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_deck_patio);
+//        mDoorsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_doors);
+//        mFoundationSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_foundation);
+//        mRoofSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_roof);
+//        mWallsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_walls);
+//        mWindowsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_windows);
+//
+//        //Backyard
+//        mDrivewaySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_driveway);
+//        mFenchSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_fence);
+//        mGazeboSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_gazebo);
+//        mLandscapeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_landscape);
+//        mPoolJacuzziSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_pool_jacuzzi);
+//        mSepticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_septic_tank);
+//        mTreeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_tree);
+//        mWellSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_well);
+//
+//        //Jatinder work here
+
+    //-----UI COMPONENT VARIABLES DECLARATION-----[START]
     LinearLayout layout_interior, layout_exterior, layout_backyard, layout_description;
     RadioButton radio_interior, radio_exterior, radio_backyard;
-    EditText project_description;
+    EditText project_description, project_title;
     ImageView ivCamera, ivGallery, ivUpload, ivImage;
-    Button send ;
+        //---interior_variables---[START]//
+    CheckBox mInterior_Attic, mInterior_kitchen, mInterior_diningRoom, mInterior_utilityRoom,
+    mInterior_basement, mInterior_bathroom, mInterior_bedroom, mInterior_Entrance,
+    mInterior_garage, mInteriorLivingRoom, mInterior_closet, mInterior_other;
+        //---interior_variables----[END]//
+
+        //---Exterior_variables---[START]//
+    CheckBox mExterior_1stFloor, mExterior_2ndFloor, mExterior_roof, mExterior_foundation,
+    mExterior_garage_unit, mExterior_addition, mExterior_porch, mExterior_balcony, mExterior_other;
+        //---Exterior_variables---[END]//
+
+        //--Backyard_variables---[START]
+    CheckBox mBackyard_pool_jacuzzi, mBackyard_septic_system, mBackyard_driveway, mBackyard_trees,
+    mBackyard_fence, mBackyard_landscape, mBackyard_shed, mBackyard_well, mBackyard_other;
+        //--Backyard_variables--[END]
+    Button send;
+    //-----UI COMPONENT VARIABLES DECLARATION-----[END]
 
     Switch switchButton1, switchButton2;
     String switchOn = "YES";
@@ -127,9 +177,47 @@ public class EstimateActivity extends AppCompatActivity {
         ContracoorIds = savedInstanceState.getStringArray("id");
         Log.d("i-d-est", ContracoorIds[0]);
 
+        //--UI COMPONENT VARIABLES INITIALILIZATION ---[START] ---//
         layout_interior = (LinearLayout)findViewById(R.id.interior_fragment_content_layout);
         layout_exterior = (LinearLayout)findViewById(R.id.exterior_fragment_content_layout);
         layout_backyard = (LinearLayout)findViewById(R.id.backyard_fragment_content_layout);
+
+            //--INTERIOR checkbox declaration --[START] ---//
+        mInterior_Attic = (CheckBox) findViewById(R.id.checkbox_attic);
+        mInterior_kitchen = (CheckBox) findViewById(R.id.checkbox_dinningroom);
+        mInterior_diningRoom = (CheckBox) findViewById(R.id.checkbox_utility_room);
+        mInterior_utilityRoom = (CheckBox) findViewById(R.id.checkbox_basement);
+        mInterior_bathroom = (CheckBox) findViewById(R.id.checkbox_bedroom);
+        mInterior_Entrance = (CheckBox) findViewById(R.id.checkbox_entrance);
+        mInterior_garage = (CheckBox) findViewById(R.id.checkbox_garage);
+        mInteriorLivingRoom = (CheckBox) findViewById(R.id.checkbox_livingroom);
+        mInterior_closet = (CheckBox) findViewById(R.id.checkbox_closet);
+        mInterior_other = (CheckBox) findViewById(R.id.checkbox_other);
+            //--INTERIOR checkbox declaration --[END] ---//
+
+            //--EXTERIOR checkbox declaration --[START] ---//
+        mExterior_1stFloor = (CheckBox) findViewById(R.id.checkbox_first_floor);
+        mExterior_foundation = (CheckBox) findViewById(R.id.checkbox_foundation);
+        mExterior_porch = (CheckBox) findViewById(R.id.checkbox_porch);
+        mExterior_2ndFloor = (CheckBox) findViewById(R.id.checkbox_second_floor);
+        mExterior_garage_unit = (CheckBox) findViewById(R.id.checkbox_garage_unit);
+        mExterior_balcony = (CheckBox) findViewById(R.id.checkbox_balcony);
+        mExterior_roof = (CheckBox) findViewById(R.id.checkbox_roof);
+        mExterior_addition = (CheckBox) findViewById(R.id.checkbox_addition);
+        mExterior_other = (CheckBox) findViewById(R.id.checkbox_other);
+            //--EXTERIOR checkbox declaration --[END] ---//
+
+            //--BACKYARD CHECKBOX declaration --[START]--//
+        mBackyard_pool_jacuzzi = (CheckBox) findViewById(R.id.checkbox_pool_jacuzzi);
+        mBackyard_fence = (CheckBox) findViewById(R.id.checkbox_fence);
+        mBackyard_shed = (CheckBox) findViewById(R.id.checkbox_shed);
+        mBackyard_septic_system = (CheckBox) findViewById(R.id.checkbox_septic_system);
+        mBackyard_landscape = (CheckBox) findViewById(R.id.checkbox_landscape);
+        mBackyard_well = (CheckBox) findViewById(R.id.checkbox_well);
+        mBackyard_driveway = (CheckBox) findViewById(R.id.checkbox_driveway);
+        mBackyard_trees = (CheckBox) findViewById(R.id.checkbox_trees);
+            //--BACKYARD checkbox declaration --[END]--//
+
         send = ( Button)findViewById(R.id.sendButton);
 
         send.setOnClickListener( sendListener );
@@ -140,6 +228,8 @@ public class EstimateActivity extends AppCompatActivity {
         radio_backyard = (RadioButton) findViewById(R.id.radio_backyard);
 
         project_description = (EditText)findViewById(R.id.description_paragraph_step3);
+        project_title = (EditText) findViewById(R.id.project_title_edit_text);
+
 
         cameraPhoto = new CameraPhoto(getApplicationContext());
         galleryPhoto = new GalleryPhoto(getApplicationContext());
@@ -148,6 +238,7 @@ public class EstimateActivity extends AppCompatActivity {
         ivCamera = (ImageView)findViewById(R.id.ivCamera);
         ivGallery = (ImageView)findViewById(R.id.ivGallery);
 //        ivUpload = (ImageView)findViewById(R.id.ivUpload);
+        //--UI COMPONENT VARIABLES INITIALILIZATION ---[END] ---//
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,7 +307,7 @@ public class EstimateActivity extends AppCompatActivity {
             textView2.setText(switchOff);
         }
 
-        //lets get the names here.
+
 
 
 
@@ -299,7 +390,7 @@ public class EstimateActivity extends AppCompatActivity {
     View.OnClickListener sendListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //get thenames first
+
 
 
             String description = project_description.getText().toString(); // the text that you typed.
@@ -391,6 +482,11 @@ public class EstimateActivity extends AppCompatActivity {
 //            Map<String, Object > initialMessageMap = new HashMap<>();
 //            initialMessageMap.put(currentDateandTime , description);
 //            mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
+
+            Toast.makeText(getApplicationContext() , " Your message was sent!" , Toast.LENGTH_LONG).show();
+            onBackPressed();
+
+
         }
     };
 
