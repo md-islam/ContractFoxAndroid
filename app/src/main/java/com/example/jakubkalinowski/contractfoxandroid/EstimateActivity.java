@@ -391,6 +391,11 @@ public class EstimateActivity extends AppCompatActivity {
 //            Map<String, Object > initialMessageMap = new HashMap<>();
 //            initialMessageMap.put(currentDateandTime , description);
 //            mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
+
+            Toast.makeText(getApplicationContext() , " Your message was sent!" , Toast.LENGTH_LONG).show();
+            onBackPressed();
+
+
         }
     };
 
