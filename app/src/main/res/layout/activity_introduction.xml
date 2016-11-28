@@ -9,90 +9,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".Introduction"
-    android:background="@android:color/holo_blue_bright">
+    android:background="@drawable/introduction_background">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:id="@+id/linearContractFox"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/border">
+    <!--Static Content-->
     <TextView
+        android:id="@+id/title_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text = "Contract Fox"
-
-        android:textSize="38sp"
+        android:textSize="50sp"
         android:gravity="center"
-        android:textColor="@color/bright_foreground_material_light"/>
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/text2_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="We will hunt the contractors for you."
-        android:textSize="15sp"
-        android:textColor="@color/bright_foreground_material_light" />
+        android:text="Let us do the hunting."
+        android:textSize="20sp"
+        android:layout_marginTop="90dp"
+        />
 
-
-
-
-    </LinearLayout>
-    <Button
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="133dp"
+        />
 
-        android:id="@+id/line"
-        android:background="#010101"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/linearContractFox"/>
+    <!--Swipe Content-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_height="320dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="135dp"
+        android:fadingEdge="vertical"/>
 
-
-    <!--<android.support.design.widget.TabLayout-->
-        <!--android:id="@+id/tabs"-->
-        <!--android:layout_below="@+id/line"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/material_blue_grey_800"-->
-        <!--app:tabGravity="fill"-->
-        <!--app:tabIndicatorColor="@color/colorAccent"-->
-        <!--app:tabMode="fixed"-->
-        <!--app:tabSelectedTextColor="@color/colorPrimaryDark"-->
-        <!--app:tabTextColor="@color/colorAccent"-->
-        <!--app:tabMaxWidth="0dp">-->
-
-    <!--</android.support.design.widget.TabLayout>-->
-
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/viewpager"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent">-->
-
-
-        <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_margin="15dp"
-        android:textSize="18sp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
-        android:text="@string/intro"
-        android:textColor="@color/abc_primary_text_disable_only_material_light"
-        android:textStyle="bold"
-            android:id="@+id/textView" />
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="457dp"
+        />
 
-    <!--</android.support.v4.view.ViewPager>-->
-
-
+    <!--Static Content-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:id="@+id/singUp"
-        android:textSize="20sp"
-       android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:id="@+id/signUp"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/button_border"
         android:text="Sign In / Sign Up"/>
 
