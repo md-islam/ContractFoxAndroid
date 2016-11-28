@@ -97,7 +97,7 @@ public class DrawerActivity extends AppCompatActivity
         };
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+                currentUserId = user.getUid();
                 if (user != null) {
                     mFirebaseDatabaseReference
                             .child("users").child(user.getUid())
