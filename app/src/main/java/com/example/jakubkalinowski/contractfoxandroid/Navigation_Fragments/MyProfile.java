@@ -112,14 +112,14 @@ public class MyProfile extends Fragment {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mFirebaseDatabaseReference
-                            .child("usersInChat").child(user.getUid().toString())
+                            .child("users").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
 
                                         //need null handlers here
-                                        Contractor m = dataSnapshot.getValue(Contractor.class);
+                                        Contractor m = (Contractor)dataSnapshot.getValue(Contractor.class);
 
                                         address.setText(m.getAddress().toString());
                                         phoneNumber.setText(m.getPhoneNo());

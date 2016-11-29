@@ -55,7 +55,7 @@ public class DrawerActivity extends AppCompatActivity
     boolean notContractor = false ;
     NavigationView navigationView;
     Menu nav_Menu;
-    static String currentUserId ;
+    public static String currentUserId ;
     static String currentUserFirstName  ="kladimer";
     LinearLayout tab1, tab2, tab3, tab4 ;
     Button exteriorButton , interiorButton, backyardButton , searchButton;
