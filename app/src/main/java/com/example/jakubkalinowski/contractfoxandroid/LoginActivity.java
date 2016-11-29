@@ -2,6 +2,7 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -127,6 +128,9 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = (EditText)findViewById(R.id.password_textInput_login_activity);
         mSignInButton = (Button) findViewById(R.id.sign_in_button_login_activity);
         mRegisterButton = (Button) findViewById(R.id.register_button_login_activity);
+
+        mSignInButton.setTextColor(Color.WHITE);
+        mRegisterButton.setTextColor(Color.BLACK);
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
