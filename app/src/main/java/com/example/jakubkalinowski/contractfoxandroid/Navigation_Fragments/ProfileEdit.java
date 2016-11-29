@@ -159,6 +159,7 @@ public class ProfileEdit extends Fragment {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
+
                     byte[] profilePictureBytedata = getCircleProfilePictureViewByteData();
                     mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures").child(user.getUid().toString()).child("profilepic.jpeg");
                     mProfilePicPath.putBytes(profilePictureBytedata);
@@ -168,8 +169,9 @@ public class ProfileEdit extends Fragment {
                     mLogoImgPath.putBytes(logoImageBytedata);
 
                     // Profile info edit
+
                     mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
+                            .child("usersInChat").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {

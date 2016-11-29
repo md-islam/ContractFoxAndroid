@@ -171,7 +171,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"/>
-
     </LinearLayout>
     <!-- END OF STEP 2 -->
 
@@ -287,6 +286,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="22sp"
+            android:id="@+id/sendButton"
+            android:padding="5dp"
+            android:layout_margin="15dp"
             android:text="SEND"/>
 
     </LinearLayout>

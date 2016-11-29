@@ -1,15 +1,24 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -35,10 +45,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
     String param = "kj";
     private static final String TAG = "Firebase_TAG!!" ;
 
+
+
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
     //private Estimate.OnFragmentInteractionListener mListener;
+
+    private Member m;
+    public Boolean option;
 
     String contractorID ;
 
@@ -50,6 +65,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     private String addressInput, phoneInput, webInput, companyInput, briefDesc;
     private TextView briefDescription;
+
+    final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT);
 
     //imageView
     private CircleImageView mCircleProfileImageView;
@@ -74,9 +92,76 @@ public class ContractorProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contractor_profile);
 
+        //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
-        Log.i("id-:", contractorID);
+
+        Log.d("xyz-prof", contractorID);// yay it worked.
+        //ok jakub here is how you would get anything you want on the clicked user.
+        /*
+       mFirebaseDatabaseReference.child("usersInChat").child(contractorID). anything you want here after dot ;
+
+       here is a full example :
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("firstName") // will give you firstname
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("phonenNo") // will give you phone num
+       so in conclusion, i am pasing you the id of the contraactor from the previous page and
+       here you can make a quick call to db to get what you want. no going over a list. you have the id.
+         */
+
+
+
+
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    mFirebaseDatabaseReference
+                            .child("usersInChat").child(user.getUid().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)) {
+
+                                        //need null handlers here
+                                        Contractor m = dataSnapshot.getValue(Contractor.class);
+
+//                                        option = true;
+                                        setOption(true);
+
+                                        address.setText(m.getAddress().toString());
+                                        phoneNumber.setText(m.getPhoneNo());
+                                        companyName.setText(m.getBusinessWebsiteURL());
+                                        website.setText(m.getBusinessWebsiteURL());
+                                        //miles.setText();
+                                        urlAddress = m.getBusinessWebsiteURL();
+
+                                    } else {
+                                        Homeowner m = (Homeowner) dataSnapshot.getValue(Homeowner.class);
+
+//                                        option = false;
+                                        setOption(false);
+                                        address.setText(m.getAddress().toString());
+                                        phoneNumber.setText(m.getPhoneNo());
+                                        //fullName.setText(m.getFullName().toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
 
         storage = FirebaseStorage.getInstance();
 
@@ -159,19 +244,19 @@ public class ContractorProfileActivity extends AppCompatActivity {
         estimateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+
+                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+                String [] id = {contractorID };
+                i.putExtra("id", id) ;
+                startActivity(i);
+            }
+        });
+
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
 //                startActivity(i);
-//            }
-
-                idpass=contractorID.toString();
-
-                // Context context = v.getContext();
-                Intent intent = new Intent(getApplicationContext(), EstimateActivity.class);
-                intent.putExtra("contID", idpass);
-
-                startActivity(intent);
-
-
             }
         });
 
@@ -227,8 +312,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         reviewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, ReviewsActivity.class);
-                startActivity(i);
+              onCreateReviewDialog();
             }
         });
 
@@ -243,5 +327,60 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
 
     }
+
+
+    public Dialog onCreateReviewDialog() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContractorProfileActivity.this);
+        alertDialog.setTitle("Write a Review");
+        alertDialog.setMessage("");
+        LinearLayout linear = new LinearLayout(getApplicationContext());
+//        TextView textEmail = new TextView(getApplicationContext());
+//        textEmail.setText("Email: ");
+        final RatingBar rb = new RatingBar(getApplicationContext());
+        rb.setRating(5);
+
+
+        final EditText description = new EditText(getApplicationContext());
+        description.setHint("Description");
+        description.setMinHeight(150);
+       // description.setBackgroundResource(R.drawable.border);
+        description.setHintTextColor(0xFFBCBCBC);
+        description.setTextColor(0xFFBCBCBC);
+
+        rb.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+
+       // description.setLayoutParams(etm);
+
+
+//        Button send = new Button(getApplicationContext());
+//        send.setText("Submit");
+        alertDialog.setNegativeButton("Submit",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String desc = description.getText().toString(); //descritption
+                        int numOfStars = rb.getNumStars(); //nummber of stars
+                        //database work goes here.
+                        saveReviewInDB(desc , numOfStars);
+
+                    }
+                });
+        //send.setLayoutParams(etm);
+        linear.setOrientation(LinearLayout.VERTICAL);
+        linear.addView(description);
+        linear.addView(rb);
+        // linear.addView(send);
+        alertDialog.setView(linear);
+        return alertDialog.show();
+    }
+
+    // You can put the DB code here.
+    private void saveReviewInDB(String description , int numOfStars) {
+
+        String currentUserId = DrawerActivity.currentUserId ; //this is the current user id.
+       // contractorID is a string variable available in this activity. it is being passed from previous activity.
+
+    }
+
 
 }
