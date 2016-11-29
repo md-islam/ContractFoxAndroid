@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
 ////                        if (authData.getProviderData().containsKey("displayName")) {
 ////                            map.put("displayName", authData.getProviderData().get("displayName").toString());
 ////                        }
-////                        FBref.child("usersInChat").child(authData.getUid()).setValue(map);
+////                        FBref.child("users").child(authData.getUid()).setValue(map);
 //                        //
 //
 //                        Intent i = new Intent(LoginActivity.this, DrawerActivity.class);

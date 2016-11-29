@@ -166,14 +166,6 @@
         <item>3:00PM-8:00PM</item>
     </string-array>
     <string name="saveBookingTimeText">save booking</string>
-    <string name="dialog_title_edit_contract_contractor">Pick an option</string>
-    <string name="edit_contract_option">Edit Contract</string>
-    <string name="delete_contract_option">Delete Contract</string>
-    <string name="dialog_ok_contract_edit">OK</string>
-    <string name="edit_description_dialog_title">Edit Description</string>
-    <string name="edit_description_dialog_hint">New Description</string>
-    <string name="edit_description_dismiss_dialog_button_text">Cancel</string>
-    <string name="edit_description_positive_button_text">OK</string>
 
     <!--For skillsets-->
     <!--Interior-->
@@ -215,4 +207,3 @@
     <string name="navigation_drawer_availability_string">My Availability</string>
 
 </resources>
-
