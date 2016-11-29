@@ -133,10 +133,6 @@ public class ChatListActivity extends AppCompatActivity {
                     mSlyceMessagingFragment.addNewMessage(getLocalConstructedTextMessage
                             (dataSnapshot.getValue(ChatMessage.class)));
                 }
-
-//                dataSnapshot.getValue(ChatMessage.class).
-//                        getSenderUserId().equals(currentUser_SenderID)
-
             }
 
             @Override
@@ -174,20 +170,5 @@ public class ChatListActivity extends AppCompatActivity {
             slyceTextMessage.setSource(MessageSource.EXTERNAL_USER);
         }
         return slyceTextMessage;
-
-
-//        TextMessage textMessage = new TextMessage();
-//        textMessage.setText(n + ""); // +  ": " + latin[(int) (Math.random() * 10)]);
-//        textMessage.setDate(new Date().getTime());
-//        if (Math.random() > 0.5) {
-//            textMessage.setAvatarUrl("https://lh3.googleusercontent.com/-Y86IN-vEObo/AAAAAAAAAAI/AAAAAAAKyAM/6bec6LqLXXA/s0-c-k-no-ns/photo.jpg");
-//            textMessage.setUserId("LP");
-//            textMessage.setSource(MessageSource.EXTERNAL_USER);
-//        } else {
-//            textMessage.setAvatarUrl("https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/10989174_799389040149643_722795835011402620_n.jpg?oh=bff552835c414974cc446043ac3c70ca&oe=580717A5");
-//            textMessage.setUserId("MP");
-//            textMessage.setSource(MessageSource.LOCAL_USER);
-//        }
-//        return textMessage;
     }
 }

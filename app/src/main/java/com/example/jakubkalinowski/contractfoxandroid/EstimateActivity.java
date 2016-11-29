@@ -115,11 +115,17 @@ public class EstimateActivity extends AppCompatActivity {
     mBackyard_fence, mBackyard_landscape, mBackyard_shed, mBackyard_well, mBackyard_other;
         //--Backyard_variables--[END]
     Button send;
+    private EditText mitemAreaDimensionsEditText;
+    private CompoundButton.OnCheckedChangeListener mInteriorCheckListener;
     //-----UI COMPONENT VARIABLES DECLARATION-----[END]
 
     Switch switchButton1, switchButton2;
     String switchOn = "YES";
     String switchOff = "NO";
+    String materialProvideSwitchYes = "Customer will provide materials";
+    String materialProvideSwitchNo = "Customer wont provide materials";
+    String materialDeliverySwitchYes = "Customer will need material delivery";
+    String materialDeliverySwitchNo = "Customer will not need material delivery";
     TextView textView1, textView2;
     static String [] ContracoorIds = new String[5]; // list of ids for contractors from previous view that has their
     // check box clicked.
@@ -227,8 +233,12 @@ public class EstimateActivity extends AppCompatActivity {
         radio_exterior = (RadioButton)findViewById(R.id.radio_exterior);
         radio_backyard = (RadioButton) findViewById(R.id.radio_backyard);
 
-        project_description = (EditText)findViewById(R.id.description_paragraph_step3);
+
         project_title = (EditText) findViewById(R.id.project_title_edit_text);
+        mitemAreaDimensionsEditText = (EditText) findViewById(R.id.item_area_dimensions);
+        project_description = (EditText)findViewById(R.id.description_paragraph_step3);
+
+
 
 
         cameraPhoto = new CameraPhoto(getApplicationContext());
@@ -267,6 +277,7 @@ public class EstimateActivity extends AppCompatActivity {
         textView1 = (TextView) findViewById(R.id.textView1);
 
         switchButton1.setChecked(false);
+
         switchButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -391,21 +402,42 @@ public class EstimateActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            String description = "";
+
+            description = "<---" + project_title.getText().toString() + "-->";
+            description = description.concat("Contract description: \n");
+            description = description.concat("\n" + project_description.getText().toString()); // the text that you typed.
+            description = description.concat("\n" + "<-Item/Area Dimensions and Specs-> \n" +
+                    mitemAreaDimensionsEditText.getText().toString());
+            String meta_description_data = "";
+            if(switchButton1.isChecked()){
+                meta_description_data.concat("\n"+materialProvideSwitchYes);
+            }else {
+                meta_description_data.concat("\n"+materialProvideSwitchNo);
+            }
+
+            if(switchButton2.isChecked()){
+                meta_description_data.concat("\n"+materialDeliverySwitchYes);
+            }else{
+                meta_description_data.concat("\n"+materialDeliverySwitchNo);
+            }
 
 
-            String description = project_description.getText().toString(); // the text that you typed.
 
             //New stuff from MD
             //Chat session
             //--------------------STEP 1-------CREATE A CHAT SESSION UNDER FOR USERS---------------//
             Map<String,Boolean> membersMap = new HashMap<String, Boolean>();
+
             membersMap.put(currentUserId, true);
             membersMap.put(ContracoorIds[0], true);
             String chatSessionKey = mFirebaseDatabaseReference.child("chatSessions").push().getKey();
             HashMap<String, Object> dateMap= new HashMap<String, Object>();
             dateMap.put("date", ServerValue.TIMESTAMP);
             ChatSession chatSession = new ChatSession(dateMap,chatSessionKey,
-                    membersMap, description, description, dateMap);
+                    membersMap, project_title.getText().toString(), description.concat(meta_description_data), dateMap);
+
+
 //            chatSession.setUsersInChat(membersMap);
             mFirebaseDatabaseReference.child("chatSessions").child(chatSessionKey).
                     setValue(chatSession);

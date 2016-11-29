@@ -463,7 +463,6 @@ public class RegisterContractorFragment extends Fragment {
                         }
                         break;
                 }
-
                 //Jatinder work here
             }
         };

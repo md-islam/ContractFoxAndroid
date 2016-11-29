@@ -201,6 +201,7 @@
                 android:textColor="#f43939"
                 android:textSize="18dp"
                 android:textStyle="italic"
+                android:id="@+id/item_area_dimensions"
                 android:hint="@string/measurements"/>
 
         </LinearLayout>
