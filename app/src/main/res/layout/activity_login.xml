@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +10,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.LoginActivity"
-    android:background="@color/abc_input_method_navigation_guard"
     android:id="@+id/login_page_layout_id">
 
     <!-- Login progress -->
+    <ImageView
+        android:layout_width="223dp"
+        android:layout_height="213dp"
+        app:srcCompat="@drawable/cfox_logo"
+        android:id="@+id/imageView2" />
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -21,20 +27,20 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <TextView
-        android:layout_width="311dp"
-        android:layout_height="100dp"
-        android:text="Welcome to ContractFox"
-        android:id="@+id/welcomeText"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30dp" />
+    <!--<TextView-->
+        <!--android:layout_width="311dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:text="Welcome to ContractFox"-->
+        <!--android:id="@+id/welcomeText"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:gravity="center_vertical|center_horizontal"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:textSize="30dp" />-->
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:id="@+id/login_form"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -45,7 +51,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_login"
                 android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -131,8 +136,6 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimary" />
 
-
-
             <ProgressBar
                 style="@android:style/Widget.ProgressBar.Inverse"
                 android:layout_width="80dp"
@@ -145,5 +148,5 @@
 
 
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 </LinearLayout>
