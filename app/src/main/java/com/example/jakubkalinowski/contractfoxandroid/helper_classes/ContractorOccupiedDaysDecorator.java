@@ -32,6 +32,4 @@ public class ContractorOccupiedDaysDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
         view.addSpan(new DotSpan(20, color));
     }
-
-
 }
