@@ -8,14 +8,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,6 +61,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     private String street, unitNo, city, state, zipcode;
 
+
+    private FirebaseStorage storage;
+    
+    private StorageReference mProfilePicPath;
+    private StorageReference mLogoImagesPath;
+
+    private ImageView profilePicture, logoPicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +76,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
-
         Log.i("id-:", contractorID);
 
+        storage = FirebaseStorage.getInstance();
 
         address = (TextView) findViewById(R.id.address_string);
         phoneNumber = (TextView) findViewById(R.id.call_text);
@@ -73,6 +86,23 @@ public class ContractorProfileActivity extends AppCompatActivity {
         website = (TextView) findViewById(R.id.website_url);
 
         briefDescription = (TextView) findViewById(R.id.brief_description_layout);
+
+        profilePicture = (ImageView)findViewById(R.id.profile_fragment_picture);
+        logoPicture = (ImageView)findViewById(R.id.logo_fragment_picture);
+
+        // Download profile picture
+        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
+        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mProfilePicPath)
+                .into(profilePicture);
+
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mLogoImagesPath)
+                .into(logoPicture);
 
         mFirebaseDatabaseReference
                 .child("users").child(contractorID)
