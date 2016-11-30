@@ -1,15 +1,23 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +62,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     public String urlAddress;
 
+    final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT);
     //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
@@ -79,16 +89,16 @@ public class ContractorProfileActivity extends AppCompatActivity {
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
 
-        Log.i("id-:", contractorID);// yay it worked.
+        Log.d("xyz-prof", contractorID);// yay it worked.
         //ok jakub here is how you would get anything you want on the clicked user.
         /*
-       mFirebaseDatabaseReference.child("users").child(contractorID). anything you want here after dot ;
+       mFirebaseDatabaseReference.child("usersInChat").child(contractorID). anything you want here after dot ;
 
        here is a full example :
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("firstName") // will give you firstname
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("phonenNo") // will give you phone num
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("firstName") // will give you firstname
+        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("phonenNo") // will give you phone num
        so in conclusion, i am pasing you the id of the contraactor from the previous page and
-       here you can make a quick call to db to get what you want. no going over a list. you have the id. 
+       here you can make a quick call to db to get what you want. no going over a list. you have the id.
          */
 
 
@@ -106,7 +116,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
+                            .child("usersInChat").child(user.getUid().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -174,6 +184,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+                String [] id = {contractorID };
+                i.putExtra("id", id) ;
                 startActivity(i);
             }
         });
@@ -181,8 +193,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
+//                startActivity(i);
             }
         });
 
@@ -223,11 +235,65 @@ public class ContractorProfileActivity extends AppCompatActivity {
         reviewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, ReviewsActivity.class);
-                startActivity(i);
+              onCreateReviewDialog();
             }
         });
 
     }
+
+
+    public Dialog onCreateReviewDialog() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContractorProfileActivity.this);
+        alertDialog.setTitle("Write a Review");
+        alertDialog.setMessage("");
+        LinearLayout linear = new LinearLayout(getApplicationContext());
+//        TextView textEmail = new TextView(getApplicationContext());
+//        textEmail.setText("Email: ");
+        final RatingBar rb = new RatingBar(getApplicationContext());
+        rb.setRating(5);
+
+
+        final EditText description = new EditText(getApplicationContext());
+        description.setHint("Description");
+        description.setMinHeight(150);
+       // description.setBackgroundResource(R.drawable.border);
+        description.setHintTextColor(0xFFBCBCBC);
+        description.setTextColor(0xFFBCBCBC);
+
+        rb.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+
+       // description.setLayoutParams(etm);
+
+
+//        Button send = new Button(getApplicationContext());
+//        send.setText("Submit");
+        alertDialog.setNegativeButton("Submit",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String desc = description.getText().toString(); //descritption
+                        int numOfStars = rb.getNumStars(); //nummber of stars
+                        //database work goes here.
+                        saveReviewInDB(desc , numOfStars);
+
+                    }
+                });
+        //send.setLayoutParams(etm);
+        linear.setOrientation(LinearLayout.VERTICAL);
+        linear.addView(description);
+        linear.addView(rb);
+        // linear.addView(send);
+        alertDialog.setView(linear);
+        return alertDialog.show();
+    }
+
+    // You can put the DB code here.
+    private void saveReviewInDB(String description , int numOfStars) {
+
+        String currentUserId = DrawerActivity.currentUserId ; //this is the current user id.
+       // contractorID is a string variable available in this activity. it is being passed from previous activity.
+
+    }
+
 
 }

@@ -1,8 +1,12 @@
 package com.example.jakubkalinowski.contractfoxandroid.Model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by MD on 10/29/2016.
  */
+@IgnoreExtraProperties
+
 
 public class ContractorDutySession {
     String description;
@@ -13,13 +17,15 @@ public class ContractorDutySession {
     String readableAppointmentEndTime;
     Boolean availableDuringSession;
     String readableSessionDate;
+    long mSessionDate_Milliseconds_Key;
 
 
     public ContractorDutySession(String description, String appointmentSession,
                                  long appointmentStartTimeMilliseconds, long appointmentEndTimeMilliseconds,
                                  String readableAppointmentStartTime,
                                  String readableAppointmentEndTime,
-                                 Boolean availableDuringSession, String readableSessionDate) {
+                                 Boolean availableDuringSession, String readableSessionDate,
+                                 long sessionDate_Milliseconds_Key) {
         this.description = description;
         this.appointmentSession = appointmentSession;
         this.appointmentStartTimeMilliseconds = appointmentStartTimeMilliseconds;
@@ -28,6 +34,7 @@ public class ContractorDutySession {
         this.readableAppointmentEndTime = readableAppointmentEndTime;
         this.availableDuringSession = availableDuringSession;
         this.readableSessionDate = readableSessionDate;
+        this.mSessionDate_Milliseconds_Key = sessionDate_Milliseconds_Key;
     }
 
     //required empty constructor for DataSnapshot.getValue calls
@@ -96,5 +103,18 @@ public class ContractorDutySession {
 
     public void setReadableAppointmentEndTime(String readableAppointmentEndTime) {
         this.readableAppointmentEndTime = readableAppointmentEndTime;
+    }
+
+    public long getSessionDate_Milliseconds_Key() {
+        return mSessionDate_Milliseconds_Key;
+    }
+
+    public void setSessionDate_Milliseconds_Key(long sessionDate_Milliseconds_Key) {
+        this.mSessionDate_Milliseconds_Key = sessionDate_Milliseconds_Key;
+    }
+
+    @Override
+    public String toString() {
+        return ""+getReadableAppointmentStartTime()+getReadableAppointmentEndTime()+getAppointmentSession()+getDescription();
     }
 }

@@ -3,10 +3,14 @@
     package="com.example.jakubkalinowski.contractfoxandroid">
 
     <!-- CAMERA PERMISSIONS -->
-    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- END CAMERA PERMISSIONS -->
+
 
     <!-- To get an image from device storage/other storage -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -30,6 +34,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -76,10 +82,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SearchViewListActivity"
             android:label="@string/title_searchview_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        <intent-filter>
+            <action android:name="com.google.android.gms.actions.SEARCH_ACTION"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+
+        </activity>
+
         <activity
             android:name=".SearchViewDetailActivity"
             android:label="@string/title_searchview_detail"
@@ -103,7 +118,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAW54ghcPvXVf6yDhWk-VToQrb8m8P-UQI" />
-        <!--JAKUB, dont mess with this section-->
+        <!-- JAKUB, dont mess with this section -->
 
 
         <!-- ADDED -->
@@ -119,7 +134,9 @@
             android:name=".EstimateActivity"
             android:label="@string/title_activity_estimate"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".MessageQue"></activity>
+
+        <activity android:name=".Activity.ChatListActivity"></activity>
     </application>
 
 </manifest>
