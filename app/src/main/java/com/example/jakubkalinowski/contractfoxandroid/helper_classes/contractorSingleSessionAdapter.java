@@ -20,8 +20,7 @@ public class ContractorSingleSessionAdapter extends RecyclerView.Adapter<Contrac
 
 
     public List<ContractorDutySession> dutyList;
-
-
+    
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView serviceTitle, serviceDate, serviceStartTime, serviceEndTime;
