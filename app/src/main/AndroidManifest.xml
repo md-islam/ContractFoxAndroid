@@ -13,7 +13,6 @@
 
 
     <!-- To get an image from device storage/other storage -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- internet permission so the app can communicate with the Internet -->
@@ -134,7 +133,10 @@
             android:name=".EstimateActivity"
             android:label="@string/title_activity_estimate"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MessageQue"></activity>
+        <activity android:name=".MessageQue"/>
+        <activity android:name=".PicGalleryActivity" />
+        <activity android:name=".GalleryView"/>
+
 
         <activity android:name=".Activity.ChatListActivity"></activity>
     </application>

@@ -127,69 +127,17 @@
                 </LinearLayout>
                 <!-- END OF RATINGS TAB -->
 
-                <!-- AVAILABILITY TAB -->
-                <LinearLayout
+                <Button
+                    android:id="@+id/availability"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
+                    android:layout_height="30dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:background="#ffffff">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:text="Availability"
-                        android:textColor="#3234AD"
-                        android:gravity="center_vertical"
-                        android:textSize="18dp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/monday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/monday"/>
-                    <ImageView
-                        android:id="@+id/tuesday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/tuesday"/>
-                    <ImageView
-                        android:id="@+id/wednesday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/wednesday"/>
-                    <ImageView
-                        android:id="@+id/thursday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/thursday"/>
-                    <ImageView
-                        android:id="@+id/friday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/friday"/>
-                    <ImageView
-                        android:id="@+id/saturday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/saturday"/>
-                    <ImageView
-                        android:id="@+id/sunday_on"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/sunday"/>
-
-                </LinearLayout>
-                <!-- END OF AVAILABILITY TAB -->
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:background="#3234AD"
+                    android:text="View Availability"
+                    android:textColor="#ffffff"
+                    android:textAlignment="center"
+                    android:textSize="18dp"/>
 
                 <!-- ESTIMATE BUTTON -->
                 <Button

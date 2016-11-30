@@ -93,6 +93,10 @@ public class ContractorScheduleFragment extends Fragment implements
     int counter = 1;
 
 
+    public ContractorScheduleFragment(){
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment

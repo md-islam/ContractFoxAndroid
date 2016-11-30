@@ -7,11 +7,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,13 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,8 +38,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
+    DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
+   Fragment fragment = new ContractorScheduleFragment();
     String param = "kj";
     private static final String TAG = "Firebase_TAG!!" ;
     //[Firebase_variable]**
@@ -56,7 +59,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     String contractorID ;
 
     //UI component variables
-    private Button estimateButton, messageButton;
+    private Button estimateButton, messageButton, availabilityButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
 
@@ -172,6 +175,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
+        availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
         messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
@@ -179,6 +183,19 @@ public class ContractorProfileActivity extends AppCompatActivity {
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
         skillsButton = (LinearLayout)findViewById(R.id.askills_button);
         reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+
+        availabilityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
+                Fragment fragment = new ContractorScheduleFragment();
+              //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.displayArea_ID, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         estimateButton.setOnClickListener(new View.OnClickListener() {
             @Override
