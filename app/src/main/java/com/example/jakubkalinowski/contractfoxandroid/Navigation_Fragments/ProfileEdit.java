@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.example.jakubkalinowski.contractfoxandroid.DrawerActivity;
 import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
@@ -106,7 +107,7 @@ public class ProfileEdit extends Fragment {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
                     mFirebaseDatabaseReference
-                            .child("usersInChat").child(user.getUid().toString())
+                            .child("usersInChat").child(DrawerActivity.currentUserId)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {

@@ -13,12 +13,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
@@ -75,6 +78,17 @@ public class DrawerActivity extends AppCompatActivity
         searchButton = (Button) findViewById(R.id.mainSearchButton);
         searchButton.setOnClickListener(searchListerner);
         searchBar = (EditText) findViewById(R.id.searchBar_ID);
+        searchBar.setSingleLine(true);
+        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
         nav_Menu = navigationView.getMenu();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -148,6 +162,16 @@ public class DrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displayFragment(R.id.homee);
+    }
+
+    private void performSearch() {
+        Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
+        //think of a clever way to reuse code here.
+        // i.putExtra(searchBar.getText().toString() ,true);
+        i.putExtra("serachedItem", searchBar.getText().toString());
+        i.putExtra("flag" , true);
+        startActivity(i);
+
     }
 
     @Override
@@ -282,6 +306,7 @@ public class DrawerActivity extends AppCompatActivity
             //think of a clever way to reuse code here.
             // i.putExtra(searchBar.getText().toString() ,true);
             i.putExtra("serachedItem", searchBar.getText().toString());
+            i.putExtra("flag" , true);
             startActivity(i);
         }
     };
