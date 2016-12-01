@@ -204,14 +204,6 @@ public class DrawerActivity extends AppCompatActivity
 
         }
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            currentUserId = user.getUid();
-//
-//        } else {
-//            // No user is signed in
-//            Log.i("ladimmm" ,"not signed in !!");
-//        }
     }
 
     @Override

@@ -49,14 +49,58 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+
     <FrameLayout
+
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_dark_background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/searchview_list" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="20sp"
+              android:padding="10dp"
+
+              android:textColor="@color/background_white"
+              android:text="Sort by:"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/reviewRadio"
+                    android:textColor="@color/background_white"
+                    android:text="Review"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/distanceRadio"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/background_white"
+                    android:text="Distance"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+
+        <include layout="@layout/searchview_list"  />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -66,6 +110,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_email" />
+
+
 
     <ProgressBar
         style="@android:style/Widget.ProgressBar.Inverse"
