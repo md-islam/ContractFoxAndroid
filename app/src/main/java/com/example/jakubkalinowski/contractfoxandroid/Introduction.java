@@ -37,6 +37,7 @@ public class Introduction extends AppCompatActivity {
 //        textView.setTextColor(Color.RED);
 //        textView2.setTextColor(Color.DKGRAY);
 
+
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(); //Commented out for testing
         //DatabaseReference myRef = mFirebaseDatabaseReference.getReference();
         //myRef.child("test1").child("test2").setValue("Hello, World Bitch");

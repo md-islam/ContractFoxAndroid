@@ -78,6 +78,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     public static List<String> ITEMSs = Arrays.asList(data);
     public static List<String> ITEMS = ITEMSs;
     int count = 0;
+    String generalSerach;
 
     private static LruCache<String, List<String>> cachedMemory ;
 
@@ -89,12 +90,13 @@ public class SearchViewListActivity extends AppCompatActivity {
      */
     static FloatingActionButton fab;
     private boolean mTwoPane;
+    List<String> listFromCache;
     EditText searchBar ;
     //static List<String> names = new ArrayList<>();
     Button searchButton;
     String searchedContent ;
     RatingBar stars ;
-    String searchedItem;
+    String searchedItem ;
     ProgressBar progressBar ;
     boolean flag = false;
 
@@ -110,15 +112,37 @@ public class SearchViewListActivity extends AppCompatActivity {
         searchBar = (EditText) findViewById(R.id.searchBarInList_ID);
 
 
-        if(!flag) {
+        if(!flag) { // search is coming from google voice
             Intent searchedIntent = getIntent();
 
             if (SearchIntents.ACTION_SEARCH.equals(searchedIntent.getAction())) {
-                searchedItem = searchedIntent.getStringExtra(SearchManager.QUERY);
-                searchBar.setText(searchedContent);
+                generalSerach = searchedIntent.getStringExtra(SearchManager.QUERY);
+                for (String s : SearchHelper.houseSections ){
+                    if (generalSerach.toLowerCase().contains(s)){
+                        searchedItem = s ;
+                        break;
+                    }else{
+                        Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
-        }else{
-            searchedItem = savedInstanceState.getString("serachedItem");
+        }else{ //search is coming from specific list, or serach bar is DrawerActivity
+          generalSerach   = savedInstanceState.getString("serachedItem");
+            for (String s : SearchHelper.houseSections ){
+                if (generalSerach.toLowerCase().contains(s)){
+                    searchedItem = s ;
+                    break;
+                }else{
+                    Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
+                }
+            }
+            Log.i("nothingin" , searchedItem);
+            if(searchedItem == null){
+
+                Log.i("nothingin" , "it is null here");
+            }
+
+
         }
 
 
@@ -139,7 +163,13 @@ public class SearchViewListActivity extends AppCompatActivity {
             }
         };
 //
-        List<String> listFromCache = getBitMapFromMemory(searchedItem);
+        try{
+            listFromCache = getBitMapFromMemory(searchedItem);
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
+
         if( listFromCache != null){
             companyNames = listFromCache ;
 
@@ -216,9 +246,12 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
-            searchedContent = savedInstanceState.getString("serachedItem");
-            searchBar.setText(searchedContent);
-        }
+          if(generalSerach != null){
+              searchBar.setText(generalSerach);
+          }else{
+              searchBar.setText(searchedItem);
+          }
+    }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -362,7 +395,6 @@ public class SearchViewListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
-
         ////////////////////////////////////////////////////////
         public  class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -382,7 +414,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                 radioButton = (CheckBox) view.findViewById(R.id.radio_ID);
                 numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
-                // companyName.setText("ladi????");
+
             }
 
             public void getRadio(){

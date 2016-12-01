@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.example.jakubkalinowski.contractfoxandroid.DrawerActivity;
 import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.Member;
 import com.example.jakubkalinowski.contractfoxandroid.R;
@@ -169,7 +170,7 @@ public class ProfileEdit extends Fragment {
 
                     // Profile info edit
                     mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
+                            .child("usersInChat").child(DrawerActivity.currentUserId)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {

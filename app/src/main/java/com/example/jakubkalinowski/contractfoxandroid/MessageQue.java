@@ -66,28 +66,20 @@ public class MessageQue extends AppCompatActivity implements
             parent.setVisibility(View.VISIBLE);
             back = true ;
         }
-
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_que);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-
-        Log.i("displaynam" , DrawerActivity.currentUserFirstName);
         messageReferencesDatabaseReference = FirebaseDatabase.getInstance()
                 .getReference().child("messageReferences");
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_messages);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //dummy data added to list for testing
-        //messageContacts.add("JAkub Kalinowski");
+
 
         messageReferencesDatabaseReference.child(DrawerActivity.currentUserId)
                 .addValueEventListener(new ValueEventListener() {
