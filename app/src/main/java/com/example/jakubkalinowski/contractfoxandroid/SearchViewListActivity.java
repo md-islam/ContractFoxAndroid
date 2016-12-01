@@ -51,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
-
+    RadioButton distanceRadio ,reviewRadio ;
     //  private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
@@ -78,6 +79,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     public static List<String> ITEMSs = Arrays.asList(data);
     public static List<String> ITEMS = ITEMSs;
     int count = 0;
+    List<Float> ratingsList = new ArrayList<>();
     String generalSerach;
 
     private static LruCache<String, List<String>> cachedMemory ;
@@ -110,7 +112,11 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         //gets the name of the clicked item from the previous activity
         searchBar = (EditText) findViewById(R.id.searchBarInList_ID);
+        distanceRadio = (RadioButton) findViewById(R.id.distanceRadio);
+        reviewRadio = (RadioButton) findViewById(R.id.reviewRadio);
 
+        distanceRadio.setOnClickListener( distanceListener);
+        reviewRadio.setOnClickListener(reviewListener);
 
         if(!flag) { // search is coming from google voice
             Intent searchedIntent = getIntent();
@@ -181,60 +187,10 @@ public class SearchViewListActivity extends AppCompatActivity {
             setupRecyclerView((RecyclerView) recyclerView);
         }else{
             Log.i("cacheladi", "cache is empty");
-
-
-
-            mFirebaseDatabaseReference
-                    .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
-
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                    Log.d("test--", dataSnapshot.getRef().toString()); //gts the url : https://contract-fox.firebaseio.com/users
-                    Log.d("test--" , dataSnapshot.getValue().toString());
-
-                    Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
-
-                    for (DataSnapshot snapshot : dataSnapshotsList) {
-
-                        //first lets see if member is contractor
-                        if (snapshot.child("contractorOption").getValue().equals(true)  ) {
-
-
-
-                            Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
-                            //second for loop for checking if skill is there in the skillSet
-                            for( DataSnapshot skill :  skillList){
-                                if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
-                                    map.put(count , snapshot.getKey());
-                                    count++;
-                                    companyNames.add(snapshot.child("firstName").getValue().toString());
-                                }
-                            }
-                        }
-                    }
-                    // Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
-                    //setting up recycler view
-                    setBitMapToMemory(searchedItem , companyNames);
-                    progressBar.setVisibility(View.INVISIBLE);
-                    View recyclerView = findViewById(R.id.searchview_list);
-                    assert recyclerView != null;
-                    Log.d("checkk-", "recycler set");
-                    setupRecyclerView((RecyclerView) recyclerView);
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-
+            searchDB(false);
             //cache the list of company names with the searched content as key.
 
         }//end of else. if cahce is empty
-
-
 
         //hides the keyboard upon opening the activity.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -242,7 +198,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         searchButton = (Button) findViewById(R.id.searchButtonInList);
 
-        stars = (RatingBar) findViewById(R.id.ratingStars_ID);
+        stars = (RatingBar) findViewById(R.id.ratingStars_ID1);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
@@ -272,6 +228,64 @@ public class SearchViewListActivity extends AppCompatActivity {
 
     }//onCreate
 
+    public void searchDB(final boolean haveTheRatingList){
+                    mFirebaseDatabaseReference
+                    .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                    Log.d("test--", dataSnapshot.getRef().toString()); //gts the url : https://contract-fox.firebaseio.com/users
+                    Log.d("test--" , dataSnapshot.getValue().toString());
+
+                    Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
+
+                    for (DataSnapshot snapshot : dataSnapshotsList) {
+
+                        //first lets see if member is contractor
+                        if (snapshot.child("contractorOption").getValue().equals(true)  ) {
+
+
+
+                         //   Log.d("letsseewhat", Double.toHexString(snapshot.child("overAllrating").getValue(Double.class)));
+
+
+                            Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
+                            //second for loop for checking if skill is there in the skillSet
+                            for( DataSnapshot skill :  skillList){
+                                if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
+                                    if(! haveTheRatingList){
+                                        ratingsList.add(snapshot.child("overAllrating").getValue(Float.class));
+                                    }
+
+
+                                    map.put(count , snapshot.getKey());
+                                    count++;
+                                    companyNames.add(snapshot.child("firstName").getValue().toString());
+                                }
+                            }
+                        }
+                    }
+                    // Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
+                    //setting up recycler view
+                    setBitMapToMemory(searchedItem , companyNames );
+                    progressBar.setVisibility(View.INVISIBLE);
+                    View recyclerView = findViewById(R.id.searchview_list);
+                    assert recyclerView != null;
+                    Log.d("checkk-", "recycler set");
+                    setupRecyclerView((RecyclerView) recyclerView);
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+    }
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -294,7 +308,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(companyNames, companyNames));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(companyNames, companyNames , ratingsList));
     }
 
     /////////////////////////////////////////inner class//////////////////////////////////////
@@ -305,11 +319,21 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         private final List<String> mValues;
         private final List<String> mValues2;
+        private final List<Float> rate;
+
         private final List<CheckBox> radios = new ArrayList<>();
 
-        public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2) {
+        public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2 ,List<Float> ratings) {
             mValues = items;
             mValues2 = items2 ;
+            rate = ratings ;
+        }
+
+
+
+        public  void clearList(){
+            mValues.clear();
+            mValues2.clear();
         }
 
         @Override
@@ -327,6 +351,7 @@ public class SearchViewListActivity extends AppCompatActivity {
             radios.add(holder.radioButton);
             // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
             holder.numebrOfReviews.setText(mValues2.get(position));
+            holder.stars.setRating(rate.get(position));
 
 
             SearchViewListActivity.fab.setOnClickListener(new View.OnClickListener() {
@@ -404,6 +429,7 @@ public class SearchViewListActivity extends AppCompatActivity {
             public final TextView companyName;
             public final TextView numebrOfReviews;
             public final CheckBox radioButton ;
+            public final RatingBar stars ;
             //public final TextView mContentView;
             public DummyContent.DummyItem mItem;
 
@@ -412,6 +438,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                 mView = view;
                 companyName = (TextView) view.findViewById(R.id.companyName_ID);
                 radioButton = (CheckBox) view.findViewById(R.id.radio_ID);
+                stars = (RatingBar) view.findViewById(R.id.ratingStars_ID1);
                 numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
 
@@ -425,6 +452,25 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
     }// ////////////////end of inner class///////////////////////////////////////////
+
+    View.OnClickListener distanceListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getApplicationContext() , "Filtering results by distance ..." ,Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener reviewListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getApplicationContext() , "Filtering results by review ..." ,Toast.LENGTH_SHORT).show();
+
+            Collections.sort(ratingsList);
+            Collections.reverse(ratingsList);
+          companyNames.clear();
+            searchDB(true);
+        }
+    };
 
     public List<String> getBitMapFromMemory (String key){
         return cachedMemory.get(key);

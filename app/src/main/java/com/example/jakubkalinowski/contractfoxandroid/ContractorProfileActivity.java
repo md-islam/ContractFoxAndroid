@@ -295,7 +295,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         String desc = description.getText().toString(); //descritption
-                        int numOfStars = rb.getNumStars(); //nummber of stars
+                        int numOfStars = (int) rb.getRating(); //nummber of stars
                         //database work goes here.
                         double starsDouble = (double) numOfStars;
 
@@ -329,6 +329,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).child(firebasePushKey)
                 .setValue(review);
+
+        //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").setValue(numOfStars) ;
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
 
