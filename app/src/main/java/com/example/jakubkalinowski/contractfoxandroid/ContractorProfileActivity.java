@@ -61,7 +61,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private Member m;
     public Boolean option;
     String contractorID ;
-    private String currentUserID;
+    private String currentAuthenticatedUserID;
 
     //UI component variables
     private Button estimateButton, messageButton, availabilityButton;
@@ -122,6 +122,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
                 if (user != null) {
                     // User is signed in
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mFirebaseDatabaseReference
                             .child("usersInChat").child(user.getUid().toString())
@@ -296,7 +297,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
                         String desc = description.getText().toString(); //descritption
                         int numOfStars = rb.getNumStars(); //nummber of stars
                         //database work goes here.
-                        saveReviewInDB(desc , numOfStars);
+                        double starsDouble = (double) numOfStars;
+
+                        saveReviewInDB(desc , starsDouble);
 
                     }
                 });
@@ -310,15 +313,27 @@ public class ContractorProfileActivity extends AppCompatActivity {
     }
 
     // You can put the DB code here.
-    private void saveReviewInDB(String description , int numOfStars) {
+    private void saveReviewInDB(String description , double numOfStars) {
 
-        String currentUserId = DrawerActivity.currentUserId ; //this is the current user id.
+        String currentReviewerUserId = DrawerActivity.currentUserId ; //this is the current user id.
        // contractorID is a string variable available in this activity. it is being passed from previous activity.
         //
+        String firebasePushKey = mFirebaseDatabaseReference.child("contractor_reviews").push().
+                getKey();
         HashMap<String, Object> dateMap= new HashMap<String, Object>();
         dateMap.put("date", ServerValue.TIMESTAMP);
-        String current_user_id;
-        Review review = new Review();
+
+
+        Review review = new Review(currentReviewerUserId,contractorID,dateMap, null,
+                description,numOfStars, firebasePushKey);
+
+        mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).child(firebasePushKey)
+                .setValue(review);
+        //each contractor id is the parent key and the childs are firebase push key with containing child object
+
+
+
+
 
         //current user id--> reviwer
         //reviewee id -->

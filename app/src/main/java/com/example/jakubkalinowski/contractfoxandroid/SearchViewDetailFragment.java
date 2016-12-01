@@ -232,9 +232,9 @@ public class SearchViewDetailFragment extends Fragment {
                     mFirebaseServerTimeStamp = ServerValue.TIMESTAMP;
 
                     //construct the review object
-                    mReview = new Review(current_user_id, temporary_contractor_user_id,
-                            mFirebaseServerTimeStamp, mReviewTitle, mDescriptionTitle,
-                            mRatingBarValue);
+//                    mReview = new Review(current_user_id, temporary_contractor_user_id,
+//                            mFirebaseServerTimeStamp, mReviewTitle, mDescriptionTitle,
+//                            mRatingBarValue);
 //
                     mDatabaseReviewReference.child(temporary_contractor_user_id).
                             child(reviewIDString).setValue(mReview);
