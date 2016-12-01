@@ -16,7 +16,7 @@ import java.util.List;
  * Created by MD on 11/9/2016.
  */
 
-public class ContractorSingleSessionAdapter extends RecyclerView.Adapter<ContractorSingleSessionAdapter.MyViewHolder>{
+    public class ContractorSingleSessionAdapter extends RecyclerView.Adapter<ContractorSingleSessionAdapter.MyViewHolder>{
 
 
     public List<ContractorDutySession> dutyList;
