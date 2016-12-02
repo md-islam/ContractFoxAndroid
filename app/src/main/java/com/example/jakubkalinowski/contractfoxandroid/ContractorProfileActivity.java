@@ -186,7 +186,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
-        messageButton = (Button) findViewById(R.id.aprofile_message_button);
+        //messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
         directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
@@ -218,14 +218,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        messageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
-//                startActivity(i);
-            }
-        });
+//
+//        messageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
+////                startActivity(i);
+//            }
+//        });
 
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,13 +234,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 startActivity(intent);            }
         });
 
-        directionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, MapsActivity.class);
-                startActivity(i);
-            }
-        });
+//        directionsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ContractorProfileActivity.this, MapsActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         websiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
