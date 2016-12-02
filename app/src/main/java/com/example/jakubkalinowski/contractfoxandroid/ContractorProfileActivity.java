@@ -25,6 +25,7 @@ import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,6 +71,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     public String urlAddress;
 
+    private double contractorUserRatingCount;
+    private int count;
+
+
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);
     //imageView
@@ -92,7 +97,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contractor_profile);
-
+        count = 0;
+        contractorUserRatingCount = 0;
         //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
@@ -110,7 +116,34 @@ public class ContractorProfileActivity extends AppCompatActivity {
          */
 
 
+        mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Review child_review = dataSnapshot.getValue(Review.class);
+                count++;
+                contractorUserRatingCount+=child_review.getStars();
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -331,7 +364,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 .setValue(review);
 
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").setValue(numOfStars) ;
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").setValue(contractorUserRatingCount/count) ;
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
 
