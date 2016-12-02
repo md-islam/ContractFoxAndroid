@@ -100,9 +100,10 @@ public class RegisterContractorFragment extends Fragment {
     private CheckBox mBasementSkillCheck;
     private CheckBox mBathroomSkillCheck;
     private CheckBox mGarageSkillCheck;
-    private CheckBox mGeneralRoomSkillCheck;
+    private CheckBox mLivingRoomSkillCheck;
     private CheckBox mKitchenSkillCheck;
-    private CheckBox mUtilitySkillCheck;
+//    private CheckBox mUtilitySkillCheck;
+    private CheckBox mBedroomSkillCheck;
 
     //Exterior Skills
     private CheckBox mAcHeatSkillCheck;
@@ -120,7 +121,7 @@ public class RegisterContractorFragment extends Fragment {
     private CheckBox mGazeboSkillCheck;
     private CheckBox mLandscapeSkillCheck;
     private CheckBox mPoolJacuzziSkillCheck;
-    private CheckBox mSepticSkillCheck;
+//    private CheckBox mSepticSkillCheck;
     private CheckBox mTreeSkillCheck;
     private CheckBox mWellSkillCheck;
 
@@ -214,9 +215,10 @@ public class RegisterContractorFragment extends Fragment {
         mBasementSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_basement);
         mBathroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bathroom);
         mGarageSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_garage);
-        mGeneralRoomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_generalroom);
+        mLivingRoomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_livingroom);
         mKitchenSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_kitchen);
-        mUtilitySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_utility);
+//        mUtilitySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_utility);
+        mBedroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bedroom);
 
         //Exterior
         mAcHeatSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_ac_heat);
@@ -234,7 +236,7 @@ public class RegisterContractorFragment extends Fragment {
         mGazeboSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_gazebo);
         mLandscapeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_landscape);
         mPoolJacuzziSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_pool_jacuzzi);
-        mSepticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_septic_tank);
+//        mSepticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_septic_tank);
         mTreeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_tree);
         mWellSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_well);
 
@@ -258,6 +260,15 @@ public class RegisterContractorFragment extends Fragment {
                         } else {
                             //Remove From ArrayList
                             skillset.remove("attic");
+                        }
+                        break;
+                    case R.id.checkbox_bedroom:
+                        if (checked) {
+                            //Add to arrayList
+                            skillset.add("bedroom");
+                        } else {
+                            //Remove From ArrayList
+                            skillset.remove("bedroom");
                         }
                         break;
                     case R.id.checkbox_basement:
@@ -287,13 +298,13 @@ public class RegisterContractorFragment extends Fragment {
                             skillset.remove("garage");
                         }
                         break;
-                    case R.id.checkbox_generalroom:
+                    case R.id.checkbox_livingroom:
                         if (checked) {
                             //Add to arrayList
-                            skillset.add("general");
+                            skillset.add("living room");
                         } else {
                             //Remove From ArrayList
-                            skillset.remove("general");
+                            skillset.remove("living room");
                         }
                         break;
                     case R.id.checkbox_kitchen:
@@ -305,15 +316,15 @@ public class RegisterContractorFragment extends Fragment {
                             skillset.remove("kitchen");
                         }
                         break;
-                    case R.id.checkbox_utility:
-                        if (checked) {
-                            //Add to arrayList
-                            skillset.add("utility");
-                        } else {
-                            //Remove From ArrayList
-                            skillset.remove("utility");
-                        }
-                        break;
+//                    case R.id.checkbox_utility:
+//                        if (checked) {
+//                            //Add to arrayList
+//                            skillset.add("utility");
+//                        } else {
+//                            //Remove From ArrayList
+//                            skillset.remove("utility");
+//                        }
+//                        break;
 
                     //Exterior
                     case R.id.checkbox_ac_heat:
@@ -435,15 +446,15 @@ public class RegisterContractorFragment extends Fragment {
                             skillset.remove("pool");
                         }
                         break;
-                    case R.id.checkbox_septic_tank:
-                        if (checked) {
-                            //Add to arrayList
-                            skillset.add("septic");
-                        } else {
-                            //Remove From ArrayList
-                            skillset.remove("septic");
-                        }
-                        break;
+//                    case R.id.checkbox_septic_tank:
+//                        if (checked) {
+//                            //Add to arrayList
+//                            skillset.add("septic");
+//                        } else {
+//                            //Remove From ArrayList
+//                            skillset.remove("septic");
+//                        }
+//                        break;
                     case R.id.checkbox_tree:
                         if (checked) {
                             //Add to arrayList
@@ -504,9 +515,10 @@ public class RegisterContractorFragment extends Fragment {
         mBasementSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mBathroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mGarageSkillCheck.setOnCheckedChangeListener(mCheckListener);
-        mGeneralRoomSkillCheck.setOnCheckedChangeListener(mCheckListener);
+        mLivingRoomSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mKitchenSkillCheck.setOnCheckedChangeListener(mCheckListener);
-        mUtilitySkillCheck.setOnCheckedChangeListener(mCheckListener);
+//        mUtilitySkillCheck.setOnCheckedChangeListener(mCheckListener);
+        mBedroomSkillCheck.setOnCheckedChangeListener(mCheckListener);
 
         mAcHeatSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mChimneySkillCheck.setOnCheckedChangeListener(mCheckListener);
@@ -522,7 +534,7 @@ public class RegisterContractorFragment extends Fragment {
         mGazeboSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mLandscapeSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mPoolJacuzziSkillCheck.setOnCheckedChangeListener(mCheckListener);
-        mSepticSkillCheck.setOnCheckedChangeListener(mCheckListener);
+//        mSepticSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mTreeSkillCheck.setOnCheckedChangeListener(mCheckListener);
         mWellSkillCheck.setOnCheckedChangeListener(mCheckListener);
         //Jatinder work here

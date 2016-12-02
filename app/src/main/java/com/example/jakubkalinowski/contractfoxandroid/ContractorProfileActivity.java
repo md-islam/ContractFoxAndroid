@@ -26,7 +26,6 @@ import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,13 +71,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private Button estimateButton, messageButton, availabilityButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
-
     public String urlAddress;
-
     private double contractorUserRatingCount;
     private int count;
-
-
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);
     private String addressInput, phoneInput, webInput, companyInput, briefDesc;
@@ -273,9 +268,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(phoneInput));
+                intent.setData(Uri.parse("tel:"+phoneInput));
                 startActivity(intent);
             }
         });
