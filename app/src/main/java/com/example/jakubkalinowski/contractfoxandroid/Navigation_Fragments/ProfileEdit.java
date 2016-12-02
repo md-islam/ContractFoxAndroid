@@ -184,8 +184,8 @@ public class ProfileEdit extends Fragment {
                                         mCityEditText.setText(m.getAddress().getCity());
                                         mPostalCodeEditText.setText(m.getAddress().getZipCode());
                                         mPhoneNumberEditText.setText(m.getPhoneNo());
-                                        mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
-                                        mWebsiteURLEditText.setText(m.getEmailAddress());
+                                        mCompanyNameEditText.setText(m.getCompanyName());
+                                        mWebsiteURLEditText.setText(m.getBusinessWebsiteURL());
                                     }
                                     else{
                                         Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
