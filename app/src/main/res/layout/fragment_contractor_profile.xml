@@ -246,19 +246,36 @@
                         <!--android:name="com.google.android.gms.maps.MapFragment"-->
 
                         <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                         <Button
-                            android:id="@+id/add_image_to_gallery_button"
+                            android:layout_weight="1"
+                            android:id="@+id/add_before_image_to_gallery_button"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:background="#3234AD"
-                            android:text="Add Before &amp; Afrer Images"
+                            android:text="Add Before Images"
                             android:textColor="#ffffff"
                             android:textAlignment="center"
+                            android:background="@drawable/button_border"
                             android:textSize="18dp"/>
 
+                        <Button
+                            android:layout_weight="1"
+                            android:id="@+id/add_after_image_to_gallery_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:text="Add Afrer Images"
+                            android:textColor="#ffffff"
+                            android:textAlignment="center"
+                            android:background="@drawable/button_border"
+                            android:textSize="18dp"/>
+</LinearLayout>
                         <!-- BUTTONS AND FRAGMENT REFERENCES -->
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -294,40 +311,40 @@
                             </LinearLayout>
                             <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
-                            <!-- DIVIDER LINE -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#3234AD">
-                            </LinearLayout>
-                            <!-- END OF LINE DIVIDER -->
+                            <!--&lt;!&ndash; DIVIDER LINE &ndash;&gt;-->
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:background="#3234AD">-->
+                            <!--</LinearLayout>-->
+                            <!--&lt;!&ndash; END OF LINE DIVIDER &ndash;&gt;-->
 
-                            <!-- DIRECTIONS BUTTON & FRAGMENT REFERENCE -->
-                            <LinearLayout
-                                android:id="@+id/directions_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:clickable="true"
-                                android:orientation="horizontal">
+                            <!--&lt;!&ndash; DIRECTIONS BUTTON & FRAGMENT REFERENCE &ndash;&gt;-->
+                            <!--<LinearLayout-->
+                                <!--android:id="@+id/directions_button"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="40dp"-->
+                                <!--android:clickable="true"-->
+                                <!--android:orientation="horizontal">-->
 
-                                <ImageView
-                                    android:id="@+id/directions_img"
-                                    android:layout_weight="1"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:padding="1dp"
-                                    android:src="@drawable/directions_icon"/>
+                                <!--<ImageView-->
+                                    <!--android:id="@+id/directions_img"-->
+                                    <!--android:layout_weight="1"-->
+                                    <!--android:layout_width="40dp"-->
+                                    <!--android:layout_height="40dp"-->
+                                    <!--android:padding="1dp"-->
+                                    <!--android:src="@drawable/directions_icon"/>-->
 
-                                <TextView
-                                    android:id="@+id/directions_text"
-                                    android:layout_weight="4"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="40dp"
-                                    android:gravity="center_vertical"
-                                    android:text="@string/directions_text"/>
+                                <!--<TextView-->
+                                    <!--android:id="@+id/directions_text"-->
+                                    <!--android:layout_weight="4"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="40dp"-->
+                                    <!--android:gravity="center_vertical"-->
+                                    <!--android:text="@string/directions_text"/>-->
 
-                            </LinearLayout>
-                            <!-- END OF DIRECTIONS BUTTON AND FRAGMENT REFERENCE -->
+                            <!--</LinearLayout>-->
+                            <!--&lt;!&ndash; END OF DIRECTIONS BUTTON AND FRAGMENT REFERENCE &ndash;&gt;-->
 
                             <!-- DIVIDER LINE -->
                             <LinearLayout

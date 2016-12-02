@@ -1,28 +1,25 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Model.ChatMessage;
 import com.example.jakubkalinowski.contractfoxandroid.Model.ChatSession;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,19 +28,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
-import com.kosalgeek.android.photoutil.ImageLoader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class EstimateActivity extends AppCompatActivity {
+
 
     private final String TAG = "ladimmm";
     FirebaseAuth mAuth;
@@ -62,60 +57,12 @@ public class EstimateActivity extends AppCompatActivity {
     final int CAMERA_REQUEST = 12345;
     final int GALLERY_REQUEST = 12345;
 
-    //Jatinder work here
-//        //Interior
-//        mAtticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_attic);
-//        mBasementSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_basement);
-//        mBathroomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_bathroom);
-//        mGarageSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_garage);
-//        mGeneralRoomSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_generalroom);
-//        mKitchenSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_kitchen);
-//        mUtilitySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_utility);
-//
-//        //Exterior
-//        mAcHeatSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_ac_heat);
-//        mChimneySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_chimney);
-//        mDeckPatioSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_deck_patio);
-//        mDoorsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_doors);
-//        mFoundationSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_foundation);
-//        mRoofSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_roof);
-//        mWallsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_walls);
-//        mWindowsSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_windows);
-//
-//        //Backyard
-//        mDrivewaySkillCheck = (CheckBox) view.findViewById(R.id.checkbox_driveway);
-//        mFenchSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_fence);
-//        mGazeboSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_gazebo);
-//        mLandscapeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_landscape);
-//        mPoolJacuzziSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_pool_jacuzzi);
-//        mSepticSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_septic_tank);
-//        mTreeSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_tree);
-//        mWellSkillCheck = (CheckBox) view.findViewById(R.id.checkbox_well);
-//
-//        //Jatinder work here
+    //Text Wrappers
+//    private TextInputLayout mProjectTitleWrapper, mItemAreaSpecsWrapper, mDetailDescriptionWrapper;
 
-    //-----UI COMPONENT VARIABLES DECLARATION-----[START]
-    LinearLayout layout_interior, layout_exterior, layout_backyard, layout_description;
-    RadioButton radio_interior, radio_exterior, radio_backyard;
-    EditText project_description, project_title;
-    ImageView ivCamera, ivGallery, ivUpload, ivImage;
-        //---interior_variables---[START]//
-    CheckBox mInterior_Attic, mInterior_kitchen, mInterior_diningRoom, mInterior_utilityRoom,
-    mInterior_basement, mInterior_bathroom, mInterior_bedroom, mInterior_Entrance,
-    mInterior_garage, mInteriorLivingRoom, mInterior_closet, mInterior_other;
-        //---interior_variables----[END]//
+    private EditText project_title, project_description, mitemAreaDimensionsEditText;
 
-        //---Exterior_variables---[START]//
-    CheckBox mExterior_1stFloor, mExterior_2ndFloor, mExterior_roof, mExterior_foundation,
-    mExterior_garage_unit, mExterior_addition, mExterior_porch, mExterior_balcony, mExterior_other;
-        //---Exterior_variables---[END]//
-
-        //--Backyard_variables---[START]
-    CheckBox mBackyard_pool_jacuzzi, mBackyard_septic_system, mBackyard_driveway, mBackyard_trees,
-    mBackyard_fence, mBackyard_landscape, mBackyard_shed, mBackyard_well, mBackyard_other;
-        //--Backyard_variables--[END]
     Button send;
-    private EditText mitemAreaDimensionsEditText;
     private CompoundButton.OnCheckedChangeListener mInteriorCheckListener;
     //-----UI COMPONENT VARIABLES DECLARATION-----[END]
 
@@ -133,11 +80,20 @@ public class EstimateActivity extends AppCompatActivity {
     DatabaseReference messageReferencesDatabaseReference;
     DatabaseReference allMessagesDatabaseReference;
 
+    private FirebaseStorage storage;
+    private StorageReference uploadRef;
+    private ImageView mAddImageToGallery, mImageView;
+    // integer for request code
+    private static final int GALLERY_INTENT = 2;
     static String receiverName,CurrentUsername, sendersName ;
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        storage = FirebaseStorage.getInstance();
+        uploadRef = storage.getReference("EstimateFiles/"+receiverName+"file.jpeg");
+
 
         mFirebaseDatabaseReference
                 .child("usersInChat").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -167,6 +123,9 @@ public class EstimateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mAddImageToGallery = (ImageView)findViewById(R.id.ivGallery);
+        mImageView = (ImageView)findViewById(R.id.ivImage);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             currentUserId = user.getUid();
@@ -177,98 +136,45 @@ public class EstimateActivity extends AppCompatActivity {
             Log.i("ladimmm" ,"not signed in !!");
         }
 
-
-
         savedInstanceState = getIntent().getExtras();
         ContracoorIds = savedInstanceState.getStringArray("id");
         Log.d("i-d-est", ContracoorIds[0]);
 
-        //--UI COMPONENT VARIABLES INITIALILIZATION ---[START] ---//
-        layout_interior = (LinearLayout)findViewById(R.id.interior_fragment_content_layout);
-        layout_exterior = (LinearLayout)findViewById(R.id.exterior_fragment_content_layout);
-        layout_backyard = (LinearLayout)findViewById(R.id.backyard_fragment_content_layout);
+        mAddImageToGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
 
-            //--INTERIOR checkbox declaration --[START] ---//
-        mInterior_Attic = (CheckBox) findViewById(R.id.checkbox_attic);
-        mInterior_kitchen = (CheckBox) findViewById(R.id.checkbox_dinningroom);
-        mInterior_diningRoom = (CheckBox) findViewById(R.id.checkbox_utility_room);
-        mInterior_utilityRoom = (CheckBox) findViewById(R.id.checkbox_basement);
-        mInterior_bathroom = (CheckBox) findViewById(R.id.checkbox_bedroom);
-        mInterior_Entrance = (CheckBox) findViewById(R.id.checkbox_entrance);
-        mInterior_garage = (CheckBox) findViewById(R.id.checkbox_garage);
-        mInteriorLivingRoom = (CheckBox) findViewById(R.id.checkbox_livingroom);
-        mInterior_closet = (CheckBox) findViewById(R.id.checkbox_closet);
-        mInterior_other = (CheckBox) findViewById(R.id.checkbox_other);
-            //--INTERIOR checkbox declaration --[END] ---//
+                Intent i = new Intent(Intent.ACTION_PICK);
 
-            //--EXTERIOR checkbox declaration --[START] ---//
-        mExterior_1stFloor = (CheckBox) findViewById(R.id.checkbox_first_floor);
-        mExterior_foundation = (CheckBox) findViewById(R.id.checkbox_foundation);
-        mExterior_porch = (CheckBox) findViewById(R.id.checkbox_porch);
-        mExterior_2ndFloor = (CheckBox) findViewById(R.id.checkbox_second_floor);
-        mExterior_garage_unit = (CheckBox) findViewById(R.id.checkbox_garage_unit);
-        mExterior_balcony = (CheckBox) findViewById(R.id.checkbox_balcony);
-        mExterior_roof = (CheckBox) findViewById(R.id.checkbox_roof);
-        mExterior_addition = (CheckBox) findViewById(R.id.checkbox_addition);
-        mExterior_other = (CheckBox) findViewById(R.id.checkbox_other);
-            //--EXTERIOR checkbox declaration --[END] ---//
+                i.setType("image/*");
 
-            //--BACKYARD CHECKBOX declaration --[START]--//
-        mBackyard_pool_jacuzzi = (CheckBox) findViewById(R.id.checkbox_pool_jacuzzi);
-        mBackyard_fence = (CheckBox) findViewById(R.id.checkbox_fence);
-        mBackyard_shed = (CheckBox) findViewById(R.id.checkbox_shed);
-        mBackyard_septic_system = (CheckBox) findViewById(R.id.checkbox_septic_system);
-        mBackyard_landscape = (CheckBox) findViewById(R.id.checkbox_landscape);
-        mBackyard_well = (CheckBox) findViewById(R.id.checkbox_well);
-        mBackyard_driveway = (CheckBox) findViewById(R.id.checkbox_driveway);
-        mBackyard_trees = (CheckBox) findViewById(R.id.checkbox_trees);
-            //--BACKYARD checkbox declaration --[END]--//
+                startActivityForResult(i, GALLERY_INTENT);
+            }
+        });
+
+
+
+
+
+
 
         send = ( Button)findViewById(R.id.sendButton);
 
         send.setOnClickListener( sendListener );
 
 
-        radio_interior = (RadioButton)findViewById(R.id.radio_interior);
-        radio_exterior = (RadioButton)findViewById(R.id.radio_exterior);
-        radio_backyard = (RadioButton) findViewById(R.id.radio_backyard);
-
+//        mProjectTitleWrapper = (TextInputLayout)findViewById(R.id.project_title_text_wrapper);
+//        mItemAreaSpecsWrapper = (TextInputLayout)findViewById(R.id.item_area_specs_text_wrapper);
+//        mDetailDescriptionWrapper = (TextInputLayout)findViewById(R.id.detail_description_text_wrapper);
 
         project_title = (EditText) findViewById(R.id.project_title_edit_text);
-        mitemAreaDimensionsEditText = (EditText) findViewById(R.id.item_area_dimensions);
-        project_description = (EditText)findViewById(R.id.description_paragraph_step3);
+        mitemAreaDimensionsEditText = (EditText) findViewById(R.id.item_area_specs_edit_text);
+        project_description = (EditText)findViewById(R.id.detail_description_edit_text);
 
 
 
 
-        cameraPhoto = new CameraPhoto(getApplicationContext());
-        galleryPhoto = new GalleryPhoto(getApplicationContext());
 
-        ivImage = (ImageView)findViewById(R.id.ivImage);
-        ivCamera = (ImageView)findViewById(R.id.ivCamera);
-        ivGallery = (ImageView)findViewById(R.id.ivGallery);
-//        ivUpload = (ImageView)findViewById(R.id.ivUpload);
-        //--UI COMPONENT VARIABLES INITIALILIZATION ---[END] ---//
-
-        ivCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                try {
-                    startActivityForResult(cameraPhoto.takePhotoIntent(), CAMERA_REQUEST);
-                    cameraPhoto.addToGallery();
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "Something wrong while taking photos", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        ivGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
-            }
-        });
 
         //----- STEP 2 -----
 
@@ -326,77 +232,10 @@ public class EstimateActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
-            if(requestCode == CAMERA_REQUEST) {
-                String photoPath = cameraPhoto.getPhotoPath();
-                try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512,512).getBitmap();
-                    ivImage.setImageBitmap(bitmap);
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "Something wrong while loading photos", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else if(requestCode == GALLERY_REQUEST) {
-                Uri uri = data.getData();
-                galleryPhoto.setPhotoUri(uri);
-                String photoPath = galleryPhoto.getPath();
-                try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512,512).getBitmap();
-                    ivImage.setImageBitmap(bitmap);
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "Something wrong while loading photos", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-    public void onRadioButtonClicked(View view){
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.radio_interior:
-                if (checked) {
-                    radio_exterior.setChecked(false);
-                    radio_backyard.setChecked(false);
-                    layout_interior.setVisibility(View.VISIBLE);
-                    layout_exterior.setVisibility(View.GONE);
-                    layout_backyard.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.radio_exterior:
-                if (checked) {
-                    radio_interior.setChecked(false);
-                    radio_backyard.setChecked(false);
-                    layout_interior.setVisibility(View.GONE);
-                    layout_exterior.setVisibility(View.VISIBLE);
-                    layout_backyard.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.radio_backyard:
-                if (checked) {
-                    radio_interior.setChecked(false);
-                    radio_exterior.setChecked(false);
-                    layout_interior.setVisibility(View.GONE);
-                    layout_exterior.setVisibility(View.GONE);
-                    layout_backyard.setVisibility(View.VISIBLE);
-                }
-                break;
-//            case R.id.project_description_edit_text:
-//                if (checked) {
-//                    layout_description.setVisibility(View.VISIBLE);
-//                }
-        }
 
 
-    }
-    /*
-    above here was jakub's work.
-    below is the firebase part.
-    type something is the part three of the estimate and click send.
-    the method below is nvoked after clicking the send button in estimate page.
-     */
+
+
 
     View.OnClickListener sendListener = new View.OnClickListener() {
         @Override
@@ -524,4 +363,28 @@ public class EstimateActivity extends AppCompatActivity {
 
 //---------------------------------------------------------------------
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+
+            Uri uri = data.getData();
+
+            //TODO: add random name instead of last path .child(uri.getLastPathSegment())
+//            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery")
+//                    .child(contractorID).child(uri.getLastPathSegment());
+//            StorageReference filePath = galleryImg.child(contractorID);
+
+            //TODO: add picture to the list not on top of another
+
+            uploadRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Glide.with(EstimateActivity.this).using(new FirebaseImageLoader()).load(uploadRef).into(mImageView);
+                }
+            });
+        }
+    }
 }
