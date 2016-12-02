@@ -27,18 +27,18 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <EditText
-                android:layout_width="250dp"
                 android:id="@+id/searchBarInList_ID"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:textSize="20sp"
                 android:hint="Search"
-                android:textColor="@android:color/holo_orange_light" />
+                android:textColor="@android:color/holo_orange_light"
+                android:layout_width="270dp" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/searchButtonInList"
                 android:background="@drawable/places_ic_search"
                 android:allowUndo="false"

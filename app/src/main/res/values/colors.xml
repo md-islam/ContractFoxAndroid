@@ -2,6 +2,8 @@
 <resources>
     <color name="colorPrimary">@color/deepOrange_700</color>
     <color name="colorPrimaryDark">@color/deepOrange_500</color>
+    <color name="white">#ffffff</color>
+
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">@color/deepOrange_500</color>
@@ -9,5 +11,6 @@
     <color name="deepOrange_500">#FF5722</color>
     <color name="deepOrange_700">#E64A19</color>
 
+    <color name="lightOrange">#f4805b</color>
 
 </resources>

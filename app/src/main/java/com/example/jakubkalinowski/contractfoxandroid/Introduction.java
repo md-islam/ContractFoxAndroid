@@ -3,6 +3,7 @@ package com.example.jakubkalinowski.contractfoxandroid;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +16,6 @@ public class Introduction extends AppCompatActivity {
 
     ViewPager viewPager;
     CustomSwipeAdapter adapter;
-
     Button signUp;
 //    TextView textView;
 //    TextView textView2;
@@ -28,6 +28,9 @@ public class Introduction extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new CustomSwipeAdapter(this);
         viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(viewPager, true);
 
         signUp = (Button)findViewById(R.id.signUp);
 //        textView = (TextView) findViewById(R.id.title_ID);
@@ -71,5 +74,3 @@ public class Introduction extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-

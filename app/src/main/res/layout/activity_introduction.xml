@@ -65,7 +65,7 @@
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"
         android:layout_marginTop="457dp"
-        />
+        android:id="@+id/view2" />
 
     <!--Static Content-->
     <Button
@@ -77,5 +77,17 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_border"
         android:text="Sign In / Sign Up"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabDots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        android:layout_alignBottom="@+id/signUp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="52dp" />
 
 </RelativeLayout>
