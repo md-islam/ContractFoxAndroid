@@ -1,21 +1,17 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +19,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.jakubkalinowski.contractfoxandroid.interfaces.Communicator;
-
-import java.util.regex.Pattern;
 
 public class registerActivity extends AppCompatActivity implements Communicator {
 
@@ -77,6 +71,8 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         mPassword = (EditText) findViewById(R.id.password);
         mRepeatPassword = (EditText) findViewById(R.id.repeat_password);
         mNextButton = (Button) findViewById(R.id.next_button_register_activity);
+
+        mNextButton.setTextColor(Color.WHITE);
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
