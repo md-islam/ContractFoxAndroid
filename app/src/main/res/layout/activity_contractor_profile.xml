@@ -254,17 +254,17 @@
 
                 <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
 
-                <Button
-                    android:id="@+id/aprofile_message_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:background="#3234AD"
-                    android:text="@string/message_button"
-                    android:textColor="#ffffff"
-                    android:textAlignment="center"
-                    android:textSize="18dp"/>
+                <!--<Button-->
+                    <!--android:id="@+id/aprofile_message_button"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+                    <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+                    <!--android:background="#3234AD"-->
+                    <!--android:text="@string/message_button"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textSize="18dp"/>-->
 
                 <!-- BUTTONS AND FRAGMENT REFERENCES -->
                 <LinearLayout
