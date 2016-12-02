@@ -238,47 +238,47 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //        }
 
         availabilityButton = (Button)findViewById(R.id.availability);
-    estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
+        estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
 //        messageButton = (Button) findViewById(R.id.aprofile_message_button);
-    callButton = (LinearLayout) findViewById(R.id.acall_button);
+        callButton = (LinearLayout) findViewById(R.id.acall_button);
 //    directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
-    websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
-    skillsButton = (LinearLayout)findViewById(R.id.askills_button);
-    reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
-    picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
+        websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
+        skillsButton = (LinearLayout)findViewById(R.id.askills_button);
+        reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+        picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
-    availabilityButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
-            Fragment fragment = new ContractorScheduleFragment();
-            //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.displayArea_ID, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-    });
+        availabilityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
+                Fragment fragment = new ContractorScheduleFragment();
+                //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.displayArea_ID, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
-    estimateButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
-            String [] id = {contractorID };
-            i.putExtra("id", id) ;
-            startActivity(i);
-        }
-    });
+        estimateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+                String [] id = {contractorID };
+                i.putExtra("id", id) ;
+                startActivity(i);
+            }
+        });
 
-    callButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse(phoneInput));
-            startActivity(intent);
-        }
-    });
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(phoneInput));
+                startActivity(intent);
+            }
+        });
 
 //    directionsButton.setOnClickListener(new View.OnClickListener() {
 //        @Override
@@ -288,46 +288,46 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //        }
 //    });
 
-    websiteButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        websiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
-                webInput = "http://" + webInput;
+                if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
+                    webInput = "http://" + webInput;
+                }
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(webInput));
+                startActivity(i);
             }
+        });
 
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(webInput));
-            startActivity(i);
-        }
-    });
+        skillsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
+                //TODO: debug here!!!
+                i.putExtra("id",contractorID);
+                startActivity(i);
+            }
+        });
 
-    skillsButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
-            //TODO: debug here!!!
-            i.putExtra("id",contractorID);
-            startActivity(i);
-        }
-    });
+        reviewsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCreateReviewDialog();
+            }
+        });
 
-    reviewsButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onCreateReviewDialog();
-        }
-    });
-
-    picGalleryButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(ContractorProfileActivity.this, PicGalleryActivity.class);
-            i.putExtra("id", contractorID);
-            startActivity(i);
-        }
-    });
-}
+        picGalleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ContractorProfileActivity.this, PicGalleryActivity.class);
+                i.putExtra("id", contractorID);
+                startActivity(i);
+            }
+        });
+    }
 
     public Dialog onCreateReviewDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContractorProfileActivity.this);

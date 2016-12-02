@@ -57,6 +57,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:background="@drawable/introduction_background"
                     android:orientation="horizontal">
 
                     <!--<de.hdodenhof.circleimageview.CircleImageView-->
