@@ -58,6 +58,7 @@ public class DrawerActivity extends AppCompatActivity
     boolean notContractor = false ;
     NavigationView navigationView;
     Menu nav_Menu;
+    TextView customerName ;
     public static String currentUserId ;
     static String currentUserFirstName  ="kladimer";
     LinearLayout tab1, tab2, tab3, tab4 ;
@@ -73,7 +74,7 @@ public class DrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_drawer);
 
 
-
+        customerName = (TextView) findViewById(R.id.customerName1);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         searchButton = (Button) findViewById(R.id.mainSearchButton);
         searchButton.setOnClickListener(searchListerner);
@@ -118,6 +119,8 @@ public class DrawerActivity extends AppCompatActivity
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                  //  customerName.setText(dataSnapshot.child("firstName").toString());
                                     Log.d("contractorhere" , " before if");
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
                                         //need null handlers here
