@@ -21,11 +21,12 @@ public class Contractor extends Member {
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, Address mAddress,
                       String briefDescription, ArrayList<String> skillSet,
-                      String businessWebsiteURL, int overAllrating) {
+                      String businessWebsiteURL, int overAllrating, String companyName) {
         super(firstname, lastname, email, phoneNo, contractorOption, mAddress , overAllrating);
         this.briefDescription = briefDescription;
         this.skillSet = skillSet;
         this.businessWebsiteURL = businessWebsiteURL;
+        this.companyName = companyName;
     }
 
     public String getBriefDescription() {
