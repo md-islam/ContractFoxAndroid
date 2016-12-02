@@ -37,14 +37,18 @@ public class PicGalleryActivity extends AppCompatActivity {
     private ImageView picture3;
     private ImageView picture4;
 
-
+    private ImageView[] images;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference galleryImg;
+    private StorageReference afterGalleryImg;
 
+    String uri = "ladimer";
     private ImageView mGalleryPic;
     private Bitmap mGalleryPicBitmap;
+
+    private Boolean before;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,14 @@ public class PicGalleryActivity extends AppCompatActivity {
 //        listView = (ListView) findViewById(R.id.listView);
         picture = (ImageView) findViewById(R.id.pictureView);
         picture2 = (ImageView) findViewById(R.id.pictureView2);
-        picture3 = (ImageView) findViewById(R.id.pictureView3);
-        picture4 = (ImageView) findViewById(R.id.pictureView4);
+//        picture3 = (ImageView) findViewById(R.id.pictureView3);
+//        picture4 = (ImageView) findViewById(R.id.pictureView4);
 
+//        images = new ImageView[3];
+//        images[0]=picture;
+//        images[1]=picture2;
+//        images[2]=picture3;
+//        images[3]=picture4;
 
         // Instantiating an adapter to store each image
 //        ImageListAdapter adapter = new ImageListAdapter(getParent(),)
@@ -69,6 +78,10 @@ public class PicGalleryActivity extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
+//        uri = savedInstanceState.getString("uri");
+        before = savedInstanceState.getBoolean("before");
+
+//        Uri myUri = Uri.parse(uri);
 //        contractorID = getIntent().getExtras().getString("id");
         Log.i("contID-:", contractorID);
         System.out.println("*********************************** contractor id is: "+contractorID);
@@ -104,27 +117,55 @@ public class PicGalleryActivity extends AppCompatActivity {
 ////////        Picasso.with(PicGalleryActivity.this).load(dataUri).into(picture);
 
 //        galleryImg = storageRef.child("Before&AfterPictureGallery/"+contractorID);
+
+
+//        galleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID+"/img");
+
         galleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID+"/img");
-        // Picasso or Glide
-        Glide.with(PicGalleryActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(galleryImg)
-                .into(picture);
+        afterGalleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID+"/img2");
+//        int size = 3;
+//
+//        for (int i=0;i<size;i++){
 
-        Glide.with(PicGalleryActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(galleryImg)
-                .into(picture2);
+//        if (before == true){
+            Glide.with(PicGalleryActivity.this)
+                    .using(new FirebaseImageLoader())
+                    .load(galleryImg)
+                    .into(picture);
+//        } else {
+            Glide.with(PicGalleryActivity.this)
+                    .using(new FirebaseImageLoader())
+                    .load(afterGalleryImg)
+                    .into(picture2);
+//        }
 
-        Glide.with(PicGalleryActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(galleryImg)
-                .into(picture3);
-
-        Glide.with(PicGalleryActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(galleryImg)
-                .into(picture4);
+//            galleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID+"/img");
+//            Glide.with(PicGalleryActivity.this)
+//                    .using(new FirebaseImageLoader())
+//                    .load(galleryImg)
+//                    .into(picture);
+//        }
+//
+//        // Picasso or Glide
+//        Glide.with(PicGalleryActivity.this)
+//                .using(new FirebaseImageLoader())
+//                .load(galleryImg)
+//                .into(picture);
+//
+//        Glide.with(PicGalleryActivity.this)
+//                .using(new FirebaseImageLoader())
+//                .load(galleryImg)
+//                .into(picture2);
+//
+//        Glide.with(PicGalleryActivity.this)
+//                .using(new FirebaseImageLoader())
+//                .load(galleryImg)
+//                .into(picture3);
+//
+//        Glide.with(PicGalleryActivity.this)
+//                .using(new FirebaseImageLoader())
+//                .load(galleryImg)
+//                .into(picture4);
 
 
 //TOOK OUT FOR TESTING

@@ -246,19 +246,36 @@
                         <!--android:name="com.google.android.gms.maps.MapFragment"-->
 
                         <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                         <Button
-                            android:id="@+id/add_image_to_gallery_button"
+                            android:layout_weight="1"
+                            android:id="@+id/add_before_image_to_gallery_button"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:text="Add Before &amp; Afrer Images"
+                            android:text="Add Before Images"
                             android:textColor="#ffffff"
                             android:textAlignment="center"
                             android:background="@drawable/button_border"
                             android:textSize="18dp"/>
 
+                        <Button
+                            android:layout_weight="1"
+                            android:id="@+id/add_after_image_to_gallery_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
+                            android:text="Add Afrer Images"
+                            android:textColor="#ffffff"
+                            android:textAlignment="center"
+                            android:background="@drawable/button_border"
+                            android:textSize="18dp"/>
+</LinearLayout>
                         <!-- BUTTONS AND FRAGMENT REFERENCES -->
                         <LinearLayout
                             android:layout_width="match_parent"

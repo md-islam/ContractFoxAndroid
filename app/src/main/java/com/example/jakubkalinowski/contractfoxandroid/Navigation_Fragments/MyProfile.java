@@ -85,7 +85,7 @@ public class MyProfile extends Fragment {
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton,
             galleryButton;
 
-    private Button mAddImageToGallery;
+    private Button mAddBeforeImageToGallery, mAddAfterImageToGallery;
 
     // picture gallery storage reference
 //    private StorageReference mStorageReference;
@@ -111,13 +111,15 @@ public class MyProfile extends Fragment {
 
     private String contractorID = DrawerActivity.currentUserId;
 
-
+    private int i=0;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference galleryImg;
     //    private StorageReference pathReference = storageRef.child("Before&AfterPictureGallery/1.jpg");
     private StorageReference filePath;
+    private Boolean before ;
+
     public MyProfile() {
         // Required empty public constructor
     }
@@ -331,11 +333,13 @@ public class MyProfile extends Fragment {
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
 
-        mAddImageToGallery = (Button)view.findViewById(R.id.add_image_to_gallery_button);
+        mAddBeforeImageToGallery = (Button)view.findViewById(R.id.add_before_image_to_gallery_button);
+        mAddAfterImageToGallery = (Button)view.findViewById(R.id.add_after_image_to_gallery_button);
         websiteButton = (LinearLayout) view.findViewById(R.id.website_button);
         skillsButton = (LinearLayout) view.findViewById(R.id.skills_button);
         reviewsButton = (LinearLayout) view.findViewById(R.id.reviews_button);
         galleryButton = (LinearLayout) view.findViewById(R.id.pic_gallery_button);
+
 
 //        mImageView1 = (ImageView) view.findViewById(R.id.gallery_image1);
 //        mImageView2 = (ImageView) view.findViewById(R.id.gallery_image2);
@@ -353,14 +357,26 @@ public class MyProfile extends Fragment {
             }
         });
 
-        mAddImageToGallery.setOnClickListener(new View.OnClickListener(){
+        mAddBeforeImageToGallery.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
                 Intent i = new Intent(Intent.ACTION_PICK);
-
+                before = true;
                 i.setType("image/*");
+//                i.putExtra("before", before);
+                startActivityForResult(i, GALLERY_INTENT);
+            }
+        });
 
+        mAddAfterImageToGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent i = new Intent(Intent.ACTION_PICK);
+                before = false;
+                i.setType("image/*");
+//                i.putExtra("before", before);
                 startActivityForResult(i, GALLERY_INTENT);
             }
         });
@@ -465,10 +481,22 @@ public class MyProfile extends Fragment {
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
+//            Bundle b = data.getExtras();
+//            before = b.getBoolean("before");
+
+
+
             mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
             mProgressDialog.show();
 
-            Uri uri = data.getData();
+            final Uri uri = data.getData();
+
+            if (before == true){
+                filePath = galleryImg.child("img");
+            } else {
+                filePath = galleryImg.child("img2");
+            }
+
 
             //TODO: add random name instead of last path .child(uri.getLastPathSegment())
 //            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery")
@@ -476,18 +504,20 @@ public class MyProfile extends Fragment {
 //            StorageReference filePath = galleryImg.child(contractorID);
 
             //TODO: add picture to the list not on top of another
-
-            filePath = galleryImg.child("img");
+//             i=0;
+//                filePath = galleryImg.child("img");
 
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+//                    i++;
                     mProgressDialog.dismiss();
 
                     Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
                     i.putExtra("id", contractorID);
-
+                    i.putExtra("before", before);
+//                    i.putExtra("uri", uri.toString());
                     startActivity(i);
 
                 }
