@@ -250,7 +250,7 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                         Member new_homeOwner_member = new Homeowner(mFirstNameValueFromPrevious,
                                 mLastNameValueFromPrevious, mEmailValueFromPrevious,
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address);
-                        mDatabase.child("usersInChat").child(signedIn_userID_key).
+                        mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_homeOwner_member);
                         mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
                     } else {
