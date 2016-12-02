@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -17,12 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +34,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 
@@ -47,14 +51,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
     DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
-   Fragment fragment = new ContractorScheduleFragment();
+    Fragment fragment = new ContractorScheduleFragment();
     String param = "kj";
     private static final String TAG = "Firebase_TAG!!" ;
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
-
-
 
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
@@ -69,7 +71,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     //UI component variables
     private Button estimateButton, messageButton, availabilityButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
-    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton;
+    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
 
     public String urlAddress;
 
@@ -79,17 +81,21 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);
+    private String addressInput, phoneInput, webInput, companyInput, briefDesc;
+    private TextView briefDescription;
+
     //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
-    public Boolean getOption() {
-        return option;
-    }
+    private String street, unitNo, city, state, zipcode;
 
-    public void setOption(Boolean option) {
-        this.option = option;
-    }
+    private FirebaseStorage storage;
+
+    private StorageReference mProfilePicPath;
+    private StorageReference mLogoImagesPath;
+
+    private ImageView profilePicture, logoPicture;
 
     public ContractorProfileActivity(){
 
@@ -118,6 +124,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
        here you can make a quick call to db to get what you want. no going over a list. you have the id.
          */
 
+        storage = FirebaseStorage.getInstance();
 
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
             @Override
@@ -148,61 +155,74 @@ public class ContractorProfileActivity extends AppCompatActivity {
             }
         });
 
+        address = (TextView) findViewById(R.id.address_string);
+        phoneNumber = (TextView) findViewById(R.id.call_text);
+        companyName = (TextView) findViewById(R.id.company_name);
+        website = (TextView) findViewById(R.id.website_url);
+        briefDescription = (TextView) findViewById(R.id.brief_description_layout);
+        profilePicture = (ImageView)findViewById(R.id.profile_fragment_picture);
+        logoPicture = (ImageView)findViewById(R.id.logo_fragment_picture);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+        // Download profile picture
+        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
+        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mProfilePicPath)
+                .into(profilePicture);
+
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mLogoImagesPath)
+                .into(logoPicture);
+
+        mFirebaseDatabaseReference
+                .child("users").child(contractorID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child("contractorOption").getValue().equals(true)) {
+
+                            briefDesc = dataSnapshot.child("briefDescription").getValue().toString();
+                            briefDescription.setText(briefDesc);
+
+                            street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
+                            unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
+                            city = dataSnapshot.child("address").child("city").getValue().toString();
+                            state = dataSnapshot.child("address").child("state").getValue().toString();
+                            zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+
+                            if (unitNo.equals(null)){
+                                addressInput = street+", "+city+", "+state+zipcode;
+                            } else {
+                                addressInput = street+", "+unitNo+", "+city+", "+state+", "+zipcode;
+                            }
+
+                            address.setText(addressInput);
+
+                            phoneInput = dataSnapshot.child("phoneNo").getValue().toString();
+                            phoneNumber.setText(phoneInput);
+
+                            companyInput = dataSnapshot.child("firstName").getValue().toString();
+                            companyName.setText(companyInput);
+
+                            webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
+                            website.setText(webInput);
+
+                            //miles.setText();
+
+                            urlAddress = webInput;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
-                if (user != null) {
-                    // User is signed in
-
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    mFirebaseDatabaseReference
-                            .child("usersInChat").child(user.getUid().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)) {
-
-                                        //need null handlers here
-                                        Contractor m = dataSnapshot.getValue(Contractor.class);
-
-//                                        option = true;
-                                        setOption(true);
-
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        companyName.setText(m.getBusinessWebsiteURL());
-                                        website.setText(m.getBusinessWebsiteURL());
-                                        //miles.setText();
-                                        urlAddress = m.getBusinessWebsiteURL();
-
-                                    } else {
-                                        Homeowner m = (Homeowner) dataSnapshot.getValue(Homeowner.class);
-
-//                                        option = false;
-                                        setOption(false);
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        //fullName.setText(m.getFullName().toString());
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-
-            }
-        };
 
 //        if (savedInstanceState == null) {
 //            // Create the detail fragment and add it to the activity
@@ -217,92 +237,97 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
-        availabilityButton = (Button) findViewById(R.id.availability);
-        estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
-        //messageButton = (Button) findViewById(R.id.aprofile_message_button);
-        callButton = (LinearLayout) findViewById(R.id.acall_button);
-        directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
-        websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
-        skillsButton = (LinearLayout)findViewById(R.id.askills_button);
-        reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
-        ratingForContractor = (RatingBar) findViewById(R.id.ratingBar) ;
-        ratingForContractor.setRating(overAllrating);
+        availabilityButton = (Button)findViewById(R.id.availability);
+    estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
+//        messageButton = (Button) findViewById(R.id.aprofile_message_button);
+    callButton = (LinearLayout) findViewById(R.id.acall_button);
+//    directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
+    websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
+    skillsButton = (LinearLayout)findViewById(R.id.askills_button);
+    reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+    picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
+    availabilityButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
+            Fragment fragment = new ContractorScheduleFragment();
+            //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.displayArea_ID, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    });
 
-        availabilityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
-                Fragment fragment = new ContractorScheduleFragment();
-              //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.displayArea_ID, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+    estimateButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
+            String [] id = {contractorID };
+            i.putExtra("id", id) ;
+            startActivity(i);
+        }
+    });
+
+    callButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse(phoneInput));
+            startActivity(intent);
+        }
+    });
+
+//    directionsButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent i = new Intent(ContractorProfileActivity.this, MapsActivity.class);
+//            startActivity(i);
+//        }
+//    });
+
+    websiteButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
+                webInput = "http://" + webInput;
             }
-        });
 
-        estimateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
-                String [] id = {contractorID };
-                i.putExtra("id", id) ;
-                startActivity(i);
-            }
-        });
-//
-//        messageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent i = new Intent(ContractorProfileActivity.this, MessageActivity.class);
-////                startActivity(i);
-//            }
-//        });
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(webInput));
+            startActivity(i);
+        }
+    });
 
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "8453327029"));
-                startActivity(intent);            }
-        });
+    skillsButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
+            //TODO: debug here!!!
+            i.putExtra("id",contractorID);
+            startActivity(i);
+        }
+    });
 
-//        directionsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(ContractorProfileActivity.this, MapsActivity.class);
-//                startActivity(i);
-//            }
-//        });
+    reviewsButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onCreateReviewDialog();
+        }
+    });
 
-        websiteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(urlAddress));
-                startActivity(intent);
-            }
-        });
-
-        skillsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ContractorProfileActivity.this, SkillSetActivity.class);
-                startActivity(i);
-            }
-        });
-
-        reviewsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              onCreateReviewDialog();
-            }
-        });
-
-    }
-
+    picGalleryButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(ContractorProfileActivity.this, PicGalleryActivity.class);
+            i.putExtra("id", contractorID);
+            startActivity(i);
+        }
+    });
+}
 
     public Dialog onCreateReviewDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContractorProfileActivity.this);
@@ -319,13 +344,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
         final EditText description = new EditText(getApplicationContext());
         description.setHint("Description");
         description.setMinHeight(150);
-       // description.setBackgroundResource(R.drawable.border);
+        // description.setBackgroundResource(R.drawable.border);
         description.setHintTextColor(0xFFBCBCBC);
         description.setTextColor(0xFFBCBCBC);
 
         rb.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
 
-       // description.setLayoutParams(etm);
+        // description.setLayoutParams(etm);
 
 
 //        Button send = new Button(getApplicationContext());
@@ -356,7 +381,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private void saveReviewInDB(String description , double numOfStars) {
 
         String currentReviewerUserId = DrawerActivity.currentUserId ; //this is the current user id.
-       // contractorID is a string variable available in this activity. it is being passed from previous activity.
+        // contractorID is a string variable available in this activity. it is being passed from previous activity.
         //
         String firebasePushKey = mFirebaseDatabaseReference.child("contractor_reviews").push().
                 getKey();
@@ -375,12 +400,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 setValue(contractorUserRatingCount/count) ;
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
-        //current user id--> reviwer
-        //reviewee id -->
-        //timestamp
-        //description and number of starts
-
     }
-
 
 }
