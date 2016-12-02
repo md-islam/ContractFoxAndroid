@@ -119,7 +119,7 @@ public class MyProfile extends Fragment {
     //    private StorageReference pathReference = storageRef.child("Before&AfterPictureGallery/1.jpg");
     private StorageReference filePath;
     private Boolean before ;
-
+    private String webInput;
     public MyProfile() {
         // Required empty public constructor
     }
@@ -381,6 +381,20 @@ public class MyProfile extends Fragment {
             }
         });
 
+        websiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
+                    webInput = "http://" + webInput;
+                }
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(webInput));
+                startActivity(i);
+            }
+        });
+
         storage = FirebaseStorage.getInstance();
 //        mAuth = FirebaseAuth.getInstance();
 //        mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -424,7 +438,9 @@ public class MyProfile extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                contractorID = user.getUid().toString();
+//                contractorID = user.getUid().toString();
+
+                contractorID = DrawerActivity.currentUserId;
 
                 if (user != null) {
                     // User is signed in
@@ -445,7 +461,8 @@ public class MyProfile extends Fragment {
                             companyName.setText(m.getCompanyName());
                             website.setText(m.getBusinessWebsiteURL());
                             //miles.setText();
-                            isContractor = true;
+                            webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
+                            website.setText(webInput);
 
                         }
                         else{
@@ -454,8 +471,6 @@ public class MyProfile extends Fragment {
                             address.setText(m.getAddress().toString());
                             phoneNumber.setText(m.getPhoneNo());
                             //fullName.setText(m.getFullName().toString());
-
-                            isContractor = false;
                         }
                     }
                     @Override

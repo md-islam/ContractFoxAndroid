@@ -223,6 +223,14 @@
                             <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/bathroom_skill"
+                                android:id="@+id/checkbox_bedroom"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="30dp"/>
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="@string/garage_skill"
                                 android:id="@+id/checkbox_garage"
                                 android:layout_marginLeft="200dp"
@@ -231,8 +239,8 @@
                             <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/general_skill"
-                                android:id="@+id/checkbox_generalroom"
+                                android:text="@string/living_room_skill"
+                                android:id="@+id/checkbox_livingroom"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="60dp"/>
 
@@ -244,13 +252,13 @@
                                 android:layout_marginLeft="200dp"
                                 android:layout_marginTop="60dp"/>
 
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/utility_room"
-                                android:id="@+id/checkbox_utility"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="90dp"/>
+                            <!--<CheckBox-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="@string/utility_room"-->
+                                <!--android:id="@+id/checkbox_utility"-->
+                                <!--android:layout_marginLeft="20dp"-->
+                                <!--android:layout_marginTop="90dp"/>-->
 
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
@@ -396,14 +404,6 @@
                                 android:text="@string/pool_jacuzzi_skill"
                                 android:id="@+id/checkbox_pool_jacuzzi"
                                 android:layout_marginLeft="20dp"
-                                android:layout_marginTop="60dp"/>
-
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/septic_tank_skill"
-                                android:id="@+id/checkbox_septic_tank"
-                                android:layout_marginLeft="200dp"
                                 android:layout_marginTop="60dp"/>
 
                             <CheckBox
