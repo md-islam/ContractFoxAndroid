@@ -93,6 +93,8 @@ public class RecentConversationsListFragment extends Fragment {
                                         if(listChatSessionItem != null){
                                             Map<String, Boolean> usersInChat = listChatSessionItem.getUsersInChat();
                                             usersInChat.remove(mCurrentUserID);
+
+                                            if(usersInChat.entrySet().iterator().hasNext()){
                                             Map.Entry<String,Boolean> entry=usersInChat.entrySet().iterator().next();
                                             final String recipientKey = entry.getKey();
                                             mDatabaseReference.child("users").child(recipientKey).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,6 +114,7 @@ public class RecentConversationsListFragment extends Fragment {
 
                                                 }
                                             });
+                                            }
                                         }
 
                                     }

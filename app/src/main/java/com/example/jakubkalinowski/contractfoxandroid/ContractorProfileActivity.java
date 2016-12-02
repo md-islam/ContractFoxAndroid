@@ -371,7 +371,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 .setValue(review);
 
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").setValue(contractorUserRatingCount/count) ;
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").
+                setValue(contractorUserRatingCount/count) ;
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
         //current user id--> reviwer
