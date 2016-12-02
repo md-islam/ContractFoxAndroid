@@ -1,5 +1,8 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public abstract class Member {
 
     //This is protected because of a bug in Firebase, These variables are accessed in the subclass.
