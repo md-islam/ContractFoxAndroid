@@ -254,10 +254,10 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                                 setValue(new_homeOwner_member);
                         mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
                     } else {
-                        Map<String, Boolean> skillset = new HashMap<>();
+                       ArrayList<String> skillset = new ArrayList<>();
                         if(!mContractorSkillsetValueFromPrevious.isEmpty()){
                             for(String skill : mContractorSkillsetValueFromPrevious){
-                                skillset.put(skill, true);
+                                skillset.add(skill);
                             }
                         }
                         Member new_contractor_member = new Contractor(mFirstNameValueFromPrevious,
@@ -265,8 +265,8 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
                                 mContractorDescriptionValueFromPrevious,
                                 skillset,
-                                mContractorWebsiteValueFromPrevious);
-                        mDatabase.child("usersInChat").child(signedIn_userID_key).
+                                mContractorWebsiteValueFromPrevious , 0);
+                        mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_contractor_member);
 
                         mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);

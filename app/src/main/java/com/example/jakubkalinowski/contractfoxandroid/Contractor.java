@@ -13,16 +13,16 @@ public class Contractor extends Member {
     private String briefDescription;
     private String companyName;
     private String businessWebsiteURL;
-    public Map<String, Boolean> skillSet = new HashMap<>();
+    public ArrayList<String> skillSet = new ArrayList<>();
 
 
     public Contractor() {}
 
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, Address mAddress,
-                      String briefDescription, Map<String, Boolean> skillSet,
-                      String businessWebsiteURL) {
-        super(firstname, lastname, email, phoneNo, contractorOption, mAddress);
+                      String briefDescription, ArrayList<String> skillSet,
+                      String businessWebsiteURL, int overAllrating) {
+        super(firstname, lastname, email, phoneNo, contractorOption, mAddress , overAllrating);
         this.briefDescription = briefDescription;
         this.skillSet = skillSet;
         this.businessWebsiteURL = businessWebsiteURL;
@@ -99,16 +99,16 @@ public class Contractor extends Member {
     }
 
 
-    public  Map<String, Boolean> getSkillSet() {
+    public  ArrayList<String> getSkillSet() {
         return skillSet;
     }
 
-    public void setSkillSet(Map<String, Boolean> skillSet) {
+    public void setSkillSet(ArrayList<String> skillSet) {
         this.skillSet = skillSet;
     }
 
     public void addSkill(String skill) {
-        skillSet.put(skill, true);
+        skillSet.add(skill);
     }
 
     public String getBusinessWebsiteURL() {
