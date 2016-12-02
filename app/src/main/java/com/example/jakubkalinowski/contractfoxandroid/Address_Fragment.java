@@ -101,7 +101,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
     private String TAG = "FirebaseTag";
 
-
     //googleAPI client instance
     private GoogleApiClient mGoogleApiClient;
 
@@ -165,8 +164,8 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                 view.findViewById(R.id.state_wrapper_fragment_homeownerRegisterAddress);
         mZipWrapper = (TextInputLayout)
                 view.findViewById(R.id.zipCode_wrapper_fragment_homeownerRegisterAddress);
-        mAutoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.
-                autocomplete_places_registration_address_fragment);
+//        mAutoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.
+//                autocomplete_places_registration_address_fragment);
 
 
         mStreetAddressWrapper.setHint("Street Address");
@@ -191,13 +190,13 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
 
 
         //--GOOGLE MAPS AUTO COMPLETE --[START]
-        mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
-        mAdapter = new PlaceAutocompleteAdapter(getActivity(), mGoogleApiClient,
-                BOUNDS_USA, new AutocompleteFilter.Builder()
-                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
-                .build());
-
-        mAutoCompleteTextView.setAdapter(mAdapter);
+//        mAutoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
+//        mAdapter = new PlaceAutocompleteAdapter(getActivity(), mGoogleApiClient,
+//                BOUNDS_USA, new AutocompleteFilter.Builder()
+//                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+//                .build());
+//
+//        mAutoCompleteTextView.setAdapter(mAdapter);
 
         //--GOOGLE MAPS AUTO COMPLETE --[END]
 

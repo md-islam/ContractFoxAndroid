@@ -119,6 +119,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         contractorID = savedInstanceState.getString("id");
         overAllrating = savedInstanceState.getFloat("overAllrating");
 
+
         Log.d("xyz-prof", contractorID);// yay it worked.
 
         storage = FirebaseStorage.getInstance();

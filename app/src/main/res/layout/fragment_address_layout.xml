@@ -37,13 +37,13 @@
                     android:inputType="textPostalAddress"/>
             </android.support.design.widget.TextInputLayout>
 
-            <AutoCompleteTextView
-                android:id="@+id/autocomplete_places_registration_address_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:hint="google_maps_autocomplete"
-                android:singleLine="true" />
+            <!--<AutoCompleteTextView-->
+                <!--android:id="@+id/autocomplete_places_registration_address_fragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:hint="google_maps_autocomplete"-->
+                <!--android:singleLine="true" />-->
 
 
             <android.support.design.widget.TextInputLayout
