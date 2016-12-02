@@ -150,7 +150,6 @@ public class SearchViewListActivity extends AppCompatActivity {
                 if( !contractorFound){
                     Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
                 }
-
             }
         }else{ //search is coming from specific list, or serach bar is DrawerActivity
           generalSerach   = savedInstanceState.getString("serachedItem");
@@ -167,15 +166,14 @@ public class SearchViewListActivity extends AppCompatActivity {
 
                 Log.i("nothingin" , "it is null here");
             }
-
-
         }
 
 
         progressBar = (ProgressBar)findViewById(R.id.progress_ID);
         //fire base stuff. This is where we get the info from firebase
         mAuth = FirebaseAuth.getInstance();
-        progressBar.setVisibility(View.VISIBLE);
+      //
+        //  progressBar.setVisibility(View.VISIBLE);
 
         //// cache stuff below :
         final int maxMemorySzie = (int) Runtime.getRuntime().maxMemory() / 1024;
@@ -219,6 +217,7 @@ public class SearchViewListActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.searchButtonInList);
 
         stars = (RatingBar) findViewById(R.id.ratingStars_ID1);
+       // stars.setIsIndicator(true);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
@@ -249,6 +248,8 @@ public class SearchViewListActivity extends AppCompatActivity {
     }//onCreate
 
     public void searchDB(final boolean haveTheRatingList){
+
+        progressBar.setVisibility(View.VISIBLE);
                     mFirebaseDatabaseReference
                     .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
 
@@ -288,13 +289,13 @@ public class SearchViewListActivity extends AppCompatActivity {
                     Log.d("checkk-", "recycler set");
                     setupRecyclerView((RecyclerView) recyclerView);
 
-
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+
     }
 
 
@@ -332,7 +333,6 @@ public class SearchViewListActivity extends AppCompatActivity {
         private final List<String> mValues;
         private final List<String> mValues2;
         private final List<Float> rate;
-
         private final List<CheckBox> radios = new ArrayList<>();
 
         public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2 ,List<Float> ratings) {
@@ -340,7 +340,6 @@ public class SearchViewListActivity extends AppCompatActivity {
             mValues2 = items2 ;
             rate = ratings ;
         }
-
 
 
         public  void clearList(){
@@ -424,13 +423,13 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
                         intent.putExtra("id", map.get( holder.getAdapterPosition())  );
+                        intent.putExtra("overAllrating" , ratingsList.get(holder.getAdapterPosition()));
                         startActivity(intent);
 
                     }
                 }
             });
         }
-
 
         @Override
         public int getItemCount() {
@@ -460,16 +459,12 @@ public class SearchViewListActivity extends AppCompatActivity {
                 stars = (RatingBar) view.findViewById(R.id.ratingStars_ID1);
                 numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
-
             }
 
             public void getRadio(){
-
             }
         }
         ////////////////////////////////////////////////////////////////////// innner-inner class
-
-
     }// ////////////////end of inner class///////////////////////////////////////////
 
     View.OnClickListener distanceListener = new View.OnClickListener() {

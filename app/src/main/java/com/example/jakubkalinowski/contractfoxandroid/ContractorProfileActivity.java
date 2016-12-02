@@ -43,6 +43,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
+    float overAllrating ;
     DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
@@ -62,6 +63,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private Member m;
     public Boolean option;
     String contractorID ;
+    RatingBar ratingForContractor ;
     private String currentAuthenticatedUserID;
 
     //UI component variables
@@ -102,6 +104,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
+        overAllrating = savedInstanceState.getFloat("overAllrating");
 
         Log.d("xyz-prof", contractorID);// yay it worked.
         //ok jakub here is how you would get anything you want on the clicked user.
@@ -222,6 +225,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
         skillsButton = (LinearLayout)findViewById(R.id.askills_button);
         reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+        ratingForContractor = (RatingBar) findViewById(R.id.ratingBar) ;
+        ratingForContractor.setRating(overAllrating);
+
 
         availabilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,7 +312,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //        TextView textEmail = new TextView(getApplicationContext());
 //        textEmail.setText("Email: ");
         final RatingBar rb = new RatingBar(getApplicationContext());
-        rb.setRating(5);
+        rb.setRating(0);
+
 
 
         final EditText description = new EditText(getApplicationContext());
@@ -366,10 +373,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
         mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").setValue(contractorUserRatingCount/count) ;
         //each contractor id is the parent key and the childs are firebase push key with containing child object
-
-
-
-
 
         //current user id--> reviwer
         //reviewee id -->
