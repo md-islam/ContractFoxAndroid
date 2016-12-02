@@ -13,7 +13,7 @@ public class Homeowner extends Member {
 
     public Homeowner(String firstname, String lastname, String email, String phoneNo,
                      Boolean contractorOption, Address address){
-        super(firstname, lastname, email, phoneNo, contractorOption, address);
+        super(firstname, lastname, email, phoneNo, contractorOption, address , 0);
     }
 
 

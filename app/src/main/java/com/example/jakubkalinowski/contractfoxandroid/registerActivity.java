@@ -207,6 +207,9 @@ public class registerActivity extends AppCompatActivity implements Communicator 
         bundle.putBoolean("typeBoolean", mContractorBoolean);
 
 
+
+
+
         if (mContractorBoolean == true) {
 
             Fragment contractorRegisterFragment = new RegisterContractorFragment();

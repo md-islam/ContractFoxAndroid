@@ -170,7 +170,7 @@ public class ProfileEdit extends Fragment {
 
                     // Profile info edit
                     mFirebaseDatabaseReference
-                            .child("usersInChat").child(DrawerActivity.currentUserId)
+                            .child("users").child(DrawerActivity.currentUserId)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
