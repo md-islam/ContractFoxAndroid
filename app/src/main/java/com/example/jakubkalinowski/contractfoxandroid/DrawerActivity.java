@@ -74,6 +74,7 @@ public class DrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_drawer);
 
 
+
         customerName = (TextView) findViewById(R.id.customerName1);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         searchButton = (Button) findViewById(R.id.mainSearchButton);
@@ -148,8 +149,6 @@ public class DrawerActivity extends AppCompatActivity
 
 
                 }
-
-
 
         //The Drawer will display different items depending on the user being a contractor, or homeowner.
 
