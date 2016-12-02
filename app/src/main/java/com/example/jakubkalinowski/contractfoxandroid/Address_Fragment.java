@@ -265,7 +265,7 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
                                 mContractorDescriptionValueFromPrevious,
                                 skillset,
-                                mContractorWebsiteValueFromPrevious , 0);
+                                mContractorWebsiteValueFromPrevious , 0, mContractorCompanyValueFromPrevious);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_contractor_member);
 
