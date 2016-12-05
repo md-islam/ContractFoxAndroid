@@ -2,7 +2,9 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 //import com.google.firebase.database.IgnoreExtraProperties;
 
-//@IgnoreExtraProperties
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Homeowner extends Member {
 
 
@@ -13,7 +15,7 @@ public class Homeowner extends Member {
 
     public Homeowner(String firstname, String lastname, String email, String phoneNo,
                      Boolean contractorOption, Address address){
-        super(firstname, lastname, email, phoneNo, contractorOption, address);
+        super(firstname, lastname, email, phoneNo, contractorOption, address , 0);
     }
 
 

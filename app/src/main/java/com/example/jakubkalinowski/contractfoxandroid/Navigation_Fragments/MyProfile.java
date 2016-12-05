@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Contractor;
+import com.example.jakubkalinowski.contractfoxandroid.DrawerActivity;
 import com.example.jakubkalinowski.contractfoxandroid.Homeowner;
 import com.example.jakubkalinowski.contractfoxandroid.PicGalleryActivity;
 import com.example.jakubkalinowski.contractfoxandroid.R;
@@ -66,7 +67,7 @@ public class MyProfile extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-//    String param = "kj";
+    //    String param = "kj";
     private static final String TAG = "Firebase_TAG!!" ;
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
@@ -84,7 +85,7 @@ public class MyProfile extends Fragment {
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton,
             galleryButton;
 
-    private Button mAddImageToGallery;
+    private Button mAddBeforeImageToGallery, mAddAfterImageToGallery;
 
     // picture gallery storage reference
 //    private StorageReference mStorageReference;
@@ -108,15 +109,17 @@ public class MyProfile extends Fragment {
     Boolean isContractor;
 
 
-    private String contractorID;
+    private String contractorID = DrawerActivity.currentUserId;
 
-
+    private int i=0;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference galleryImg;
-//    private StorageReference pathReference = storageRef.child("Before&AfterPictureGallery/1.jpg");
+    //    private StorageReference pathReference = storageRef.child("Before&AfterPictureGallery/1.jpg");
     private StorageReference filePath;
+    private Boolean before ;
+    private String webInput;
     public MyProfile() {
         // Required empty public constructor
     }
@@ -143,96 +146,99 @@ public class MyProfile extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        storage = FirebaseStorage.getInstance();
+//        storage = FirebaseStorage.getInstance();
 //        storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com ");
 //        galleryImg = storageRef.child("Before&AfterPictureGallery/"+contractorID);
 
         isContractor = true;
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                contractorID = user.getUid().toString();
-
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-//                    storage = FirebaseStorage.getInstance();
-//                    storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com ");
-                    galleryImg = storage.getReference("Before&AfterPictureGallery/"+contractorID);
-
-                    // Download profile picture
-                    mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
-                    mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
-//                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID);
-//                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID+"/profilePicture.jpeg");
-//                    String profilePic = mProfilePicPath.getDownloadUrl().toString();
-//                    Picasso.with(getActivity()).load(profilePic).into(profilePicture);     TESTING
-
-                    Glide.with(getActivity())
-                            .using(new FirebaseImageLoader())
-                            .load(mProfilePicPath)
-                            .into(profilePicture);
-
-                    Glide.with(getActivity())
-                            .using(new FirebaseImageLoader())
-                            .load(mLogoImagesPath)
-                            .into(logoPicture);
+//        mAuth = FirebaseAuth.getInstance();
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//                contractorID = user.getUid().toString();
+//
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+////                    storage = FirebaseStorage.getInstance();
+////                    storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com ");
+//
+//
+//                    galleryImg = storage.getReference("Before&AfterPictureGallery/"+contractorID);
 
 
-                    // Download logo picture
+//                    // Download profile picture
+//                    mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
+//                    mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+////                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID);
+////                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID+"/profilePicture.jpeg");
+////                    String profilePic = mProfilePicPath.getDownloadUrl().toString();
+////                    Picasso.with(getActivity()).load(profilePic).into(profilePicture);     TESTING
+//                    //Profo --->
+//                    Glide.with(getActivity())
+//                            .using(new FirebaseImageLoader())
+//                            .load(mProfilePicPath)
+//                            .into(profilePicture);
+//                    //logo ---->
+//                    Glide.with(getActivity())
+//                            .using(new FirebaseImageLoader())
+//                            .load(mLogoImagesPath)
+//                            .into(logoPicture);
+
+
+        // Download logo picture
 //                    mLogoImagesPath = FirebaseStorage.getInstance().getReference("logoImages/"+contractorID);
 ////                    mLogoImagesPath = FirebaseStorage.getInstance().getReference("logoImages/"+contractorID+"/logo.jpeg");
 //                    String logo = mLogoImagesPath.getDownloadUrl().toString();
 //                    Picasso.with(getActivity()).load((logo)).into(logoPicture);
 
-                    // Download picture gallery
+        // Download picture gallery
 //                    mStorageReference = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery");
 
-                    // Download profile info
-                    mFirebaseDatabaseReference
-                            .child("users").child(user.getUid().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)){
-
-                                        //need null handlers here
-                                        Contractor m = dataSnapshot.getValue(Contractor.class);
-
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        companyName.setText(m.getCompanyName());
-                                        website.setText(m.getBusinessWebsiteURL());
-                                        //miles.setText();
-                                        isContractor = true;
-
-                                    }
-                                    else{
-                                        Homeowner m = dataSnapshot.getValue(Homeowner.class);
-
-                                        address.setText(m.getAddress().toString());
-                                        phoneNumber.setText(m.getPhoneNo());
-                                        //fullName.setText(m.getFullName().toString());
-
-                                        isContractor = false;
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+//                    // Download profile info
+//                    mFirebaseDatabaseReference
+//                            .child("users").child(user.getUid().toString())
+//                            .addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+//
+//                                        //need null handlers here
+//                                        Contractor m = dataSnapshot.getValue(Contractor.class);
+//
+//                                        address.setText(m.getAddress().toString());
+//                                        phoneNumber.setText(m.getPhoneNo());
+//                                        companyName.setText(m.getCompanyName());
+//                                        website.setText(m.getBusinessWebsiteURL());
+//                                        //miles.setText();
+//                                        isContractor = true;
+//
+//                                    }
+//                                    else{
+//                                        Homeowner m = dataSnapshot.getValue(Homeowner.class);
+//
+//                                        address.setText(m.getAddress().toString());
+//                                        phoneNumber.setText(m.getPhoneNo());
+//                                        //fullName.setText(m.getFullName().toString());
+//
+//                                        isContractor = false;
+//                                    }
+//                                }
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//                } else {
+//                    // User is signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
+//                // ...
+//            }
+//        };
 
     }
 
@@ -245,7 +251,7 @@ public class MyProfile extends Fragment {
 
 //        if (isContractor == true) {
 
-            root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
+        root = inflater.inflate(R.layout.fragment_contractor_profile, container, false);
 //        }else {
 //            root = inflater.inflate(R.layout.fragment_homeowner_profile, container, false);
 //        }
@@ -327,11 +333,13 @@ public class MyProfile extends Fragment {
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
 
-        mAddImageToGallery = (Button)view.findViewById(R.id.add_image_to_gallery_button);
+        mAddBeforeImageToGallery = (Button)view.findViewById(R.id.add_before_image_to_gallery_button);
+        mAddAfterImageToGallery = (Button)view.findViewById(R.id.add_after_image_to_gallery_button);
         websiteButton = (LinearLayout) view.findViewById(R.id.website_button);
         skillsButton = (LinearLayout) view.findViewById(R.id.skills_button);
         reviewsButton = (LinearLayout) view.findViewById(R.id.reviews_button);
         galleryButton = (LinearLayout) view.findViewById(R.id.pic_gallery_button);
+
 
 //        mImageView1 = (ImageView) view.findViewById(R.id.gallery_image1);
 //        mImageView2 = (ImageView) view.findViewById(R.id.gallery_image2);
@@ -349,17 +357,136 @@ public class MyProfile extends Fragment {
             }
         });
 
-        mAddImageToGallery.setOnClickListener(new View.OnClickListener(){
+        mAddBeforeImageToGallery.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
                 Intent i = new Intent(Intent.ACTION_PICK);
-
+                before = true;
                 i.setType("image/*");
-
+//                i.putExtra("before", before);
                 startActivityForResult(i, GALLERY_INTENT);
             }
         });
+
+        mAddAfterImageToGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent i = new Intent(Intent.ACTION_PICK);
+                before = false;
+                i.setType("image/*");
+//                i.putExtra("before", before);
+                startActivityForResult(i, GALLERY_INTENT);
+            }
+        });
+
+        websiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!webInput.startsWith("http://") && !webInput.startsWith("https://")) {
+                    webInput = "http://" + webInput;
+                }
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(webInput));
+                startActivity(i);
+            }
+        });
+
+        storage = FirebaseStorage.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//                contractorID = user.getUid().toString();
+//
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+////                    storage = FirebaseStorage.getInstance();
+////                    storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com ");
+//
+
+
+        galleryImg = storage.getReference("Before&AfterPictureGallery/"+contractorID);
+
+        // Download profile picture
+        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
+        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+//                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID);
+//                    mProfilePicPath = FirebaseStorage.getInstance().getReference("users/"+contractorID+"/profilePicture.jpeg");
+//                    String profilePic = mProfilePicPath.getDownloadUrl().toString();
+//                    Picasso.with(getActivity()).load(profilePic).into(profilePicture);     TESTING
+        //Profo --->
+        Glide.with(getActivity())
+                .using(new FirebaseImageLoader())
+                .load(mProfilePicPath)
+                .into(profilePicture);
+        //logo ---->
+        Glide.with(getActivity())
+                .using(new FirebaseImageLoader())
+                .load(mLogoImagesPath)
+                .into(logoPicture);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+//                contractorID = user.getUid().toString();
+
+                contractorID = DrawerActivity.currentUserId;
+
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+        // Download profile info
+        mFirebaseDatabaseReference
+                .child("users").child(contractorID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child("contractorOption").getValue().equals(true)){
+
+                            //need null handlers here
+                            Contractor m = dataSnapshot.getValue(Contractor.class);
+
+                            address.setText(m.getAddress().toString());
+                            phoneNumber.setText(m.getPhoneNo());
+                            companyName.setText(m.getCompanyName());
+                            website.setText(m.getBusinessWebsiteURL());
+                            //miles.setText();
+                            webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
+                            website.setText(webInput);
+
+                        }
+                        else{
+                            Homeowner m = dataSnapshot.getValue(Homeowner.class);
+
+                            address.setText(m.getAddress().toString());
+                            phoneNumber.setText(m.getPhoneNo());
+                            //fullName.setText(m.getFullName().toString());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+
+            }
+        };
+
+
     }
 
     @Override
@@ -369,29 +496,43 @@ public class MyProfile extends Fragment {
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
+//            Bundle b = data.getExtras();
+//            before = b.getBoolean("before");
+
+
+
             mProgressDialog = ProgressDialog.show(getActivity(), "Uploading ...", "Please wait...", true);
             mProgressDialog.show();
 
-            Uri uri = data.getData();
+            final Uri uri = data.getData();
+
+            if (before == true){
+                filePath = galleryImg.child("img");
+            } else {
+                filePath = galleryImg.child("img2");
+            }
+
 
             //TODO: add random name instead of last path .child(uri.getLastPathSegment())
 //            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery")
 //                    .child(contractorID).child(uri.getLastPathSegment());
 //            StorageReference filePath = galleryImg.child(contractorID);
 
-                    //TODO: add picture to the list not on top of another
-
-            filePath = galleryImg.child("img");
+            //TODO: add picture to the list not on top of another
+//             i=0;
+//                filePath = galleryImg.child("img");
 
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+//                    i++;
                     mProgressDialog.dismiss();
 
                     Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
                     i.putExtra("id", contractorID);
-
+                    i.putExtra("before", before);
+//                    i.putExtra("uri", uri.toString());
                     startActivity(i);
 
                 }

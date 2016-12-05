@@ -2,23 +2,14 @@ package com.example.jakubkalinowski.contractfoxandroid;
 
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,35 +18,31 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
+import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.dummy.DummyContent;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.actions.SearchIntents;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executor;
 
 ///**
 // * An activity representing a list of Items. This activity
@@ -69,6 +56,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
+    boolean contractorFound = false ;
     RadioButton distanceRadio ,reviewRadio ;
     //  private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
@@ -97,11 +85,16 @@ public class SearchViewListActivity extends AppCompatActivity {
     //static List<String> names = new ArrayList<>();
     Button searchButton;
     String searchedContent ;
+
     RatingBar stars ;
     String searchedItem ;
     ProgressBar progressBar ;
     boolean flag = false;
 
+
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private StorageReference imageStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +102,9 @@ public class SearchViewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_searchview_list);
         savedInstanceState = getIntent().getExtras();
         flag = savedInstanceState.getBoolean("flag");
+
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference("ProfilePictures");
 
         //gets the name of the clicked item from the previous activity
         searchBar = (EditText) findViewById(R.id.searchBarInList_ID);
@@ -126,10 +122,14 @@ public class SearchViewListActivity extends AppCompatActivity {
                 for (String s : SearchHelper.houseSections ){
                     if (generalSerach.toLowerCase().contains(s)){
                         searchedItem = s ;
+                        contractorFound =true ;
                         break;
-                    }else{
-                        Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
-                    }
+                    }//else{
+                       // Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
+                   // }
+                }
+                if( !contractorFound){
+                    Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
                 }
             }
         }else{ //search is coming from specific list, or serach bar is DrawerActivity
@@ -142,20 +142,19 @@ public class SearchViewListActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
                 }
             }
-            Log.i("nothingin" , searchedItem);
+         //   Log.i("nothingin" , searchedItem);
             if(searchedItem == null){
 
                 Log.i("nothingin" , "it is null here");
             }
-
-
         }
 
 
         progressBar = (ProgressBar)findViewById(R.id.progress_ID);
         //fire base stuff. This is where we get the info from firebase
         mAuth = FirebaseAuth.getInstance();
-        progressBar.setVisibility(View.VISIBLE);
+      //
+        //  progressBar.setVisibility(View.VISIBLE);
 
         //// cache stuff below :
         final int maxMemorySzie = (int) Runtime.getRuntime().maxMemory() / 1024;
@@ -170,7 +169,7 @@ public class SearchViewListActivity extends AppCompatActivity {
         };
 //
         try{
-            listFromCache = getBitMapFromMemory(searchedItem);
+           // listFromCache = getBitMapFromMemory(searchedItem);
         }catch(Exception e){
             e.printStackTrace();
 
@@ -199,6 +198,7 @@ public class SearchViewListActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.searchButtonInList);
 
         stars = (RatingBar) findViewById(R.id.ratingStars_ID1);
+       // stars.setIsIndicator(true);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
@@ -229,15 +229,13 @@ public class SearchViewListActivity extends AppCompatActivity {
     }//onCreate
 
     public void searchDB(final boolean haveTheRatingList){
+
+        progressBar.setVisibility(View.VISIBLE);
                     mFirebaseDatabaseReference
                     .child("users").addListenerForSingleValueEvent (new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                    Log.d("test--", dataSnapshot.getRef().toString()); //gts the url : https://contract-fox.firebaseio.com/users
-                    Log.d("test--" , dataSnapshot.getValue().toString());
 
                     Iterable<DataSnapshot> dataSnapshotsList = dataSnapshot.getChildren();
 
@@ -246,19 +244,15 @@ public class SearchViewListActivity extends AppCompatActivity {
                         //first lets see if member is contractor
                         if (snapshot.child("contractorOption").getValue().equals(true)  ) {
 
-
-
                          //   Log.d("letsseewhat", Double.toHexString(snapshot.child("overAllrating").getValue(Double.class)));
-
-
                             Iterable<DataSnapshot> skillList = snapshot.child("skillSet").getChildren();
+
                             //second for loop for checking if skill is there in the skillSet
                             for( DataSnapshot skill :  skillList){
                                 if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
                                     if(! haveTheRatingList){
                                         ratingsList.add(snapshot.child("overAllrating").getValue(Float.class));
                                     }
-
 
                                     map.put(count , snapshot.getKey());
                                     count++;
@@ -276,13 +270,13 @@ public class SearchViewListActivity extends AppCompatActivity {
                     Log.d("checkk-", "recycler set");
                     setupRecyclerView((RecyclerView) recyclerView);
 
-
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+
     }
 
 
@@ -320,7 +314,6 @@ public class SearchViewListActivity extends AppCompatActivity {
         private final List<String> mValues;
         private final List<String> mValues2;
         private final List<Float> rate;
-
         private final List<CheckBox> radios = new ArrayList<>();
 
         public SimpleItemRecyclerViewAdapter(List<String> items, List<String> items2 ,List<Float> ratings) {
@@ -328,7 +321,6 @@ public class SearchViewListActivity extends AppCompatActivity {
             mValues2 = items2 ;
             rate = ratings ;
         }
-
 
 
         public  void clearList(){
@@ -352,7 +344,12 @@ public class SearchViewListActivity extends AppCompatActivity {
             // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
             holder.numebrOfReviews.setText(mValues2.get(position));
             holder.stars.setRating(rate.get(position));
+           // holder.image.( (ImageView) storageRef.child(map.get(position)).child("profilepic.jpeg")   );
 
+            imageStorage = storage.getReference("ProfilePictures/" +
+                    map.get(position)+"/profilepic.jpeg");
+//            StorageReference imageRef = storageRef.child(map.get(position)).child("profilepic.jpeg");
+            Glide.with(SearchViewListActivity.this).using(new FirebaseImageLoader()).load(imageStorage).into(holder.image);
 
             SearchViewListActivity.fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -407,13 +404,13 @@ public class SearchViewListActivity extends AppCompatActivity {
 
 
                         intent.putExtra("id", map.get( holder.getAdapterPosition())  );
+                        intent.putExtra("overAllrating" , ratingsList.get(holder.getAdapterPosition()));
                         startActivity(intent);
 
                     }
                 }
             });
         }
-
 
         @Override
         public int getItemCount() {
@@ -430,6 +427,7 @@ public class SearchViewListActivity extends AppCompatActivity {
             public final TextView numebrOfReviews;
             public final CheckBox radioButton ;
             public final RatingBar stars ;
+            public final ImageView image ;
             //public final TextView mContentView;
             public DummyContent.DummyItem mItem;
 
@@ -438,19 +436,16 @@ public class SearchViewListActivity extends AppCompatActivity {
                 mView = view;
                 companyName = (TextView) view.findViewById(R.id.companyName_ID);
                 radioButton = (CheckBox) view.findViewById(R.id.radio_ID);
+                image = (ImageView) view.findViewById(R.id.imageForCont);
                 stars = (RatingBar) view.findViewById(R.id.ratingStars_ID1);
                 numebrOfReviews = (TextView) view.findViewById(R.id.numberOfReviewers); //testing here to see if i can access.
                 // mContentView = (TextView) view.findViewById(R.id.content);
-
             }
 
             public void getRadio(){
-
             }
         }
         ////////////////////////////////////////////////////////////////////// innner-inner class
-
-
     }// ////////////////end of inner class///////////////////////////////////////////
 
     View.OnClickListener distanceListener = new View.OnClickListener() {

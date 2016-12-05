@@ -170,7 +170,7 @@ public class ProfileEdit extends Fragment {
 
                     // Profile info edit
                     mFirebaseDatabaseReference
-                            .child("usersInChat").child(DrawerActivity.currentUserId)
+                            .child("users").child(DrawerActivity.currentUserId)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -184,8 +184,8 @@ public class ProfileEdit extends Fragment {
                                         mCityEditText.setText(m.getAddress().getCity());
                                         mPostalCodeEditText.setText(m.getAddress().getZipCode());
                                         mPhoneNumberEditText.setText(m.getPhoneNo());
-                                        mCompanyNameEditText.setText(m.getBusinessWebsiteURL());
-                                        mWebsiteURLEditText.setText(m.getEmailAddress());
+                                        mCompanyNameEditText.setText(m.getCompanyName());
+                                        mWebsiteURLEditText.setText(m.getBusinessWebsiteURL());
                                     }
                                     else{
                                         Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
