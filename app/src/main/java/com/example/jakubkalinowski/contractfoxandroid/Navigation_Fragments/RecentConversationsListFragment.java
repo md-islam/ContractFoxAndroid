@@ -3,12 +3,12 @@ package com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.Activity.ChatListActivity;
@@ -45,6 +45,7 @@ public class RecentConversationsListFragment extends Fragment {
     private RecyclerView mConversationsListRecyclerView;
     //-----VARIABLES LIKE LIST, ADAPTER ETC RELATING TO RECYCELRVIEW [END]------//
 
+    private TextView emptyView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class RecentConversationsListFragment extends Fragment {
         //------INITIALIZING FIREBASE REFERENCE VARIABLES [END]----------//
 
         //-----INITIALIZE AND SET RECYCLERVIEW_RELATED VARIABLES [START]---------//
+        emptyView = (TextView) view.findViewById(R.id.empty_view);
         mConversationsListRecyclerView = (RecyclerView) view.findViewById
                 (R.id.recent_conversationsList_recycler_view);
         mConversationListAdapter = new RecentConverationsRecyclerViewAdapter(mChatSessionList);
@@ -77,7 +79,14 @@ public class RecentConversationsListFragment extends Fragment {
         mConversationsListRecyclerView.setAdapter(mConversationListAdapter);
         //-----INITIALIZE AND SET RECYCLERVIEW_RELATED VARIABLES [END]---------//
 
-
+        if (mChatSessionList.isEmpty()) {
+            mConversationsListRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mConversationsListRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.INVISIBLE);
+        }
         //-------ATTACHING CHILD EVENT LISTENER BECAUSE WE'RE DEALING WITH LISTS[START]----//
         mDatabaseReference.child("users/" + mCurrentUserID + "/chatSessions")
                 .addChildEventListener(new ChildEventListener() {
@@ -185,4 +194,5 @@ public class RecentConversationsListFragment extends Fragment {
                         },
                         mConversationsListRecyclerView));
     }
+
 }
