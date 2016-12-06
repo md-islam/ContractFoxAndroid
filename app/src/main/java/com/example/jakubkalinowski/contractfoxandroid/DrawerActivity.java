@@ -92,16 +92,13 @@ public class DrawerActivity extends AppCompatActivity
         storage = FirebaseStorage.getInstance();
         drawerPicRef = storage.getReference("ProfilePictures/"+currentUserId+"/profilepic.jpeg");
 
-//        mProfilePic = (CircleImageView)header.findViewById(R.id.imageViewDrawer);
         drawerPic = (ImageView)header.findViewById(R.id.imageViewDrawer);
 
         tv = (TextView) header.findViewById(R.id.customerName1);
 
-
         Glide.with(DrawerActivity.this).using(new FirebaseImageLoader()).load(drawerPicRef).into(drawerPic);
 
         customerName = (TextView) findViewById(R.id.customerName1);
-       // navigationView = (NavigationView) findViewById(R.id.nav_view);
         searchButton = (Button) findViewById(R.id.mainSearchButton);
         searchButton.setOnClickListener(searchListerner);
         searchBar = (EditText) findViewById(R.id.searchBar_ID);
@@ -146,16 +143,12 @@ public class DrawerActivity extends AppCompatActivity
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                  //  customerName.setText(dataSnapshot.child("firstName").toString());
                                     Log.d("contractorhere" , " before if");
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
-                                        //need null handlers here
-                                      //  Contractor m = dataSnapshot.getValue(Contractor.class);
                                         tv.setText(dataSnapshot.child("firstName").getValue().toString());
                                         Log.d("contractorhere" , " true now");
                                     }
                                     else{
-                                      //  Homeowner m = (Homeowner)dataSnapshot.getValue(Homeowner.class);
                                         Log.d("contractorhere" , " in else now");
                                         notContractor = true ;
                                         nav_Menu.findItem(R.id.nav_myprofile).setVisible(false);
@@ -175,17 +168,10 @@ public class DrawerActivity extends AppCompatActivity
 
                 }
 
-        //The Drawer will display different items depending on the user being a contractor, or homeowner.
-
-
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-
 
         displayFragment(R.id.homee);
     }
@@ -193,7 +179,6 @@ public class DrawerActivity extends AppCompatActivity
     private void performSearch() {
         Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
         //think of a clever way to reuse code here.
-        // i.putExtra(searchBar.getText().toString() ,true);
         i.putExtra("serachedItem", searchBar.getText().toString());
         i.putExtra("flag" , true);
         startActivity(i);
@@ -253,8 +238,6 @@ public class DrawerActivity extends AppCompatActivity
 
         displayFragment(item.getItemId());
 
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -322,7 +305,6 @@ public class DrawerActivity extends AppCompatActivity
 
             Intent i = new Intent(getApplicationContext(), SearchViewListActivity.class);
             //think of a clever way to reuse code here.
-            // i.putExtra(searchBar.getText().toString() ,true);
             i.putExtra("serachedItem", searchBar.getText().toString());
             i.putExtra("flag" , true);
             startActivity(i);

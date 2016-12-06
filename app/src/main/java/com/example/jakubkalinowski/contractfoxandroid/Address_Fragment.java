@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.jakubkalinowski.contractfoxandroid.googleMapsApi.PlaceAutocompleteAdapter;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Places;
@@ -41,15 +43,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 // Packages required for importing google maps API
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 //
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +71,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
     private PlaceAutocompleteAdapter mAdapter;
     private static final LatLngBounds BOUNDS_USA = new LatLngBounds(
             new LatLng(32.6393, -117.004304), new LatLng(44.901184, -67.32254));
-
 
     //registerButton
     private Button mRegisterButton;
@@ -341,9 +336,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
     public void signOutAndFinishFragments() {
         mAuth.signOut();
 
-        //this line of code el
-//        FragmentManager Fm = getActivity().getSupportFragmentManager().beginTransaction().
-//                remove(Address_Fragment.this).commit();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.popBackStack("HomeownerRegisterProfileFragment",
                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -357,7 +349,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         if (loginActivity instanceof LoginActivity) {
             ((LoginActivity) loginActivity).showProfileCreatedSuccessMessage();
         }
-
     }
 
 
@@ -375,7 +366,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         } else {
             ((RegisterHomeownerFragment) getParentFragment()).setTopToolBar();
         }
-
     }
 
 
@@ -444,9 +434,6 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
         if (!validateStreetAddress()) {
             return;
         }
-//        if (!validateAPTUNITinteger()) {
-//            return;
-//        }
         if (!validateCity()) {
             return;
         }

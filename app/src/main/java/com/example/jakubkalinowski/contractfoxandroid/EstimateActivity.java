@@ -49,16 +49,12 @@ public class EstimateActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference().getRoot();
 
-
     CameraPhoto cameraPhoto;
     static String currentUserId ;
     GalleryPhoto galleryPhoto;
 
     final int CAMERA_REQUEST = 12345;
     final int GALLERY_REQUEST = 12345;
-
-    //Text Wrappers
-//    private TextInputLayout mProjectTitleWrapper, mItemAreaSpecsWrapper, mDetailDescriptionWrapper;
 
     private EditText project_title, project_description, mitemAreaDimensionsEditText;
 
@@ -129,8 +125,6 @@ public class EstimateActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             currentUserId = user.getUid();
-//            Log.i("ladimmm" ,user.getDisplayName());
-//            Log.i("ladimmm" ,currentUserId);
         } else {
             // No user is signed in
             Log.i("ladimmm" ,"not signed in !!");
@@ -152,29 +146,13 @@ public class EstimateActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
         send = ( Button)findViewById(R.id.sendButton);
 
         send.setOnClickListener( sendListener );
 
-
-//        mProjectTitleWrapper = (TextInputLayout)findViewById(R.id.project_title_text_wrapper);
-//        mItemAreaSpecsWrapper = (TextInputLayout)findViewById(R.id.item_area_specs_text_wrapper);
-//        mDetailDescriptionWrapper = (TextInputLayout)findViewById(R.id.detail_description_text_wrapper);
-
         project_title = (EditText) findViewById(R.id.project_title_edit_text);
         mitemAreaDimensionsEditText = (EditText) findViewById(R.id.item_area_specs_edit_text);
         project_description = (EditText)findViewById(R.id.detail_description_edit_text);
-
-
-
-
-
 
         //----- STEP 2 -----
 
@@ -223,19 +201,7 @@ public class EstimateActivity extends AppCompatActivity {
         } else {
             textView2.setText(switchOff);
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     View.OnClickListener sendListener = new View.OnClickListener() {
         @Override
@@ -261,8 +227,6 @@ public class EstimateActivity extends AppCompatActivity {
                 meta_description_data.concat("\n"+materialDeliverySwitchNo);
             }
 
-
-
             //New stuff from MD
             //Chat session
             //--------------------STEP 1-------CREATE A CHAT SESSION UNDER FOR USERS---------------//
@@ -276,8 +240,6 @@ public class EstimateActivity extends AppCompatActivity {
             ChatSession chatSession = new ChatSession(dateMap,chatSessionKey,
                     membersMap, project_title.getText().toString(), description.concat(meta_description_data), dateMap);
 
-
-//            chatSession.setUsersInChat(membersMap);
             mFirebaseDatabaseReference.child("chatSessions").child(chatSessionKey).
                     setValue(chatSession);
             //------------------STEP 1 ----------------------------------//
@@ -302,61 +264,8 @@ public class EstimateActivity extends AppCompatActivity {
             mFirebaseDatabaseReference.child("users").updateChildren(chatSessionIds);
             //-------------------------Step 3-----------------------------------------------------//
 
-
-
-
-//////////////////////this part is done. Each user is apporpiraitely updated ////////////////////////////////
-            //messageReference update below:
-//            Map<String, Object> messageReference = new HashMap<>();
-//            messageReference.put(currentUserId, "");
-//            messageReference.put(ContracoorIds[0], "");
-//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(messageReference);
-//////////////////////this part is done. IDs are added as immidiate children of message references.  ////////////////////////////////
-
-
-//            Map<String , Object> reciverMesList = new HashMap<>();
-//            Map<String , Object> senderMesList = new HashMap<>();
-
-            /*
-            the value in the map is being put with a slash to avoid dta to be replaced when i use update children.
-            but id didnt work. it needs some tweaking.
-            IMPORTANT: check out the link below to understand why i use the slash and fix it possibly.
-            https://firebase.google.com/docs/database/admin/save-data
-            remember ContracoorIds[0] will be the first and only one in the list if you only checked on e contractor from the list of contractors.
-            you could use a loop to go through all of them to implement messaging multiple contractors.
-            for now focus on one to one. it is scalable.
-             */
-//            senderMesList.put(ContracoorIds[0]+"/"+currentUserId , sendersName); //this value ---
-//
-//            senderMesList.put(currentUserId+"/"+ContracoorIds[0] ,receiverName);//this value ---
-
-
-//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
-//            mFirebaseDatabaseReference.child("messageReferences").updateChildren(senderMesList);
-            //  mFirebaseDatabaseReference.child("messageReferences").child(currentUserId).updateChildren(reciverMesList);
-
-///////////////////////this part is done ////////////////////////////////////////////////////////////////
-
-
-//            Map<String, Object > allMessageMap = new HashMap<>();
-//            allMessageMap.put(currentUserId+ContracoorIds[0], "");//this value ---
-//            mFirebaseDatabaseReference.child("allMessages").updateChildren(allMessageMap);
-
-            //these two line gets the current date in the format that i wanted. note:
-            // slashes are not allowed to be passed as keys. ('/'). that is why i used '-'. but
-            //anyways you will use long or ts or String since it is required.
-            // here we update the allMessages reference.
-
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            String currentDateandTime = sdf.format(new Date());
-
-//            Map<String, Object > initialMessageMap = new HashMap<>();
-//            initialMessageMap.put(currentDateandTime , description);
-//            mFirebaseDatabaseReference.child("allMessages").child(currentUserId+ContracoorIds[0]).updateChildren(initialMessageMap);
-
             Toast.makeText(getApplicationContext() , " Your message was sent!" , Toast.LENGTH_LONG).show();
             onBackPressed();
-
 
         }
     };
@@ -371,13 +280,6 @@ public class EstimateActivity extends AppCompatActivity {
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             Uri uri = data.getData();
-
-            //TODO: add random name instead of last path .child(uri.getLastPathSegment())
-//            final StorageReference filePath = mStorageReference.child("Before&AfterPictureGallery")
-//                    .child(contractorID).child(uri.getLastPathSegment());
-//            StorageReference filePath = galleryImg.child(contractorID);
-
-            //TODO: add picture to the list not on top of another
 
             uploadRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

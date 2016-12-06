@@ -1,13 +1,11 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
 import android.net.Uri;
-
-import android.support.v4.app.Fragment;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Messages;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +57,6 @@ public class MessageQue extends AppCompatActivity implements
             super.onBackPressed();
         }else{
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-            //  frame.removeAllViews();
 
             parent.setVisibility(View.VISIBLE);
             back = true ;
@@ -91,14 +86,11 @@ public class MessageQue extends AppCompatActivity implements
                 Iterator it = messageNameListMap.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry)it.next();
-                    //System.out.println(pair.getKey() + " = " + pair.getValue());
                     Log.d("pairValue", pair.getValue().toString());
                     messageContacts.add(pair.getValue().toString());
                     lsitOfIDsForContacs.add(pair.getKey().toString());
 
                 }
-
-
 
                 adapter = new MyRecyclerViewAdapter(MessageQue.this, messageContacts);
                 mRecyclerView.setAdapter(adapter);
@@ -122,37 +114,6 @@ public class MessageQue extends AppCompatActivity implements
         });
 
         b = (Button)findViewById(R.id.butotnTest);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                parent.setVisibility(View.INVISIBLE);
-//
-//                TextView tv = (TextView) view ;
-//
-//
-//                receiversName = tv.getText().toString();
-//                back = false; //sets the value to false, to fix the back button issue.
-//
-//                ft = getSupportFragmentManager().beginTransaction();
-//                Log.i("fragment", "not null");
-//                ft.add(R.id.msgContainer, fragment);
-//                ft.commit();
-//
-//            }
-//        });
-
-//        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TextView text = (TextView) view;
-//
-//                String contactName = text.getText().toString();
-//
-//                Log.i("thisName", contactName);
-//            }
-//        });
-
-
     }//onCreate
 
 
@@ -183,17 +144,7 @@ public class MessageQue extends AppCompatActivity implements
 
         //@Override
         public void onBindViewHolder(CustomViewHolder customViewHolder, final int position) {
-            //  FeedItem feedItem = feedItemList.get(i);
 
-//        //Render image using Picasso library
-//        if (!TextUtils.isEmpty(feedItem.getThumbnail())) {
-//            Picasso.with(mContext).load(feedItem.getThumbnail())
-//                    .error(R.drawable.placeholder)
-//                    .placeholder(R.drawable.placeholder)
-//                    .into(customViewHolder.imageView);
-//        }
-
-            //Setting text view title
             customViewHolder.textView.setText(MessageQue.messageContacts.get(position));
             //on click listener upon clicking each contact name.
             customViewHolder.textView.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +192,4 @@ public class MessageQue extends AppCompatActivity implements
             }
         }
     }
-
-
-
 }

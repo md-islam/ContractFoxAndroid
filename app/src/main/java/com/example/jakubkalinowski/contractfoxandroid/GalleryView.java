@@ -33,10 +33,7 @@ public class GalleryView extends AppCompatActivity {
 
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
-//        contractorID = getIntent().getExtras().getString("id");
         Log.i("contID-:", contractorID);
-
-        //lastGalleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID);
 
         galleryImg = FirebaseStorage.getInstance().getReference("Before&AfterPictureGallery/"+contractorID);
 
@@ -52,7 +49,6 @@ public class GalleryView extends AppCompatActivity {
         for (int i = 0; i < 8; i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", listviewTitle[i]);
-//            hm.put("listview_discription", listviewShortDescription[i]);
             hm.put("listview_image", listviewImage[i]);
             aList.add(hm);
         }
