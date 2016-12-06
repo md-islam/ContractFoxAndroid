@@ -9,13 +9,8 @@ import android.widget.TextView;
 import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-/**
- * Created by MD on 12/5/2016.
- */
 
 public class ReviewsRecyclerViewAdapter extends RecyclerView.Adapter<ReviewsRecyclerViewAdapter.SingleReviewViewHolder>{
 
