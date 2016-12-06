@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
+import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ReviewsRecyclerViewAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,6 +71,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
     String contractorID;
     RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
+
+    //RecyclerView list adapters variables -- [START]
+    private List<Review> mReviewList = new ArrayList<>();
+    private RecyclerView reviewsRecyclerView;
+    private ReviewsRecyclerViewAdapter mReviewRecyclerViewAdapter;
+    //RecyclerView list adapters variables -- [END]
+
 
     //UI component variables
     private Button estimateButton, messageButton, availabilityButton, directionsButton;
@@ -122,12 +134,21 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
 
+        reviewsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recyclerViews);
+        mReviewRecyclerViewAdapter = new ReviewsRecyclerViewAdapter(mReviewList);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        reviewsRecyclerView.setAdapter(mReviewRecyclerViewAdapter);
+        mReviewRecyclerViewAdapter.notifyDataSetChanged();
+
+
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Review child_review = dataSnapshot.getValue(Review.class);
                 count++;
                 contractorUserRatingCount += child_review.getStars();
+                mReviewList.add(child_review);
+                mReviewRecyclerViewAdapter.notifyDataSetChanged();
             }
 
             @Override

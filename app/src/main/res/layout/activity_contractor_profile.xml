@@ -454,6 +454,25 @@
                     </LinearLayout>
                     <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/reviews"
+                        android:textSize="12dp"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border_rectangle_blue"
+                        android:id="@+id/reviews_banner_header"
+                        android:clickable="false"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/reviews_recyclerViews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical" />
 
 
                 </LinearLayout>
