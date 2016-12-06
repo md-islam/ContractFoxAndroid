@@ -20,8 +20,6 @@ out/
 # Gradle files
 .gradle/
 build/
-ContractFoxAndroid
-
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -41,6 +39,7 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+.idea/tasks.xml
 .idea/libraries
 
 # Keystore files
