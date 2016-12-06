@@ -30,7 +30,7 @@
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:textAlignment="center"
                     android:background="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textColor="#3234AD"
                     android:textStyle="bold" />
                 <!--android:text="@string/company_name"-->
@@ -75,6 +75,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:layout_gravity="center"
+                                android:background="@drawable/md_transparent"
                                 android:id="@+id/profile_fragment_picture"
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
@@ -86,6 +87,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
+                                android:background="@drawable/md_transparent"
                                 android:id="@+id/logo_fragment_picture"
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
@@ -127,7 +129,8 @@
                                 android:layout_weight="2"
                                 android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
-                                android:text="@string/review_amount"/>
+                                android:text="@string/review_amount"
+                                android:textSize="18dp"/>
                         </LinearLayout>
                         <!-- END OF RATINGS TAB -->
 
@@ -157,24 +160,19 @@
 
                         <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
 
-                        <LinearLayout
-                            android:id="@+id/mapView"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:orientation="vertical"
-                            android:background="#ffffff">
+                        <!--<LinearLayout-->
+                            <!--android:id="@+id/mapView"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="100dp"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:background="#ffffff">-->
 
-                            <!--<fragment-->
-                                <!--android:id="@+id/map"-->
+
+                            <!--<FrameLayout-->
+                                <!--android:id="@+id/map_container"-->
+                                <!--android:layout_weight="1"-->
                                 <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="match_parent"-->
-                                <!--class="com.google.android.gms.maps.SupportMapFragment" />-->
-
-                            <FrameLayout
-                                android:id="@+id/map_container"
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"></FrameLayout>
+                                <!--android:layout_height="match_parent"></FrameLayout>-->
 
                             <!-- DIVIDER LINE -->
                             <LinearLayout
@@ -190,23 +188,29 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginTop="2dp">
+
                                 <TextView
                                     android:id="@+id/address_string"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_weight="3"
+                                    android:textSize="18dp"
                                     />
                                 <TextView
+                                    android:visibility="invisible"
                                     android:id="@+id/miles"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_weight=".1"
                                     android:layout_gravity="right"
                                     android:textAlignment="center"
-                                    android:text="@string/distance_miles" />
+                                    android:text="@string/distance_miles"
+                                    android:textSize="18dp"/>
                             </LinearLayout>
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
 
                         <!-- DIVIDER LINE -->
                         <LinearLayout
@@ -251,20 +255,21 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
                         <Button
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
                             android:id="@+id/add_before_image_to_gallery_button"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:text="Add Before Images"
+                            android:text="Add Before &amp; After Images"
                             android:textColor="#ffffff"
                             android:textAlignment="center"
                             android:background="@drawable/button_border"
                             android:textSize="18dp"/>
 
                         <Button
-                            android:layout_weight="1"
+                            android:visibility="invisible"
+
                             android:id="@+id/add_after_image_to_gallery_button"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -278,6 +283,7 @@
 </LinearLayout>
                         <!-- BUTTONS AND FRAGMENT REFERENCES -->
                         <LinearLayout
+                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -307,7 +313,8 @@
                                     android:layout_weight="6"
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
-                                    android:gravity="center_vertical"/>
+                                    android:gravity="center_vertical"
+                                    android:textSize="18dp"/>
                             </LinearLayout>
                             <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
@@ -377,7 +384,8 @@
                                     android:layout_weight="4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
-                                    android:gravity="center_vertical"   />
+                                    android:gravity="center_vertical"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_website"
@@ -421,7 +429,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/skills_text"/>
+                                    android:text="@string/skills_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_skills"
@@ -464,7 +473,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/review_text"/>
+                                    android:text="@string/review_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_reviews"
@@ -496,6 +506,7 @@
                                     android:layout_weight="1"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
+                                    android:src="@drawable/before_and_after_icon"
                                     android:padding="1dp"/>
                                     <!--android:src="@drawable/pic_gallery_icon"/>-->
 
@@ -504,7 +515,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/pic_gallery_text"/>
+                                    android:text="@string/pic_gallery_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:layout_weight="1"
@@ -516,7 +528,12 @@
                             </LinearLayout>
                             <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
-
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#3234AD">
+                            </LinearLayout>
+                            <!-- END OF LINE DIVIDER -->
                         </LinearLayout>
                         <!-- END OF BUTTONS AND FRAGMENT REFERENCES -->
 

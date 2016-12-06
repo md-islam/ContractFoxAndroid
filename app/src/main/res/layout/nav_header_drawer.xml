@@ -12,11 +12,23 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imageViewDrawer"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:background="@drawable/md_transparent"
         android:src="@android:drawable/sym_def_app_icon" />
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/imageViewDrawer"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:src="@android:drawable/sym_def_app_icon"-->
+        <!--app:civ_border_width="2dp"-->
+        <!--android:background="#fff"-->
+        <!--app:civ_border_color="#FF000000"/>-->
 
     <TextView
         android:layout_width="match_parent"

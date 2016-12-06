@@ -405,9 +405,9 @@ public class ProfileEdit extends Fragment {
         md.show();
     }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
 //            if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
 //                final Uri uri = data.getData();
@@ -447,44 +447,44 @@ public class ProfileEdit extends Fragment {
 
 
 
-            try {
-                if (requestCode == IMG_RESULT && resultCode == Activity.RESULT_OK && null != data) {
-                    Uri URI = data.getData();
-                    String[] FILE = {MediaStore.Images.Media.DATA};
+        try {
+            if (requestCode == IMG_RESULT && resultCode == Activity.RESULT_OK && null != data) {
+                Uri URI = data.getData();
+                String[] FILE = {MediaStore.Images.Media.DATA};
 
-                    Cursor cursor = getActivity().getContentResolver().query(URI,
-                            FILE, null, null, null);
+                Cursor cursor = getActivity().getContentResolver().query(URI,
+                        FILE, null, null, null);
 
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(FILE[0]);
-                    String imageDecode = cursor.getString(columnIndex);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(FILE[0]);
+                String imageDecode = cursor.getString(columnIndex);
 
-                    //compressing the image
-                    Bitmap imageToCompress = BitmapFactory.decodeFile(imageDecode);
-                    ByteArrayOutputStream out = new ByteArrayOutputStream();
-                    imageToCompress.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                    cursor.close();
+                //compressing the image
+                Bitmap imageToCompress = BitmapFactory.decodeFile(imageDecode);
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                imageToCompress.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                cursor.close();
 
 
-                    //TODO: Test this logic
-                    //image is compressed and then set to imageView/
-                    if (option.equals("profile")) {
-                        mProfilePic.setImageBitmap(BitmapFactory.decodeStream(
-                                new ByteArrayInputStream(out.toByteArray())));
-                    } else {
-                        mLogoImg.setImageBitmap(BitmapFactory.decodeStream(
-                                new ByteArrayInputStream(out.toByteArray())));
-                    }
+                //TODO: Test this logic
+                //image is compressed and then set to imageView/
+                if (option.equals("profile")) {
+                    mProfilePic.setImageBitmap(BitmapFactory.decodeStream(
+                            new ByteArrayInputStream(out.toByteArray())));
+                } else {
+                    mLogoImg.setImageBitmap(BitmapFactory.decodeStream(
+                            new ByteArrayInputStream(out.toByteArray())));
                 }
-            } catch (Exception e) {
-                Toast.makeText(getActivity().
-                        getApplicationContext(), "Something went wrong, try again", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Toast.makeText(getActivity().
+                    getApplicationContext(), "Something went wrong, try again", Toast.LENGTH_SHORT).show();
         }
+    }
 
-        //this piece of code below is to make sure app has permissions to access device photos/contents
-        //This is new in Android 6.0 Marshmallow. It's called Runtime permissions.
-        //Specifying permissions in Android Manifest file is not enough.
+    //this piece of code below is to make sure app has permissions to access device photos/contents
+    //This is new in Android 6.0 Marshmallow. It's called Runtime permissions.
+    //Specifying permissions in Android Manifest file is not enough.
     public static void verifyStoragePermissions(Activity activity) {
         //check if we have read or write permissions
         int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.
@@ -498,5 +498,3 @@ public class ProfileEdit extends Fragment {
         }
     }
 }
-
-
