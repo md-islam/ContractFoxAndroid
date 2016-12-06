@@ -6,48 +6,27 @@
     android:background="#f2f2f2"
     tools:context="com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile">
 
-            <!-- TOP BAR WITH BUSSINESS NAME -->
-            <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-            <!--android:id="@+id/fragment_container"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-            <!--<fragment android:name="com.example.jakubkalinowski.fraagments.TopBarFragment"-->
-            <!--android:id="@+id/top_bar_fragment"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
-
             <LinearLayout
                 android:id="@+id/contractor_profile_activity_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/company_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_height="50dp"
                     android:textAlignment="center"
-                    android:background="#ffffff"
-                    android:textSize="22sp"
-                    android:textColor="#3234AD"
+                    android:background="#000000"
+                    android:textSize="40dp"
+                    android:textColor="#ffffff"
                     android:textStyle="bold" />
-                <!--android:text="@string/company_name"-->
-
-
                 <!-- END OF TOP BAR -->
-
-                <!-- PROFILE PICTURES -->
-                <!--<fragment android:name="com.example.jakubkalinowski.fraagments.ProfilePicturesFragment"-->
-                <!--android:id="@+id/profile_pictures_fragment"-->
-                <!--android:layout_weight="2"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"/>-->
 
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,19 +35,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:orientation="horizontal">
-
-                            <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                                <!--android:id="@+id/profile_image"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_weight="1"-->
-                                <!--android:src="@drawable/contract_fox"-->
-                                <!--app:civ_border_width="2dp"-->
-                                <!--app:civ_border_color="#FF000000"-->
-                                <!--android:paddingBottom="5dp"/>-->
-
+                            android:orientation="horizontal"
+                            android:background="#000000">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -79,8 +47,6 @@
                                 android:id="@+id/profile_fragment_picture"
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
-                                <!--android:src="@drawable/profile_picture"-->
-                                <!--android:paddingBottom="5dp"/>-->
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -92,28 +58,15 @@
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
 
-                            <!--android:src="@drawable/construction_logo"-->
-                                <!--android:paddingBottom="5dp"/>-->
-
                         </LinearLayout>
                         <!-- END OF PROFILE PICTURES -->
-
-                        <!-- DIVIDER LINE -->
-                        <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:background="#3234AD"-->
-                        <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
-                        <!--android:layout_marginTop="@dimen/activity_vertical_margin">-->
-                        <!--</LinearLayout>-->
-                        <!-- END OF LINE DIVIDER -->
 
                         <!-- RATINGS TAB -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:background="#ffffff"
+                            android:background="#2A2A2A"
                             android:paddingTop="5dp">
 
                             <RatingBar
@@ -122,7 +75,6 @@
                                 android:id="@+id/ratingBar"
                                 android:rating="4.5"/>
 
-                            <!-- TODO: Make this into a Button and refrence the reviews tab -->
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -130,75 +82,31 @@
                                 android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/review_amount"
-                                android:textSize="18dp"/>
+                                android:textColor="#ffffff"/>
                         </LinearLayout>
                         <!-- END OF RATINGS TAB -->
 
-
-                        <!-- ESTIMATE BUTTON -->
-                        <!--<Button-->
-                            <!--android:id="@+id/profile_estimate_button"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
-                            <!--android:textAlignment="center"-->
-                            <!--android:text="@string/estimate_button"-->
-                            <!--android:textSize="18dp"-->
-                            <!--android:textColor="#FFFFFF"-->
-                            <!--android:background="#3234AD"/>-->
-                        <!-- END OF ESTIMATE BUTTON -->
-
-                        <!-- DIVIDER LINE -->
-                        <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:background="#3234AD"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:layout_marginTop="@dimen/activity_vertical_margin">-->
-                        <!--</LinearLayout>-->
-                        <!-- END OF LINE DIVIDER -->
-
                         <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
 
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/mapView"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="100dp"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:background="#ffffff">-->
-
-
-                            <!--<FrameLayout-->
-                                <!--android:id="@+id/map_container"-->
-                                <!--android:layout_weight="1"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="match_parent"></FrameLayout>-->
-
-                            <!-- DIVIDER LINE -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#3234AD"
-                                android:orientation="vertical"
-                                android:layout_marginTop="@dimen/activity_vertical_margin">
-                            </LinearLayout>
-                            <!-- END OF LINE DIVIDER -->
-
+                        <LinearLayout
+                            android:id="@+id/mapView"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="vertical"
+                            android:background="#ffffff">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginTop="2dp">
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/address_string"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_weight="3"
-                                    android:textSize="18dp"
-                                    />
+                                    android:textColor="#000000"/>
+
                                 <TextView
                                     android:visibility="invisible"
                                     android:id="@+id/miles"
@@ -208,7 +116,8 @@
                                     android:layout_gravity="right"
                                     android:textAlignment="center"
                                     android:text="@string/distance_miles"
-                                    android:textSize="18dp"/>
+                                    android:textColor="#900C3F"/>
+
                             </LinearLayout>
                         <!--</LinearLayout>-->
 
@@ -216,70 +125,47 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="#3234AD"
+                            android:background="#900C3F"
                             android:orientation="vertical"
                             android:layout_marginTop="@dimen/activity_vertical_margin">
                         </LinearLayout>
                         <!-- END OF LINE DIVIDER -->
-
-                        <!--<FrameLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="150dp"-->
-                        <!--android:id="@+id/map">-->
-                        <!--</FrameLayout>-->
-
-
-                        <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent">-->
-                        <!--<FrameLayout-->
-                        <!--android:id="@+id/container"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:background="@android:color/transparent" />-->
-                        <!--</RelativeLayout>-->
-
-
-                        <!--<fragment-->
-                        <!--android:id="@+id/map"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="100dp"-->
-                        <!--class="com.google.android.gms.maps.MappingFragment"/>-->
-                        <!--/>-->
-                        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-                        <!--android:name="com.google.android.gms.maps.MapFragment"-->
 
                         <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
                         <Button
                             android:layout_margin="5dp"
                             android:id="@+id/add_before_image_to_gallery_button"
-                            android:layout_width="match_parent"
+                            android:layout_width="170dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:text="Add Before &amp; After Images"
-                            android:textColor="#ffffff"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Add Before Images"
+                            android:textColor="#000000"
                             android:textAlignment="center"
-                            android:background="@drawable/button_border"
-                            android:textSize="18dp"/>
+                            android:background="@drawable/button_border_rectangle_grey"
+                            android:textSize="10dp"/>
 
                         <Button
                             android:visibility="invisible"
-
                             android:id="@+id/add_after_image_to_gallery_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_width="170dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_marginBottom="@dimen/activity_vertical_margin"
-                            android:text="Add Afrer Images"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Add After Images"
                             android:textColor="#ffffff"
                             android:textAlignment="center"
-                            android:background="@drawable/button_border"
-                            android:textSize="18dp"/>
+                            android:background="@drawable/button_border_rectangle"
+                            android:textSize="10dp"/>
 </LinearLayout>
                         <!-- BUTTONS AND FRAGMENT REFERENCES -->
                         <LinearLayout
@@ -318,46 +204,11 @@
                             </LinearLayout>
                             <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
-                            <!--&lt;!&ndash; DIVIDER LINE &ndash;&gt;-->
-                            <!--<LinearLayout-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="1dp"-->
-                                <!--android:background="#3234AD">-->
-                            <!--</LinearLayout>-->
-                            <!--&lt;!&ndash; END OF LINE DIVIDER &ndash;&gt;-->
-
-                            <!--&lt;!&ndash; DIRECTIONS BUTTON & FRAGMENT REFERENCE &ndash;&gt;-->
-                            <!--<LinearLayout-->
-                                <!--android:id="@+id/directions_button"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="40dp"-->
-                                <!--android:clickable="true"-->
-                                <!--android:orientation="horizontal">-->
-
-                                <!--<ImageView-->
-                                    <!--android:id="@+id/directions_img"-->
-                                    <!--android:layout_weight="1"-->
-                                    <!--android:layout_width="40dp"-->
-                                    <!--android:layout_height="40dp"-->
-                                    <!--android:padding="1dp"-->
-                                    <!--android:src="@drawable/directions_icon"/>-->
-
-                                <!--<TextView-->
-                                    <!--android:id="@+id/directions_text"-->
-                                    <!--android:layout_weight="4"-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="40dp"-->
-                                    <!--android:gravity="center_vertical"-->
-                                    <!--android:text="@string/directions_text"/>-->
-
-                            <!--</LinearLayout>-->
-                            <!--&lt;!&ndash; END OF DIRECTIONS BUTTON AND FRAGMENT REFERENCE &ndash;&gt;-->
-
                             <!-- DIVIDER LINE -->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="#3234AD">
+                                android:background="#900C3F">
                             </LinearLayout>
                             <!-- END OF LINE DIVIDER -->
 
@@ -378,7 +229,6 @@
                                     android:padding="1dp"
                                     android:src="@drawable/website_icon"/>
 
-                                <!-- TODO: adjust the weight (needs fixing) -->
                                 <TextView
                                     android:id="@+id/website_url"
                                     android:layout_weight="4"
@@ -403,7 +253,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="#3234AD">
+                                android:background="#900C3F">
                             </LinearLayout>
                             <!-- END OF LINE DIVIDER -->
 
@@ -447,7 +297,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="#3234AD">
+                                android:background="#900C3F">
                             </LinearLayout>
                             <!-- END OF LINE DIVIDER -->
 
@@ -490,7 +340,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="#3234AD">
+                                android:background="#900C3F">
                             </LinearLayout>
                             <!-- END OF LINE DIVIDER -->
 
@@ -536,22 +386,6 @@
                             <!-- END OF LINE DIVIDER -->
                         </LinearLayout>
                         <!-- END OF BUTTONS AND FRAGMENT REFERENCES -->
-
-                        <!-- ANOTHER WAY TO DO A BUTTON (LESS EFFECTIVE) -->
-                        <!--<ImageButton-->
-                        <!--android:id="@+id/call_button"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:background="#FFFFFF"-->
-                        <!--android:src="@drawable/call_button"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!---->
-                        <!--android:textColor="#000000"-->
-                        <!--android:text="@string/call_button">-->
-                        <!--</ImageButton>-->
-                        <!-- END OF ANOTHER WAY TO DO A BUTTON (LESS EFFECTIVE) -->
-
                         <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
                     </LinearLayout>

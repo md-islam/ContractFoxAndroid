@@ -76,7 +76,8 @@
     <!-- CONTRACTOR'S PROFILE -->
     <string name="company_name">Jacks Construction Co.</string>
     <string name="review_amount">45 reviews</string>
-    <string name="estimate_button">$ Request an Estimate $</string>
+    <string name="estimate_button">Request an Estimate</string>
+    <string name="direction">Directions</string>
     <string name="title_activity_map_fragment">Map</string>
     <string name="address">151 Andrea Ln. Felton CA 95018</string>
     <string name="distance_miles">1.4 mi</string>
