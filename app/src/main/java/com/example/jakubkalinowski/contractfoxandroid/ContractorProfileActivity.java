@@ -65,7 +65,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
             .getReference();
 
-    //private Estimate.OnFragmentInteractionListener mListener;
     private Member m;
     public Boolean option;
     String contractorID;
@@ -121,16 +120,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
         overAllrating = savedInstanceState.getFloat("overAllrating");
 
         Log.d("xyz-prof", contractorID);// yay it worked.
-        //ok jakub here is how you would get anything you want on the clicked user.
-        /*
-       mFirebaseDatabaseReference.child("usersInChat").child(contractorID). anything you want here after dot ;
-
-       here is a full example :
-        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("firstName") // will give you firstname
-        mFirebaseDatabaseReference.child("usersInChat").child(contractorID).child("phonenNo") // will give you phone num
-       so in conclusion, i am pasing you the id of the contraactor from the previous page and
-       here you can make a quick call to db to get what you want. no going over a list. you have the id.
-         */
 
         storage = FirebaseStorage.getInstance();
 
@@ -227,8 +216,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
                             website.setText(webInput);
 
-                            //miles.setText();
-
                             urlAddress = webInput;
                         }
                     }
@@ -239,21 +226,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     }
                 });
 
-
-//        if (savedInstanceState == null) {
-//            // Create the detail fragment and add it to the activity
-//            // using a fragment transaction.
-//            Bundle arguments = new Bundle();
-//            arguments.putString(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID,
-//                    getIntent().getStringExtra(com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate.ARG_ITEM_ID));
-//            com.example.jakubkalinowski.contractfoxandroid.Contractor_Fragments.Estimate fragment = new Estimate();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.activity_contractor_profile, fragment)
-//                    .commit();
-//        }
-
-        availabilityButton = (Button) findViewById(R.id.availability);
+        availabilityButton = (Button)findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
         messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
@@ -267,9 +240,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         availabilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // FrameLayout fl = (FrameLayout) findViewById(R.id.displayArea_ID);
                 Fragment fragment = new ContractorScheduleFragment();
-                //  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.displayArea_ID, fragment);
                 fragmentTransaction.addToBackStack(null);
@@ -352,12 +323,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
         alertDialog.setTitle("Write a Review");
         alertDialog.setMessage("");
         LinearLayout linear = new LinearLayout(getApplicationContext());
-//        TextView textEmail = new TextView(getApplicationContext());
-//        textEmail.setText("Email: ");
         final RatingBar rb = new RatingBar(getApplicationContext());
         rb.setRating(0);
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
         final EditText description = new EditText(getApplicationContext());
         description.setHint("Description");
         description.setMinHeight(150);
@@ -367,11 +339,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         rb.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
 
-        // description.setLayoutParams(etm);
-
-
-//        Button send = new Button(getApplicationContext());
-//        send.setText("Submit");
         alertDialog.setNegativeButton("Submit",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

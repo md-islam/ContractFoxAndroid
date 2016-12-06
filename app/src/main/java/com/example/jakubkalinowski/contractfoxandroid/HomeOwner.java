@@ -1,14 +1,9 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-//import com.google.firebase.database.IgnoreExtraProperties;
-
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Homeowner extends Member {
-
-
-
 
     public Homeowner(){}
 

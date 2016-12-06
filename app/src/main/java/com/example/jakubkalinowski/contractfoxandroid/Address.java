@@ -51,7 +51,6 @@ public class Address {
         mUnit_Apt_no = unit_Apt_no;
     }
 
-
     @Override
     public String toString() {
         return mStreetAddress+", "+mUnit_Apt_no+", "+

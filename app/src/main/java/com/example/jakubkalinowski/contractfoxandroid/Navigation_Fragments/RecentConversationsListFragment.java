@@ -157,7 +157,6 @@ public class RecentConversationsListFragment extends Fragment {
                 });
         //-------ATTACHING CHILD EVENT LISTENER BECAUSE WE'RE DEALING WITH LISTS[END]----//
         // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
         mConversationsListRecyclerView.addOnItemTouchListener
                 (new RecyclerViewItemTouchHelper(getActivity(),
@@ -185,10 +184,6 @@ public class RecentConversationsListFragment extends Fragment {
 
                             @Override
                             public void onLongClick(View view, int position) {
-//                                Toast.makeText(getActivity(),
-//                                        String.valueOf(singleDayServicesList.get(position).getSessionDate_Milliseconds_Key()),
-//                                        Toast.LENGTH_SHORT).show();
-
 
                             }
                         },
