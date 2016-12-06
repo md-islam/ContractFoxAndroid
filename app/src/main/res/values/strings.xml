@@ -2,6 +2,7 @@
     <string name="app_name">ContractFox</string>
     <string name="title_activity_login">Sign in</string>
 
+    <!--<string name="google_api_key">AIzaSyDCihFEyqxkLPQZ8XBggYT8C7-cwUr3790</string>-->
     <!-- INTRODUCTION -->
     <string name="intro">Need to find a reliable contractor fast? Try ContractFox now!</string>
     <!-- END OF INTRODUCTION -->
@@ -100,9 +101,6 @@
     <string name="title_activity_skill_set">SkillSetActivity</string>
     <string name="title_activity_reviews">ReviewsActivity</string>
     <string name="title_activity_maps">Map</string>
-
-
-
 
 
     <!-- PRICE ESTIMATE -->
@@ -213,7 +211,6 @@
     <string name="exterior_skill">Exterior Skills</string>
     <string name="backyard_skill">Backyard Skills</string>
     <string name="choose_skills">Choose one or more skills:</string>
-
 
 
     <!--navigation_drawer_menu-->
