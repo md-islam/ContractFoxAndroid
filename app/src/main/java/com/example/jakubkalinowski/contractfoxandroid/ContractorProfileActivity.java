@@ -275,13 +275,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
             }
         });
 
-//    directionsButton.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent i = new Intent(ContractorProfileActivity.this, MapsActivity.class);
-//            startActivity(i);
-//        }
-//    });
+    directionsButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        }
+    });
 
         websiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
