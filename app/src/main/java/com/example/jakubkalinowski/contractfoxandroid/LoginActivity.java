@@ -47,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     final private LinearLayout.LayoutParams etm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);
 
-
-
     //variables for extracting values from components
     private String emailInput;
     private String passwordInput;
@@ -87,8 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         alertDialog.setTitle("Reset Password");
         alertDialog.setMessage("Enter your email and phone number to receive a temporary password.");
         LinearLayout linear = new LinearLayout(getApplicationContext());
-//        TextView textEmail = new TextView(getApplicationContext());
-//        textEmail.setText("Email: ");
+
         EditText editEmail = new EditText(getApplicationContext());
         editEmail.setHint("Email");
         editEmail.setHintTextColor(0xFFBCBCBC);
@@ -102,19 +99,15 @@ public class LoginActivity extends AppCompatActivity {
         editEmail.setLayoutParams(etm);
         editPhone.setLayoutParams(etm);
 
-//        Button send = new Button(getApplicationContext());
-//        send.setText("Submit");
         alertDialog.setNegativeButton("Submit",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-        //send.setLayoutParams(etm);
         linear.setOrientation(LinearLayout.VERTICAL);
         linear.addView(editEmail);
         linear.addView(editPhone);
-        // linear.addView(send);
         alertDialog.setView(linear);
         alertDialog.show();
     }
@@ -122,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //Firebase.setAndroidContext(this);
         FirebaseAuth.getInstance().signOut();
         mEmailAddress = (EditText)findViewById(R.id.email_text_input_login_activity);
         mPassword = (EditText)findViewById(R.id.password_textInput_login_activity);
@@ -139,35 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                 String password = mPassword.getText().toString();
 
                 progressBar.setVisibility(View.VISIBLE);
-//                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-//
-//                    @Override
-//                    public void onAuthenticated(AuthData authData) {
-//                        Log.d("LOGIN TAG!!!!!!!", "User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-//                        Toast.makeText(getApplicationContext(), "LOG IN SUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
-//
-//                        //storing user data
-////                        Map<String, String> map = new HashMap<String, String>();
-////                        map.put("provider", authData.getProvider());
-////                        if (authData.getProviderData().containsKey("displayName")) {
-////                            map.put("displayName", authData.getProviderData().get("displayName").toString());
-////                        }
-////                        FBref.child("usersInChat").child(authData.getUid()).setValue(map);
-//                        //
-//
-//                        Intent i = new Intent(LoginActivity.this, DrawerActivity.class);
-//                        //i.putExtra("firebaseURL", "https://allmythings2016.firebaseio.com/");
-//                        i.putExtra("userEmail", email);
-//                        startActivity(i);
-//                    }
-//
-//                    @Override
-//                    public void onAuthenticationError(FirebaseError firebaseError) {
-//                        // there was an error
-//                        Toast.makeText(getApplicationContext(), "LOG IN UNSUCCESSFUL!!!!", Toast.LENGTH_LONG).show();
-//                        Log.e("ERROR TAG", "didnt work but got through firebase reference!!!: ");
-//                    }
-//                });
 
                 mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this
                         , new OnCompleteListener<AuthResult>() {

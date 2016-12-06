@@ -106,16 +106,17 @@ public class ProfileEdit extends Fragment {
     private Bitmap mProfilePicBitmap;
     private Bitmap mLogoImageBitmap;
 
-
-
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference profileRef;
     private StorageReference logoRef;
+
     // integer for request code
     private static final int GALLERY_INTENT = 2;
 
     //UI components [END]
+
+
     public ProfileEdit() {
         // Required empty public constructor
     }
@@ -144,10 +145,6 @@ public class ProfileEdit extends Fragment {
 
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com");
-
-
-
-
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -197,7 +194,6 @@ public class ProfileEdit extends Fragment {
                                         mPostalCodeEditText.setText(m.getAddress().getZipCode());
                                         mPhoneNumberEditText.setText(m.getPhoneNo());
                                     }
-
                                 }
 
                                 @Override
@@ -222,7 +218,6 @@ public class ProfileEdit extends Fragment {
         //for firebase data retrievl. If possible, find a way for data retrieval to happen
         // before oncreateVIew.
         View root = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-        //mFirstNameEditText.setText(mFirstName_Textbox_Value);
         return root;
     }
 
@@ -279,29 +274,6 @@ public class ProfileEdit extends Fragment {
         }
     }
 
-//    public void setFirstName(String uid){
-//
-//
-//        //there is a callback function inside here. To use outside variables inside the callback
-//        //functions, the variable inside should be either final or global variable.
-//        //Still trying to figure out the best way to handle callback functions.
-//        mFirebaseDatabaseReference
-//                .child("contractors").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Member m = dataSnapshot.getValue(Contractor.class);
-//                firstName.setText(m.getEmailAddress());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -327,11 +299,6 @@ public class ProfileEdit extends Fragment {
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(Intent.ACTION_PICK);
-//
-//                i.setType("image/*");
-//
-//                startActivityForResult(i, GALLERY_INTENT);
                 verifyStoragePermissions(getActivity());
                 showEditProfilePictureDialog();
             }
@@ -409,44 +376,6 @@ public class ProfileEdit extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//            if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
-//                final Uri uri = data.getData();
-//
-//                if (option.equals("profile")) {
-//                    mProfilePicPath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Glide.with(getActivity())
-//                                    .using(new FirebaseImageLoader())
-//                                    .load(mProfilePicPath)
-//                                    .into(mProfilePic);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                        }
-//                    });
-//                }
-//                else {
-//                    mLogoImgPath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Glide.with(getActivity())
-//                                    .using(new FirebaseImageLoader())
-//                                    .load(mLogoImgPath)
-//                                    .into(mLogoImg);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                        }
-//                    });
-//                }
-//            }
-//        }
-
-
-
         try {
             if (requestCode == IMG_RESULT && resultCode == Activity.RESULT_OK && null != data) {
                 Uri URI = data.getData();
@@ -465,9 +394,6 @@ public class ProfileEdit extends Fragment {
                 imageToCompress.compress(Bitmap.CompressFormat.JPEG, 100, out);
                 cursor.close();
 
-
-                //TODO: Test this logic
-                //image is compressed and then set to imageView/
                 if (option.equals("profile")) {
                     mProfilePic.setImageBitmap(BitmapFactory.decodeStream(
                             new ByteArrayInputStream(out.toByteArray())));
