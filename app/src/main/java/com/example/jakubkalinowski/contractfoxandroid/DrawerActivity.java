@@ -75,6 +75,7 @@ public class DrawerActivity extends AppCompatActivity
     private FirebaseStorage storage;
     private StorageReference drawerPicRef;
     private CircleImageView mProfilePic;
+    TextView tv;
 
     //TabHost th;
     @Override
@@ -93,6 +94,9 @@ public class DrawerActivity extends AppCompatActivity
 
 //        mProfilePic = (CircleImageView)header.findViewById(R.id.imageViewDrawer);
         drawerPic = (ImageView)header.findViewById(R.id.imageViewDrawer);
+
+        tv = (TextView) header.findViewById(R.id.customerName1);
+
 
         Glide.with(DrawerActivity.this).using(new FirebaseImageLoader()).load(drawerPicRef).into(drawerPic);
 
@@ -147,7 +151,7 @@ public class DrawerActivity extends AppCompatActivity
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
                                         //need null handlers here
                                       //  Contractor m = dataSnapshot.getValue(Contractor.class);
-
+                                        tv.setText(dataSnapshot.child("firstName").getValue().toString());
                                         Log.d("contractorhere" , " true now");
                                     }
                                     else{
@@ -202,7 +206,7 @@ public class DrawerActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            displayFragment(R.id.homee);
         }
     }
 
