@@ -125,9 +125,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         reviewsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recyclerViews);
         mReviewRecyclerViewAdapter = new ReviewsRecyclerViewAdapter(mReviewList);
-        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(ContractorProfileActivity.this));
         reviewsRecyclerView.setAdapter(mReviewRecyclerViewAdapter);
         mReviewRecyclerViewAdapter.notifyDataSetChanged();
+
+
+//        mRecyclerViewDuties.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mRecyclerViewDuties.setAdapter(mAdapter);
+////        prepareDutiesDataForRecyclerView();
+//        mRecyclerViewDuties.setHasFixedSize(true);
 
 
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
