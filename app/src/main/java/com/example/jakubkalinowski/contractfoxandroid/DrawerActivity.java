@@ -20,10 +20,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Home;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.MyProfile;
@@ -32,14 +34,18 @@ import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.Recen
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.BackYard;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Exterior;
 import com.example.jakubkalinowski.contractfoxandroid.homePage_Fragments.Interior;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class DrawerActivity extends AppCompatActivity
@@ -65,6 +71,11 @@ public class DrawerActivity extends AppCompatActivity
     Button exteriorButton , interiorButton, backyardButton , searchButton;
     EditText searchBar;
 
+    private ImageView drawerPic;
+    private FirebaseStorage storage;
+    private StorageReference drawerPicRef;
+    private CircleImageView mProfilePic;
+
     //TabHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +84,20 @@ public class DrawerActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_drawer);
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        storage = FirebaseStorage.getInstance();
+        drawerPicRef = storage.getReference("ProfilePictures/"+currentUserId+"/profilepic.jpeg");
+
+//        mProfilePic = (CircleImageView)header.findViewById(R.id.imageViewDrawer);
+        drawerPic = (ImageView)header.findViewById(R.id.imageViewDrawer);
+
+        Glide.with(DrawerActivity.this).using(new FirebaseImageLoader()).load(drawerPicRef).into(drawerPic);
 
         customerName = (TextView) findViewById(R.id.customerName1);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+       // navigationView = (NavigationView) findViewById(R.id.nav_view);
         searchButton = (Button) findViewById(R.id.mainSearchButton);
         searchButton.setOnClickListener(searchListerner);
         searchBar = (EditText) findViewById(R.id.searchBar_ID);
@@ -149,8 +171,6 @@ public class DrawerActivity extends AppCompatActivity
 
                 }
 
-
-
         //The Drawer will display different items depending on the user being a contractor, or homeowner.
 
 
@@ -161,8 +181,7 @@ public class DrawerActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
 
         displayFragment(R.id.homee);
     }

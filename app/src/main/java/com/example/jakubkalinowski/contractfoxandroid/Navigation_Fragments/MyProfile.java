@@ -41,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.jakubkalinowski.contractfoxandroid.DrawerActivity.currentUserId;
 
 
 /**
@@ -109,7 +110,7 @@ public class MyProfile extends Fragment {
     Boolean isContractor;
 
 
-    private String contractorID = DrawerActivity.currentUserId;
+    private String contractorID = currentUserId;
 
     private int i=0;
 

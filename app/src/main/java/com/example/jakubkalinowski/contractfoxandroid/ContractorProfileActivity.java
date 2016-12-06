@@ -68,9 +68,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private String currentAuthenticatedUserID;
 
     //UI component variables
-    private Button estimateButton, messageButton, availabilityButton;
+    private Button estimateButton, messageButton, availabilityButton, directionsButton;
     private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
-    private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
+    private LinearLayout callButton, websiteButton, skillsButton, reviewsButton, picGalleryButton;
+
     public String urlAddress;
     private double contractorUserRatingCount;
     private int count;
@@ -233,12 +234,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
-//        messageButton = (Button) findViewById(R.id.aprofile_message_button);
+        messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
-//    directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
-        websiteButton = (LinearLayout) findViewById(R.id.awebsite_button);
-        skillsButton = (LinearLayout) findViewById(R.id.askills_button);
-        reviewsButton = (LinearLayout) findViewById(R.id.areviews_button);
+        directionsButton = (Button)findViewById(R.id.adirections_button);
+        websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
+        skillsButton = (LinearLayout)findViewById(R.id.askills_button);
+        reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+
         picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
         availabilityButton.setOnClickListener(new View.OnClickListener() {
