@@ -89,12 +89,12 @@
                 <!-- END OF RATINGS TAB -->
 
                 <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
-                <LinearLayout
-                    android:id="@+id/mapView"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="vertical"
-                    android:background="#ffffff">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/mapView"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:background="#ffffff">-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -107,6 +107,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="3"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:textColor="#000000"/>
 
                         <TextView
@@ -147,6 +149,8 @@
                     android:id="@+id/brief_description_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:textColor="#000000"/>
 
             <LinearLayout
@@ -160,6 +164,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_weight="1"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/button_border_rectangle_grey"
                     android:text="View Availability"
@@ -171,6 +176,7 @@
                     android:id="@+id/aprofile_message_button"
                     android:layout_width="170dp"
                     android:layout_height="40dp"
+                    android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginRight="5dp"
@@ -197,6 +203,7 @@
                     android:layout_marginRight="5dp"
                     android:textAlignment="center"
                     android:text="@string/estimate_button"
+                    android:layout_weight="1"
                     android:textSize="12dp"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/button_border_estimate"/>
@@ -211,6 +218,7 @@
                     android:layout_marginRight="5dp"
                     android:text="@string/direction"
                     android:textSize="12dp"
+                    android:layout_weight="1"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/button_border_rectangle_blue"
                     android:id="@+id/adirections_button" />
@@ -257,8 +265,8 @@
                         <ImageView
                             android:id="@+id/call_img"
                             android:layout_weight="1.3"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/call_icon"/>
 
@@ -266,7 +274,7 @@
                             android:id="@+id/call_text"
                             android:layout_weight="6"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:textColor="#000000"/>
                     </LinearLayout>
@@ -285,7 +293,7 @@
                     <LinearLayout
                         android:id="@+id/awebsite_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
@@ -293,7 +301,7 @@
                             android:id="@+id/website_img"
                             android:layout_weight="1.1"
                             android:layout_width="40dp"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/website_icon"/>
 
@@ -302,7 +310,7 @@
                             android:id="@+id/website_url"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:textColor="#000000"/>
 
@@ -310,7 +318,7 @@
                             android:id="@+id/open_website"
                             android:layout_weight="2"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -330,15 +338,15 @@
                     <LinearLayout
                         android:id="@+id/askills_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/skills_img"
                             android:layout_weight="0.9"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/skills_icon"/>
 
@@ -346,7 +354,7 @@
                             android:id="@+id/skills_text"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/skills_text"
                             android:textColor="#000000"/>
@@ -355,7 +363,7 @@
                             android:id="@+id/open_skills"
                             android:layout_weight="1.6"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -374,15 +382,15 @@
                     <LinearLayout
                         android:id="@+id/areviews_button"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/reviews_img"
                             android:layout_weight="1.2"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:padding="1dp"
                             android:src="@drawable/review_icon"/>
 
@@ -390,7 +398,7 @@
                             android:id="@+id/reviews_text"
                             android:layout_weight="4"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:text="@string/review_text"
                             android:textColor="#000000"/>
@@ -399,7 +407,7 @@
                             android:id="@+id/open_reviews"
                             android:layout_weight="1.7"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
@@ -425,6 +433,7 @@
                             android:layout_weight="2.5"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:src="@drawable/before_and_after_icon"
                             android:padding="1dp"/>
 
                         <TextView
@@ -452,6 +461,7 @@
 
 
             </LinearLayout>
+
             </ScrollView>
         </LinearLayout>
 
