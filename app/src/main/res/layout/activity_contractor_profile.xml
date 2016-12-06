@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contractor_profile"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    tools:context="com.example.jakubkalinowski.contractfoxandroid.ContractorProfileActivity">
+<LinearLayout android:id="@+id/activity_contractor_profile"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f2f2f2"
+              tools:context="com.example.jakubkalinowski.contractfoxandroid.ContractorProfileActivity">
 
     <!-- TOP BAR WITH BUSSINESS NAME -->
     <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
@@ -24,16 +24,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/company_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:textAlignment="center"
             android:background="#ffffff"
-            android:textSize="20sp"
+            android:textAlignment="center"
             android:textColor="#3234AD"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
         <!--android:text="@string/company_name"-->
 
 
@@ -49,6 +50,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,15 +63,15 @@
                     android:orientation="horizontal">
 
                     <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                        <!--android:id="@+id/profile_image"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:src="@drawable/contract_fox"-->
-                        <!--app:civ_border_width="2dp"-->
-                        <!--app:civ_border_color="#FF000000"-->
-                        <!--android:paddingBottom="5dp"/>-->
+                    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:id="@+id/profile_image"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:src="@drawable/contract_fox"-->
+                    <!--app:civ_border_width="2dp"-->
+                    <!--app:civ_border_color="#FF000000"-->
+                    <!--android:paddingBottom="5dp"/>-->
 
 
                     <!--<ImageView-->
@@ -82,33 +84,33 @@
                     <!--android:paddingBottom="5dp"/>-->
 
                     <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:id="@+id/logo_picture"-->
-                        <!--android:layout_above="@+id/fragment_container"-->
-                        <!--android:src="@drawable/construction_logo"-->
-                        <!--android:paddingBottom="5dp"/>-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:id="@+id/logo_picture"-->
+                    <!--android:layout_above="@+id/fragment_container"-->
+                    <!--android:src="@drawable/construction_logo"-->
+                    <!--android:paddingBottom="5dp"/>-->
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
                         android:id="@+id/profile_fragment_picture"
-                        android:layout_above="@+id/fragment_container"
-                        android:src="@drawable/profile_picture"
-                        android:paddingBottom="5dp"/>
-
-                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/fragment_container"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:paddingBottom="5dp"
+                        android:src="@drawable/profile_picture"/>
+
+                    <ImageView
                         android:id="@+id/logo_fragment_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_above="@+id/fragment_container"
-                        android:src="@drawable/construction_logo"
-                        android:paddingBottom="5dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp"
+                        android:src="@drawable/construction_logo"/>
 
                 </LinearLayout>
                 <!-- END OF PROFILE PICTURES -->
@@ -127,56 +129,55 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#ffffff"
+                    android:orientation="horizontal"
                     android:paddingTop="5dp">
 
                     <RatingBar
+                        android:id="@+id/ratingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ratingBar"
                         android:rating="4.5"/>
 
                     <!-- TODO: Make this into a Button and refrence the reviews tab -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textAlignment="center"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/review_amount"/>
+                        android:layout_weight="2"
+                        android:text="@string/review_amount"
+                        android:textAlignment="center"/>
                 </LinearLayout>
                 <!-- END OF RATINGS TAB -->
-
 
 
                 <Button
                     android:id="@+id/availability"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:background="@drawable/button_border"
                     android:text="View Availability"
-                    android:textColor="#ffffff"
                     android:textAlignment="center"
+                    android:textColor="#ffffff"
                     android:textSize="18dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="#3234AD"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="Brief Description"/>
+                    android:text="Brief Description"
+                    android:textColor="#3234AD"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/brief_description_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
                 <!-- ESTIMATE BUTTON -->
                 <Button
@@ -184,11 +185,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:textAlignment="center"
+                    android:background="@drawable/button_border"
                     android:text="@string/estimate_button"
-                    android:textSize="18dp"
+                    android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border"/>
+                    android:textSize="18dp"/>
 
                 <!-- END OF ESTIMATE BUTTON -->
 
@@ -208,8 +209,8 @@
                     android:id="@+id/mapView"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:orientation="vertical"
-                    android:background="#ffffff">
+                    android:background="#ffffff"
+                    android:orientation="vertical">
 
                     <!--<fragment-->
                     <!--android:id="@+id/map"-->
@@ -219,17 +220,17 @@
 
                     <FrameLayout
                         android:id="@+id/map_container"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></FrameLayout>
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></FrameLayout>
 
                     <!-- DIVIDER LINE -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:background="#3234AD"
-                        android:orientation="vertical"
-                        android:layout_marginTop="@dimen/activity_vertical_margin">
+                        android:orientation="vertical">
                     </LinearLayout>
                     <!-- END OF LINE DIVIDER -->
 
@@ -238,20 +239,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/address_string"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             />
+
                         <TextView
                             android:id="@+id/miles"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight=".1"
                             android:layout_gravity="right"
-                            android:textAlignment="center"
-                            android:text="@string/distance_miles" />
+                            android:layout_weight=".1"
+                            android:text="@string/distance_miles"
+                            android:textAlignment="center"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -259,9 +262,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:background="#3234AD"
-                    android:orientation="vertical"
-                    android:layout_marginTop="@dimen/activity_vertical_margin">
+                    android:orientation="vertical">
                 </LinearLayout>
                 <!-- END OF LINE DIVIDER -->
 
@@ -298,12 +301,12 @@
                     android:id="@+id/aprofile_message_button"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:background="@drawable/button_border"
                     android:text="@string/message_button"
-                    android:textColor="#ffffff"
                     android:textAlignment="center"
+                    android:textColor="#ffffff"
                     android:textSize="18dp"/>
 
 
@@ -311,9 +314,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="0dp"
-                    android:background="#ffffff">
+                    android:background="#ffffff"
+                    android:orientation="vertical">
 
                     <!-- CALL BUTTON & FRAGMENT REFERENCE -->
 
@@ -336,17 +339,17 @@
 
                         <ImageView
                             android:id="@+id/call_img"
-                            android:layout_weight="1"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_weight="1"
                             android:padding="1dp"
                             android:src="@drawable/call_icon"/>
 
                         <TextView
                             android:id="@+id/call_text"
-                            android:layout_weight="6"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
+                            android:layout_weight="6"
                             android:gravity="center_vertical"/>
                     </LinearLayout>
                     <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
@@ -361,44 +364,44 @@
 
                     <!--&lt;!&ndash; DIRECTIONS BUTTON & FRAGMENT REFERENCE &ndash;&gt;-->
                     <!--<LinearLayout-->
-                        <!--android:id="@+id/adirections_button"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="40dp"-->
-                        <!--android:clickable="true"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/adirections_button"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<ImageView-->
-                            <!--android:id="@+id/directions_img"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_width="40dp"-->
-                            <!--android:layout_height="40dp"-->
-                            <!--android:padding="1dp"-->
-                            <!--android:src="@drawable/directions_icon"/>-->
+                    <!--<ImageView-->
+                    <!--android:id="@+id/directions_img"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:padding="1dp"-->
+                    <!--android:src="@drawable/directions_icon"/>-->
 
-                        <!--<TextView-->
-                            <!--android:id="@+id/directions_text"-->
-                            <!--android:layout_weight="4"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="40dp"-->
-                            <!--android:gravity="center_vertical"-->
-                            <!--android:text="@string/directions_text"/>-->
+                    <!--<TextView-->
+                    <!--android:id="@+id/directions_text"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="@string/directions_text"/>-->
 
-                        <!--<TextView-->
-                            <!--android:id="@+id/open_directions"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="40dp"-->
-                            <!--android:gravity="center"-->
-                            <!--android:layout_gravity="right"-->
-                            <!--android:text="@string/next_symbol"/>-->
+                    <!--<TextView-->
+                    <!--android:id="@+id/open_directions"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:text="@string/next_symbol"/>-->
                     <!--</LinearLayout>-->
                     <!--&lt;!&ndash; END OF DIRECTIONS BUTTON AND FRAGMENT REFERENCE &ndash;&gt;-->
 
                     <!--&lt;!&ndash; DIVIDER LINE &ndash;&gt;-->
                     <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:background="#3234AD">-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#3234AD">-->
                     <!--</LinearLayout>-->
                     <!--&lt;!&ndash; END OF LINE DIVIDER &ndash;&gt;-->
 
@@ -413,27 +416,27 @@
 
                         <ImageView
                             android:id="@+id/website_img"
-                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_weight="1"
                             android:padding="1dp"
                             android:src="@drawable/website_icon"/>
 
                         <!-- TODO: adjust the weight (needs fixing) -->
                         <TextView
                             android:id="@+id/website_url"
-                            android:layout_weight="4"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center_vertical"   />
+                            android:layout_weight="4"
+                            android:gravity="center_vertical"/>
 
                         <TextView
                             android:id="@+id/open_website"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center"
                             android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/next_symbol"/>
                     </LinearLayout>
 
@@ -457,27 +460,27 @@
 
                         <ImageView
                             android:id="@+id/skills_img"
-                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_weight="1"
                             android:padding="1dp"
                             android:src="@drawable/skills_icon"/>
 
                         <TextView
                             android:id="@+id/skills_text"
-                            android:layout_weight="4"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
+                            android:layout_weight="4"
                             android:gravity="center_vertical"
                             android:text="@string/skills_text"/>
 
                         <TextView
                             android:id="@+id/open_skills"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center"
                             android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/next_symbol"/>
                     </LinearLayout>
                     <!-- END OF SKILLS BUTTON & FRAGMENT REFERENCE -->
@@ -500,27 +503,27 @@
 
                         <ImageView
                             android:id="@+id/reviews_img"
-                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_weight="1"
                             android:padding="1dp"
                             android:src="@drawable/review_icon"/>
 
                         <TextView
                             android:id="@+id/reviews_text"
-                            android:layout_weight="4"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
+                            android:layout_weight="4"
                             android:gravity="center_vertical"
                             android:text="@string/review_text"/>
 
                         <TextView
                             android:id="@+id/open_reviews"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center"
                             android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/next_symbol"/>
                     </LinearLayout>
                     <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
@@ -541,30 +544,49 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_weight="1"
                             android:padding="1dp"/>
                         <!--android:src="@drawable/pic_gallery_icon"/>-->
 
                         <TextView
-                            android:layout_weight="4"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
+                            android:layout_weight="4"
                             android:gravity="center_vertical"
                             android:text="@string/pic_gallery_text"/>
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="center"
                             android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/next_symbol"/>
+
+
                     </LinearLayout>
                     <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
+                    <Button
+                        android:id="@+id/Review_section_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:background="@drawable/button_border"
+                        android:text="@string/message_button"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"/>
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/reviews_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                    
 
                 </LinearLayout>
                 <!-- END OF BUTTONS AND FRAGMENT REFERENCES -->
@@ -588,9 +610,10 @@
 
 
             </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
-
+        </ScrollView>
 
     </LinearLayout>
+
+
+</LinearLayout>
 

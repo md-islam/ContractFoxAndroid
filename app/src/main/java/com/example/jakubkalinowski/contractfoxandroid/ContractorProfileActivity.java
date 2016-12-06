@@ -46,13 +46,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    float overAllrating ;
+    float overAllrating;
     DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
     Fragment fragment = new ContractorScheduleFragment();
     String param = "kj";
-    private static final String TAG = "Firebase_TAG!!" ;
+    private static final String TAG = "Firebase_TAG!!";
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
@@ -63,8 +63,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
     //private Estimate.OnFragmentInteractionListener mListener;
     private Member m;
     public Boolean option;
-    String contractorID ;
-    RatingBar ratingForContractor ;
+    String contractorID;
+    RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
 
     //UI component variables
@@ -92,7 +92,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     private ImageView profilePicture, logoPicture;
 
-    public ContractorProfileActivity(){
+    public ContractorProfileActivity() {
 
     }
 
@@ -126,7 +126,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Review child_review = dataSnapshot.getValue(Review.class);
                 count++;
-                contractorUserRatingCount+=child_review.getStars();
+                contractorUserRatingCount += child_review.getStars();
             }
 
             @Override
@@ -155,12 +155,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
         companyName = (TextView) findViewById(R.id.company_name);
         website = (TextView) findViewById(R.id.website_url);
         briefDescription = (TextView) findViewById(R.id.brief_description_layout);
-        profilePicture = (ImageView)findViewById(R.id.profile_fragment_picture);
-        logoPicture = (ImageView)findViewById(R.id.logo_fragment_picture);
+        profilePicture = (ImageView) findViewById(R.id.profile_fragment_picture);
+        logoPicture = (ImageView) findViewById(R.id.logo_fragment_picture);
 
         // Download profile picture
-        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
-        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/" + contractorID + "/profilepic.jpeg");
+        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/" + contractorID + "/logoimg.jpeg");
 
         Glide.with(this)
                 .using(new FirebaseImageLoader())
@@ -188,10 +188,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             state = dataSnapshot.child("address").child("state").getValue().toString();
                             zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
 
-                            if (unitNo.equals(null)){
-                                addressInput = street+", "+city+", "+state+zipcode;
+                            if (unitNo.equals(null)) {
+                                addressInput = street + ", " + city + ", " + state + zipcode;
                             } else {
-                                addressInput = street+", "+unitNo+", "+city+", "+state+", "+zipcode;
+                                addressInput = street + ", " + unitNo + ", " + city + ", " + state + ", " + zipcode;
                             }
 
                             address.setText(addressInput);
@@ -218,7 +218,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 });
 
 
-
 //        if (savedInstanceState == null) {
 //            // Create the detail fragment and add it to the activity
 //            // using a fragment transaction.
@@ -232,14 +231,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
-        availabilityButton = (Button)findViewById(R.id.availability);
+        availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
 //        messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
 //    directionsButton = (LinearLayout)findViewById(R.id.adirections_button);
-        websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
-        skillsButton = (LinearLayout)findViewById(R.id.askills_button);
-        reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+        websiteButton = (LinearLayout) findViewById(R.id.awebsite_button);
+        skillsButton = (LinearLayout) findViewById(R.id.askills_button);
+        reviewsButton = (LinearLayout) findViewById(R.id.areviews_button);
         picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
         availabilityButton.setOnClickListener(new View.OnClickListener() {
@@ -259,8 +258,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
-                String [] id = {contractorID };
-                i.putExtra("id", id) ;
+                String[] id = {contractorID};
+                i.putExtra("id", id);
                 startActivity(i);
             }
         });
@@ -269,7 +268,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+phoneInput));
+                intent.setData(Uri.parse("tel:" + phoneInput));
                 startActivity(intent);
             }
         });
@@ -301,7 +300,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
                 //TODO: debug here!!!
-                i.putExtra("id",contractorID);
+                i.putExtra("id", contractorID);
                 startActivity(i);
             }
         });
@@ -334,7 +333,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
         rb.setRating(0);
 
 
-
         final EditText description = new EditText(getApplicationContext());
         description.setHint("Description");
         description.setMinHeight(150);
@@ -358,7 +356,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                         //database work goes here.
                         double starsDouble = (double) numOfStars;
 
-                        saveReviewInDB(desc , starsDouble);
+                        saveReviewInDB(desc, starsDouble);
 
                     }
                 });
@@ -372,26 +370,24 @@ public class ContractorProfileActivity extends AppCompatActivity {
     }
 
     // You can put the DB code here.
-    private void saveReviewInDB(String description , double numOfStars) {
+    private void saveReviewInDB(String description, double numOfStars) {
 
-        String currentReviewerUserId = DrawerActivity.currentUserId ; //this is the current user id.
+        String currentReviewerUserId = DrawerActivity.currentUserId; //this is the current user id.
         // contractorID is a string variable available in this activity. it is being passed from previous activity.
         //
         String firebasePushKey = mFirebaseDatabaseReference.child("contractor_reviews").push().
                 getKey();
-        HashMap<String, Object> dateMap= new HashMap<String, Object>();
+        HashMap<String, Object> dateMap = new HashMap<String, Object>();
         dateMap.put("date", ServerValue.TIMESTAMP);
-
-
-        Review review = new Review(currentReviewerUserId,contractorID,dateMap, null,
-                description,numOfStars, firebasePushKey);
+        Review review = new Review(currentReviewerUserId, contractorID, dateMap, null,
+                description, numOfStars, firebasePushKey);
 
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).child(firebasePushKey)
                 .setValue(review);
 
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
         mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").
-                setValue(contractorUserRatingCount/count) ;
+                setValue(contractorUserRatingCount / count);
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
     }

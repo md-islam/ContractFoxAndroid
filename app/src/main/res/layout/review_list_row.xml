@@ -1,4 +1,5 @@
-<android.support.v7.widget.CardView android:id="@+id/row_recentMessage_list_individual_card"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:id="@+id/row_reviews_cardView"
                                     xmlns:android="http://schemas.android.com/apk/res/android"
                                     android:layout_width="match_parent"
                                     android:layout_height="100dp"
@@ -19,7 +20,7 @@
 
 
         <TextView
-            android:id="@+id/chat_project_title_recentchatList"
+            android:id="@+id/review_description_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -30,39 +31,37 @@
             android:ellipsize="end"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/last_messae_recieved_recentchatList"
+        <RatingBar
+            android:id="@+id/ratingBar_review_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/chat_project_title_recentchatList"
-            android:maxLength="30"
-            android:maxLines="1"
-            android:text="Last message recieved"
-            android:ellipsize="end"/>
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="2.0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:layout_below="@+id/review_description_view"/>
 
         <TextView
-            android:id="@+id/conversations_view_recipient_name"
+            android:id="@+id/review_row_reviewer_name"
             android:layout_width="wrap_content"
             android:textSize="16dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="recipient_name"/>
+            android:text="reviewer_name"/>
 
         <TextView
-            android:id="@+id/date_last_message_recieved"
+            android:id="@+id/review_row_timeStamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/conversations_view_recipient_name"
-            android:text="d_l_m_recieved"/>
+            android:layout_below="@id/review_row_reviewer_name"
+            android:text="timestamp_review"/>
 
-        <TextView
-            android:id="@+id/conversations_view_time_last_message_recieved"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/date_last_message_recieved"
-            android:text="t_l_m_recieved"/>
+
+
 
 
         <!--<TextView-->
