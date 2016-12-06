@@ -43,6 +43,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:layout_gravity="center"
+                                android:background="@drawable/md_transparent"
                                 android:id="@+id/profile_fragment_picture"
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
@@ -52,6 +53,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
+                                android:background="@drawable/md_transparent"
                                 android:id="@+id/logo_fragment_picture"
                                 android:layout_above="@+id/fragment_container"
                                 android:paddingBottom="5dp"/>
@@ -106,6 +108,7 @@
                                     android:textColor="#000000"/>
 
                                 <TextView
+                                    android:visibility="invisible"
                                     android:id="@+id/miles"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -114,8 +117,9 @@
                                     android:textAlignment="center"
                                     android:text="@string/distance_miles"
                                     android:textColor="#900C3F"/>
+
                             </LinearLayout>
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
 
                         <!-- DIVIDER LINE -->
                         <LinearLayout
@@ -134,7 +138,7 @@
     android:orientation="horizontal">
 
                         <Button
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
                             android:id="@+id/add_before_image_to_gallery_button"
                             android:layout_width="170dp"
                             android:layout_height="40dp"
@@ -149,7 +153,7 @@
                             android:textSize="10dp"/>
 
                         <Button
-                            android:layout_weight="1"
+                            android:visibility="invisible"
                             android:id="@+id/add_after_image_to_gallery_button"
                             android:layout_width="170dp"
                             android:layout_height="40dp"
@@ -165,6 +169,7 @@
 </LinearLayout>
                         <!-- BUTTONS AND FRAGMENT REFERENCES -->
                         <LinearLayout
+                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -194,7 +199,8 @@
                                     android:layout_weight="6"
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
-                                    android:gravity="center_vertical"/>
+                                    android:gravity="center_vertical"
+                                    android:textSize="18dp"/>
                             </LinearLayout>
                             <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
@@ -228,7 +234,8 @@
                                     android:layout_weight="4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
-                                    android:gravity="center_vertical"   />
+                                    android:gravity="center_vertical"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_website"
@@ -272,7 +279,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/skills_text"/>
+                                    android:text="@string/skills_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_skills"
@@ -315,7 +323,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/review_text"/>
+                                    android:text="@string/review_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:id="@+id/open_reviews"
@@ -347,6 +356,7 @@
                                     android:layout_weight="1"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
+                                    android:src="@drawable/before_and_after_icon"
                                     android:padding="1dp"/>
                                     <!--android:src="@drawable/pic_gallery_icon"/>-->
 
@@ -355,7 +365,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
                                     android:gravity="center_vertical"
-                                    android:text="@string/pic_gallery_text"/>
+                                    android:text="@string/pic_gallery_text"
+                                    android:textSize="18dp"/>
 
                                 <TextView
                                     android:layout_weight="1"
@@ -367,7 +378,12 @@
                             </LinearLayout>
                             <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
-
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#3234AD">
+                            </LinearLayout>
+                            <!-- END OF LINE DIVIDER -->
                         </LinearLayout>
                         <!-- END OF BUTTONS AND FRAGMENT REFERENCES -->
                         <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
