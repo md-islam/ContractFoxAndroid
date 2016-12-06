@@ -79,14 +79,14 @@ public class RecentConversationsListFragment extends Fragment {
         mConversationsListRecyclerView.setAdapter(mConversationListAdapter);
         //-----INITIALIZE AND SET RECYCLERVIEW_RELATED VARIABLES [END]---------//
 
-        if (mChatSessionList.isEmpty()) {
-            mConversationsListRecyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
-        else {
-            mConversationsListRecyclerView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.INVISIBLE);
-        }
+//        if (mChatSessionList.isEmpty()) {
+//            mConversationsListRecyclerView.setVisibility(View.GONE);
+//            emptyView.setVisibility(View.);
+//        }
+//        else {
+//            mConversationsListRecyclerView.setVisibility(View.VISIBLE);
+//            emptyView.setVisibility(View.INVISIBLE);
+//        }
         //-------ATTACHING CHILD EVENT LISTENER BECAUSE WE'RE DEALING WITH LISTS[START]----//
         mDatabaseReference.child("users/" + mCurrentUserID + "/chatSessions")
                 .addChildEventListener(new ChildEventListener() {
