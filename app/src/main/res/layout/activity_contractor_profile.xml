@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contractor_profile"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    tools:context="com.example.jakubkalinowski.contractfoxandroid.ContractorProfileActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/activity_contractor_profile"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f2f2f2"
+              tools:context="com.example.jakubkalinowski.contractfoxandroid.ContractorProfileActivity">
 
     <LinearLayout
         android:id="@+id/contractor_profile_activity_layout"
@@ -90,38 +90,38 @@
 
                 <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
                 <!--<LinearLayout-->
-                    <!--android:id="@+id/mapView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:background="#ffffff">-->
+                <!--android:id="@+id/mapView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:orientation="vertical"-->
+                <!--android:background="#ffffff">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/address_string"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:textColor="#000000"/>
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/address_string"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="#000000"/>
 
-                        <TextView
-                            android:visibility="invisible"
-                            android:id="@+id/miles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".1"
-                            android:layout_gravity="right"
-                            android:textAlignment="center"
-                            android:text="@string/distance_miles"
-                            android:textColor="#900C3F"/>
-                    </LinearLayout>
+                    <TextView
+                        android:visibility="invisible"
+                        android:id="@+id/miles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:layout_gravity="right"
+                        android:textAlignment="center"
+                        android:text="@string/distance_miles"
+                        android:textColor="#900C3F"/>
+                </LinearLayout>
                 <!--</LinearLayout>-->
 
                 <!-- DIVIDER LINE -->
@@ -153,75 +153,75 @@
                     android:paddingRight="10dp"
                     android:textColor="#000000"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/availability"
-                    android:layout_width="170dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/button_border_rectangle_grey"
-                    android:text="View Availability"
-                    android:textColor="#000000"
-                    android:textAlignment="center"
-                    android:textSize="12dp"/>
+                    <Button
+                        android:id="@+id/availability"
+                        android:layout_width="170dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button_border_rectangle_grey"
+                        android:text="View Availability"
+                        android:textColor="#000000"
+                        android:textAlignment="center"
+                        android:textSize="12dp"/>
 
-                <Button
-                    android:id="@+id/aprofile_message_button"
-                    android:layout_width="170dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/button_border_rectangle"
-                    android:text="@string/message_button"
-                    android:textColor="#ffffff"
-                    android:textAlignment="center"
-                    android:textSize="12dp"/>
+                    <Button
+                        android:id="@+id/aprofile_message_button"
+                        android:layout_width="170dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button_border_rectangle"
+                        android:text="@string/message_button"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center"
+                        android:textSize="12dp"/>
 
                 </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <!-- ESTIMATE BUTTON -->
-                <Button
-                    android:id="@+id/aprofile_estimate_button"
-                    android:layout_width="170dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="5dp"
-                    android:textAlignment="center"
-                    android:text="@string/estimate_button"
-                    android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border_estimate"/>
-                <!-- END OF ESTIMATE BUTTON -->
+                    <!-- ESTIMATE BUTTON -->
+                    <Button
+                        android:id="@+id/aprofile_estimate_button"
+                        android:layout_width="170dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="5dp"
+                        android:textAlignment="center"
+                        android:text="@string/estimate_button"
+                        android:layout_weight="1"
+                        android:textSize="12dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border_estimate"/>
+                    <!-- END OF ESTIMATE BUTTON -->
 
-                <!-- DIRECTIONS BUTTON -->
-                <Button
-                    android:layout_width="170dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/direction"
-                    android:textSize="12dp"
-                    android:layout_weight="1"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border_rectangle_blue"
-                    android:id="@+id/adirections_button" />
+                    <!-- DIRECTIONS BUTTON -->
+                    <Button
+                        android:layout_width="170dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/direction"
+                        android:textSize="12dp"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border_rectangle_blue"
+                        android:id="@+id/adirections_button" />
                 </LinearLayout>
 
                 <!-- DIVIDER LINE -->
@@ -454,6 +454,25 @@
                     </LinearLayout>
                     <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/reviews"
+                        android:textSize="12dp"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border_rectangle_blue"
+                        android:id="@+id/reviews_banner_header"
+                        android:clickable="false"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/reviews_recyclerViews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical" />
 
 
                 </LinearLayout>
@@ -462,9 +481,8 @@
 
             </LinearLayout>
 
-            </ScrollView>
-        </LinearLayout>
-
-
+        </ScrollView>
     </LinearLayout>
 
+
+</LinearLayout>

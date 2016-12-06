@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.jakubkalinowski.contractfoxandroid.Model.Review;
 import com.example.jakubkalinowski.contractfoxandroid.Navigation_Fragments.ContractorScheduleFragment;
+import com.example.jakubkalinowski.contractfoxandroid.helper_classes.ReviewsRecyclerViewAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,13 +51,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    float overAllrating ;
+    float overAllrating;
     DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
     Fragment fragment = new ContractorScheduleFragment();
     String param = "kj";
-    private static final String TAG = "Firebase_TAG!!" ;
+    private static final String TAG = "Firebase_TAG!!";
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
@@ -62,9 +67,16 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     private Member m;
     public Boolean option;
-    String contractorID ;
-    RatingBar ratingForContractor ;
+    String contractorID;
+    RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
+
+    //RecyclerView list adapters variables -- [START]
+    private List<Review> mReviewList = new ArrayList<>();
+    private RecyclerView reviewsRecyclerView;
+    private ReviewsRecyclerViewAdapter mReviewRecyclerViewAdapter;
+    //RecyclerView list adapters variables -- [END]
+
 
     //UI component variables
     private Button estimateButton, messageButton, availabilityButton, directionsButton;
@@ -92,7 +104,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
     private ImageView profilePicture, logoPicture;
 
-    public ContractorProfileActivity(){
+    public ContractorProfileActivity() {
 
     }
 
@@ -111,12 +123,21 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
 
+        reviewsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recyclerViews);
+        mReviewRecyclerViewAdapter = new ReviewsRecyclerViewAdapter(mReviewList);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        reviewsRecyclerView.setAdapter(mReviewRecyclerViewAdapter);
+        mReviewRecyclerViewAdapter.notifyDataSetChanged();
+
+
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Review child_review = dataSnapshot.getValue(Review.class);
                 count++;
-                contractorUserRatingCount+=child_review.getStars();
+                contractorUserRatingCount += child_review.getStars();
+                mReviewList.add(child_review);
+                mReviewRecyclerViewAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -145,12 +166,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
         companyName = (TextView) findViewById(R.id.company_name);
         website = (TextView) findViewById(R.id.website_url);
         briefDescription = (TextView) findViewById(R.id.brief_description_layout);
-        profilePicture = (ImageView)findViewById(R.id.profile_fragment_picture);
-        logoPicture = (ImageView)findViewById(R.id.logo_fragment_picture);
+        profilePicture = (ImageView) findViewById(R.id.profile_fragment_picture);
+        logoPicture = (ImageView) findViewById(R.id.logo_fragment_picture);
 
         // Download profile picture
-        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
-        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/" + contractorID + "/profilepic.jpeg");
+        mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/" + contractorID + "/logoimg.jpeg");
 
         Glide.with(this)
                 .using(new FirebaseImageLoader())
@@ -178,10 +199,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             state = dataSnapshot.child("address").child("state").getValue().toString();
                             zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
 
-                            if (unitNo.equals(null)){
-                                addressInput = street+", "+city+", "+state+zipcode;
+                            if (unitNo.equals(null)) {
+                                addressInput = street + ", " + city + ", " + state + zipcode;
                             } else {
-                                addressInput = street+", "+unitNo+", "+city+", "+state+", "+zipcode;
+                                addressInput = street + ", " + unitNo + ", " + city + ", " + state + ", " + zipcode;
                             }
 
                             address.setText(addressInput);
@@ -213,6 +234,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
         skillsButton = (LinearLayout)findViewById(R.id.askills_button);
         reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+
         picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
         availabilityButton.setOnClickListener(new View.OnClickListener() {
@@ -230,8 +252,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ContractorProfileActivity.this, EstimateActivity.class);
-                String [] id = {contractorID };
-                i.putExtra("id", id) ;
+                String[] id = {contractorID};
+                i.putExtra("id", id);
                 startActivity(i);
             }
         });
@@ -240,7 +262,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+phoneInput));
+                intent.setData(Uri.parse("tel:" + phoneInput));
                 startActivity(intent);
             }
         });
@@ -274,7 +296,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
                 //TODO: debug here!!!
-                i.putExtra("id",contractorID);
+                i.putExtra("id", contractorID);
                 startActivity(i);
             }
         });
@@ -304,6 +326,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
         final RatingBar rb = new RatingBar(getApplicationContext());
         rb.setRating(0);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
         final EditText description = new EditText(getApplicationContext());
         description.setHint("Description");
         description.setMinHeight(150);
@@ -322,7 +348,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                         //database work goes here.
                         double starsDouble = (double) numOfStars;
 
-                        saveReviewInDB(desc , starsDouble);
+                        saveReviewInDB(desc, starsDouble);
 
                     }
                 });
@@ -336,26 +362,24 @@ public class ContractorProfileActivity extends AppCompatActivity {
     }
 
     // You can put the DB code here.
-    private void saveReviewInDB(String description , double numOfStars) {
+    private void saveReviewInDB(String description, double numOfStars) {
 
-        String currentReviewerUserId = DrawerActivity.currentUserId ; //this is the current user id.
+        String currentReviewerUserId = DrawerActivity.currentUserId; //this is the current user id.
         // contractorID is a string variable available in this activity. it is being passed from previous activity.
         //
         String firebasePushKey = mFirebaseDatabaseReference.child("contractor_reviews").push().
                 getKey();
-        HashMap<String, Object> dateMap= new HashMap<String, Object>();
+        HashMap<String, Object> dateMap = new HashMap<String, Object>();
         dateMap.put("date", ServerValue.TIMESTAMP);
-
-
-        Review review = new Review(currentReviewerUserId,contractorID,dateMap, null,
-                description,numOfStars, firebasePushKey);
+        Review review = new Review(currentReviewerUserId, contractorID, dateMap, null,
+                description, numOfStars, firebasePushKey);
 
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).child(firebasePushKey)
                 .setValue(review);
 
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
         mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").
-                setValue(contractorUserRatingCount/count) ;
+                setValue(contractorUserRatingCount / count);
         //each contractor id is the parent key and the childs are firebase push key with containing child object
 
     }
