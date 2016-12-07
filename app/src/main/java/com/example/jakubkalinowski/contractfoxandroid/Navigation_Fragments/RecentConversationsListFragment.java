@@ -79,14 +79,7 @@ public class RecentConversationsListFragment extends Fragment {
         mConversationsListRecyclerView.setAdapter(mConversationListAdapter);
         //-----INITIALIZE AND SET RECYCLERVIEW_RELATED VARIABLES [END]---------//
 
-//        if (mChatSessionList.isEmpty()) {
-//            mConversationsListRecyclerView.setVisibility(View.GONE);
-//            emptyView.setVisibility(View.);
-//        }
-//        else {
-//            mConversationsListRecyclerView.setVisibility(View.VISIBLE);
-//            emptyView.setVisibility(View.INVISIBLE);
-//        }
+
         //-------ATTACHING CHILD EVENT LISTENER BECAUSE WE'RE DEALING WITH LISTS[START]----//
         mDatabaseReference.child("users/" + mCurrentUserID + "/chatSessions")
                 .addChildEventListener(new ChildEventListener() {
@@ -116,6 +109,7 @@ public class RecentConversationsListFragment extends Fragment {
                                                     listChatSessionItem.setRecipientUserId(recipientUserId);
                                                     mChatSessionList.add(listChatSessionItem);
                                                     mConversationListAdapter.notifyDataSetChanged();
+                                                    setViewMessageIfNoMessages();
                                                 }
 
                                                 @Override
@@ -142,6 +136,8 @@ public class RecentConversationsListFragment extends Fragment {
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        setViewMessageIfNoMessages();
 
                     }
 
@@ -188,6 +184,21 @@ public class RecentConversationsListFragment extends Fragment {
                             }
                         },
                         mConversationsListRecyclerView));
+    }
+
+
+    /**
+     * helper method to always make sure that the view is updated
+     */
+    public void setViewMessageIfNoMessages(){
+        if (mChatSessionList.isEmpty()) {
+            mConversationsListRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mConversationsListRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
