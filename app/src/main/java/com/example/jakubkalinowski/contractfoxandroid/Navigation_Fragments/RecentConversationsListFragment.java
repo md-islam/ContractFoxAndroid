@@ -78,7 +78,7 @@ public class RecentConversationsListFragment extends Fragment {
         mConversationsListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mConversationsListRecyclerView.setAdapter(mConversationListAdapter);
         //-----INITIALIZE AND SET RECYCLERVIEW_RELATED VARIABLES [END]---------//
-
+        setViewMessageIfNoMessages();
 
         //-------ATTACHING CHILD EVENT LISTENER BECAUSE WE'RE DEALING WITH LISTS[START]----//
         mDatabaseReference.child("users/" + mCurrentUserID + "/chatSessions")
