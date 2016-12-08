@@ -15,7 +15,7 @@ public class Contractor extends Member {
     private String businessWebsiteURL;
 
 
-    private int numberOfReview ;
+    private int numberOfReviews ;
     private double overAllRating ;
     public ArrayList<String> skillSet = new ArrayList<>();
 
@@ -32,7 +32,7 @@ public class Contractor extends Member {
         this.businessWebsiteURL = businessWebsiteURL;
         this.companyName = companyName;
         this.overAllRating = overAllrating ;
-        this.numberOfReview = numberOfReviews ;
+        this.numberOfReviews = numberOfReviews ;
     }
 
     public String getBriefDescription() {
@@ -72,11 +72,11 @@ public class Contractor extends Member {
 
 
     public int getNumberOfReview() {
-        return numberOfReview;
+        return numberOfReviews;
     }
 
     public void setNumberOfReview(int numberOfReview) {
-        this.numberOfReview = numberOfReview;
+        this.numberOfReviews = numberOfReview;
     }
 
     public double getOverAllRating() {

@@ -41,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -354,6 +355,7 @@ public class SearchViewListActivity extends AppCompatActivity {
             holder.stars.setRating( (float) memberList.get(position).getOverAllRating() );
             holder.numebrOfReviews.setText( Integer.toString( memberList.get(position).getNumberOfReview())  );
 
+            Log.d("onbind--", "it is called!");
             imageStorage = storage.getReference("ProfilePictures/" +
                     map.get(position)+"/profilepic.jpeg");
 //            StorageReference imageRef = storageRef.child(map.get(position)).child("profilepic.jpeg");
@@ -468,12 +470,28 @@ public class SearchViewListActivity extends AppCompatActivity {
         public void onClick(View view) {
             Toast.makeText(getApplicationContext() , "Filtering results by review ..." ,Toast.LENGTH_SHORT).show();
 
-            Collections.sort(ratingsList);
-            Collections.reverse(ratingsList);
-          companyNames.clear();
-            searchDB(true);
+            Collections.sort(memberList, new Comparator<Contractor>() {
+                @Override public int compare(Contractor p1, Contractor p2) {
+                    return  (int) (p1.getOverAllRating() - p2.getOverAllRating() ); // Ascending
+                }
+
+            });
+
+
+           // searchDB(true);
+            Collections.reverse(memberList);
+            recreateList();
+
         }
     };
+
+    private void recreateList() {
+
+        View recyclerView = findViewById(R.id.searchview_list);
+        assert recyclerView != null;
+        Log.d("checkk-", "recycler set");
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
 //
 //    public List<String> getBitMapFromMemory (String key){
 //       // return cachedMemory.get(key);
