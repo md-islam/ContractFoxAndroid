@@ -70,7 +70,7 @@ public class EstimateActivity extends AppCompatActivity {
     String materialDeliverySwitchYes = "Customer will need material delivery";
     String materialDeliverySwitchNo = "Customer will not need material delivery";
     TextView textView1, textView2;
-    static String [] ContracoorIds = new String[5]; // list of ids for contractors from previous view that has their
+    static String [] ContracoorIds ; // list of ids for contractors from previous view that has their
     // check box clicked.
 
     DatabaseReference messageReferencesDatabaseReference;
@@ -122,17 +122,18 @@ public class EstimateActivity extends AppCompatActivity {
         mAddImageToGallery = (ImageView)findViewById(R.id.ivGallery);
         mImageView = (ImageView)findViewById(R.id.ivImage);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            currentUserId = user.getUid();
-        } else {
-            // No user is signed in
-            Log.i("ladimmm" ,"not signed in !!");
-        }
+        currentUserId = DrawerActivity.currentUserId ;
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            currentUserId = user.getUid();
+//        } else {
+//            // No user is signed in
+//            Log.i("ladimmm" ,"not signed in !!");
+//        }
 
         savedInstanceState = getIntent().getExtras();
         ContracoorIds = savedInstanceState.getStringArray("id");
-        Log.d("i-d-est", ContracoorIds[0]);
+
 
         mAddImageToGallery.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -209,8 +210,8 @@ public class EstimateActivity extends AppCompatActivity {
 
             String description = "";
 
-            description = "<---" + project_title.getText().toString() + "-->";
-            description = description.concat("Contract description: \n");
+            description = "<---" + project_title.getText().toString() + "--> ";
+            description = description.concat("\nContract description: \n");
             description = description.concat("\n" + project_description.getText().toString()); // the text that you typed.
             description = description.concat("\n" + "<-Item/Area Dimensions and Specs-> \n" +
                     mitemAreaDimensionsEditText.getText().toString());
