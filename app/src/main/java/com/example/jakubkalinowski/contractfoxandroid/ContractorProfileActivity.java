@@ -141,7 +141,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Review child_review = dataSnapshot.getValue(Review.class);
-                count++;
+                ++count;
                 contractorUserRatingCount += child_review.getStars();
                 mReviewList.add(child_review);
                 mReviewRecyclerViewAdapter.notifyDataSetChanged();
@@ -380,10 +380,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 .setValue(review);
 
         //ok so every contractor needs to haave an overall rating attribute in db. Just one number.
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllRating").
                 setValue(contractorUserRatingCount / count);
         //each contractor id is the parent key and the childs are firebase push key with containing child object
-        mFirebaseDatabaseReference.child("users").child(contractorID).child("numberOfReviews").
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("numberOfReview").
                 setValue(count);
 
 
