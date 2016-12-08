@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
-                    android:text="adminlad@aol.com"
+                    android:text="ladi209@gmail.com"
                     android:textColorHint="@color/colorPrimary"
                     android:padding="10dp"
                     android:id="@+id/email_text_input_login_activity"
