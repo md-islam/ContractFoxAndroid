@@ -462,9 +462,32 @@ public class SearchViewListActivity extends AppCompatActivity {
     View.OnClickListener distanceListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            sortByDistance();
             Toast.makeText(getApplicationContext() , "Filtering results by distance ..." ,Toast.LENGTH_SHORT).show();
         }
     };
+
+    private void sortByDistance() {
+
+        Collections.sort(memberList, new Comparator<Contractor>() {
+            @Override public int compare(Contractor p1, Contractor p2) {
+
+                double distanceP1 = Math.sqrt(    Math.pow ( p1.getLatitude() - DrawerActivity.currentLatitude, 2 ) +
+                        Math.pow ( p1.getLongitude() - DrawerActivity.currentLongitude, 2 ) );
+
+                double distanceP2 = Math.sqrt(    Math.pow ( p2.getLatitude() - DrawerActivity.currentLatitude, 2 ) +
+                        Math.pow ( p2.getLongitude() - DrawerActivity.currentLongitude, 2 ) );
+
+                return  (int) (distanceP1 - distanceP2 ); // Ascending
+            }
+
+        });
+
+        Collections.reverse(memberList);
+        recreateList();
+
+    }
 
     View.OnClickListener reviewListener = new View.OnClickListener() {
         @Override

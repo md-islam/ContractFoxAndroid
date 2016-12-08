@@ -17,6 +17,8 @@ public class Contractor extends Member {
 
     private int numberOfReviews ;
     private double overAllRating ;
+
+    double longitude , latitude ;
     public ArrayList<String> skillSet = new ArrayList<>();
 
 
@@ -25,13 +27,16 @@ public class Contractor extends Member {
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, Address mAddress,
                       String briefDescription, ArrayList<String> skillSet,
-                      String businessWebsiteURL, double overAllrating, int numberOfReviews ,String companyName) {
+                      String businessWebsiteURL, double overAllrating, int numberOfReviews,
+                      double longi , double lati , String companyName) {
         super(firstname, lastname, email, phoneNo, contractorOption, mAddress );
         this.briefDescription = briefDescription;
         this.skillSet = skillSet;
         this.businessWebsiteURL = businessWebsiteURL;
         this.companyName = companyName;
         this.overAllRating = overAllrating ;
+        this.latitude = lati ;
+        this.longitude = longi ;
         this.numberOfReviews = numberOfReviews ;
     }
 
@@ -43,6 +48,22 @@ public class Contractor extends Member {
         this.briefDescription = briefDescription;
     }
 
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
     //implementing abstract methods
 
     @Override

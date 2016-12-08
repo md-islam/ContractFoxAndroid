@@ -65,6 +65,7 @@ public class DrawerActivity extends AppCompatActivity
     NavigationView navigationView;
     Menu nav_Menu;
     TextView customerName ;
+    static double currentLatitude , currentLongitude ;
     public static String currentUserId ;
     static String currentUserFirstName  ="kladimer";
     LinearLayout tab1, tab2, tab3, tab4 ;
@@ -146,6 +147,8 @@ public class DrawerActivity extends AppCompatActivity
                                     Log.d("contractorhere" , " before if");
                                     if (dataSnapshot.child("contractorOption").getValue().equals(true)){
                                         tv.setText(dataSnapshot.child("firstName").getValue().toString());
+                                        currentLatitude = dataSnapshot.child("latitude").getValue(Double.class) ;
+                                        currentLongitude = dataSnapshot.child("longitude").getValue(Double.class) ;
                                         Log.d("contractorhere" , " true now");
                                     }
                                     else{

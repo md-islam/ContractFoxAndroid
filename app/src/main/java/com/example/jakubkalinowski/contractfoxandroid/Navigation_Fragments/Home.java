@@ -85,6 +85,8 @@ public class Home extends Fragment {
 
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
+
+
         /**
          * Now , this is a workaround ,
          * The setupWithViewPager dose't works without the runnable .
