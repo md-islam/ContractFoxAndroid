@@ -357,7 +357,7 @@ public class SearchViewListActivity extends AppCompatActivity {
 
             Log.d("onbind--", "it is called!");
             imageStorage = storage.getReference("ProfilePictures/" +
-                    map.get(position)+"/profilepic.jpeg");
+                    idMap.get( memberList.get(holder.getAdapterPosition()).getFirstName()  )+"/profilepic.jpeg");
 //            StorageReference imageRef = storageRef.child(map.get(position)).child("profilepic.jpeg");
             Glide.with(SearchViewListActivity.this).using(new FirebaseImageLoader()).load(imageStorage).into(holder.image);
 
@@ -366,20 +366,21 @@ public class SearchViewListActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Log.d("i-d-", " yayyy");
                     String [] ids = new String[5];
-                    int count2 = 0;
-                    for(int i = 0; i <radios.size(); i++){
-                        Log.d("i-d-", "in radio list");
-                        if( radios.get(i).isChecked() ) {
-                            Log.d("i-d-", " were in");
-                            //  Log.d("i-d-", holder.companyName.getText().toString());
-                            ids[count2] = map.get(i);
-                            count2++ ;
-                        }
-                    }
+//                    int count2 = 0;
+//                    for(int i = 0; i <radios.size(); i++){
+//                        Log.d("i-d-", "in radio list");
+//                        if( radios.get(i).isChecked() ) {
+//                            Log.d("i-d-", " were in");
+//                            //  Log.d("i-d-", holder.companyName.getText().toString());
+//                            ids[count2] = map.get(i);
+//                            count2++ ;
+//                        }
+//                    }
 
                     Intent i = new Intent(SearchViewListActivity.this , EstimateActivity.class);
 
-                    i.putExtra("id" , ids);
+                    String[] listofID = {idMap.get( memberList.get(holder.getAdapterPosition()).getFirstName() ) };
+                    i.putExtra("id" , listofID );
                     startActivity(i);
 
                 }
