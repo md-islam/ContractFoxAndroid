@@ -13,6 +13,10 @@ public class Contractor extends Member {
     private String briefDescription;
     private String companyName;
     private String businessWebsiteURL;
+
+
+    private int numberOfReview ;
+    private double overAllRating ;
     public ArrayList<String> skillSet = new ArrayList<>();
 
 
@@ -21,12 +25,14 @@ public class Contractor extends Member {
     public Contractor(String firstname, String lastname, String email, String phoneNo,
                       Boolean contractorOption, Address mAddress,
                       String briefDescription, ArrayList<String> skillSet,
-                      String businessWebsiteURL, int overAllrating, String companyName) {
-        super(firstname, lastname, email, phoneNo, contractorOption, mAddress , overAllrating);
+                      String businessWebsiteURL, double overAllrating, int numberOfReviews ,String companyName) {
+        super(firstname, lastname, email, phoneNo, contractorOption, mAddress );
         this.briefDescription = briefDescription;
         this.skillSet = skillSet;
         this.businessWebsiteURL = businessWebsiteURL;
         this.companyName = companyName;
+        this.overAllRating = overAllrating ;
+        this.numberOfReview = numberOfReviews ;
     }
 
     public String getBriefDescription() {
@@ -64,6 +70,22 @@ public class Contractor extends Member {
         this.phoneNo = phoneNo;
     }
 
+
+    public int getNumberOfReview() {
+        return numberOfReview;
+    }
+
+    public void setNumberOfReview(int numberOfReview) {
+        this.numberOfReview = numberOfReview;
+    }
+
+    public double getOverAllRating() {
+        return overAllRating;
+    }
+
+    public void setOverAllRating(double overAllRating) {
+        this.overAllRating = overAllRating;
+    }
     @Override
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;

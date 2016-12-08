@@ -57,6 +57,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     //[Firebase_variable]**
     private FirebaseAuth mAuth;
     boolean contractorFound = false ;
+    List <Contractor> memberList = new ArrayList<>();
     RadioButton distanceRadio ,reviewRadio ;
     //  private FirebaseAuth.AuthStateListener mAuthListener; //signed_in state listener object
     private DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance()
@@ -91,6 +92,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     ProgressBar progressBar ;
     boolean flag = false;
 
+    String name ;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -129,7 +131,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                    // }
                 }
                 if( !contractorFound){
-                    Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
                 }
             }
         }else{ //search is coming from specific list, or serach bar is DrawerActivity
@@ -139,7 +141,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                     searchedItem = s ;
                     break;
                 }else{
-                    Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext() , "No results were found!", Toast.LENGTH_LONG).show();
                 }
             }
          //   Log.i("nothingin" , searchedItem);
@@ -250,6 +252,11 @@ public class SearchViewListActivity extends AppCompatActivity {
                             //second for loop for checking if skill is there in the skillSet
                             for( DataSnapshot skill :  skillList){
                                 if(skill.getValue().toString().equalsIgnoreCase(searchedItem)){
+                                    Contractor c =   snapshot.getValue(Contractor.class);
+                                    memberList.add(c);
+                                    name = c.getFirstName();
+
+
                                     if(! haveTheRatingList){
                                         ratingsList.add(snapshot.child("overAllrating").getValue(Float.class));
                                     }
@@ -263,7 +270,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                     }
                     // Log.d("checkk-", Integer.toString(companyNames.size()));//dubugging help
                     //setting up recycler view
-                    setBitMapToMemory(searchedItem , companyNames );
+                    //setBitMapToMemory(searchedItem , companyNames );
                     progressBar.setVisibility(View.INVISIBLE);
                     View recyclerView = findViewById(R.id.searchview_list);
                     assert recyclerView != null;
@@ -337,14 +344,15 @@ public class SearchViewListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            // holder.mItem = mValues.get(position);
-            holder.companyName.setText(mValues.get(position));
-            Log.d("i-d-", " numberCalled");
+
+           // holder.companyName.setText(mValues.get(position));
+          //  holder.stars.setRating(rate.get(position));
             radios.add(holder.radioButton);
-            // holder.numebrOfReviews.setText("6006"); // testing here to see if i can access. just putting name of contractor here.
-            holder.numebrOfReviews.setText(mValues2.get(position));
-            holder.stars.setRating(rate.get(position));
-           // holder.image.( (ImageView) storageRef.child(map.get(position)).child("profilepic.jpeg")   );
+           // holder.numebrOfReviews.setText(mValues2.get(position));
+
+            holder.companyName.setText(memberList.get(position).getFirstName() );
+            holder.stars.setRating( (float) memberList.get(position).getOverAllRating() );
+            holder.numebrOfReviews.setText( Integer.toString( memberList.get(position).getNumberOfReview())  );
 
             imageStorage = storage.getReference("ProfilePictures/" +
                     map.get(position)+"/profilepic.jpeg");
@@ -466,16 +474,16 @@ public class SearchViewListActivity extends AppCompatActivity {
             searchDB(true);
         }
     };
+//
+//    public List<String> getBitMapFromMemory (String key){
+//       // return cachedMemory.get(key);
+//    }
+//
+//    public void setBitMapToMemory (String key , List<String> bitmap){
+//        if(getBitMapFromMemory(key) == null){
+//            cachedMemory.put(key , bitmap);
+//        }
 
-    public List<String> getBitMapFromMemory (String key){
-        return cachedMemory.get(key);
-    }
-
-    public void setBitMapToMemory (String key , List<String> bitmap){
-        if(getBitMapFromMemory(key) == null){
-            cachedMemory.put(key , bitmap);
-        }
-
-    }
+  //  }
 }
 

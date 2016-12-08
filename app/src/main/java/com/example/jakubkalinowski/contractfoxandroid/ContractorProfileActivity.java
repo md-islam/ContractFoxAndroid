@@ -119,6 +119,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         contractorID = savedInstanceState.getString("id");
         overAllrating = savedInstanceState.getFloat("overAllrating");
 
+
         Log.d("xyz-prof", contractorID);// yay it worked.
 
         storage = FirebaseStorage.getInstance();
@@ -382,6 +383,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
         mFirebaseDatabaseReference.child("users").child(contractorID).child("overAllrating").
                 setValue(contractorUserRatingCount / count);
         //each contractor id is the parent key and the childs are firebase push key with containing child object
+        mFirebaseDatabaseReference.child("users").child(contractorID).child("numberOfReviews").
+                setValue(count);
+
 
     }
 
