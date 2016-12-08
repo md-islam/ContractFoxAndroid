@@ -33,7 +33,6 @@ public class Introduction extends AppCompatActivity {
         signUp = (Button)findViewById(R.id.signUp);
         signUp.setTextColor(Color.WHITE);
 
-
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(); //Commented out for testing
 
         signUp.setOnClickListener(new View.OnClickListener() {
