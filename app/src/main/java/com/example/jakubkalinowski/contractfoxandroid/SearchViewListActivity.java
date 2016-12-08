@@ -71,7 +71,7 @@ public class SearchViewListActivity extends AppCompatActivity {
     int count = 0;
     List<Float> ratingsList = new ArrayList<>();
     String generalSerach;
-
+    HashMap < String, String> idMap = new HashMap<>();
     private static LruCache<String, List<String>> cachedMemory ;
 
     public static List<String> companyNames  =  new ArrayList<>();
@@ -262,7 +262,7 @@ public class SearchViewListActivity extends AppCompatActivity {
                                         ratingsList.add(snapshot.child("overAllrating").getValue(Float.class));
                                     }
 
-                                    map.put(count , snapshot.getKey());
+                                    idMap.put(c.getFirstName() , snapshot.getKey());
                                     count++;
                                     companyNames.add(snapshot.child("firstName").getValue().toString());
                                 }
@@ -409,11 +409,11 @@ public class SearchViewListActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ContractorProfileActivity.class);
 
                         //intent.putExtra(holder.companyName.getText(), 0 );
-                        Log.d("xyz-pos", String.valueOf(holder.getAdapterPosition()  ) );//debugging help
-                        Log.d("xyz-id",  map.get( holder.getAdapterPosition()) );
+//                        Log.d("xyz-pos", String.valueOf(holder.getAdapterPosition()  ) );//debugging help
+//                        Log.d("xyz-id",  map.get( holder.getAdapterPosition()) );
 
 
-                        intent.putExtra("id", map.get( holder.getAdapterPosition())  );
+                        intent.putExtra("id", idMap.get( memberList.get(holder.getAdapterPosition()).getFirstName()  ) );
                         intent.putExtra("overAllrating" , ratingsList.get(holder.getAdapterPosition()));
                         startActivity(intent);
 
