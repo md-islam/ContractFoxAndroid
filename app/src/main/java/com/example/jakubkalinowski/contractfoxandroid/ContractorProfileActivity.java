@@ -55,6 +55,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     DrawerActivity drawerActivity = new DrawerActivity();
     public static final String ARG_ITEM_ID = "item_id";
 
+    TextView numOFReviews;
     Fragment fragment = new ContractorScheduleFragment();
     String param = "kj";
     private static final String TAG = "Firebase_TAG!!";
@@ -117,18 +118,22 @@ public class ContractorProfileActivity extends AppCompatActivity {
         //here you get the stuff passed to you from previous activity. which is the ID of the clicked contractor
         savedInstanceState = getIntent().getExtras();
         contractorID = savedInstanceState.getString("id");
-        overAllrating = savedInstanceState.getFloat("overAllrating");
+        //overAllrating = savedInstanceState.getFloat("overAllrating");
 
 
         Log.d("xyz-prof", contractorID);// yay it worked.
 
         storage = FirebaseStorage.getInstance();
 
+        numOFReviews = (TextView) findViewById(R.id.numOfRevs);
+        ratingForContractor = (RatingBar) findViewById(R.id.ratingBarCont);
         reviewsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recyclerViews);
         mReviewRecyclerViewAdapter = new ReviewsRecyclerViewAdapter(mReviewList);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(ContractorProfileActivity.this));
         reviewsRecyclerView.setAdapter(mReviewRecyclerViewAdapter);
         mReviewRecyclerViewAdapter.notifyDataSetChanged();
+
+
 
 
 //        mRecyclerViewDuties.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -200,12 +205,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             briefDesc = dataSnapshot.child("briefDescription").getValue().toString();
                             briefDescription.setText(briefDesc);
 
+                            int numOfRevString = (dataSnapshot.child("numberOfReview").getValue(Integer.class));
                             street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
                             unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
                             city = dataSnapshot.child("address").child("city").getValue().toString();
                             state = dataSnapshot.child("address").child("state").getValue().toString();
                             zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
 
+                            overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class) ;
                             if (unitNo.equals(null)) {
                                 addressInput = street + ", " + city + ", " + state + zipcode;
                             } else {
@@ -219,7 +226,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
                             companyInput = dataSnapshot.child("firstName").getValue().toString();
                             companyName.setText(companyInput);
-
+                            ratingForContractor.setRating(overAllrating);
+                            if(numOfRevString < 2){
+                                numOFReviews.setText( numOfRevString + " "+" Review");
+                            }else{
+                                numOFReviews.setText(numOfRevString +" "+ " Reviews");
+                            }
+                            //numOFReviews.setText(numOfRevString + "Reviews");
                             webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
                             website.setText(webInput);
 
@@ -232,6 +245,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
 
                     }
                 });
+
 
         availabilityButton = (Button)findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
