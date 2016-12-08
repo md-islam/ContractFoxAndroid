@@ -1,7 +1,7 @@
 package com.example.jakubkalinowski.contractfoxandroid;
 
-
 import android.app.Activity;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,7 +24,6 @@ import com.example.jakubkalinowski.contractfoxandroid.googleMapsApi.PlaceAutocom
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Packages required for importing google maps API
 //
@@ -65,6 +65,10 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
     private EditText mCityEditText;
     private EditText mStateEditText;
     private EditText mZipEditText;
+
+
+    double latitude ;
+    double longitude;
 
     //google maps required variables
     private AutoCompleteTextView mAutoCompleteTextView;
@@ -98,6 +102,10 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
     private String mCityValue;
     private String mStateValue;
     private String mZipValue;
+
+    // test
+    EditText addressTest ;
+    Button  addressButtonTest ;
 
     private String TAG = "FirebaseTag";
 
@@ -154,6 +162,10 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        addressButtonTest = (Button)view.findViewById(R.id.butotnTest);
+        addressTest = (EditText) view.findViewById(R.id.testedit);
+
+
         mStreetAddressWrapper = (TextInputLayout)
                 view.findViewById(R.id.street_address_wrapper_fragment_address_homeowner);
         mUnitAptWrapper = (TextInputLayout)
@@ -206,6 +218,61 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                 registerNewUserAfterAddressValidation();
             }
         });
+
+
+        addressButtonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Geocoder coder = new Geocoder(getActivity());
+
+                mStreetValue = mStreetAddressEditText.getText().toString();
+                mUnitAptValue = mUnitAptEditText.getText().toString();
+                mCityValue = mCityEditText.getText().toString();
+                mStateValue = mStateEditText.getText().toString();
+                mZipValue = mZipEditText.getText().toString();
+
+                try{
+                   List< android.location.Address> addressList =  coder.getFromLocationName( mStreetValue + mCityValue +mStateValue,1);
+                    if (addressList != null && addressList.size() > 0) {
+                         latitude = addressList.get(0).getLatitude();
+                         longitude = addressList.get(0).getLongitude();
+
+                        Toast.makeText(getActivity() , "Lat :"+ Double.toString(latitude) + "long"+ longitude, Toast.LENGTH_LONG).show();
+                    }
+
+
+                  //  android.location.Address address = new android.location.Address( (Locale)"4176 n kilroy rd turlock CA");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+//                    Geocoder coder = new Geocoder(getActivity());
+//                  //  List<Address> address;
+//                    Barcode.GeoPoint p1 = null;
+//
+//                    try {
+//                         String address = coder.getFromLocationName(addressTest.getText().toString(),5);
+//                        if (address==null) {
+//                           // return null;
+//                        }
+//                        Address location = new Address();
+//                        location.getLatitude();
+//                        location.getLongitude();
+//
+//                        p1 = new Barcode.GeoPoint((double) (location.getLatitude() * 1E6),
+//                                (double) (location.getLongitude() * 1E6));
+//
+//                       // return p1;
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//
+
+
+            }
+        });
     }
 
     @Override
@@ -227,6 +294,9 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                 ("gs://contract-fox.appspot.com/usersInChat/");
 
 
+
+
+
         //setting the authlister always listening for changes
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -243,7 +313,7 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                     if (mContractorBooleanValueFromPrevious == false) {
                         Member new_homeOwner_member = new Homeowner(mFirstNameValueFromPrevious,
                                 mLastNameValueFromPrevious, mEmailValueFromPrevious,
-                                mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address);
+                                mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address , latitude , longitude);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_homeOwner_member);
                         mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
@@ -259,11 +329,12 @@ public class Address_Fragment extends Fragment implements OnConnectionFailedList
                                 mPhoneValueFromPrevious, mContractorBooleanValueFromPrevious, address,
                                 mContractorDescriptionValueFromPrevious,
                                 skillset,
-                                mContractorWebsiteValueFromPrevious , 0 , 0, mContractorCompanyValueFromPrevious);
+                                mContractorWebsiteValueFromPrevious , 0 , 0, latitude, longitude ,  mContractorCompanyValueFromPrevious);
                         mDatabase.child("users").child(signedIn_userID_key).
                                 setValue(new_contractor_member);
 
                         mDatabase.child("user_addresses").child(signedIn_userID_key).setValue(address);
+
                     }
 
 

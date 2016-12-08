@@ -5,13 +5,37 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Homeowner extends Member {
 
+    double longitude , latitude ;
+
+
+
     public Homeowner(){}
 
 
     public Homeowner(String firstname, String lastname, String email, String phoneNo,
-                     Boolean contractorOption, Address address){
+                     Boolean contractorOption, Address address , double lat, double longi){
         super(firstname, lastname, email, phoneNo, contractorOption, address );
+        this.latitude = lat ;
+        this.longitude = longi ;
     }
+
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
 
 
     @Override
