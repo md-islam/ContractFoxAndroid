@@ -75,6 +75,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/ratingBarCont"
+                        android:clickable="false"
+                        android:isIndicator="true"
+                        android:focusable="false"
                         />
 
                     <TextView
