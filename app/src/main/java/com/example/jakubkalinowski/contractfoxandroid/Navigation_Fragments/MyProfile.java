@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -82,7 +83,9 @@ public class MyProfile extends Fragment {
 
     //UI component variables
 
-    private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles;
+    private TextView address, phoneNumber, companyName, website, emailAddress, fullName, miles,
+            reviewNumber;
+    private RatingBar mRatingBar;
     private LinearLayout callButton, directionsButton, websiteButton, skillsButton, reviewsButton,
             galleryButton;
 
@@ -225,6 +228,8 @@ public class MyProfile extends Fragment {
         phoneNumber = (TextView) view.findViewById(R.id.call_text);
         website = (TextView) view.findViewById(R.id.website_url);
         fullName = (TextView) view.findViewById(R.id.full_name);
+        reviewNumber = (TextView) view.findViewById(R.id.numOfRevs);
+        mRatingBar = (RatingBar) view.findViewById(R.id.ratingBarCont);
 
         mAddBeforeImageToGallery = (Button)view.findViewById(R.id.add_before_image_to_gallery_button);
         mAddAfterImageToGallery = (Button)view.findViewById(R.id.add_after_image_to_gallery_button);
@@ -330,6 +335,9 @@ public class MyProfile extends Fragment {
                                         website.setText(m.getBusinessWebsiteURL());
                                         webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
                                         website.setText(webInput);
+                                        reviewNumber.setText(m.getNumberOfReview());
+                                        mRatingBar.setRating((float) m.getOverAllRating());
+
 
                                     }
                                     else{

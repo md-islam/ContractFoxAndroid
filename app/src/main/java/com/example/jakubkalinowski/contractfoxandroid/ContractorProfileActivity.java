@@ -74,6 +74,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private String currentAuthenticatedUserID;
 
     int numOfRevString;
+    int counter = 0 ;
     //RecyclerView list adapters variables -- [START]
     private List<Review> mReviewList = new ArrayList<>();
     private RecyclerView reviewsRecyclerView;
@@ -116,6 +117,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contractor_profile);
@@ -127,7 +134,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         //overAllrating = savedInstanceState.getFloat("overAllrating");
 
 
-        Log.d("xyz-prof", contractorID);// yay it worked.
+       Log.d("xyz-prof", contractorID);// yay it worked.
 
         storage = FirebaseStorage.getInstance();
 
@@ -310,11 +317,18 @@ public class ContractorProfileActivity extends AppCompatActivity {
         availabilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new ContractorScheduleFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameForAvailability, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                if( counter % 2 != 0){
+                    onBackPressed();
+                }else{
+                    Fragment fragment = new ContractorScheduleFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.frameForAvailability, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                counter ++ ;
+
+
             }
         });
 
