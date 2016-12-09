@@ -353,7 +353,12 @@ public class SearchViewListActivity extends AppCompatActivity {
 
             holder.companyName.setText(memberList.get(position).getFirstName() );
             holder.stars.setRating( (float) memberList.get(position).getOverAllRating() );
-            holder.numebrOfReviews.setText( Integer.toString( memberList.get(position).getNumberOfReview())  );
+            if( memberList.get(position).getNumberOfReview() < 2  ){
+                holder.numebrOfReviews.setText( Integer.toString( memberList.get(position).getNumberOfReview()) + " Review"  );
+            }else{
+                holder.numebrOfReviews.setText( Integer.toString( memberList.get(position).getNumberOfReview()) + " Reviews" ) ;
+            }
+
 
             Log.d("onbind--", "it is called!");
             imageStorage = storage.getReference("ProfilePictures/" +

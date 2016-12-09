@@ -233,11 +233,13 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             companyInput = dataSnapshot.child("companyName").getValue().toString();
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
+
                             if(numOfRevString < 2){
                                 numOFReviews.setText( numOfRevString + " "+" Review");
                             }else{
                                 numOFReviews.setText(numOfRevString +" "+ " Reviews");
                             }
+
                             //numOFReviews.setText(numOfRevString + "Reviews");
                             webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
                             website.setText(webInput);
@@ -269,7 +271,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Fragment fragment = new ContractorScheduleFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.displayArea_ID, fragment);
+                fragmentTransaction.replace(R.id.frameForAvailability, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -321,10 +323,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
         skillsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
-                //TODO: debug here!!!
-                i.putExtra("id", contractorID);
-                startActivity(i);
+//                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
+//                //TODO: debug here!!!
+//                i.putExtra("id", contractorID);
+//                startActivity(i);
             }
         });
 
