@@ -92,7 +92,7 @@ public class EstimateActivity extends AppCompatActivity {
 
 
         mFirebaseDatabaseReference
-                .child("usersInChat").addListenerForSingleValueEvent(new ValueEventListener() {
+                .child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
