@@ -207,7 +207,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         logoPicture = (ImageView) findViewById(R.id.logo_fragment_picture);
 
 
-        mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=12&size=1000x300&sensor=false";
+        mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=1100x400&scale2&sensor=false";
 
         Picasso.with(this).load(mapUrl).into(map);
 //        Glide.with(this).using(new FirebaseImageLoader()).load(mapUrl).into(map);
