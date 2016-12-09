@@ -174,6 +174,7 @@
                         android:textSize="12dp"/>
 
                     <Button
+                        android:visibility="gone"
                         android:id="@+id/aprofile_message_button"
                         android:layout_width="170dp"
                         android:layout_height="40dp"
@@ -274,11 +275,10 @@
 
                         <ImageView
                             android:id="@+id/call_img"
-                            android:layout_weight="1.3"
+                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:padding="1dp"
-                            android:src="@drawable/call_icon"/>
+                            android:src="@drawable/phone_ic"/>
 
                         <TextView
                             android:id="@+id/call_text"
@@ -287,6 +287,15 @@
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:textColor="#000000"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+
                     </LinearLayout>
                     <!-- END OF CALL BUTTON & FRAGMENT REFERENCE -->
 
@@ -309,16 +318,15 @@
 
                         <ImageView
                             android:id="@+id/website_img"
-                            android:layout_weight="1.1"
+                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:padding="1dp"
-                            android:src="@drawable/website_icon"/>
+                            android:src="@drawable/web_ic"/>
 
                         <!-- TODO: adjust the weight (needs fixing) -->
                         <TextView
                             android:id="@+id/website_url"
-                            android:layout_weight="4"
+                            android:layout_weight="6.27"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
@@ -326,8 +334,8 @@
 
                         <TextView
                             android:id="@+id/open_website"
-                            android:layout_weight="2"
-                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
@@ -354,11 +362,10 @@
 
                         <ImageView
                             android:id="@+id/skills_img"
-                            android:layout_weight="0.9"
+                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:padding="1dp"
-                            android:src="@drawable/skills_icon"/>
+                            android:src="@drawable/skills_ic"/>
 
                         <TextView
                             android:id="@+id/skills_text"
@@ -366,19 +373,60 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
-                            android:text="@string/skills_text"
+                            android:text="@string/skills"
                             android:textColor="#000000"/>
 
                         <TextView
                             android:id="@+id/open_skills"
-                            android:layout_weight="1.6"
-                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
                             android:text="@string/next_symbol"/>
                     </LinearLayout>
                     <!-- END OF SKILLS BUTTON & FRAGMENT REFERENCE -->
+
+                    <!-- DIVIDER LINE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#900C3F">
+                    </LinearLayout>
+                    <!-- END OF LINE DIVIDER -->
+
+                    <!-- PICTURE GALLERY BUTTON & FRAGMENT REFERENCE -->
+                    <LinearLayout
+                        android:id="@+id/pic_gallery_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/gallery_ic"
+                            android:padding="1dp"/>
+
+                        <TextView
+                            android:layout_weight="2.36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/pic_gallery_text"
+                            android:textColor="#000000"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:layout_gravity="right"
+                            android:text="@string/next_symbol"/>
+                    </LinearLayout>
+                    <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
                     <!-- DIVIDER LINE -->
                     <LinearLayout
@@ -398,11 +446,10 @@
 
                         <ImageView
                             android:id="@+id/reviews_img"
-                            android:layout_weight="1.2"
+                            android:layout_weight="1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:padding="1dp"
-                            android:src="@drawable/review_icon"/>
+                            android:src="@drawable/write_review_ic"/>
 
                         <TextView
                             android:id="@+id/reviews_text"
@@ -410,13 +457,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
-                            android:text="@string/review_text"
+                            android:text="@string/leave_review"
                             android:textColor="#000000"/>
 
                         <TextView
                             android:id="@+id/open_reviews"
-                            android:layout_weight="1.7"
-                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:gravity="center"
                             android:layout_gravity="right"
@@ -424,59 +471,27 @@
                     </LinearLayout>
                     <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
 
+                    <!-- DIVIDER LINE -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#900C3F">
+                        android:background="#900C3F"
+                        android:layout_marginBottom="5dp">
                     </LinearLayout>
                     <!-- END OF LINE DIVIDER -->
 
-                    <!-- PICTURE GALLERY BUTTON & FRAGMENT REFERENCE -->
-                    <LinearLayout
-                        android:id="@+id/pic_gallery_button"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:clickable="true"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_weight="2.5"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/before_and_after_icon"
-                            android:padding="1dp"/>
-
-                        <TextView
-                            android:layout_weight="3.11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/pic_gallery_text"
-                            android:textColor="#000000"/>
-
-                        <TextView
-                            android:layout_weight="5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:gravity="center"
-                            android:layout_gravity="right"
-                            android:text="@string/next_symbol"/>
-                    </LinearLayout>
-                    <!-- END OF REVIEWS BUTTON & FRAGMENT REFERENCE -->
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginRight="5dp"
                         android:text="@string/reviews"
                         android:textSize="12dp"
                         android:layout_weight="1"
                         android:textColor="#FFFFFF"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:background="@drawable/button_border_rectangle_blue"
                         android:id="@+id/reviews_banner_header"
-                        android:clickable="false"/>
+                        />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/reviews_recyclerViews"

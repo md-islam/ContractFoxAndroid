@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -43,6 +44,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.jakubkalinowski.contractfoxandroid.R.id.upload_pic_btn;
 
 
 /**
@@ -107,12 +110,20 @@ public class ProfileEdit extends Fragment {
     private Bitmap mLogoImageBitmap;
 
     private FirebaseStorage storage;
+    private StorageReference filePath;
     private StorageReference storageRef;
+    private StorageReference logoPath;
+    private StorageReference profilePath;
     private StorageReference profileRef;
     private StorageReference logoRef;
+//    private Boolean option;
+    private ImageView profile,logo, profileUpload, logoUpload;
+
+    private String contractorID;
+    private Uri downloadUrl;
 
     // integer for request code
-    private static final int GALLERY_INTENT = 2;
+    private static final int GALLERY_INTENT = 1;
 
     //UI components [END]
 
@@ -143,6 +154,7 @@ public class ProfileEdit extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        contractorID = DrawerActivity.currentUserId;
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://contract-fox.appspot.com");
 
@@ -157,13 +169,23 @@ public class ProfileEdit extends Fragment {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
-                    byte[] profilePictureBytedata = getCircleProfilePictureViewByteData();
-                    mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures").child(user.getUid().toString()).child("profilepic.jpeg");
-                    mProfilePicPath.putBytes(profilePictureBytedata);
-//
-                    byte[] logoImageBytedata = getCircleLogoImageViewByteData();
-                    mLogoImgPath = FirebaseStorage.getInstance().getReference("LogoImages").child(user.getUid().toString()).child("logoimg.jpeg");
-                    mLogoImgPath.putBytes(logoImageBytedata);
+//                    profilePath = storageRef.child("ProfilePictures").child(user.getUid().toString());
+
+ byte[] profilePictureBytedata = getCircleProfilePictureViewByteData();
+                    mProfilePicPath = storageRef.child("ProfilePictures/"+user.getUid().toString()+"/profilepic.jpeg");
+//                    Glide.with(getActivity()).using(new FirebaseImageLoader()).load(mProfilePicPath).into(profile);
+//                        Picasso.with(getContext()).load(profilePath.child("profilepic.jpeg").toString()).into(profile);
+
+ mProfilePicPath.putBytes(profilePictureBytedata);
+
+
+ byte[] logoImageBytedata = getCircleLogoImageViewByteData();
+                    mLogoImgPath = storageRef.child("LogoImages").child(user.getUid().toString()).child("logoimg.jpeg");
+//                    Glide.with(getActivity()).using(new FirebaseImageLoader()).load(mLogoImgPath).into(logo);
+
+ mLogoImgPath.putBytes(logoImageBytedata);
+                    logoPath = storageRef.child("LogoImages").child(user.getUid().toString());
+
 
                     // Profile info edit
                     mFirebaseDatabaseReference
@@ -277,6 +299,7 @@ public class ProfileEdit extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mFirstNameEditText = (EditText) view.
                 findViewById(R.id.firstName_editProfile_Fragment);
         mLastNameEditText = (EditText) view.findViewById(R.id.lasttName_editProfile_Fragment);
@@ -292,7 +315,7 @@ public class ProfileEdit extends Fragment {
         mWebsiteURLEditText = (EditText)
                 view.findViewById(R.id.website_url_editText_editProfile_fragment);
 
-        mProfilePic = (CircleImageView) view.findViewById(R.id.upload_pic_btn);
+        mProfilePic = (CircleImageView) view.findViewById(upload_pic_btn);
         mLogoImg = (CircleImageView) view.findViewById(R.id.upload_logo_btn);
 
         // Profile Photo & Logo upload
@@ -311,6 +334,29 @@ public class ProfileEdit extends Fragment {
                 showEditLogoImageDialog();
             }
         });
+
+//        profile = (ImageView) view.findViewById(R.id.profileView);
+//        logo = (ImageView) view.findViewById(R.id.logoView);
+//
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(Intent.ACTION_PICK);
+//                option = true;
+//                i.setType("image/*");
+//                startActivityForResult(i, GALLERY_INTENT);
+//            }
+//        });
+
+//        logo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(Intent.ACTION_PICK);
+//                option = false;
+//                i.setType("image/*");
+//                startActivityForResult(i, GALLERY_INTENT);
+//            }
+//        });
 
     }
 
@@ -376,6 +422,51 @@ public class ProfileEdit extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+//        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+//
+//            final Uri uri = data.getData();
+//
+//            if (option == true){
+////                filePath = mProfilePicPath;
+//                filePath = profilePath.child("profilepic.jpeg");
+//            } else {
+////                filePath = mLogoImgPath;
+//                filePath = logoPath.child("logoimg.jpeg");
+//            }
+//
+//            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                    downloadUrl = taskSnapshot.getDownloadUrl();
+//
+//                    if (option == true) {
+//                        mProfilePicPath = filePath;
+////                        mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
+//
+//                        Picasso.with(getContext()).load(downloadUrl.toString()).into(profile);
+////                        Glide.with(getActivity())
+////                                .using(new FirebaseImageLoader())
+////                                .load(mProfilePicPath)
+////                                .into(profile);
+//                    } else {
+////                        mLogoImgPath = filePath;
+//                        Picasso.with(getContext()).load(downloadUrl.toString()).into(logo);
+//                        mLogoImgPath = filePath;
+////                        Glide.with(getActivity())
+////                                .using(new FirebaseImageLoader())
+////                                .load(mLogoImgPath)
+////                                .into(logo);
+//                    }
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//
+//                }
+//            });
+//        }
+
         try {
             if (requestCode == IMG_RESULT && resultCode == Activity.RESULT_OK && null != data) {
                 Uri URI = data.getData();
@@ -397,6 +488,11 @@ public class ProfileEdit extends Fragment {
                 if (option.equals("profile")) {
                     mProfilePic.setImageBitmap(BitmapFactory.decodeStream(
                             new ByteArrayInputStream(out.toByteArray())));
+//                    byte[] profilePictureBytedata = getCircleProfilePictureViewByteData();
+//                    mProfilePicPath.putBytes(profilePictureBytedata);
+
+
+//                    Picasso.with(getContext()).load(downloadUrl.toString()).into(upload_pic_btn);
                 } else {
                     mLogoImg.setImageBitmap(BitmapFactory.decodeStream(
                             new ByteArrayInputStream(out.toByteArray())));

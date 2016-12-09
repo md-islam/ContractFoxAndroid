@@ -354,6 +354,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         LinearLayout linear = new LinearLayout(getApplicationContext());
         final RatingBar rb = new RatingBar(getApplicationContext());
         rb.setRating(0);
+
         final EditText description = new EditText(getApplicationContext());
         description.setHint("Description");
         description.setMinHeight(150);

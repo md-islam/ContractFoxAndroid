@@ -38,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
@@ -114,6 +116,7 @@ public class MyProfile extends Fragment {
     private Boolean before ;
     private String webInput;
 
+    private ArrayList<Uri> imgArray;
 
     public MyProfile() {
         // Required empty public constructor
@@ -141,7 +144,6 @@ public class MyProfile extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        isContractor = true;
     }
 
     @Override
@@ -213,6 +215,8 @@ public class MyProfile extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        imgArray = new ArrayList<>();
+
         profilePicture = (ImageView)view.findViewById(R.id.profile_fragment_picture);
         logoPicture = (ImageView)view.findViewById(R.id.logo_fragment_picture);
 
@@ -283,6 +287,8 @@ public class MyProfile extends Fragment {
         // Download profile picture
         mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/"+contractorID+"/profilepic.jpeg");
         mLogoImagesPath = FirebaseStorage.getInstance().getReference("LogoImages/"+contractorID+"/logoimg.jpeg");
+
+//        Picasso.with(getContext()).load(mProfilePicPath.toString()).into(profilePicture);
 
         //Profo --->
         Glide.with(getActivity())
@@ -369,6 +375,9 @@ public class MyProfile extends Fragment {
 
                     mProgressDialog.dismiss();
 
+//                    for (int i= 0; i<10; i++) {
+//                        imgArray.add(i, uri);
+//                    }
                     Intent i = new Intent(getActivity().getApplicationContext(), PicGalleryActivity.class);
                     i.putExtra("id", contractorID);
                     i.putExtra("before", before);
