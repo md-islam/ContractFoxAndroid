@@ -72,6 +72,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
 
+    int numOfRevString ;
     //RecyclerView list adapters variables -- [START]
     private List<Review> mReviewList = new ArrayList<>();
     private RecyclerView reviewsRecyclerView;
@@ -205,15 +206,20 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             briefDesc = dataSnapshot.child("briefDescription").getValue().toString();
                             briefDescription.setText(briefDesc);
 
-                            int numOfRevString = (dataSnapshot.child("numberOfReview").getValue(Integer.class));
-                            street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
-                            unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
-                            city = dataSnapshot.child("address").child("city").getValue().toString();
-                            state = dataSnapshot.child("address").child("state").getValue().toString();
-                            zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+                            try {
+                                numOfRevString = (dataSnapshot.child("numberOfReview").getValue(Integer.class));
+                                street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
+                                unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
+                                city = dataSnapshot.child("address").child("city").getValue().toString();
+                                state = dataSnapshot.child("address").child("state").getValue().toString();
+                                zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+                                overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class);
+                            }catch (NullPointerException npe){
+                                npe.printStackTrace();
+                            }
 
-                            overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class) ;
-                            if (unitNo.equals(null)) {
+
+                            if (unitNo == null) {
                                 addressInput = street + ", " + city + ", " + state + zipcode;
                             } else {
                                 addressInput = street + ", " + unitNo + ", " + city + ", " + state + ", " + zipcode;
@@ -224,14 +230,16 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             phoneInput = dataSnapshot.child("phoneNo").getValue().toString();
                             phoneNumber.setText(phoneInput);
 
-                            companyInput = dataSnapshot.child("firstName").getValue().toString();
+                            companyInput = dataSnapshot.child("companyName").getValue().toString();
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
+
                             if(numOfRevString < 2){
                                 numOFReviews.setText( numOfRevString + " "+" Review");
                             }else{
                                 numOFReviews.setText(numOfRevString +" "+ " Reviews");
                             }
+
                             //numOFReviews.setText(numOfRevString + "Reviews");
                             webInput = dataSnapshot.child("businessWebsiteURL").getValue().toString();
                             website.setText(webInput);
@@ -263,7 +271,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Fragment fragment = new ContractorScheduleFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.displayArea_ID, fragment);
+                fragmentTransaction.replace(R.id.frameForAvailability, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -288,15 +296,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
             }
         });
 
-    directionsButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
-        }
-    });
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
 
         websiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,10 +323,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
         skillsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
-                //TODO: debug here!!!
-                i.putExtra("id", contractorID);
-                startActivity(i);
+//                Intent i = new Intent(getApplicationContext(), SkillSetActivity.class);
+//                //TODO: debug here!!!
+//                i.putExtra("id", contractorID);
+//                startActivity(i);
             }
         });
 
