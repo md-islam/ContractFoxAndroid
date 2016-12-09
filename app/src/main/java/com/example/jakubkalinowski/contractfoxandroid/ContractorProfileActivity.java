@@ -72,6 +72,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
 
+    int numOfRevString ;
     //RecyclerView list adapters variables -- [START]
     private List<Review> mReviewList = new ArrayList<>();
     private RecyclerView reviewsRecyclerView;
@@ -205,15 +206,20 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             briefDesc = dataSnapshot.child("briefDescription").getValue().toString();
                             briefDescription.setText(briefDesc);
 
-                            int numOfRevString = (dataSnapshot.child("numberOfReview").getValue(Integer.class));
-                            street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
-                            unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
-                            city = dataSnapshot.child("address").child("city").getValue().toString();
-                            state = dataSnapshot.child("address").child("state").getValue().toString();
-                            zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+                            try {
+                                numOfRevString = (dataSnapshot.child("numberOfReview").getValue(Integer.class));
+                                street = dataSnapshot.child("address").child("streetAddress").getValue().toString();
+                                unitNo = dataSnapshot.child("address").child("unit_Apt_no").getValue().toString();
+                                city = dataSnapshot.child("address").child("city").getValue().toString();
+                                state = dataSnapshot.child("address").child("state").getValue().toString();
+                                zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
+                                overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class);
+                            }catch (NullPointerException npe){
+                                npe.printStackTrace();
+                            }
 
-                            overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class) ;
-                            if (unitNo.equals(null)) {
+
+                            if (unitNo == null) {
                                 addressInput = street + ", " + city + ", " + state + zipcode;
                             } else {
                                 addressInput = street + ", " + unitNo + ", " + city + ", " + state + ", " + zipcode;
@@ -224,7 +230,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             phoneInput = dataSnapshot.child("phoneNo").getValue().toString();
                             phoneNumber.setText(phoneInput);
 
-                            companyInput = dataSnapshot.child("firstName").getValue().toString();
+                            companyInput = dataSnapshot.child("companyName").getValue().toString();
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
                             if(numOfRevString < 2){
@@ -288,15 +294,15 @@ public class ContractorProfileActivity extends AppCompatActivity {
             }
         });
 
-    directionsButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
-        }
-    });
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
 
         websiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
