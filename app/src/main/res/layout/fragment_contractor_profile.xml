@@ -150,10 +150,10 @@ android:orientation="horizontal">
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:text="Add Before Images"
-                    android:textColor="#000000"
+                    android:textColor="#000"
                     android:textAlignment="center"
                     android:background="@drawable/button_border_rectangle_grey"
-                    android:textSize="10dp"/>
+                    android:textSize="12dp"/>
 
                 <Button
 
@@ -166,10 +166,10 @@ android:orientation="horizontal">
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:text="Add After Images"
-                    android:textColor="#ffffff"
+                    android:textColor="#000"
                     android:textAlignment="center"
-                    android:background="@drawable/button_border_rectangle"
-                    android:textSize="10dp"/>
+                    android:background="@drawable/button_orange"
+                    android:textSize="12dp"/>
 </LinearLayout>
                 <!-- BUTTONS AND FRAGMENT REFERENCES -->
                 <LinearLayout
