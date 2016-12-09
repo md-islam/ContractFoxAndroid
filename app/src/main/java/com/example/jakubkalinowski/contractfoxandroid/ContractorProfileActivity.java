@@ -108,8 +108,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private ImageView profilePicture, logoPicture, map;
 
     private String mapUrl;
-    private String lon;
-    private String lat;
+    private Double lon;
+    private Double lat;
 
     public ContractorProfileActivity() {
 
@@ -207,9 +207,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
         logoPicture = (ImageView) findViewById(R.id.logo_fragment_picture);
 
 
-        mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=1100x400&scale2&sensor=false";
+//        mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=1100x400&scale2&sensor=false";
+//        mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&key=AIzaSyDCihFEyqxkLPQZ8XBggYT8C7-cwUr3790";
 
-        Picasso.with(this).load(mapUrl).into(map);
+
+
+//        Picasso.with(this).load(mapUrl).into(map);
 //        Glide.with(this).using(new FirebaseImageLoader()).load(mapUrl).into(map);
 
         // Download profile picture
@@ -264,8 +267,11 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
 
-                            lon = dataSnapshot.child("longitude").getValue().toString();
-                            lat = dataSnapshot.child("latitude").getValue().toString();
+                            lon = dataSnapshot.child("longitude").getValue(Double.class);
+                            lat = dataSnapshot.child("latitude").getValue(Double.class);
+
+                            mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=14&size=1200x400&scale2&markers=color:blue%7Clabel:S" + lat + "," + lon + "%7C&markers=size:tiny%7Ccolor:green%7CDelta&sensor=false";
+                            Picasso.with(ContractorProfileActivity.this).load(mapUrl).into(map);
 
                             if(numOfRevString < 2){
                                 numOFReviews.setText( numOfRevString + " "+" Review");
@@ -287,6 +293,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
                     }
                 });
 
+
+        System.out.println("*****************************"+lat+lon);
 
         availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
@@ -378,6 +386,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+
     }
 
     public Dialog onCreateReviewDialog() {
