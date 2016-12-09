@@ -72,7 +72,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
     RatingBar ratingForContractor;
     private String currentAuthenticatedUserID;
 
-    int numOfRevString ;
+    int numOfRevString;
     //RecyclerView list adapters variables -- [START]
     private List<Review> mReviewList = new ArrayList<>();
     private RecyclerView reviewsRecyclerView;
@@ -135,8 +135,6 @@ public class ContractorProfileActivity extends AppCompatActivity {
         mReviewRecyclerViewAdapter.notifyDataSetChanged();
 
 
-
-
 //        mRecyclerViewDuties.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        mRecyclerViewDuties.setAdapter(mAdapter);
 ////        prepareDutiesDataForRecyclerView();
@@ -146,11 +144,30 @@ public class ContractorProfileActivity extends AppCompatActivity {
         mFirebaseDatabaseReference.child("contractor_reviews").child(contractorID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Review child_review = dataSnapshot.getValue(Review.class);
-                ++count;
-                contractorUserRatingCount += child_review.getStars();
-                mReviewList.add(child_review);
-                mReviewRecyclerViewAdapter.notifyDataSetChanged();
+                final Review child_review = dataSnapshot.getValue(Review.class);
+                String reviewerId = child_review.getReviewerId();
+                System.out.println("ReviewerName ------>" + reviewerId);
+                if (reviewerId != null) {
+                    mFirebaseDatabaseReference.child("users").child(reviewerId).child("firstName").
+                            addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String reviewerName = dataSnapshot.getValue(String.class);
+                                    System.out.println("ReviewerName ------------>" + reviewerName);
+                                    ++count;
+                                    child_review.setReviewerName(reviewerName);
+                                    contractorUserRatingCount += child_review.getStars();
+                                    mReviewList.add(child_review);
+                                    mReviewRecyclerViewAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                }
+
             }
 
             @Override
@@ -214,7 +231,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
                                 state = dataSnapshot.child("address").child("state").getValue().toString();
                                 zipcode = dataSnapshot.child("address").child("zipCode").getValue().toString();
                                 overAllrating = dataSnapshot.child("overAllRating").getValue(Float.class);
-                            }catch (NullPointerException npe){
+                            } catch (NullPointerException npe) {
                                 npe.printStackTrace();
                             }
 
@@ -234,10 +251,10 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
 
-                            if(numOfRevString < 2){
-                                numOFReviews.setText( numOfRevString + " "+" Review");
-                            }else{
-                                numOFReviews.setText(numOfRevString +" "+ " Reviews");
+                            if (numOfRevString < 2) {
+                                numOFReviews.setText(numOfRevString + " " + " Review");
+                            } else {
+                                numOFReviews.setText(numOfRevString + " " + " Reviews");
                             }
 
                             //numOFReviews.setText(numOfRevString + "Reviews");
@@ -255,14 +272,14 @@ public class ContractorProfileActivity extends AppCompatActivity {
                 });
 
 
-        availabilityButton = (Button)findViewById(R.id.availability);
+        availabilityButton = (Button) findViewById(R.id.availability);
         estimateButton = (Button) findViewById(R.id.aprofile_estimate_button);
         messageButton = (Button) findViewById(R.id.aprofile_message_button);
         callButton = (LinearLayout) findViewById(R.id.acall_button);
-        directionsButton = (Button)findViewById(R.id.adirections_button);
-        websiteButton = (LinearLayout)findViewById(R.id.awebsite_button);
-        skillsButton = (LinearLayout)findViewById(R.id.askills_button);
-        reviewsButton = (LinearLayout)findViewById(R.id.areviews_button);
+        directionsButton = (Button) findViewById(R.id.adirections_button);
+        websiteButton = (LinearLayout) findViewById(R.id.awebsite_button);
+        skillsButton = (LinearLayout) findViewById(R.id.askills_button);
+        reviewsButton = (LinearLayout) findViewById(R.id.areviews_button);
 
         picGalleryButton = (LinearLayout) findViewById(R.id.pic_gallery_button);
 
@@ -299,7 +316,7 @@ public class ContractorProfileActivity extends AppCompatActivity {
         directionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+addressInput);
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + addressInput);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

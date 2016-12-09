@@ -26,14 +26,11 @@ public class Review {
     private Double mStars;
 
 
-
-
     private String firebasePushId;
 
 
-
-    public Review(){}
-
+    public Review() {
+    }
 
 
     public Review(String reviewerId, String revieweeId,
@@ -47,7 +44,6 @@ public class Review {
         mStars = stars;
         this.firebasePushId = firebasePushId;
     }
-
 
 
     public String getReviewerId() {
@@ -115,7 +111,7 @@ public class Review {
 
 
     @Exclude
-    public String getCreatedAtFirebaseTimeStampFormattedString(){
+    public String getCreatedAtFirebaseTimeStampFormattedString() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
         c.setTimeInMillis((long) createdAtFirebaseTimestamp.get("date"));
@@ -123,11 +119,18 @@ public class Review {
     }
 
 
+    @Exclude
+    public String reviewerName;
 
+    @Exclude
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
+    }
 
-
-
-
+    @Exclude
+    public String getReviewerName() {
+        return this.reviewerName;
+    }
 
 
 }

@@ -26,8 +26,10 @@ public class ReviewsRecyclerViewAdapter extends RecyclerView.Adapter<ReviewsRecy
         private RatingBar reviewRatingBar;
         private TextView reviewDescription;
         private TextView reviewTimestamp;
+        private TextView reviewReviewerName;
         public SingleReviewViewHolder(View itemView){
             super (itemView);
+            reviewReviewerName = (TextView) itemView.findViewById(R.id.review_row_reviewer_name);
             reviewRatingBar = (RatingBar) itemView.findViewById(R.id.ratingBar_review_view);
             reviewDescription = (TextView) itemView.findViewById(R.id.review_description_view);
             reviewTimestamp = (TextView) itemView.findViewById(R.id.review_row_timeStamp);
@@ -49,6 +51,8 @@ public class ReviewsRecyclerViewAdapter extends RecyclerView.Adapter<ReviewsRecy
         holder.reviewTimestamp.setText(review.
                 getCreatedAtFirebaseTimeStampFormattedString());
         holder.reviewRatingBar.setRating(review.getStars().floatValue());
+        holder.reviewReviewerName.setText(review.getReviewerName());
+
     }
 
     @Override
