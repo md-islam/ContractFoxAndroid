@@ -27,12 +27,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.jakubkalinowski.contractfoxandroid.interfaces.Communicator;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -61,7 +64,7 @@ public class RegisterContractorFragment extends Fragment {
     private EditText mWebsiteEditText;
     private EditText mDescriptionEditText;
 
-    //imageView
+//    //imageView
     private CircleImageView mCircleProfileImageView;
     private Bitmap mProfileImageBitmap;
 
@@ -132,6 +135,13 @@ public class RegisterContractorFragment extends Fragment {
     //reference to the communicator interface
     Communicator mCommunicator;
     Fragment address_child_fragment;
+
+    private int GALLERY_INTENT = 2;
+    private ImageView profilePic;
+    private FirebaseStorage storage;
+    private StorageReference galleryImg;
+    private StorageReference filePath;
+    private String contractorID;
 
     public RegisterContractorFragment() {
         // Required empty public constructor
@@ -491,6 +501,17 @@ public class RegisterContractorFragment extends Fragment {
             }
         });
 
+//        profilePic = (ImageView) view.findViewById(R.id.profilePicView);
+
+//        profilePic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(Intent.ACTION_PICK);
+//                i.setType("image/*");
+//                startActivityForResult(i, GALLERY_INTENT);
+//            }
+//        });
+
         //setting action to profile picture
         mCircleProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -574,6 +595,33 @@ public class RegisterContractorFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+//
+//            storage = FirebaseStorage.getInstance();
+//            galleryImg = storage.getReference("ProfilePictures");
+//
+//            final Uri uri = data.getData();
+//
+//                filePath = galleryImg.child("profilepic.jpeg");
+//
+//
+//            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Glide.with(RegisterContractorFragment.this)
+//                            .using(new FirebaseImageLoader())
+//                            .load(filePath)
+//                            .into(profilePic);
+//
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//
+//                }
+//            });
+//        }
         try {
             if (requestCode == IMG_RESULT && resultCode == Activity.RESULT_OK && null != data) {
                 Uri URI = data.getData();
@@ -672,7 +720,7 @@ public class RegisterContractorFragment extends Fragment {
             return;
         }
 
-        byte[] profileImageBytedata = getCircleImageViewByteData();
+//        byte[] profileImageBytedata = getCircleImageViewByteData();
         mFirstNameValue = mFirstNameEditText.getText().toString();
         mLastNameValue = mLastNameEditText.getText().toString();
         mPhoneValue = mPhoneEditText.getText().toString();
@@ -693,7 +741,7 @@ public class RegisterContractorFragment extends Fragment {
         bundleToPass.putString("companyDescription", mDescriptionValue);
         bundleToPass.putStringArrayList("contractor_skillset", skillset);
         //still need to handle the images part here
-        bundleToPass.putByteArray("profileImageData", profileImageBytedata);
+//        bundleToPass.putByteArray("profileImageData", profileImageBytedata);
         System.out.println(getTag());
 
         mCommunicator.respond(bundleToPass, getTag(), getChildFragmentManager());

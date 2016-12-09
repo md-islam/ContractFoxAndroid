@@ -23,12 +23,61 @@
                 android:gravity="center_horizontal" />
 
 
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<ImageView-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/profileView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<ImageView-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/logoView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<ImageView-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/profileUploadView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<ImageView-->
+                    <!--android:visibility="gone"-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/logoUploadView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
+            <!--</RelativeLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
+                <!--<ImageView-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/profileView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<ImageView-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/logoView"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center"/>-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/upload_pic_btn"
@@ -36,7 +85,7 @@
                     android:layout_height="98dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:src="@drawable/add_user"
+                    android:src="@drawable/profile_ic"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FF000000"/>
 
@@ -46,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="98dp"
                     android:layout_weight="1"
-                    android:src="@drawable/upload_logo"
+                    android:src="@drawable/logo_ic"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FF000000"/>
 
