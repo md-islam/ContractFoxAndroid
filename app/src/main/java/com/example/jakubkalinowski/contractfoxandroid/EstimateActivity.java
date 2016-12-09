@@ -90,7 +90,6 @@ public class EstimateActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         uploadRef = storage.getReference("EstimateFiles/"+receiverName+"file.jpeg");
 
-
         mFirebaseDatabaseReference
                 .child("usersInChat").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

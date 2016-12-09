@@ -235,6 +235,15 @@
                 </LinearLayout>
                 <!-- END OF LINE DIVIDER -->
 
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/frameForAvailability">
+
+                </FrameLayout>
+
+
                 <!-- END OF LOCATION & ADDRESS - MAP FRAGMENT -->
 
                 <!-- BUTTONS AND FRAGMENT REFERENCES -->
