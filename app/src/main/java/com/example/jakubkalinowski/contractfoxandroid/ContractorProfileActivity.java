@@ -38,6 +38,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,7 +105,11 @@ public class ContractorProfileActivity extends AppCompatActivity {
     private StorageReference mProfilePicPath;
     private StorageReference mLogoImagesPath;
 
-    private ImageView profilePicture, logoPicture;
+    private ImageView profilePicture, logoPicture, map;
+
+    private String mapUrl;
+    private String lon;
+    private String lat;
 
     public ContractorProfileActivity() {
 
@@ -174,6 +179,8 @@ public class ContractorProfileActivity extends AppCompatActivity {
             }
         });
 
+        map = (ImageView) findViewById(R.id.mapView);
+
         address = (TextView) findViewById(R.id.address_string);
         phoneNumber = (TextView) findViewById(R.id.call_text);
         companyName = (TextView) findViewById(R.id.company_name);
@@ -181,6 +188,12 @@ public class ContractorProfileActivity extends AppCompatActivity {
         briefDescription = (TextView) findViewById(R.id.brief_description_layout);
         profilePicture = (ImageView) findViewById(R.id.profile_fragment_picture);
         logoPicture = (ImageView) findViewById(R.id.logo_fragment_picture);
+
+
+        mapUrl = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=12&size=1000x300&sensor=false";
+
+        Picasso.with(this).load(mapUrl).into(map);
+//        Glide.with(this).using(new FirebaseImageLoader()).load(mapUrl).into(map);
 
         // Download profile picture
         mProfilePicPath = FirebaseStorage.getInstance().getReference("ProfilePictures/" + contractorID + "/profilepic.jpeg");
@@ -233,6 +246,9 @@ public class ContractorProfileActivity extends AppCompatActivity {
                             companyInput = dataSnapshot.child("companyName").getValue().toString();
                             companyName.setText(companyInput);
                             ratingForContractor.setRating(overAllrating);
+
+                            lon = dataSnapshot.child("longitude").getValue().toString();
+                            lat = dataSnapshot.child("latitude").getValue().toString();
 
                             if(numOfRevString < 2){
                                 numOFReviews.setText( numOfRevString + " "+" Review");

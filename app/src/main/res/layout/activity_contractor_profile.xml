@@ -93,12 +93,11 @@
                 <!-- END OF RATINGS TAB -->
 
                 <!-- LOCATION & ADDRESS - MAP FRAGMENT -->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/mapView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:orientation="vertical"-->
-                <!--android:background="#ffffff">-->
+                <ImageView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -196,7 +195,6 @@
 
                 <FrameLayout
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/frameForAvailability">
