@@ -2,6 +2,8 @@
 
 An Android app that helps homeowners get connected to reliable nearby contractors for home improvement projects. Homeowners sign up with multiple addresses, marking one of them as a primary address. Homeowners search for a contractor either by typing in keywords in our search bar or by tapping on specific areas on our image renderings of a regular home (interior, exterior and backyard). Not only this app helps homeowners get connected to contractors but also helps contractors get connected to sub-contractors.
 
+Link to prototype: https://drive.google.com/open?id=0BwmVsMrdi8FDXzZtU1BuTXZIRTQ
+
 ## Problem Statement
 
 Helping users (both homeowners and contractors) find reliable and cost-effective contractors with just a few clicks away unlike apps such as Angie's List or homeadvisor which is cumbersome to use and also involves a lot of redundant steps to sign up or even look for home improvement services. 
